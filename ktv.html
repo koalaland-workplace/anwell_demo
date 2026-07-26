@@ -833,59 +833,6 @@
         </div>
       </sc-if>
 
-      <!-- biểu mẫu tạo / sửa -->
-      <sc-if value="{{ isDraft }}" hint-placeholder-val="{{ false }}">
-        <div style="position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:40" sc-camel-on-click="{{ cancelDraft }}"></div>
-        <div style="position:fixed;left:0;right:0;bottom:0;z-index:41;max-height:86%;overflow-y:auto;background:var(--bg);border-radius:20px 20px 0 0;padding:18px 16px 26px;box-shadow:0 -8px 30px rgba(0,0,0,.22)">
-
-          <div style="display:flex;align-items:center;justify-content:space-between">
-            <span style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:19px">{{ draftTitle }}</span>
-            <button sc-camel-on-click="{{ cancelDraft }}" aria-label="Đóng" style="font-size:12px;font-weight:600;color:var(--text3)">Đóng</button>
-          </div>
-
-          <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:18px 0 8px">Ngày trong tuần</p>
-          <div style="display:flex;flex-wrap:wrap;gap:6px">
-            <sc-for list="{{ draftDows }}" as="c" hint-placeholder-count="7">
-              <button sc-camel-on-click="{{ c.tap }}" style="padding:8px 14px;border-radius:99px;background:{{ c.bg }};color:{{ c.fg }};border:1px solid {{ c.bd }};font-size:11.5px;font-weight:600">{{ c.t }}</button>
-            </sc-for>
-          </div>
-
-          <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:18px 0 8px">Khung giờ</p>
-          <div style="display:flex;align-items:center;gap:10px">
-            <input type="time" value="{{ draftFrom }}" sc-camel-on-input="{{ onDraftFrom }}" aria-label="Giờ bắt đầu" style="flex:1;padding:11px 12px;border-radius:11px;border:1px solid var(--line);background:var(--surface);color:var(--text);font-size:13px;font-family:inherit">
-            <span style="flex:none;color:var(--text3);font-size:13px">đến</span>
-            <input type="time" value="{{ draftTo }}" sc-camel-on-input="{{ onDraftTo }}" aria-label="Giờ kết thúc" style="flex:1;padding:11px 12px;border-radius:11px;border:1px solid var(--line);background:var(--surface);color:var(--text);font-size:13px;font-family:inherit">
-          </div>
-
-          <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:18px 0 8px">Khu vực nhận khách</p>
-          <div style="display:flex;flex-wrap:wrap;gap:6px">
-            <sc-for list="{{ draftAreas }}" as="c" hint-placeholder-count="8">
-              <button sc-camel-on-click="{{ c.tap }}" style="padding:8px 13px;border-radius:99px;background:{{ c.bg }};color:{{ c.fg }};border:1px solid {{ c.bd }};font-size:11.5px;font-weight:600">{{ c.t }}</button>
-            </sc-for>
-          </div>
-
-          <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:18px 0 8px">Loại hình dịch vụ</p>
-          <div style="display:flex;flex-wrap:wrap;gap:6px">
-            <sc-for list="{{ draftSvcs }}" as="c" hint-placeholder-count="6">
-              <button sc-camel-on-click="{{ c.tap }}" style="padding:8px 13px;border-radius:99px;background:{{ c.bg }};color:{{ c.fg }};border:1px solid {{ c.bd }};font-size:11.5px;font-weight:600">{{ c.t }}</button>
-            </sc-for>
-          </div>
-
-          <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:18px 0 8px">Ghi chú</p>
-          <textarea value="{{ draftNote }}" sc-camel-on-input="{{ onDraftNote }}" placeholder="Ví dụ: ưu tiên khách định kỳ, không nhận ca cách quá 5 km..." style="width:100%;min-height:74px;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--text);font-size:13px;font-family:inherit;resize:none"></textarea>
-
-          <sc-if value="{{ draftHint }}" hint-placeholder-val="{{ false }}">
-            <p style="font-size:11px;color:var(--danger);margin-top:10px">{{ draftHint }}</p>
-          </sc-if>
-
-          <div style="display:flex;gap:9px;margin-top:16px">
-            <button sc-camel-on-click="{{ cancelDraft }}" style="flex:none;padding:13px 20px;border-radius:11px;background:var(--surface2);color:var(--text2);font-size:12.5px;font-weight:700">Huỷ</button>
-            <button sc-camel-on-click="{{ saveDraft }}" style="flex:1;padding:13px;border-radius:11px;background:{{ draftSaveBg }};color:{{ draftSaveFg }};font-size:12.5px;font-weight:700">Lưu khung giờ</button>
-          </div>
-
-        </div>
-      </sc-if>
-
     </sc-if>
 
     <sc-if value="{{ isMe }}" hint-placeholder-val="{{ false }}">
@@ -939,6 +886,69 @@
       </button>
     </sc-for>
   </nav>
+
+  <!-- Biểu mẫu tạo/sửa khung giờ nhận khách.
+       Đặt làm con trực tiếp của .app (position:relative, max-width 440px) và dùng
+       position:absolute — không dùng fixed, vì fixed bám vào cửa sổ trình duyệt nên
+       trên màn hình rộng biểu mẫu sẽ tràn ra ngoài khung điện thoại. Cũng không đặt
+       trong <main> vì main có overflow-y:auto, biểu mẫu sẽ bị cuộn theo và cắt mất. -->
+  <sc-if value="{{ isDraft }}" hint-placeholder-val="{{ false }}">
+    <div sc-camel-on-click="{{ cancelDraft }}" style="position:absolute;inset:0;background:rgba(0,0,0,.45);z-index:40"></div>
+    <div style="position:absolute;left:0;right:0;bottom:0;z-index:41;max-height:88%;overflow-y:auto;background:var(--bg);border-radius:20px 20px 0 0;padding:18px 16px 26px;box-shadow:0 -8px 30px rgba(0,0,0,.22)">
+
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <span style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:19px">{{ draftTitle }}</span>
+        <button sc-camel-on-click="{{ cancelDraft }}" aria-label="Đóng" style="font-size:12px;font-weight:600;color:var(--text3)">Đóng</button>
+      </div>
+
+      <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:18px 0 8px">Ngày trong tuần</p>
+      <div style="display:flex;flex-wrap:wrap;gap:6px">
+        <sc-for list="{{ draftDows }}" as="c" hint-placeholder-count="7">
+          <button sc-camel-on-click="{{ c.tap }}" style="padding:8px 14px;border-radius:99px;background:{{ c.bg }};color:{{ c.fg }};border:1px solid {{ c.bd }};font-size:11.5px;font-weight:600">{{ c.t }}</button>
+        </sc-for>
+      </div>
+
+      <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:18px 0 8px">Khung giờ</p>
+      <div style="display:flex;align-items:center;gap:9px">
+        <input type="time" value="{{ draftFrom }}" sc-camel-on-input="{{ onDraftFrom }}" aria-label="Giờ bắt đầu" style="flex:1;min-width:0;padding:11px 10px;border-radius:11px;border:1px solid var(--line);background:var(--surface);color:var(--text);font-size:13px;font-family:inherit">
+        <span style="flex:none;color:var(--text3);font-size:12px">đến</span>
+        <input type="time" value="{{ draftTo }}" sc-camel-on-input="{{ onDraftTo }}" aria-label="Giờ kết thúc" style="flex:1;min-width:0;padding:11px 10px;border-radius:11px;border:1px solid var(--line);background:var(--surface);color:var(--text);font-size:13px;font-family:inherit">
+      </div>
+
+      <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:18px 0 8px">Khu vực nhận khách</p>
+      <div style="display:flex;flex-wrap:wrap;gap:6px">
+        <sc-for list="{{ draftAreas }}" as="c" hint-placeholder-count="8">
+          <button sc-camel-on-click="{{ c.tap }}" style="padding:8px 13px;border-radius:99px;background:{{ c.bg }};color:{{ c.fg }};border:1px solid {{ c.bd }};font-size:11.5px;font-weight:600">{{ c.t }}</button>
+        </sc-for>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;margin-top:9px">
+        <input type="text" value="{{ draftAreaInput }}" sc-camel-on-input="{{ onDraftAreaInput }}" sc-camel-on-key-down="{{ onDraftAreaKey }}" placeholder="Nhập khu vực khác, ví dụ: Q.Tân Bình, TX.Dĩ An…" aria-label="Thêm khu vực" style="flex:1;min-width:0;padding:10px 13px;border-radius:11px;border:1px solid var(--line);background:var(--surface);color:var(--text);font-size:12.5px;font-family:inherit">
+        <button sc-camel-on-click="{{ addArea }}" style="flex:none;padding:10px 16px;border-radius:11px;background:{{ addAreaBg }};color:{{ addAreaFg }};font-size:12px;font-weight:700">Thêm</button>
+      </div>
+
+      <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:18px 0 8px">Loại hình dịch vụ</p>
+      <div style="display:flex;flex-wrap:wrap;gap:6px">
+        <sc-for list="{{ draftSvcs }}" as="c" hint-placeholder-count="6">
+          <button sc-camel-on-click="{{ c.tap }}" style="padding:8px 13px;border-radius:99px;background:{{ c.bg }};color:{{ c.fg }};border:1px solid {{ c.bd }};font-size:11.5px;font-weight:600">{{ c.t }}</button>
+        </sc-for>
+      </div>
+
+      <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:18px 0 8px">Ghi chú</p>
+      <textarea value="{{ draftNote }}" sc-camel-on-input="{{ onDraftNote }}" placeholder="Ví dụ: ưu tiên khách định kỳ, không nhận ca cách quá 5 km..." style="width:100%;min-height:74px;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--text);font-size:13px;font-family:inherit;resize:none"></textarea>
+
+      <sc-if value="{{ draftHint }}" hint-placeholder-val="{{ false }}">
+        <p style="font-size:11px;color:var(--danger);margin-top:10px">{{ draftHint }}</p>
+      </sc-if>
+
+      <!-- Ghim xuống đáy biểu mẫu: nội dung dài hơn màn hình thì hai nút này
+           vẫn luôn nhìn thấy, không phải cuộn xuống mới bấm được. -->
+      <div style="position:sticky;bottom:-26px;display:flex;gap:9px;margin-top:16px;padding:12px 0 0;background:linear-gradient(to bottom,transparent,var(--bg) 22%)">
+        <button sc-camel-on-click="{{ cancelDraft }}" style="flex:none;padding:13px 20px;border-radius:11px;background:var(--surface2);color:var(--text2);font-size:12.5px;font-weight:700">Huỷ</button>
+        <button sc-camel-on-click="{{ saveDraft }}" style="flex:1;padding:13px;border-radius:11px;background:{{ draftSaveBg }};color:{{ draftSaveFg }};font-size:12.5px;font-weight:700">Lưu khung giờ</button>
+      </div>
+
+    </div>
+  </sc-if>
 </div>
 
 </x-dc>
@@ -988,10 +998,20 @@ class Component extends DCLogic {
   }
   slotEdit(id){
     const found = this.state.slots.find(x => x.id===id);
-    this.setState({ draft: {...found, areas:[...found.areas], svcs:[...found.svcs], dows:[...found.dows]} });
+    this.setState({ draft: {...found, areas:[...found.areas], svcs:[...found.svcs], dows:[...found.dows], areaInput:''} });
   }
   slotNew(){
-    this.setState({ draft: { id:'s'+Date.now(), on:true, dows:[], from:'08:00', to:'12:00', areas:[], svcs:[], note:'', isNew:true } });
+    this.setState({ draft: { id:'s'+Date.now(), on:true, dows:[], from:'08:00', to:'12:00', areas:[], svcs:[], note:'', areaInput:'', isNew:true } });
+  }
+
+  // Khu vực nhập tay: gõ tên rồi Enter hoặc bấm Thêm. Khu vực mới được chọn sẵn
+  // và hiện thành chip như các khu vực có sẵn, bấm lại để bỏ chọn.
+  addArea(){
+    const name = (this.state.draft.areaInput || '').trim();
+    if(!name) return;
+    const areas = this.state.draft.areas;
+    const dup = areas.find(a => a.toLowerCase() === name.toLowerCase());
+    this.draftSet({ areas: dup ? areas : [...areas, name], areaInput:'' });
   }
   draftSet(patch){ this.setState({ draft: {...this.state.draft, ...patch} }); }
   draftPick(field, value){
@@ -1007,7 +1027,7 @@ class Component extends DCLogic {
   draftSave(){
     const d = this.state.draft;
     if(!d.dows.length || !d.areas.length) return;   // thiếu ngày hoặc khu vực thì chưa lưu được
-    const clean = {...d}; delete clean.isNew;
+    const clean = {...d}; delete clean.isNew; delete clean.areaInput;
     const exists = this.state.slots.some(x => x.id===d.id);
     this.setState({
       slots: exists ? this.state.slots.map(x => x.id===d.id ? clean : x) : [...this.state.slots, clean],
@@ -1243,8 +1263,16 @@ class Component extends DCLogic {
       onDraftTo:   (e) => this.draftSet({ to:e.target.value }),
       onDraftNote: (e) => this.draftSet({ note:e.target.value }),
       draftDows:  D.DOWS.map(v  => chip(v, d && d.dows.includes(v),  () => this.draftPick('dows', v))),
-      draftAreas: D.AREAS.map(v => chip(v, d && d.areas.includes(v), () => this.draftPick('areas', v))),
+      // Chip khu vực = danh sách có sẵn + những khu vực KTV tự nhập, không trùng lặp.
+      draftAreas: [...new Set([...D.AREAS, ...(d ? d.areas : [])])]
+                    .map(v => chip(v, d && d.areas.includes(v), () => this.draftPick('areas', v))),
       draftSvcs:  D.SVCS.map(v  => chip(v, d && d.svcs.includes(v),  () => this.draftPick('svcs', v))),
+      draftAreaInput: d ? (d.areaInput || '') : '',
+      onDraftAreaInput: (e) => this.draftSet({ areaInput:e.target.value }),
+      onDraftAreaKey: (e) => { if(e.key==='Enter'){ e.preventDefault(); this.addArea(); } },
+      addArea: () => this.addArea(),
+      addAreaBg: (d && (d.areaInput || '').trim()) ? 'var(--primary)' : 'var(--line2)',
+      addAreaFg: (d && (d.areaInput || '').trim()) ? 'var(--on-primary)' : 'var(--text3)',
       draftValid: !!(d && d.dows.length && d.areas.length),
       draftSaveBg: (d && d.dows.length && d.areas.length) ? 'var(--primary)' : 'var(--line2)',
       draftSaveFg: (d && d.dows.length && d.areas.length) ? 'var(--on-primary)' : 'var(--text3)',
