@@ -1,6 +1,10 @@
-# Đề xuất bố cục menu — Giao diện Kỹ thuật viên
+# Bố cục menu — Giao diện Kỹ thuật viên
 
-Bản thảo luận · 2026-07-27 · chưa chốt
+**Đã chốt và đã dựng · 2026-07-27**
+
+Năm ô menu giống hệt nhau ở cả hai chế độ: **Tổng quan · Lịch · Khách · Thu nhập
+· Tôi**. Xem bản chạy tại
+https://koalaland-workplace.github.io/anwell_demo/ktv.html
 
 ## Nguyên tắc
 
@@ -171,17 +175,20 @@ quan và `myReviews` đang chôn sâu hai lớp — cả hai về đúng chỗ l
 
 | Mục | Trạng thái |
 |---|---|
-| 1 · Tổng quan | Chờ duyệt |
-| 2 · Lịch | **Đã chốt** — ba tab; Lộ trình thành tab Bản đồ; Khả dụng hai chiều có duyệt |
-| 3 · Khách | Chờ duyệt — kèm câu hỏi về ranh giới thông tin |
-| 4 · Thu nhập | Chờ duyệt |
-| 5 · Tôi | **Đã chốt** — giống nhau 100% cả hai chế độ |
+| 1 · Tổng quan | Đã dựng — bỏ khối chấm điểm (chuyển sang Tôi) |
+| 2 · Lịch | Đã dựng — ba tab; Lộ trình thành tab Bản đồ; Khả dụng hai chiều có duyệt |
+| 3 · Khách | Đã dựng — chế độ trung tâm có màn hình thật, ranh giới chuyên môn/thương mại |
+| 4 · Thu nhập | Đã dựng — vào được từ cả hai chế độ, tách nội dung, có nút xem tổng |
+| 5 · Tôi | Đã dựng — giống nhau 100%, gộp cả hai nguồn đánh giá |
 
-Năm ô menu chốt: **Tổng quan · Lịch · Khách · Thu nhập · Tôi** — cùng tên ở cả
-hai chế độ.
+Tên ba tab trong Lịch cũng giống nhau ở hai chế độ (Danh sách · Bản đồ · Khả
+dụng), theo cùng nguyên tắc với điều hướng chính.
 
-## Câu hỏi còn treo
+## Còn dang dở
 
-**Trang Khách ở chế độ trung tâm** — KTV được thấy đến đâu về khách của trung
-tâm? Đề xuất: thấy chuyên môn (liệu trình, tiến triển, ghi chú buổi), ẩn thương
-mại (số điện thoại, giá, hồ sơ đầy đủ). Ranh giới cụ thể do chủ dự án định.
+| Việc | Ghi chú |
+|---|---|
+| Nút "Sửa" và "+ Thêm" của khung giờ rảnh hằng tuần | Chưa nối biểu mẫu; hiện chỉ có nút Xoá chạy thật |
+| Hình minh hoạ bản đồ | Vẫn vẽ ba chấm cố định dù chế độ trung tâm chỉ có một điểm dừng — là hình trang trí, chưa vẽ theo dữ liệu |
+| Ba mục đề xuất thêm vào Tôi | Khu vực phục vụ · Phương thức nhận tiền · Hồ sơ công khai với khách — chưa dựng, chờ chủ dự án duyệt |
+| Dòng "Điểm kế tiếp" ở Tổng quan chế độ trung tâm | Đề xuất ở mục 1, chưa dựng |
