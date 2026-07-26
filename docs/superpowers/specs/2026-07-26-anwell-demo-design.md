@@ -202,7 +202,29 @@ Lý do loại mục cuối: GitHub Pages là hosting tĩnh, mật khẩu phía t
 | Tour xuyên trang mất tiến độ | Thấp | `sessionStorage`; nếu mất thì tour tự về bước đầu của trang hiện tại |
 | Chủ dự án lỡ commit `Tailieu-noibo/` | Cao nếu xảy ra | `.gitignore` + ghi cảnh báo trong `docs/04` |
 
-## 12. Trạng thái hiện tại
+## 12. Nhật ký thay đổi giao diện
+
+Ghi lại các thay đổi nghiệp vụ sau khi tách source, để về sau biết vì sao bản
+demo khác bản gốc.
+
+### KTV — 2026-07-26
+
+| Thay đổi | Lý do |
+|---|---|
+| Nhãn nav ô đầu: "Ca làm" (tại trung tâm) và "Việc" (tự do) → **"Tổng quan"** | Cùng một chức năng mà hai tên gọi khác nhau giữa hai chế độ |
+| Mục Tôi → "Khung giờ nhận khách" lấy từ dữ liệu sống thay vì chuỗi cứng `T2–T7 · 8:00–20:00`, bấm vào mở trang lịch | Thông tin trong Tôi phải khớp với thực tế và với màn Tổng quan |
+| Thêm trang **Lịch nhận khách** cho chế độ tự do | KTV tự do cần tự khai báo khi nào, ở đâu, làm dịch vụ gì |
+
+Trang Lịch nhận khách gồm: công tắc tạm dừng nhận khách (chế độ bận, giữ nguyên
+các khung giờ đã đặt); danh sách khung giờ với thao tác tạo / sửa / xoá /
+bật-tắt từng khung; mỗi khung có khu vực, ngày trong tuần, giờ bắt đầu–kết
+thúc, loại hình dịch vụ và ghi chú. Không lưu được nếu thiếu ngày hoặc khu vực.
+
+Ô thứ tư của nav vẫn khác nhau giữa hai chế độ — "Thu nhập" khi làm tại trung
+tâm, "Lộ trình" khi làm tự do — vì hai chế độ có nhu cầu khác nhau. Chờ chủ dự
+án quyết có gộp hay không.
+
+## 13. Trạng thái hiện tại
 
 - PAT đã tạo (fine-grained, Contents: Read and write), đã nạp vào `gh`, xác nhận `viewerPermission: ADMIN`
 - Git local đã init, nối `origin`, đồng bộ với `main` — 5 file local trùng khớp hoàn toàn với repo
