@@ -387,24 +387,9 @@
         </sc-for>
       </div>
 
-      <div class="card" style="padding:15px;margin-top:16px;border-top:3px solid var(--accent)">
-        <div style="display:flex;align-items:center;justify-content:space-between">
-          <span style="font:700 9px ui-monospace,monospace;letter-spacing:.14em;color:var(--accent);text-transform:uppercase">Trung tâm chấm điểm</span>
-          <span style="font-size:11px;font-weight:700;color:var(--ok)">94/100</span>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:10px;margin-top:12px">
-          <sc-for list="{{ scoreBars }}" as="q" hint-placeholder-count="3">
-            <div>
-              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
-                <span style="font-size:11.5px;color:var(--text2)">{{ q.t }}</span>
-                <span style="font-size:11.5px;font-weight:700;color:{{ q.c }}">{{ q.v }}</span>
-              </div>
-              <div style="height:6px;border-radius:99px;background:var(--line2);overflow:hidden"><div style="height:100%;width:{{ q.w }};background:{{ q.c }};border-radius:99px"></div></div>
-            </div>
-          </sc-for>
-        </div>
-        <p style="font-size:10.5px;line-height:1.55;color:var(--text3);margin-top:12px;padding-left:9px;border-left:2px solid var(--line2)">Điểm do quản lý ca của An Nhiên ghi nhận, ảnh hưởng tới phân ca và xét nâng bậc.</p>
-      </div>
+      <!-- Khối "Trung tâm chấm điểm 94/100" đã chuyển sang mục Tôi: nó nói về
+           con người chứ không phải về ca hôm nay, và mục Tôi hiển thị giống
+           nhau ở cả hai chế độ nên KTV tự do cũng xem được. -->
     </sc-if>
 
     <!-- ═══════ HOME · FREELANCE MODE ═══════ -->
@@ -585,7 +570,22 @@
     </sc-if>
 
     <!-- ═══════ SCHEDULE ═══════ -->
+    <!-- Lịch có ba tab. Mỗi tab là một khối sc-if riêng, cờ trạng thái ghép từ
+         page==='schedule' và schedTab, để khỏi lồng sc-if nhiều tầng. -->
     <sc-if value="{{ isSchedule }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;gap:4px;background:var(--surface2);border-radius:12px;padding:3px;margin-bottom:14px">
+        <sc-for list="{{ schedTabs }}" as="tb" hint-placeholder-count="3">
+          <button sc-camel-on-click="{{ tb.pick }}" style="flex:1;padding:8px 6px;border-radius:9px;background:{{ tb.bg }};color:{{ tb.fg }};font-size:11.5px;font-weight:700;position:relative">
+            {{ tb.t }}
+            <sc-if value="{{ tb.badge }}" hint-placeholder-val="{{ false }}">
+              <span style="position:absolute;top:2px;right:6px;min-width:15px;height:15px;padding:0 4px;border-radius:99px;background:var(--dangerSolid);color:#fff;font-size:8.5px;font-weight:700;display:grid;place-items:center">{{ tb.badge }}</span>
+            </sc-if>
+          </button>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ schedList }}" hint-placeholder-val="{{ false }}">
       <div style="display:flex;gap:7px;overflow-x:auto;padding-bottom:6px">
         <sc-for list="{{ days }}" as="d" hint-placeholder-count="7">
           <button sc-camel-on-click="{{ d.pick }}" style="flex:none;width:50px;padding:9px 0;border-radius:12px;text-align:center;background:{{ d.bg }};border:1px solid {{ d.bd }}">
@@ -620,12 +620,53 @@
 
     <!-- ═══════ CLIENTS (freelance CRM) ═══════ -->
     <sc-if value="{{ isClients }}" hint-placeholder-val="{{ false }}">
+      <!-- Chế độ tại trung tâm: KTV thấy thông tin CHUYÊN MÔN cần để làm việc
+           đúng liệu trình, nhưng không thấy thông tin THƯƠNG MẠI và liên hệ —
+           đó là tài sản của trung tâm. Ranh giới này là một ràng buộc cụ thể
+           của "mô hình hai lớp" mà admin.html mô tả. -->
       <sc-if value="{{ modeIsCenter }}" hint-placeholder-val="{{ false }}">
-        <div class="card" style="padding:22px 18px;text-align:center">
-          <span style="font-size:26px">🏢</span>
-          <p style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:17px;margin-top:9px">Khách do trung tâm quản lý</p>
-          <p style="font-size:11.5px;line-height:1.6;color:var(--text3);margin-top:6px">Ở chế độ tại trung tâm, hồ sơ khách thuộc An Nhiên Wellness. Bạn xem được lịch sử buổi mình phụ trách.</p>
-          <button sc-camel-on-click="{{ setFreeMode }}" style="margin-top:14px;font-size:12px;font-weight:700;color:var(--accent)">Chuyển sang chế độ tự do →</button>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div class="card" style="padding:13px"><div style="font-size:10px;font-weight:600;color:var(--text3)">Đang phụ trách</div><div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:23px;margin-top:5px">{{ ccCount }}</div><div style="font-size:9.5px;color:var(--text3)">khách của An Nhiên</div></div>
+          <div class="card" style="padding:13px"><div style="font-size:10px;font-weight:600;color:var(--text3)">Đang theo liệu trình</div><div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:23px;margin-top:5px;color:var(--primary)">{{ ccCourse }}</div><div style="font-size:9.5px;color:var(--text3)">cần theo dõi tiến triển</div></div>
+        </div>
+
+        <div class="card" style="padding:12px 14px;margin-top:12px;background:var(--surface2)">
+          <p style="font-size:10.5px;line-height:1.6;color:var(--text2)">🔒 Hồ sơ khách thuộc <strong>An Nhiên Wellness</strong>. Bạn xem được nội dung chuyên môn để làm đúng liệu trình; số điện thoại, địa chỉ và giá dịch vụ do trung tâm giữ.</p>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:10px;margin-top:14px">
+          <sc-for list="{{ centerClients }}" as="c" hint-placeholder-count="4">
+            <div class="card" style="padding:14px">
+              <div style="display:flex;align-items:flex-start;gap:11px">
+                <span style="flex:none;width:36px;height:36px;border-radius:50%;background:var(--tint);display:grid;place-items:center;font-weight:700;font-size:12px;color:var(--primary)">{{ c.i }}</span>
+                <span style="flex:1;min-width:0">
+                  <span style="display:block;font-size:13px;font-weight:700">{{ c.n }}</span>
+                  <span style="display:block;font-size:11px;color:var(--text3);margin-top:2px">{{ c.svc }} · {{ c.room }}</span>
+                </span>
+                <span style="flex:none;font-size:9px;font-weight:700;color:{{ c.tFg }};background:{{ c.tBg }};padding:3px 8px;border-radius:99px;white-space:nowrap">{{ c.course }}</span>
+              </div>
+
+              <div style="margin-top:11px">
+                <div style="display:flex;align-items:center;justify-content:space-between">
+                  <span style="font-size:10px;color:var(--text3)">Tiến triển liệu trình</span>
+                  <span style="font-size:10px;font-weight:700;color:var(--primary)">{{ c.pct }}</span>
+                </div>
+                <div style="height:6px;border-radius:99px;background:var(--line2);margin-top:5px;overflow:hidden"><div style="height:100%;width:{{ c.pct }};background:var(--primary);border-radius:99px"></div></div>
+              </div>
+
+              <p style="font-size:10.5px;line-height:1.6;color:var(--text2);margin-top:10px;padding-left:9px;border-left:2px solid var(--line2)">{{ c.note }}</p>
+
+              <sc-if value="{{ c.hasAlert }}" hint-placeholder-val="{{ true }}">
+                <p style="font-size:10.5px;line-height:1.6;color:var(--danger);background:var(--dangerTint);border-radius:9px;padding:8px 10px;margin-top:8px">⚠️ {{ c.alert }}</p>
+              </sc-if>
+
+              <div style="display:flex;align-items:center;gap:8px;margin-top:12px;padding-top:11px;border-top:1px solid var(--line2)">
+                <span style="flex:1;font-size:10px;color:var(--text3)">Buổi gần nhất: {{ c.last }}</span>
+                <button sc-camel-on-click="{{ goSession }}" style="flex:none;padding:8px 13px;border-radius:9px;background:var(--surface2);color:var(--text2);font-size:11px;font-weight:600">Ghi chú buổi</button>
+                <button sc-camel-on-click="{{ goChat }}" style="flex:none;padding:8px 13px;border-radius:9px;background:var(--surface2);color:var(--text2);font-size:11px;font-weight:600">Nhắn qua TT</button>
+              </div>
+            </div>
+          </sc-for>
         </div>
       </sc-if>
       <sc-if value="{{ modeIsFree }}" hint-placeholder-val="{{ true }}">
@@ -657,7 +698,15 @@
     </sc-if>
 
     <!-- ═══════ ROUTE ═══════ -->
-    <sc-if value="{{ isRoute }}" hint-placeholder-val="{{ false }}">
+    <sc-if value="{{ schedMap }}" hint-placeholder-val="{{ false }}">
+      <sc-if value="{{ mapEmpty }}" hint-placeholder-val="{{ false }}">
+        <div class="card" style="padding:24px 18px;text-align:center">
+          <span style="font-size:26px">🏢</span>
+          <p style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:17px;margin-top:9px">Hôm nay không có ca ngoài cơ sở</p>
+          <p style="font-size:11.5px;line-height:1.6;color:var(--text3);margin-top:6px">Bản đồ chỉ hiện khi có ca tại nhà khách. Các ca trong ngày đều ở phòng trị liệu của trung tâm.</p>
+        </div>
+      </sc-if>
+      <sc-if value="{{ mapShown }}" hint-placeholder-val="{{ true }}">
       <div class="card" style="padding:0;overflow:hidden">
         <div style="position:relative;height:190px;background:var(--heroGrad)">
           <div style="position:absolute;inset:0;opacity:.5;background-image:linear-gradient(rgba(231,206,151,.16) 1px,transparent 1px),linear-gradient(90deg,rgba(231,206,151,.16) 1px,transparent 1px);background-size:30px 30px"></div>
@@ -667,14 +716,14 @@
           <span style="position:absolute;right:22px;top:22px"><span style="position:absolute;inset:0;margin:auto;width:15px;height:15px;border-radius:50%;background:var(--gold);animation:gps 1.8s ease-out infinite"></span><span style="position:relative;display:block;width:15px;height:15px;border-radius:50%;background:var(--gold);border:2px solid #fff"></span></span>
         </div>
         <div style="padding:14px;display:flex;align-items:center;gap:14px;border-top:1px solid var(--line2)">
-          <div style="flex:1"><div style="font-size:10px;color:var(--text3)">Tổng quãng đường</div><div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:19px">14,2 km</div></div>
-          <div style="flex:1"><div style="font-size:10px;color:var(--text3)">Thời gian di chuyển</div><div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:19px">52 phút</div></div>
+          <div style="flex:1"><div style="font-size:10px;color:var(--text3)">Tổng quãng đường</div><div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:19px">{{ mapDist }}</div></div>
+          <div style="flex:1"><div style="font-size:10px;color:var(--text3)">Thời gian di chuyển</div><div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:19px">{{ mapTime }}</div></div>
           <button style="flex:none;padding:11px 15px;border-radius:10px;background:var(--primary);color:var(--on-primary);font-size:12px;font-weight:600">Chỉ đường</button>
         </div>
       </div>
 
       <div style="display:flex;flex-direction:column;gap:0;margin-top:16px">
-        <sc-for list="{{ stops }}" as="st" hint-placeholder-count="3">
+        <sc-for list="{{ mapStops }}" as="st" hint-placeholder-count="3">
           <div style="display:flex;gap:12px">
             <div style="flex:none;display:flex;flex-direction:column;align-items:center">
               <span style="width:26px;height:26px;border-radius:50%;background:{{ st.dotBg }};color:{{ st.dotFg }};display:grid;place-items:center;font-size:11px;font-weight:700">{{ st.n }}</span>
@@ -691,11 +740,48 @@
           </div>
         </sc-for>
       </div>
+      </sc-if>
     </sc-if>
 
-    <!-- ═══════ WALLET ═══════ -->
+    <!-- ═══════ THU NHẬP ═══════
+         Mặc định chỉ hiện phần thu nhập của chế độ đang xem; nút "Xem tổng cả
+         hai nguồn" mở phần gộp bên dưới. Trước đây trang này chỉ vào được từ
+         chế độ tại trung tâm, dù ví đã gộp cả tiền ca tự do. -->
     <sc-if value="{{ isWallet }}" hint-placeholder-val="{{ false }}">
+
       <div style="border-radius:16px;padding:18px;background:var(--heroGrad);color:var(--onHero)">
+        <div style="font-size:10px;color:var(--gold)">{{ payTitle }}</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:32px;margin-top:3px">{{ payBig }}</div>
+        <div style="font-size:11px;color:var(--onSub);margin-top:4px">{{ paySub }}</div>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-top:15px;padding-top:14px;border-top:1px solid rgba(231,206,151,.28)">
+          <sc-for list="{{ payModeRows }}" as="p" hint-placeholder-count="3">
+            <div style="display:flex;align-items:baseline;gap:10px">
+              <span style="flex:1;min-width:0;font-size:11.5px;color:{{ p.labelFg }}">{{ p.k }}</span>
+              <span style="flex:none;font-size:13px;font-weight:700;color:{{ p.fg }}">{{ p.v }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <div class="card" style="padding:14px;margin-top:12px;border-left:3px solid {{ payNextFg }}">
+        <span style="display:block;font-size:11px;font-weight:700;color:{{ payNextFg }}">{{ payNextTitle }}</span>
+        <p style="font-size:11.5px;line-height:1.6;color:var(--text2);margin-top:4px">{{ payNextText }}</p>
+        <div style="display:flex;gap:8px;margin-top:12px">
+          <button style="flex:1;padding:10px;border-radius:9px;background:var(--primary);color:var(--on-primary);font-size:11.5px;font-weight:700">{{ payAction1 }}</button>
+          <button style="flex:1;padding:10px;border-radius:9px;background:var(--surface2);color:var(--text2);font-size:11.5px;font-weight:600">{{ payAction2 }}</button>
+        </div>
+      </div>
+
+      <button sc-camel-on-click="{{ toggleTotal }}" class="card" style="width:100%;display:flex;align-items:center;gap:9px;padding:14px;margin-top:12px">
+        <span style="flex:1;min-width:0;text-align:left">
+          <span style="display:block;font-size:12.5px;font-weight:700">Xem tổng cả hai nguồn</span>
+          <span style="display:block;font-size:10.5px;color:var(--text3);margin-top:2px">Lương An Nhiên và ca tự do gộp lại · {{ totalHint }}</span>
+        </span>
+        <span style="flex:none;font-size:11px;font-weight:700;color:var(--accent)">{{ totalToggleLabel }}</span>
+      </button>
+
+      <sc-if value="{{ showTotal }}" hint-placeholder-val="{{ true }}">
+      <div style="border-radius:16px;padding:18px;margin-top:12px;background:var(--heroGrad);color:var(--onHero)">
         <div style="font-size:10px;color:var(--gold)">Tổng thu nhập tháng 7/2026</div>
         <div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:32px;margin-top:3px">18.600.000₫</div>
         <div style="display:flex;flex-direction:column;gap:8px;margin-top:15px;padding-top:14px;border-top:1px solid rgba(231,206,151,.28)">
@@ -756,11 +842,11 @@
           </div>
         </sc-for>
       </div>
+      </sc-if>
     </sc-if>
 
-    <!-- ═══════ ME ═══════ -->
-    <!-- ═══════ LỊCH NHẬN KHÁCH (chế độ tự do) ═══════ -->
-    <sc-if value="{{ isAvail }}" hint-placeholder-val="{{ false }}">
+    <!-- ═══════ KHẢ DỤNG · chế độ tự do — một chiều, hiệu lực ngay ═══════ -->
+    <sc-if value="{{ availFree }}" hint-placeholder-val="{{ false }}">
 
       <div class="card" style="padding:14px;display:flex;align-items:center;gap:12px">
         <span style="flex:1;min-width:0">
@@ -835,6 +921,113 @@
 
     </sc-if>
 
+    <!-- ═══════ KHẢ DỤNG · chế độ tại trung tâm — hai chiều, có duyệt ═══════
+         Trung tâm phân công → KTV xác nhận. KTV đề xuất → trung tâm xác nhận.
+         Đổi lịch và hoãn lịch đều phải được duyệt; riêng ốm đau và bất khả
+         kháng thì có hiệu lực ngay. Bốn khối xếp theo mức cần hành động. -->
+    <sc-if value="{{ availCenter }}" hint-placeholder-val="{{ false }}">
+
+      <!-- ① Chờ tôi xác nhận -->
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+        <span style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:18px">Chờ tôi xác nhận</span>
+        <sc-if value="{{ hasPending }}" hint-placeholder-val="{{ true }}">
+          <span style="font-size:10px;font-weight:700;color:#fff;background:var(--dangerSolid);padding:2px 8px;border-radius:99px">{{ pendingCount }} chờ</span>
+        </sc-if>
+      </div>
+
+      <sc-if value="{{ hasPending }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <sc-for list="{{ pendingShifts }}" as="p" hint-placeholder-count="2">
+            <div class="card" style="padding:14px;border-left:3px solid var(--accent)">
+              <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px">
+                <span style="min-width:0">
+                  <span style="display:block;font-size:13px;font-weight:700">{{ p.when }}</span>
+                  <span style="display:block;font-size:11.5px;color:var(--text2);margin-top:2px">{{ p.svc }} · {{ p.where }}</span>
+                </span>
+                <span style="flex:none;font-size:9px;font-weight:700;color:var(--goldText);background:var(--goldTint);padding:3px 8px;border-radius:99px;white-space:nowrap">Trung tâm phân</span>
+              </div>
+              <p style="font-size:10.5px;color:var(--text3);margin-top:6px">{{ p.sent }}</p>
+              <div style="display:flex;gap:7px;margin-top:12px">
+                <button sc-camel-on-click="{{ p.accept }}" style="flex:1;padding:10px;border-radius:9px;background:var(--primary);color:var(--on-primary);font-size:11.5px;font-weight:700">Xác nhận</button>
+                <button sc-camel-on-click="{{ p.counter }}" style="flex:1;padding:10px;border-radius:9px;background:var(--surface2);color:var(--text2);font-size:11.5px;font-weight:600">Đề xuất giờ khác</button>
+                <button sc-camel-on-click="{{ p.decline }}" style="flex:none;padding:10px 13px;border-radius:9px;background:var(--dangerTint);color:var(--danger);font-size:11.5px;font-weight:600">Từ chối</button>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+      <sc-if value="{{ noPending }}" hint-placeholder-val="{{ false }}">
+        <div class="card" style="padding:18px;text-align:center">
+          <p style="font-size:12px;color:var(--text3)">Không có ca nào chờ bạn xác nhận.</p>
+        </div>
+      </sc-if>
+
+      <!-- ② Tôi đề xuất, chờ trung tâm duyệt -->
+      <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:22px 0 10px">Tôi đề xuất · chờ trung tâm duyệt</p>
+      <sc-if value="{{ hasProposals }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <sc-for list="{{ proposals }}" as="q" hint-placeholder-count="1">
+            <div class="card" style="padding:14px;opacity:{{ q.dim }}">
+              <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px">
+                <span style="min-width:0">
+                  <span style="display:block;font-size:12.5px;font-weight:700">{{ q.what }}</span>
+                  <span style="display:block;font-size:12px;color:var(--text2);margin-top:2px">{{ q.detail }}</span>
+                </span>
+                <span style="flex:none;font-size:9px;font-weight:700;color:{{ q.stFg }};background:{{ q.stBg }};padding:3px 8px;border-radius:99px;white-space:nowrap">{{ q.st }}</span>
+              </div>
+              <sc-if value="{{ q.hasReason }}" hint-placeholder-val="{{ true }}">
+                <p style="font-size:10.5px;line-height:1.6;color:var(--text3);margin-top:8px;padding-left:9px;border-left:2px solid var(--line2)">Lý do: {{ q.reason }}</p>
+              </sc-if>
+              <div style="display:flex;align-items:center;gap:8px;margin-top:11px">
+                <span style="flex:1;font-size:10px;color:var(--text3)">{{ q.sent }}</span>
+                <sc-if value="{{ q.canCancel }}" hint-placeholder-val="{{ true }}">
+                  <button sc-camel-on-click="{{ q.cancel }}" style="flex:none;padding:8px 14px;border-radius:9px;background:var(--surface2);color:var(--text2);font-size:11px;font-weight:600">Huỷ đề xuất</button>
+                </sc-if>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+      <sc-if value="{{ noProposals }}" hint-placeholder-val="{{ false }}">
+        <div class="card" style="padding:18px;text-align:center">
+          <p style="font-size:12px;color:var(--text3)">Bạn chưa gửi đề xuất nào.</p>
+        </div>
+      </sc-if>
+
+      <!-- ③ Khung giờ rảnh hằng tuần -->
+      <div style="display:flex;align-items:center;justify-content:space-between;margin:22px 0 10px">
+        <span style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:18px">Khung giờ rảnh hằng tuần</span>
+        <button sc-camel-on-click="{{ addWeekFree }}" style="font-size:11.5px;font-weight:700;color:var(--accent)">+ Thêm</button>
+      </div>
+      <div class="card" style="padding:12px 14px;background:var(--tint);border:1px solid var(--primary);margin-bottom:10px">
+        <p style="font-size:10.5px;line-height:1.6;color:var(--text2)">Đây là <strong>đề xuất</strong> để An Nhiên làm căn cứ phân ca. Trung tâm vẫn có thể phân ca ngoài khung này — bạn xác nhận hoặc từ chối ở mục trên cùng.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:9px">
+        <sc-for list="{{ weekFree }}" as="w" hint-placeholder-count="3">
+          <div class="card" style="padding:13px 14px;display:flex;align-items:center;gap:10px">
+            <span style="flex:1;min-width:0">
+              <span style="display:block;font-size:12.5px;font-weight:700">{{ w.dows }}</span>
+              <span style="display:block;font-size:11px;color:var(--text3);margin-top:2px">{{ w.hours }}</span>
+            </span>
+            <button sc-camel-on-click="{{ w.edit }}" style="flex:none;padding:8px 13px;border-radius:9px;background:var(--surface2);color:var(--text2);font-size:11px;font-weight:600">Sửa</button>
+            <button sc-camel-on-click="{{ w.remove }}" aria-label="Xoá khung giờ rảnh" style="flex:none;padding:8px 12px;border-radius:9px;background:var(--dangerTint);color:var(--danger);font-size:11px;font-weight:600">Xoá</button>
+          </div>
+        </sc-for>
+      </div>
+
+      <!-- ④ Báo bận khẩn cấp -->
+      <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:22px 0 10px">Bất khả kháng</p>
+      <div class="card" style="padding:15px;border-top:3px solid var(--danger)">
+        <span style="display:block;font-size:13px;font-weight:700">Báo bận khẩn cấp</span>
+        <p style="font-size:11px;line-height:1.6;color:var(--text2);margin-top:5px">Ốm đau, tai nạn, việc gia đình đột xuất. <strong>Có hiệu lực ngay, không chờ duyệt</strong> — trung tâm được báo tự động để điều phối lại. Bắt buộc ghi lý do.</p>
+        <div style="display:flex;align-items:center;gap:9px;margin-top:12px;padding-top:12px;border-top:1px solid var(--line2)">
+          <span style="flex:1;font-size:10.5px;color:var(--text3)">Đã dùng <strong style="color:var(--text2)">{{ sickUsed }} lần</strong> trong 90 ngày · ảnh hưởng chỉ số Tuân thủ quy trình</span>
+          <button sc-camel-on-click="{{ reportSick }}" style="flex:none;padding:10px 16px;border-radius:10px;background:var(--dangerTint);color:var(--danger);font-size:11.5px;font-weight:700">Báo bận</button>
+        </div>
+      </div>
+
+    </sc-if>
+
     <sc-if value="{{ isMe }}" hint-placeholder-val="{{ false }}">
       <div class="card" style="padding:16px;text-align:center">
         <span style="display:inline-grid;place-items:center;width:66px;height:66px;border-radius:50%;background:var(--tint);font-weight:700;font-size:22px;color:var(--primary)">HY</span>
@@ -845,6 +1038,41 @@
           <span style="font-size:9.5px;font-weight:700;color:#fff;background:var(--okSolid);padding:3px 9px;border-radius:99px">✓ Xác minh</span>
         </div>
       </div>
+
+      <!-- Chất lượng — hiển thị CẢ HAI nguồn đánh giá, giống nhau ở cả hai chế
+           độ. Cùng một người được trung tâm chấm theo quy trình và được khách
+           chấm theo trải nghiệm; giấu bớt một bên là méo hồ sơ nghề nghiệp. -->
+      <div class="card" style="padding:15px;margin-top:12px;border-top:3px solid var(--accent)">
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <span style="font:700 9px ui-monospace,monospace;letter-spacing:.14em;color:var(--accent);text-transform:uppercase">An Nhiên chấm điểm</span>
+          <span style="font-size:11px;font-weight:700;color:var(--ok)">94/100</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-top:12px">
+          <sc-for list="{{ scoreBars }}" as="q" hint-placeholder-count="3">
+            <div>
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+                <span style="font-size:11.5px;color:var(--text2)">{{ q.t }}</span>
+                <span style="font-size:11.5px;font-weight:700;color:{{ q.c }}">{{ q.v }}</span>
+              </div>
+              <div style="height:6px;border-radius:99px;background:var(--line2);overflow:hidden"><div style="height:100%;width:{{ q.w }};background:{{ q.c }};border-radius:99px"></div></div>
+            </div>
+          </sc-for>
+        </div>
+        <p style="font-size:10.5px;line-height:1.55;color:var(--text3);margin-top:12px;padding-left:9px;border-left:2px solid var(--line2)">Điểm do quản lý ca của An Nhiên ghi nhận, ảnh hưởng tới phân ca và xét nâng bậc.</p>
+      </div>
+
+      <button sc-camel-on-click="{{ goReviews }}" class="card" style="width:100%;padding:15px;margin-top:10px;border-top:3px solid var(--gold);text-align:left;display:block">
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <span style="font:700 9px ui-monospace,monospace;letter-spacing:.14em;color:var(--goldText);text-transform:uppercase">Khách đánh giá</span>
+          <span style="font-size:11px;font-weight:700;color:var(--goldText)">4,9 ★</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;margin-top:12px">
+          <span style="flex:1"><span style="display:block;font-size:10px;color:var(--text3)">Lượt đánh giá</span><span style="display:block;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:20px">38</span></span>
+          <span style="flex:1"><span style="display:block;font-size:10px;color:var(--text3)">Khách cải thiện</span><span style="display:block;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:20px;color:var(--ok)">92%</span></span>
+          <span style="flex:1"><span style="display:block;font-size:10px;color:var(--text3)">Tỷ lệ nhận ca</span><span style="display:block;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:20px;color:var(--accent)">92%</span></span>
+        </div>
+        <p style="font-size:10.5px;line-height:1.55;color:var(--text3);margin-top:12px;padding-left:9px;border-left:2px solid var(--line2)">Do khách chấm sau mỗi buổi. Tỷ lệ nhận ca ảnh hưởng thứ hạng hiển thị khi khách tìm KTV. Bấm để xem từng nhận xét →</p>
+      </button>
 
       <div class="card" style="padding:16px;margin-top:12px;border-top:3px solid var(--accent)">
         <div style="display:flex;align-items:center;justify-content:space-between">
@@ -968,7 +1196,26 @@ class Component extends DCLogic {
         areas:['Q.7'], svcs:['Phục hồi sau sinh'],
         note:'Tạm dừng trong tháng 8, có việc gia đình.' }
     ],
-    draft:null };   // khung giờ đang tạo/sửa; null = không mở biểu mẫu
+    draft:null,     // khung giờ đang tạo/sửa; null = không mở biểu mẫu
+    schedTab:'list',    // tab đang mở trong Lịch: list | map | avail
+    showTotal:false,    // đã mở phần tổng thu nhập hai nguồn chưa
+
+    // ── điều phối hai chiều với trung tâm ──
+    // Ca trung tâm vừa phân, chờ KTV xác nhận.
+    pending: [
+      { id:'p1', when:'T4 · 14:00–15:00', svc:'Trị liệu cổ vai gáy', where:'Phòng 3', sent:'Trung tâm gửi 1 giờ trước' },
+      { id:'p2', when:'T5 · 09:00–10:30', svc:'Massage trị liệu', where:'Phòng 1', sent:'Trung tâm gửi hôm qua' }
+    ],
+    // Đề xuất KTV đã gửi, chờ trung tâm duyệt.
+    proposals: [
+      { id:'q1', what:'Xin đổi giờ', detail:'T6 · 09:00 → 15:00', reason:'Trùng lịch khám định kỳ', st:'wait', sent:'Gửi 2 giờ trước' }
+    ],
+    // Khung giờ rảnh hằng tuần — căn cứ để trung tâm phân ca.
+    weekFree: [
+      { id:'w1', dows:['T2','T3','T4','T5','T6'], from:'08:00', to:'18:00' },
+      { id:'w2', dows:['T7'], from:'08:00', to:'12:00' }
+    ],
+    sickUsed: 2 };  // số lần báo bận khẩn cấp trong 90 ngày
 
   ic(name,size){
     const P = {
@@ -983,7 +1230,39 @@ class Component extends DCLogic {
   }
 
   go(p){ this.setState({page:p}); }
-  setMode(m){ this.setState({mode:m, page:'home'}); }
+  goSched(tab){ this.setState({page:'schedule', schedTab:tab}); }
+  setMode(m){ this.setState({mode:m, page:'home', schedTab:'list'}); }
+
+  // ── điều phối hai chiều (chế độ tại trung tâm) ────────────────────
+  // Xác nhận thì ca vào lịch. Từ chối hoặc đề xuất giờ khác thì rời khỏi hàng
+  // chờ và thành một đề xuất đang chờ trung tâm duyệt — KTV không tự quyết được.
+  shiftAccept(id){
+    this.setState({ pending: this.state.pending.filter(x => x.id!==id) });
+  }
+  shiftRespond(id, what, reason){
+    const s = this.state.pending.find(x => x.id===id);
+    if(!s) return;
+    this.setState({
+      pending: this.state.pending.filter(x => x.id!==id),
+      proposals: [{ id:'q'+id, what, detail:s.when+' · '+s.svc, reason, st:'wait', sent:'Vừa gửi' },
+                  ...this.state.proposals]
+    });
+  }
+  proposalCancel(id){
+    this.setState({ proposals: this.state.proposals.filter(x => x.id!==id) });
+  }
+  weekFreeRemove(id){
+    this.setState({ weekFree: this.state.weekFree.filter(x => x.id!==id) });
+  }
+  // Bất khả kháng: có hiệu lực ngay, không qua cửa duyệt, nhưng có đếm.
+  reportSick(){
+    this.setState({
+      sickUsed: this.state.sickUsed + 1,
+      proposals: [{ id:'sick'+this.state.sickUsed, what:'Báo bận khẩn cấp', detail:'Hôm nay · toàn bộ ca còn lại',
+                    reason:'Ốm đột xuất', st:'done', sent:'Đã có hiệu lực · trung tâm đang điều phối lại' },
+                  ...this.state.proposals]
+    });
+  }
 
   // ── lịch nhận khách (chế độ tự do) ──────────────────────────────
   static get DOWS(){ return ['T2','T3','T4','T5','T6','T7','CN']; }
@@ -1049,12 +1328,15 @@ class Component extends DCLogic {
           [...new Set(activeSlots.flatMap(x => x.areas))].slice(0, 3).join(' · ')
         : 'Chưa đặt khung giờ nào';
 
-    // Ô đầu và ô cuối dùng chung nhãn ở cả hai chế độ; chỉ ô thứ tư đổi theo
-    // việc chế độ đó cần gì: tự do đi nhiều điểm nên cần Lộ trình, tại trung
-    // tâm nhận lương theo ca nên cần Thu nhập.
-    const navIds = free
-      ? [['home','home','Tổng quan'],['cal','schedule','Lịch'],['users','clients','Khách'],['route','route','Lộ trình'],['me','me','Tôi']]
-      : [['home','home','Tổng quan'],['cal','schedule','Lịch'],['users','clients','Khách'],['wallet','wallet','Thu nhập'],['me','me','Tôi']];
+    // Năm ô giống hệt nhau ở cả hai chế độ — chốt 2026-07-27. Công việc của KTV
+    // là một: hôm nay làm gì → sắp tới làm gì → làm cho ai → được bao nhiêu →
+    // mình đang ở đâu. Chỉ đối tác đổi (An Nhiên hay ANWELL), nên nội dung bên
+    // trong đổi, còn cấu trúc điều hướng thì không.
+    const navIds = [
+      ['home','home','Tổng quan'], ['cal','schedule','Lịch'],
+      ['users','clients','Khách'], ['wallet','wallet','Thu nhập'],
+      ['me','me','Tôi']
+    ];
     const nav = navIds.map(([icon,id,t])=>{
       const on = s.page===id;
       return { t, icon:this.ic(icon,19), go:()=>this.go(id),
@@ -1243,9 +1525,140 @@ class Component extends DCLogic {
       remove: () => this.slotRemove(x.id)
     }));
 
+    // ── Lịch: ba tab ───────────────────────────────────────────────
+    const onSched = s.page==='schedule';
+
+    // Điểm dừng trên bản đồ = các ca diễn ra ngoài cơ sở. Chế độ tự do chạy cả
+    // ngày ngoài đường; chế độ tại trung tâm thường chỉ có một, hai ca tại nhà.
+    const centerStops = [
+      { n:1, time:'17:00', svc:'Phục hồi tại nhà', addr:'56 Cao Thắng, Q.3',
+        travel:'Rời cơ sở 16:35 · 18 phút di chuyển', st:'Sắp tới',
+        stFg:'var(--text2)', stBg:'var(--surface2)', dotBg:'var(--surface2)', dotFg:'var(--text3)', line:'0' }
+    ];
+    const mapStops = free ? stops : centerStops;
+    // Tên tab giống nhau ở cả hai chế độ, đúng nguyên tắc của điều hướng chính.
+    // Tab thứ ba làm cùng một việc — khai báo khi nào mình rảnh — chỉ khác là
+    // tại trung tâm phải qua duyệt, còn tự do thì hiệu lực ngay.
+    const tabDefs = [
+      ['list',  'Danh sách', 0],
+      ['map',   'Bản đồ',    0],
+      ['avail', 'Khả dụng',  free ? 0 : s.pending.length]
+    ];
+    const schedVals = {
+      schedTabs: tabDefs.map(([k,label,badge]) => ({
+        t: label, badge: badge || false, pick: () => this.goSched(k),
+        bg: s.schedTab===k ? 'var(--surface)' : 'transparent',
+        fg: s.schedTab===k ? 'var(--text)' : 'var(--text3)'
+      })),
+      schedList:  onSched && s.schedTab==='list',
+      schedMap:   onSched && s.schedTab==='map',
+      // Bản đồ hiện hay không phụ thuộc DỮ LIỆU chứ không phải chế độ: chế độ
+      // tại trung tâm vẫn có ca tại nhà (17:00 · Q.3). Chỉ khi cả ngày không có
+      // điểm nào ngoài cơ sở thì mới hiện trạng thái rỗng.
+      mapShown:   onSched && s.schedTab==='map' && mapStops.length > 0,
+      mapEmpty:   onSched && s.schedTab==='map' && mapStops.length === 0,
+      mapStops,
+      mapDist:    mapStops.length > 1 ? '14,2 km' : '6,4 km',
+      mapTime:    mapStops.length > 1 ? '52 phút' : '18 phút',
+      availFree:  onSched && s.schedTab==='avail' && free,
+      availCenter:onSched && s.schedTab==='avail' && !free,
+      goRouteTab: () => this.goSched('map'),
+      goAvailTab: () => this.goSched('avail')
+    };
+
+    // ── điều phối hai chiều ────────────────────────────────────────
+    const negoVals = {
+      pendingShifts: s.pending.map(p => ({
+        ...p,
+        accept:  () => this.shiftAccept(p.id),
+        counter: () => this.shiftRespond(p.id, 'Đề xuất giờ khác', 'Vướng ca khác trong khung giờ này'),
+        decline: () => this.shiftRespond(p.id, 'Từ chối ca', 'Không sắp xếp được')
+      })),
+      pendingCount: s.pending.length,
+      hasPending: s.pending.length > 0,
+      noPending:  s.pending.length === 0,
+
+      proposals: s.proposals.map(q => ({
+        what:q.what, detail:q.detail, reason:q.reason, sent:q.sent,
+        hasReason: !!q.reason,
+        st:        q.st==='done' ? 'Đã có hiệu lực' : 'Chờ An Nhiên duyệt',
+        stFg:      q.st==='done' ? 'var(--ok)' : 'var(--goldText)',
+        stBg:      q.st==='done' ? 'var(--okTint)' : 'var(--goldTint)',
+        dim:       q.st==='done' ? '.7' : '1',
+        canCancel: q.st!=='done',
+        cancel:    () => this.proposalCancel(q.id)
+      })),
+      hasProposals: s.proposals.length > 0,
+      noProposals:  s.proposals.length === 0,
+
+      weekFree: s.weekFree.map(w => ({
+        dows:  w.dows.length > 2 ? w.dows[0]+'–'+w.dows[w.dows.length-1] : w.dows.join(' · '),
+        hours: w.from + '–' + w.to,
+        edit:   () => {},
+        remove: () => this.weekFreeRemove(w.id)
+      })),
+      addWeekFree: () => {},
+      sickUsed: s.sickUsed,
+      reportSick: () => this.reportSick()
+    };
+
+    // ── Khách · chế độ tại trung tâm ───────────────────────────────
+    // Chỉ nội dung chuyên môn. Không số điện thoại, không địa chỉ, không giá —
+    // đó là tài sản của trung tâm (ràng buộc của mô hình hai lớp).
+    const ccRaw = [
+      { i:'NT', n:'Nguyễn Thu H.', svc:'Trị liệu cổ vai gáy', room:'Phòng 3', done:3, total:10, last:'Hôm nay 08:00',
+        note:'Cứng cơ thang trên bên phải, giảm rõ sau buổi 2. Giữ lực vừa, tránh ấn sâu vùng C5.', alert:'' },
+      { i:'PL', n:'Bà Phạm T. Lan', svc:'Phục hồi tại nhà', room:'Q.3 · tại nhà', done:12, total:24, last:'Hôm nay 17:00',
+        note:'Đi lại có khung tập, tiến bộ chậm nhưng đều. Gia đình hỗ trợ tốt giữa các buổi.', alert:'Huyết áp cao — đo trước khi bắt đầu' },
+      { i:'LQ', n:'Lê Quang T.', svc:'Massage trị liệu', room:'Phòng 1', done:6, total:8, last:'Hôm nay 09:30',
+        note:'Căng cơ do ngồi lâu. Đã hướng dẫn bài giãn tại nhà, khách làm đều.', alert:'' },
+      { i:'VD', n:'Vũ Đức A.', svc:'Vật lý trị liệu', room:'Phòng 2', done:1, total:12, last:'Hôm nay 13:00',
+        note:'Khách mới, buổi đầu đánh giá tầm vận động vai. Cần theo dõi phản ứng 2 buổi tới.', alert:'Sau mổ vai 8 tuần — không vận động quá tầm' }
+    ];
+    const clientVals = {
+      centerClients: ccRaw.map(c => ({
+        i:c.i, n:c.n, svc:c.svc, room:c.room, note:c.note, last:c.last,
+        alert:c.alert, hasAlert: !!c.alert,
+        course: 'buổi ' + c.done + '/' + c.total,
+        pct: Math.round(c.done / c.total * 100) + '%',
+        tFg: c.done >= c.total ? 'var(--ok)' : 'var(--primary)',
+        tBg: c.done >= c.total ? 'var(--okTint)' : 'var(--tint)'
+      })),
+      ccCount: ccRaw.length,
+      ccCourse: ccRaw.filter(c => c.done < c.total).length
+    };
+
+    // ── Thu nhập: phần theo chế độ + phần gộp ──────────────────────
+    const payRow = (k, v, strong) => ({
+      k, v, labelFg: strong ? 'var(--onHero)' : 'var(--onSub)',
+      fg: strong ? 'var(--gold)' : 'var(--onHero)'
+    });
+    const payVals = free ? {
+      payTitle:'Doanh thu ca tự do · tháng 7/2026',
+      payBig:'7.400.000₫', paySub:'Trước phí nền tảng',
+      payModeRows:[ payRow('Trừ phí nền tảng 15%','−1,11tr'), payRow('Trừ thuế TNCN tạm giữ','−0,37tr'),
+                    payRow('Thực nhận từ ca tự do','5,92tr', true) ],
+      payNextTitle:'Khách chưa thanh toán', payNextFg:'var(--danger)',
+      payNextText:'1 buổi · 0,26tr · quá hạn 2 ngày · đang chờ khách xác nhận giờ.',
+      payAction1:'Nhắc khách trả', payAction2:'Xuất kê khai thuế'
+    } : {
+      payTitle:'Lương từ An Nhiên · tháng 7/2026',
+      payBig:'11.200.000₫', paySub:'Theo ca trung tâm phân',
+      payModeRows:[ payRow('Ca đã hoàn tất · 42 ca','10,40tr'), payRow('Thưởng chất lượng · 94/100','0,80tr'),
+                    payRow('Đã nhận · tuần 27–29','8,60tr', true) ],
+      payNextTitle:'Kỳ đối soát tới', payNextFg:'var(--accent)',
+      payNextText:'Ca tuần 30 · 2,60tr · chờ trung tâm chốt bảng lương · dự kiến chuyển 05/08.',
+      payAction1:'Xem bảng lương', payAction2:'Khiếu nại ca'
+    };
+    const totalVals = {
+      showTotal: s.showTotal,
+      toggleTotal: () => this.setState({ showTotal: !s.showTotal }),
+      totalToggleLabel: s.showTotal ? 'Thu gọn' : 'Mở ra',
+      totalHint: s.showTotal ? '18,6tr' : 'gồm cả nguồn còn lại'
+    };
+
     const d = s.draft;
     const availVals = {
-      isAvail: s.page==='avail',
       availSlots,
       availSummary: availSummaryText,
       availCount: s.slots.length,
@@ -1291,8 +1704,8 @@ theme:s.theme, themeDots,
       mFreeBg:free?'var(--primary)':'var(--bg)', mFreeBd:free?'var(--primary)':'var(--line)', mFreeFg:free?'var(--on-primary)':'var(--text)', mFreeSub:free?'var(--onPrimarySub)':'var(--text3)',
       homeCenter: s.page==='home' && !free,
       homeFree:   s.page==='home' && free,
-      isSchedule:s.page==='schedule', isClients:s.page==='clients', isRoute:s.page==='route', isWallet:s.page==='wallet', isMe:s.page==='me',
-      nav, goSchedule:()=>this.go('schedule'), goRoute:()=>this.go('route'), goHome:()=>this.go('home'),
+      isSchedule:s.page==='schedule', isClients:s.page==='clients', isWallet:s.page==='wallet', isMe:s.page==='me',
+      nav, goSchedule:()=>this.goSched('list'), goRoute:()=>this.goSched('map'), goHome:()=>this.go('home'),
       // session
       isSession:s.page==='session', goSession:()=>this.go('session'),
       sessIdle:s.sess==='idle', sessRunning:s.sess==='running', sessDone:s.sess==='done',
@@ -1313,10 +1726,11 @@ theme:s.theme, themeDots,
       avail:s.avail, toggleAvail:()=>this.setState({avail:!s.avail}),
       availTrack: s.avail?'var(--ok)':'var(--line)', availKnob: s.avail?'25px':'3px',
       availSub: s.avail ? 'Đang bật · khách có thể đặt bạn' : 'Tạm dừng · không nhận ca mới',
-      goAvail:()=>this.go('avail'),
+      goAvail:()=>this.goSched('avail'),
+      goReviews:()=>this.go('reviews'),
       days, agenda, clients, stops, walletKpis, txns, tierReqs, meLinks,
       payoutRows, paidBySource, dueBySource,
-      ...availVals
+      ...availVals, ...schedVals, ...negoVals, ...clientVals, ...payVals, ...totalVals
     };
   }
 }
