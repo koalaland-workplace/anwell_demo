@@ -409,13 +409,19 @@
 
     <!-- ═══════ HOME · FREELANCE MODE ═══════ -->
     <sc-if value="{{ homeFree }}" hint-placeholder-val="{{ false }}">
-      <div class="card" style="padding:14px;display:flex;align-items:center;gap:12px">
-        <span style="flex:1;min-width:0">
-          <span style="display:block;font-size:13px;font-weight:600">Trạng thái nhận khách</span>
-          <span style="display:block;font-size:10.5px;color:var(--text3);margin-top:1px">{{ availSub }}</span>
-        </span>
-        <button sc-camel-on-click="{{ toggleAvail }}" aria-label="Bật nhận khách" style="flex:none;width:52px;height:30px;border-radius:99px;background:{{ availTrack }};position:relative;transition:background .2s">
-          <span style="position:absolute;top:3px;left:{{ availKnob }};width:24px;height:24px;border-radius:50%;background:var(--surface);box-shadow:0 2px 5px rgba(0,0,0,.24);transition:left .2s"></span>
+      <div class="card" style="padding:14px">
+        <div style="display:flex;align-items:center;gap:12px">
+          <span style="flex:1;min-width:0">
+            <span style="display:block;font-size:13px;font-weight:600">Trạng thái nhận khách</span>
+            <span style="display:block;font-size:10.5px;color:var(--text3);margin-top:1px">{{ availSub }}</span>
+          </span>
+          <button sc-camel-on-click="{{ toggleAvail }}" aria-label="Bật nhận khách" style="flex:none;width:52px;height:30px;border-radius:99px;background:{{ availTrack }};position:relative;transition:background .2s">
+            <span style="position:absolute;top:3px;left:{{ availKnob }};width:24px;height:24px;border-radius:50%;background:var(--surface);box-shadow:0 2px 5px rgba(0,0,0,.24);transition:left .2s"></span>
+          </button>
+        </div>
+        <button sc-camel-on-click="{{ goAvail }}" style="width:100%;display:flex;align-items:center;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid var(--line2)">
+          <span style="flex:1;min-width:0;text-align:left;font-size:11.5px;color:var(--text2)">Lịch nhận khách · {{ availSummary }}</span>
+          <svg width="15" height="15" sc-camel-view-box="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" style="flex:none"><path d="m9 5 7 7-7 7"></path></svg>
         </button>
       </div>
 
@@ -753,6 +759,135 @@
     </sc-if>
 
     <!-- ═══════ ME ═══════ -->
+    <!-- ═══════ LỊCH NHẬN KHÁCH (chế độ tự do) ═══════ -->
+    <sc-if value="{{ isAvail }}" hint-placeholder-val="{{ false }}">
+
+      <div class="card" style="padding:14px;display:flex;align-items:center;gap:12px">
+        <span style="flex:1;min-width:0">
+          <span style="display:block;font-size:13px;font-weight:600">Trạng thái nhận khách</span>
+          <span style="display:block;font-size:10.5px;color:var(--text3);margin-top:1px">{{ availSub }}</span>
+        </span>
+        <button sc-camel-on-click="{{ toggleAvail }}" aria-label="Bật nhận khách" style="flex:none;width:52px;height:30px;border-radius:99px;background:{{ availTrack }};position:relative;transition:background .2s">
+          <span style="position:absolute;top:3px;left:{{ availKnob }};width:24px;height:24px;border-radius:50%;background:var(--surface);box-shadow:0 2px 5px rgba(0,0,0,.24);transition:left .2s"></span>
+        </button>
+      </div>
+
+      <sc-if value="{{ avail }}" hint-placeholder-val="{{ true }}">
+        <p style="font-size:10.5px;line-height:1.6;color:var(--text3);margin-top:9px">Tắt công tắc này để tạm dừng nhận ca mới mà vẫn giữ nguyên các khung giờ bên dưới. Ca đã nhận không bị ảnh hưởng.</p>
+      </sc-if>
+      <sc-if value="{{ availPaused }}" hint-placeholder-val="{{ false }}">
+        <div class="card" style="padding:12px 14px;margin-top:9px;background:var(--goldTint);border:1px solid var(--gold)">
+          <span style="display:block;font-size:11.5px;font-weight:700;color:var(--goldText)">Đang ở chế độ bận</span>
+          <span style="display:block;font-size:10.5px;line-height:1.6;color:var(--text2);margin-top:3px">Khách không tìm thấy bạn trong kết quả tìm kiếm. Các khung giờ bên dưới được giữ nguyên, bật lại là hoạt động ngay.</span>
+        </div>
+      </sc-if>
+
+      <div style="display:flex;align-items:center;justify-content:space-between;margin:20px 0 10px">
+        <span style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:18px">Khung giờ nhận khách</span>
+        <button sc-camel-on-click="{{ addSlot }}" style="font-size:11.5px;font-weight:700;color:var(--accent)">+ Thêm</button>
+      </div>
+
+      <sc-if value="{{ hasSlots }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <sc-for list="{{ availSlots }}" as="sl" hint-placeholder-count="3">
+            <div class="card" style="padding:14px;opacity:{{ sl.dim }}">
+
+              <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px">
+                <span style="font-size:13px;font-weight:700;min-width:0">{{ sl.when }}</span>
+                <span style="flex:none;font-size:9px;font-weight:700;color:{{ sl.stFg }};background:{{ sl.stBg }};padding:3px 8px;border-radius:99px;white-space:nowrap">{{ sl.state }}</span>
+              </div>
+
+              <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:10px">
+                <sc-for list="{{ sl.areas }}" as="a" hint-placeholder-count="2">
+                  <span style="font-size:10px;font-weight:600;color:var(--primary);background:var(--tint);padding:3px 9px;border-radius:99px">📍 {{ a.t }}</span>
+                </sc-for>
+              </div>
+
+              <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:6px">
+                <sc-for list="{{ sl.svcs }}" as="v" hint-placeholder-count="2">
+                  <span style="font-size:10px;color:var(--text2);background:var(--surface2);padding:3px 9px;border-radius:99px">{{ v.t }}</span>
+                </sc-for>
+              </div>
+
+              <sc-if value="{{ sl.hasNote }}" hint-placeholder-val="{{ true }}">
+                <p style="font-size:10.5px;line-height:1.6;color:var(--text3);margin-top:9px;padding-left:9px;border-left:2px solid var(--line2)">{{ sl.note }}</p>
+              </sc-if>
+
+              <div style="display:flex;gap:7px;margin-top:12px">
+                <button sc-camel-on-click="{{ sl.edit }}" style="flex:1;padding:9px;border-radius:9px;background:var(--surface2);color:var(--text2);font-size:11.5px;font-weight:600">Sửa</button>
+                <button sc-camel-on-click="{{ sl.toggle }}" style="flex:1;padding:9px;border-radius:9px;background:var(--surface2);color:var(--text2);font-size:11.5px;font-weight:600">{{ sl.toggleLabel }}</button>
+                <button sc-camel-on-click="{{ sl.remove }}" aria-label="Xoá khung giờ" style="flex:none;padding:9px 13px;border-radius:9px;background:var(--dangerTint);color:var(--danger);font-size:11.5px;font-weight:600">Xoá</button>
+              </div>
+
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ noSlots }}" hint-placeholder-val="{{ false }}">
+        <div class="card" style="padding:24px 18px;text-align:center">
+          <span style="font-size:26px">🗓</span>
+          <p style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:17px;margin-top:9px">Chưa có khung giờ nào</p>
+          <p style="font-size:11.5px;line-height:1.6;color:var(--text3);margin-top:6px">Thêm khung giờ để khách biết khi nào và ở đâu bạn nhận ca.</p>
+          <button sc-camel-on-click="{{ addSlot }}" style="margin-top:14px;padding:11px 20px;border-radius:10px;background:var(--primary);color:var(--on-primary);font-size:12px;font-weight:700">+ Thêm khung giờ</button>
+        </div>
+      </sc-if>
+
+      <!-- biểu mẫu tạo / sửa -->
+      <sc-if value="{{ isDraft }}" hint-placeholder-val="{{ false }}">
+        <div style="position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:40" sc-camel-on-click="{{ cancelDraft }}"></div>
+        <div style="position:fixed;left:0;right:0;bottom:0;z-index:41;max-height:86%;overflow-y:auto;background:var(--bg);border-radius:20px 20px 0 0;padding:18px 16px 26px;box-shadow:0 -8px 30px rgba(0,0,0,.22)">
+
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <span style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:19px">{{ draftTitle }}</span>
+            <button sc-camel-on-click="{{ cancelDraft }}" aria-label="Đóng" style="font-size:12px;font-weight:600;color:var(--text3)">Đóng</button>
+          </div>
+
+          <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:18px 0 8px">Ngày trong tuần</p>
+          <div style="display:flex;flex-wrap:wrap;gap:6px">
+            <sc-for list="{{ draftDows }}" as="c" hint-placeholder-count="7">
+              <button sc-camel-on-click="{{ c.tap }}" style="padding:8px 14px;border-radius:99px;background:{{ c.bg }};color:{{ c.fg }};border:1px solid {{ c.bd }};font-size:11.5px;font-weight:600">{{ c.t }}</button>
+            </sc-for>
+          </div>
+
+          <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:18px 0 8px">Khung giờ</p>
+          <div style="display:flex;align-items:center;gap:10px">
+            <input type="time" value="{{ draftFrom }}" sc-camel-on-input="{{ onDraftFrom }}" aria-label="Giờ bắt đầu" style="flex:1;padding:11px 12px;border-radius:11px;border:1px solid var(--line);background:var(--surface);color:var(--text);font-size:13px;font-family:inherit">
+            <span style="flex:none;color:var(--text3);font-size:13px">đến</span>
+            <input type="time" value="{{ draftTo }}" sc-camel-on-input="{{ onDraftTo }}" aria-label="Giờ kết thúc" style="flex:1;padding:11px 12px;border-radius:11px;border:1px solid var(--line);background:var(--surface);color:var(--text);font-size:13px;font-family:inherit">
+          </div>
+
+          <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:18px 0 8px">Khu vực nhận khách</p>
+          <div style="display:flex;flex-wrap:wrap;gap:6px">
+            <sc-for list="{{ draftAreas }}" as="c" hint-placeholder-count="8">
+              <button sc-camel-on-click="{{ c.tap }}" style="padding:8px 13px;border-radius:99px;background:{{ c.bg }};color:{{ c.fg }};border:1px solid {{ c.bd }};font-size:11.5px;font-weight:600">{{ c.t }}</button>
+            </sc-for>
+          </div>
+
+          <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:18px 0 8px">Loại hình dịch vụ</p>
+          <div style="display:flex;flex-wrap:wrap;gap:6px">
+            <sc-for list="{{ draftSvcs }}" as="c" hint-placeholder-count="6">
+              <button sc-camel-on-click="{{ c.tap }}" style="padding:8px 13px;border-radius:99px;background:{{ c.bg }};color:{{ c.fg }};border:1px solid {{ c.bd }};font-size:11.5px;font-weight:600">{{ c.t }}</button>
+            </sc-for>
+          </div>
+
+          <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:18px 0 8px">Ghi chú</p>
+          <textarea value="{{ draftNote }}" sc-camel-on-input="{{ onDraftNote }}" placeholder="Ví dụ: ưu tiên khách định kỳ, không nhận ca cách quá 5 km..." style="width:100%;min-height:74px;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--text);font-size:13px;font-family:inherit;resize:none"></textarea>
+
+          <sc-if value="{{ draftHint }}" hint-placeholder-val="{{ false }}">
+            <p style="font-size:11px;color:var(--danger);margin-top:10px">{{ draftHint }}</p>
+          </sc-if>
+
+          <div style="display:flex;gap:9px;margin-top:16px">
+            <button sc-camel-on-click="{{ cancelDraft }}" style="flex:none;padding:13px 20px;border-radius:11px;background:var(--surface2);color:var(--text2);font-size:12.5px;font-weight:700">Huỷ</button>
+            <button sc-camel-on-click="{{ saveDraft }}" style="flex:1;padding:13px;border-radius:11px;background:{{ draftSaveBg }};color:{{ draftSaveFg }};font-size:12.5px;font-weight:700">Lưu khung giờ</button>
+          </div>
+
+        </div>
+      </sc-if>
+
+    </sc-if>
+
     <sc-if value="{{ isMe }}" hint-placeholder-val="{{ false }}">
       <div class="card" style="padding:16px;text-align:center">
         <span style="display:inline-grid;place-items:center;width:66px;height:66px;border-radius:50%;background:var(--tint);font-weight:700;font-size:22px;color:var(--primary)">HY</span>
@@ -809,7 +944,21 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script="" data-props="{&quot;$preview&quot;:{&quot;width&quot;:460,&quot;height&quot;:940},&quot;startMode&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;center&quot;,&quot;free&quot;],&quot;default&quot;:&quot;center&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Demo&quot;}}">
 class Component extends DCLogic {
-  state = { theme:'serene', mode:'center', page:'home', avail:true, day:25, sess:'idle', sessNote:'', sessDone:['t1'] };
+  state = { theme:'serene', mode:'center', page:'home', avail:true, day:25, sess:'idle', sessNote:'', sessDone:['t1'],
+    // Lịch nhận khách của chế độ tự do. Mỗi khung giờ gồm: ngày trong tuần,
+    // giờ bắt đầu/kết thúc, khu vực nhận, loại hình dịch vụ và ghi chú.
+    slots: [
+      { id:'s1', on:true,  dows:['T2','T4','T6'], from:'08:00', to:'12:00',
+        areas:['Q.1','Q.3'], svcs:['Trị liệu cổ vai gáy','Phục hồi vận động'],
+        note:'Ưu tiên khách định kỳ. Không nhận ca cách quá 5 km.' },
+      { id:'s2', on:true,  dows:['T3','T5'], from:'14:00', to:'20:00',
+        areas:['Q.Bình Thạnh','Q.Phú Nhuận'], svcs:['Massage trị liệu'],
+        note:'' },
+      { id:'s3', on:false, dows:['T7'], from:'08:00', to:'11:00',
+        areas:['Q.7'], svcs:['Phục hồi sau sinh'],
+        note:'Tạm dừng trong tháng 8, có việc gia đình.' }
+    ],
+    draft:null };   // khung giờ đang tạo/sửa; null = không mở biểu mẫu
 
   ic(name,size){
     const P = {
@@ -826,12 +975,66 @@ class Component extends DCLogic {
   go(p){ this.setState({page:p}); }
   setMode(m){ this.setState({mode:m, page:'home'}); }
 
+  // ── lịch nhận khách (chế độ tự do) ──────────────────────────────
+  static get DOWS(){ return ['T2','T3','T4','T5','T6','T7','CN']; }
+  static get AREAS(){ return ['Q.1','Q.3','Q.7','Q.10','Q.Bình Thạnh','Q.Phú Nhuận','Q.Gò Vấp','TP.Thủ Đức']; }
+  static get SVCS(){ return ['Trị liệu cổ vai gáy','Massage trị liệu','Phục hồi vận động','Phục hồi sau sinh','Dưỡng sinh Đông y','Chăm sóc người cao tuổi']; }
+
+  slotToggle(id){
+    this.setState({ slots: this.state.slots.map(x => x.id===id ? {...x, on:!x.on} : x) });
+  }
+  slotRemove(id){
+    this.setState({ slots: this.state.slots.filter(x => x.id!==id) });
+  }
+  slotEdit(id){
+    const found = this.state.slots.find(x => x.id===id);
+    this.setState({ draft: {...found, areas:[...found.areas], svcs:[...found.svcs], dows:[...found.dows]} });
+  }
+  slotNew(){
+    this.setState({ draft: { id:'s'+Date.now(), on:true, dows:[], from:'08:00', to:'12:00', areas:[], svcs:[], note:'', isNew:true } });
+  }
+  draftSet(patch){ this.setState({ draft: {...this.state.draft, ...patch} }); }
+  draftPick(field, value){
+    const cur = this.state.draft[field];
+    const next = cur.includes(value) ? cur.filter(v => v!==value) : [...cur, value];
+    // Ngày trong tuần luôn xếp theo thứ tự T2→CN, không theo thứ tự bấm chọn.
+    if(field==='dows'){
+      const order = this.constructor.DOWS;
+      next.sort((a,b) => order.indexOf(a) - order.indexOf(b));
+    }
+    this.draftSet({ [field]: next });
+  }
+  draftSave(){
+    const d = this.state.draft;
+    if(!d.dows.length || !d.areas.length) return;   // thiếu ngày hoặc khu vực thì chưa lưu được
+    const clean = {...d}; delete clean.isNew;
+    const exists = this.state.slots.some(x => x.id===d.id);
+    this.setState({
+      slots: exists ? this.state.slots.map(x => x.id===d.id ? clean : x) : [...this.state.slots, clean],
+      draft: null
+    });
+  }
+  draftCancel(){ this.setState({ draft:null }); }
+
   renderVals(){
     const s = this.state, free = s.mode==='free';
 
+    // Tóm tắt lịch nhận khách. Tính một lần ở đây rồi dùng lại ở cả mục Tôi
+    // lẫn trang Lịch nhận khách, để hai chỗ không bao giờ hiển thị lệch nhau.
+    const activeSlots = s.slots.filter(x => x.on);
+    const availSummaryText = !s.avail
+      ? 'Đang tạm dừng nhận khách'
+      : activeSlots.length
+        ? activeSlots.length + ' khung giờ · ' +
+          [...new Set(activeSlots.flatMap(x => x.areas))].slice(0, 3).join(' · ')
+        : 'Chưa đặt khung giờ nào';
+
+    // Ô đầu và ô cuối dùng chung nhãn ở cả hai chế độ; chỉ ô thứ tư đổi theo
+    // việc chế độ đó cần gì: tự do đi nhiều điểm nên cần Lộ trình, tại trung
+    // tâm nhận lương theo ca nên cần Thu nhập.
     const navIds = free
-      ? [['home','home','Việc'],['cal','schedule','Lịch'],['users','clients','Khách'],['route','route','Lộ trình'],['me','me','Tôi']]
-      : [['home','home','Ca làm'],['cal','schedule','Lịch'],['users','clients','Khách'],['wallet','wallet','Thu nhập'],['me','me','Tôi']];
+      ? [['home','home','Tổng quan'],['cal','schedule','Lịch'],['users','clients','Khách'],['route','route','Lộ trình'],['me','me','Tôi']]
+      : [['home','home','Tổng quan'],['cal','schedule','Lịch'],['users','clients','Khách'],['wallet','wallet','Thu nhập'],['me','me','Tôi']];
     const nav = navIds.map(([icon,id,t])=>{
       const on = s.page===id;
       return { t, icon:this.ic(icon,19), go:()=>this.go(id),
@@ -952,7 +1155,7 @@ class Component extends DCLogic {
     const meLinks = [
       { icon:'🏢', t:'Liên kết trung tâm', d:'An Nhiên Wellness · từ 03/2024', tap:()=>{} },
       { icon:'💰', t:'Giá dịch vụ riêng', d:'Áp dụng cho ca tự do', tap:()=>{} },
-      { icon:'🗓', t:'Khung giờ nhận khách', d:'T2–T7 · 8:00–20:00', tap:()=>{} },
+      { icon:'🗓', t:'Khung giờ nhận khách', d:availSummaryText, tap:()=>this.go('avail') },
       { icon:'⭐', t:'Đánh giá của khách', d:'4,9/5 · 38 lượt · 92% cải thiện', tap:()=>this.go('reviews') },
       { icon:'💬', t:'Tin nhắn với gia đình', d:'1 tin chưa đọc', tap:()=>this.go('chat') },
       { icon:'📜', t:'Chứng nhận & hồ sơ', d:'Bậc 2 · gia hạn 03/2027', tap:()=>{} },
@@ -994,8 +1197,65 @@ class Component extends DCLogic {
     const themeDots = themeDefs.map(d=>({ name:d.name, sw:d.sw, pick:()=>this.setState({theme:d.key}),
       ring: s.theme===d.key ? 'var(--accent)' : 'transparent' }));
 
+    // ── lịch nhận khách ────────────────────────────────────────────
+    const D = this.constructor;
+    const chip = (label, on, tap) => ({
+      t: label, tap,
+      bg: on ? 'var(--primary)' : 'var(--surface)',
+      fg: on ? 'var(--on-primary)' : 'var(--text2)',
+      bd: on ? 'var(--primary)' : 'var(--line)'
+    });
+
+    const availSlots = s.slots.map(x => ({
+      id: x.id,
+      when: x.dows.join(' · ') + ' · ' + x.from + '–' + x.to,
+      areas: x.areas.map(a => ({ t:a })),
+      svcs: x.svcs.map(v => ({ t:v })),
+      note: x.note,
+      hasNote: !!x.note,
+      state: x.on ? 'Đang nhận' : 'Tạm dừng',
+      stFg: x.on ? 'var(--ok)' : 'var(--text3)',
+      stBg: x.on ? 'var(--okTint)' : 'var(--surface2)',
+      dim: x.on ? '1' : '.55',
+      toggleLabel: x.on ? 'Tạm dừng' : 'Bật lại',
+      toggle: () => this.slotToggle(x.id),
+      edit: () => this.slotEdit(x.id),
+      remove: () => this.slotRemove(x.id)
+    }));
+
+    const d = s.draft;
+    const availVals = {
+      isAvail: s.page==='avail',
+      availSlots,
+      availSummary: availSummaryText,
+      availCount: s.slots.length,
+      hasSlots: s.slots.length > 0,
+      noSlots: s.slots.length === 0,
+      availPaused: !s.avail,
+      addSlot: () => this.slotNew(),
+
+      isDraft: !!d,
+      draftTitle: d && d.isNew ? 'Thêm khung giờ' : 'Sửa khung giờ',
+      draftFrom: d ? d.from : '',
+      draftTo: d ? d.to : '',
+      draftNote: d ? d.note : '',
+      onDraftFrom: (e) => this.draftSet({ from:e.target.value }),
+      onDraftTo:   (e) => this.draftSet({ to:e.target.value }),
+      onDraftNote: (e) => this.draftSet({ note:e.target.value }),
+      draftDows:  D.DOWS.map(v  => chip(v, d && d.dows.includes(v),  () => this.draftPick('dows', v))),
+      draftAreas: D.AREAS.map(v => chip(v, d && d.areas.includes(v), () => this.draftPick('areas', v))),
+      draftSvcs:  D.SVCS.map(v  => chip(v, d && d.svcs.includes(v),  () => this.draftPick('svcs', v))),
+      draftValid: !!(d && d.dows.length && d.areas.length),
+      draftSaveBg: (d && d.dows.length && d.areas.length) ? 'var(--primary)' : 'var(--line2)',
+      draftSaveFg: (d && d.dows.length && d.areas.length) ? 'var(--on-primary)' : 'var(--text3)',
+      draftHint: (d && !d.dows.length) ? 'Chọn ít nhất một ngày trong tuần'
+               : (d && !d.areas.length) ? 'Chọn ít nhất một khu vực' : '',
+      saveDraft: () => this.draftSave(),
+      cancelDraft: () => this.draftCancel()
+    };
+
     return {
-      theme:s.theme, themeDots,
+theme:s.theme, themeDots,
       viewKey: s.mode+'-'+s.page,
       modeIsCenter:!free, modeIsFree:free,
       setCenterMode:()=>this.setMode('center'), setFreeMode:()=>this.setMode('free'),
@@ -1024,9 +1284,11 @@ class Component extends DCLogic {
       freeKpis, requests,
       avail:s.avail, toggleAvail:()=>this.setState({avail:!s.avail}),
       availTrack: s.avail?'var(--ok)':'var(--line)', availKnob: s.avail?'25px':'3px',
-      availSub: s.avail ? 'Đang bật · khách có thể đặt bạn' : 'Đang tắt · không nhận ca mới',
+      availSub: s.avail ? 'Đang bật · khách có thể đặt bạn' : 'Tạm dừng · không nhận ca mới',
+      goAvail:()=>this.go('avail'),
       days, agenda, clients, stops, walletKpis, txns, tierReqs, meLinks,
-      payoutRows, paidBySource, dueBySource
+      payoutRows, paidBySource, dueBySource,
+      ...availVals
     };
   }
 }
