@@ -1,0 +1,35 @@
+{
+  "_ghi_chu": "Metadata cho từng trang. build.py đọc file này để dựng <head>. Sửa tiêu đề và mô tả ở đây, không sửa trong src/pages/.",
+
+  "_chung": {
+    "site_name": "ANWELL",
+    "locale": "vi_VN",
+    "og_image": "assets/img/og-cover.png",
+    "base_url": "https://koalaland-workplace.github.io/anwell_demo/"
+  },
+
+  "index": {
+    "title": "ANWELL — Nền tảng trị liệu & chăm sóc phục hồi tại nhà",
+    "description": "Bản demo tương tác của ANWELL: bốn giao diện cho khách hàng, trung tâm đối tác, kỹ thuật viên và quản trị nền tảng."
+  },
+
+  "app": {
+    "title": "Giao diện Khách hàng — ANWELL",
+    "description": "Khám phá cơ sở trị liệu, đặt lịch tại cơ sở hoặc kỹ thuật viên tại nhà, theo dõi buổi làm việc, đánh giá và tích điểm Hành trình An."
+  },
+
+  "center": {
+    "title": "Quản trị Trung tâm — ANWELL",
+    "description": "Công cụ vận hành cho trung tâm đối tác: bảng điều phối ca, quản lý kỹ thuật viên, khách hàng, doanh thu, chất lượng và vật tư."
+  },
+
+  "ktv": {
+    "title": "Quản trị Kỹ thuật viên — ANWELL",
+    "description": "Hai chế độ làm việc: theo lịch trung tâm phân, hoặc làm tự do với khách riêng. Lộ trình di chuyển, thu nhập và lộ trình thăng bậc."
+  },
+
+  "admin": {
+    "title": "Quản trị Nền tảng — ANWELL",
+    "description": "Giám sát toàn nền tảng: GMV theo khu vực, cảnh báo hệ thống, phê duyệt trung tâm và kỹ thuật viên, chính sách và cấu hình."
+  }
+}
