@@ -303,6 +303,20 @@
   @keyframes gps{0%{transform:scale(.6);opacity:.7}100%{transform:scale(2.6);opacity:0}}
   @keyframes dash{to{stroke-dashoffset:-28}}
   .fu{animation:fu .34s cubic-bezier(.22,.61,.36,1)}
+  /* ── Vỏ trang: lấy nguyên thông số của app.html để hai trang khớp nhau ── */
+  body{background:#e9e6df}
+  .cx{min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:36px 20px 60px;gap:20px}
+  .cap{text-align:center;max-width:520px}
+  .cap h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:26px;color:#12564A;margin:6px 0 0}
+  .cap p{font-size:12.5px;line-height:1.6;color:#3c4a43;margin:6px 0 0}
+  .eb{font:700 10px ui-monospace,monospace;letter-spacing:.24em;color:#B9893B;text-transform:uppercase}
+  .seg{display:inline-flex;background:#fff;border-radius:99px;padding:4px;box-shadow:0 4px 16px rgba(12,63,54,.12);gap:2px}
+  .seg button{padding:8px 16px;border-radius:99px;font-size:12px;font-weight:600;color:#4C6157;transition:all .2s;white-space:nowrap}
+  .phone{width:354px;border-radius:48px;background:#0f1a16;padding:11px;box-shadow:0 44px 90px -26px rgba(12,63,54,.55),0 0 0 1px rgba(0,0,0,.06)}
+  .screen{width:332px;height:718px;border-radius:38px;overflow:hidden;max-width:none!important;margin:0!important;box-shadow:none!important}
+  .sb{flex:none;display:flex;justify-content:space-between;align-items:center;padding:15px 22px 6px;font-size:13px;font-weight:600;color:var(--text)}
+  .sb-r{display:flex;gap:6px;align-items:center}
+
   /* Nhắc lịch gấp: nhấp nháy nhẹ bằng đổ bóng, không đổi độ mờ chữ để vẫn đọc
      được. Tôn trọng người dùng đã tắt hiệu ứng chuyển động trong hệ điều hành. */
   @keyframes blink{0%,100%{box-shadow:0 0 0 0 rgba(216,169,78,0)}50%{box-shadow:0 0 0 5px rgba(216,169,78,.28)}}
@@ -311,7 +325,32 @@
 </style>
 </helmet>
 
-<div class="app" data-theme="{{ theme }}">
+<!-- Vỏ trang dựng theo đúng app.html: tiêu đề và bộ chọn phong cách nằm NGOÀI
+     khung máy, bên trong là mô hình điện thoại có thanh trạng thái. Thông số
+     .cx / .phone / .screen / .sb lấy nguyên từ app.html để hai trang khớp nhau. -->
+<div class="cx">
+  <div class="cap">
+    <p class="eb">ANWELL · Feel well. Live an.</p>
+    <h1>Quản trị Kỹ thuật viên · 3 phong cách</h1>
+    <p>Prototype bấm được. Hai chế độ làm việc — theo lịch trung tâm phân, hoặc làm tự do với khách riêng — chuyển ngay trong từng mục.</p>
+  </div>
+
+  <div class="seg">
+    <sc-for list="{{ themeDots }}" as="td" hint-placeholder-count="3">
+      <button sc-camel-on-click="{{ td.pick }}" style="background:{{ td.segBg }};color:{{ td.segFg }}">{{ td.name }}</button>
+    </sc-for>
+  </div>
+
+  <div class="phone">
+  <div class="app screen" data-theme="{{ theme }}">
+
+  <div class="sb">
+    <span>9:41</span>
+    <span class="sb-r">
+      <svg width="17" height="11" sc-camel-view-box="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"></rect><rect x="4.5" y="5" width="3" height="6" rx="1"></rect><rect x="9" y="2.5" width="3" height="8.5" rx="1"></rect><rect x="13.5" y="0" width="3" height="11" rx="1"></rect></svg>
+      <svg width="25" height="12" sc-camel-view-box="0 0 25 12" fill="none"><rect x="0.5" y="0.5" width="21" height="11" rx="3" stroke="currentColor" opacity=".4"></rect><rect x="2" y="2" width="18" height="8" rx="1.8" fill="currentColor"></rect><path d="M23 4v4a2 2 0 0 0 0-4" fill="currentColor" opacity=".4"></path></svg>
+    </span>
+  </div>
 
   <header style="flex:none;background:var(--surface);border-bottom:1px solid var(--line)">
     <div style="display:flex;align-items:center;gap:11px;padding:13px 16px 10px">
@@ -323,11 +362,6 @@
           <span style="font-size:8.5px;font-weight:700;color:#fff;background:var(--okSolid);padding:2px 7px;border-radius:99px;white-space:nowrap">✓ Xác minh</span>
         </div>
       </div>
-      <span style="flex:none;display:flex;gap:3px;background:var(--surface2);border-radius:99px;padding:3px">
-        <sc-for list="{{ themeDots }}" as="td" hint-placeholder-count="3">
-          <button sc-camel-on-click="{{ td.pick }}" aria-label="{{ td.name }}" style="width:22px;height:22px;border-radius:50%;background:{{ td.sw }};border:2px solid {{ td.ring }}"></button>
-        </sc-for>
-      </span>
       <svg width="24" height="24" sc-camel-view-box="0 0 24 24" style="flex:none"><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(-56 12 22)" fill="var(--accent)" opacity=".4"></path><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(-28 12 22)" fill="var(--accent)" opacity=".7"></path><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" fill="var(--primary)"></path><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(28 12 22)" fill="var(--accent)" opacity=".7"></path><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(56 12 22)" fill="var(--accent)" opacity=".4"></path></svg>
     </div>
     <!-- Bộ chọn chế độ đã chuyển vào trong từng mục menu, không còn ở header:
@@ -1313,13 +1347,13 @@
 
   </main>
 
-  <!-- Nav có chữ dưới icon, theo đúng chuẩn của app.html. -->
-  <nav style="flex:none;display:grid;grid-template-columns:repeat(5,1fr);align-items:center;background:var(--tabbar);border-top:1px solid var(--line);padding:7px 4px 11px;backdrop-filter:blur(12px)">
+  <!-- Nav chỉ icon, không chữ. Cách thể hiện trạng thái giống app.html: KHÔNG
+       có ô nền bo tròn sau icon, đang chọn thì chỉ đổi màu icon. Icon 22px,
+       thanh cao 62px, nền mờ — cùng thông số với .tabbar/.tb của app.html.
+       aria-label giữ tên mục cho trình đọc màn hình vì đã bỏ chữ. -->
+  <nav style="flex:none;height:62px;display:grid;grid-template-columns:repeat(5,1fr);align-items:center;background:var(--tabbar);border-top:1px solid var(--line);padding-bottom:8px;backdrop-filter:blur(16px)">
     <sc-for list="{{ nav }}" as="n" hint-placeholder-count="5">
-      <button sc-camel-on-click="{{ n.go }}" aria-label="{{ n.t }}" style="display:flex;flex-direction:column;align-items:center;gap:4px;padding:2px 0">
-        <span style="display:grid;place-items:center;width:40px;height:28px;border-radius:10px;background:{{ n.chip }};color:{{ n.ic }}">{{ n.icon }}</span>
-        <span style="font-size:9px;font-weight:600;white-space:nowrap;color:{{ n.fg }}">{{ n.t }}</span>
-      </button>
+      <button sc-camel-on-click="{{ n.go }}" aria-label="{{ n.t }}" title="{{ n.t }}" style="display:flex;align-items:center;justify-content:center;color:{{ n.fg }}">{{ n.icon }}</button>
     </sc-for>
   </nav>
 
@@ -1435,7 +1469,10 @@
 
     </div>
   </sc-if>
-</div>
+
+  </div><!-- .screen -->
+  </div><!-- .phone -->
+</div><!-- .cx -->
 
 </x-dc>
 <script type="text/x-dc" data-dc-script="" data-props="{&quot;$preview&quot;:{&quot;width&quot;:460,&quot;height&quot;:940},&quot;startMode&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;center&quot;,&quot;free&quot;],&quot;default&quot;:&quot;center&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Demo&quot;}}">
@@ -1673,8 +1710,9 @@ class Component extends DCLogic {
     ];
     const nav = navIds.map(([icon,id,t])=>{
       const on = s.page===id;
-      return { t, icon:this.ic(icon,19), go:()=>this.go(id),
-        chip:on?'var(--primary)':'transparent', ic:on?'var(--on-primary)':'var(--text3)', fg:on?'var(--primary)':'var(--text3)' };
+      // Icon 22px và chỉ đổi màu khi đang chọn — không ô nền, giống app.html.
+      return { t, icon:this.ic(icon,22), go:()=>this.go(id),
+        fg:on?'var(--primary)':'var(--text3)' };
     });
 
     const centerShifts = [
@@ -1884,8 +1922,11 @@ class Component extends DCLogic {
       { key:'forest',  name:'Rừng Thẫm', sw:'#0A1512' },
       { key:'clarity', name:'Nhịp Sen',  sw:'#F1EBE1' }
     ];
-    const themeDots = themeDefs.map(d=>({ name:d.name, sw:d.sw, pick:()=>this.setState({theme:d.key}),
-      ring: s.theme===d.key ? 'var(--accent)' : 'transparent' }));
+    // Bộ chọn phong cách nằm ngoài khung máy, dạng nút chữ như app.html.
+    const themeDots = themeDefs.map(d=>({
+      name:d.name, pick:()=>this.setState({theme:d.key}),
+      segBg: s.theme===d.key ? '#12564A' : 'transparent',
+      segFg: s.theme===d.key ? '#fff' : '#4C6157' }));
 
     // ── lịch nhận khách ────────────────────────────────────────────
     const chip = (label, on, tap) => ({
