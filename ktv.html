@@ -437,6 +437,19 @@
         </div>
       </div>
 
+      <!-- Ca ngoài cơ sở cần rời đi sớm, nên nhắc riêng thay vì để lẫn trong
+           danh sách — dễ quên mà đi trễ. -->
+      <sc-if value="{{ hasNextStop }}" hint-placeholder-val="{{ true }}">
+        <button sc-camel-on-click="{{ goRoute }}" class="card" style="width:100%;display:flex;align-items:center;gap:11px;padding:13px 14px;margin-top:12px;border-left:3px solid var(--accent);text-align:left">
+          <span style="flex:none;font-size:17px">🚗</span>
+          <span style="flex:1;min-width:0">
+            <span style="display:block;font-size:12.5px;font-weight:700">{{ nextStopTitle }}</span>
+            <span style="display:block;font-size:10.5px;color:var(--text3);margin-top:2px">{{ nextStopText }}</span>
+          </span>
+          <svg width="15" height="15" sc-camel-view-box="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" style="flex:none"><path d="m9 5 7 7-7 7"></path></svg>
+        </button>
+      </sc-if>
+
       <div style="display:flex;align-items:center;justify-content:space-between;margin:18px 0 10px">
         <span style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:18px">Lịch trung tâm phân</span>
         <button sc-camel-on-click="{{ goSchedule }}" style="font-size:11.5px;font-weight:600;color:var(--accent)">Cả tuần →</button>
@@ -852,10 +865,17 @@
       <div class="card" style="padding:0;overflow:hidden">
         <div style="position:relative;height:190px;background:var(--heroGrad)">
           <div style="position:absolute;inset:0;opacity:.5;background-image:linear-gradient(rgba(231,206,151,.16) 1px,transparent 1px),linear-gradient(90deg,rgba(231,206,151,.16) 1px,transparent 1px);background-size:30px 30px"></div>
-          <svg sc-camel-view-box="0 0 360 190" sc-camel-preserve-aspect-ratio="none" style="position:absolute;inset:0;width:100%;height:100%"><path d="M28,166 C90,150 108,110 168,102 C230,94 250,52 300,38 C318,33 330,30 340,28" fill="none" stroke="var(--gold)" stroke-width="2.6" stroke-dasharray="7 7" style="animation:dash 1.4s linear infinite"></path></svg>
-          <span style="position:absolute;left:20px;bottom:22px;width:13px;height:13px;border-radius:50%;background:var(--surface);border:2px solid var(--primary)"></span>
-          <span style="position:absolute;left:44%;top:50%;width:11px;height:11px;border-radius:50%;background:var(--gold);border:2px solid #fff"></span>
-          <span style="position:absolute;right:22px;top:22px"><span style="position:absolute;inset:0;margin:auto;width:15px;height:15px;border-radius:50%;background:var(--gold);animation:gps 1.8s ease-out infinite"></span><span style="position:relative;display:block;width:15px;height:15px;border-radius:50%;background:var(--gold);border:2px solid #fff"></span></span>
+          <!-- Đường đi và các chấm vẽ theo SỐ ĐIỂM DỪNG thật, không cố định 3
+               chấm: chế độ tại trung tâm thường chỉ có một, hai ca ngoài cơ sở. -->
+          <svg sc-camel-view-box="0 0 360 190" sc-camel-preserve-aspect-ratio="none" style="position:absolute;inset:0;width:100%;height:100%">
+            <path d="{{ mapPath }}" fill="none" stroke="var(--gold)" stroke-width="2.6" stroke-dasharray="7 7" style="animation:dash 1.4s linear infinite"></path>
+          </svg>
+          <sc-for list="{{ mapDots }}" as="p" hint-placeholder-count="3">
+            <span style="position:absolute;left:{{ p.x }};top:{{ p.y }};width:{{ p.size }};height:{{ p.size }};margin:-{{ p.half }} 0 0 -{{ p.half }};border-radius:50%;background:{{ p.bg }};border:2px solid {{ p.bd }}"></span>
+          </sc-for>
+          <sc-if value="{{ mapHasLive }}" hint-placeholder-val="{{ true }}">
+            <span style="position:absolute;left:{{ liveX }};top:{{ liveY }};width:15px;height:15px;margin:-7.5px 0 0 -7.5px"><span style="position:absolute;inset:0;width:15px;height:15px;border-radius:50%;background:var(--gold);animation:gps 1.8s ease-out infinite"></span></span>
+          </sc-if>
         </div>
         <div style="padding:14px;display:flex;align-items:center;gap:14px;border-top:1px solid var(--line2)">
           <div style="flex:1"><div style="font-size:10px;color:var(--text3)">Tổng quãng đường</div><div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:19px">{{ mapDist }}</div></div>
@@ -1527,6 +1547,7 @@
         <input type="time" value="{{ draftTo }}" sc-camel-on-input="{{ onDraftTo }}" aria-label="Giờ kết thúc" style="flex:1;min-width:0;padding:11px 10px;border-radius:11px;border:1px solid var(--line);background:var(--surface);color:var(--text);font-size:13px;font-family:inherit">
       </div>
 
+      <sc-if value="{{ draftNeedsArea }}" hint-placeholder-val="{{ true }}">
       <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:18px 0 8px">Khu vực nhận khách</p>
       <div style="display:flex;flex-wrap:wrap;gap:6px">
         <sc-for list="{{ draftAreas }}" as="c" hint-placeholder-count="8">
@@ -1545,8 +1566,19 @@
         </sc-for>
       </div>
 
+      </sc-if>
+
+      <sc-if value="{{ draftNeedsArea }}" hint-placeholder-val="{{ true }}">
       <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:18px 0 8px">Ghi chú</p>
       <textarea value="{{ draftNote }}" sc-camel-on-input="{{ onDraftNote }}" placeholder="Ví dụ: ưu tiên khách định kỳ, không nhận ca cách quá 5 km..." style="width:100%;min-height:74px;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--text);font-size:13px;font-family:inherit;resize:none"></textarea>
+
+      </sc-if>
+
+      <sc-if value="{{ draftIsWeek }}" hint-placeholder-val="{{ false }}">
+        <div class="card" style="padding:11px 13px;margin-top:14px;background:var(--tint);border:1px solid var(--primary)">
+          <p style="font-size:10.5px;line-height:1.6;color:var(--text2)">Đây là khung giờ bạn <strong>báo rảnh</strong> cho An Nhiên làm căn cứ phân ca — không phải lịch công khai cho khách, nên không cần khu vực hay loại hình.</p>
+        </div>
+      </sc-if>
 
       <sc-if value="{{ draftHint }}" hint-placeholder-val="{{ false }}">
         <p style="font-size:11px;color:var(--danger);margin-top:10px">{{ draftHint }}</p>
@@ -1720,6 +1752,17 @@ class Component extends DCLogic {
   weekFreeRemove(id){
     this.setState({ weekFree: this.state.weekFree.filter(x => x.id!==id) });
   }
+  // Khung giờ rảnh hằng tuần dùng chung biểu mẫu với lịch nhận khách, chỉ khác
+  // là không cần khu vực và loại hình — đây là lời khai gửi trung tâm, không
+  // phải lịch công khai cho khách.
+  weekEdit(id){
+    const w = this.state.weekFree.find(x => x.id===id);
+    this.setState({ draft: {...w, kind:'week', areas:[], svcs:[], note:'', areaInput:'', dows:[...w.dows]} });
+  }
+  weekNew(){
+    this.setState({ draft: { id:'w'+Date.now(), kind:'week', dows:[], from:'08:00', to:'18:00',
+                             areas:[], svcs:[], note:'', areaInput:'', isNew:true } });
+  }
   // Bất khả kháng: có hiệu lực ngay, không qua cửa duyệt, nhưng có đếm.
   reportSick(){
     this.setState({
@@ -1771,8 +1814,20 @@ class Component extends DCLogic {
   }
   draftSave(){
     const d = this.state.draft;
-    if(!d.dows.length || !d.areas.length) return;   // thiếu ngày hoặc khu vực thì chưa lưu được
+    if(!d.dows.length) return;
+    // Khung giờ rảnh hằng tuần không đòi khu vực; lịch nhận khách thì có.
+    if(d.kind !== 'week' && !d.areas.length) return;
     const clean = {...d}; delete clean.isNew; delete clean.areaInput;
+    if(d.kind === 'week'){
+      delete clean.kind; delete clean.areas; delete clean.svcs; delete clean.note;
+      const exists = this.state.weekFree.some(x => x.id===d.id);
+      this.setState({
+        weekFree: exists ? this.state.weekFree.map(x => x.id===d.id ? clean : x)
+                         : [...this.state.weekFree, clean],
+        draft: null
+      });
+      return;
+    }
     const exists = this.state.slots.some(x => x.id===d.id);
     this.setState({
       slots: exists ? this.state.slots.map(x => x.id===d.id ? clean : x) : [...this.state.slots, clean],
@@ -1788,6 +1843,13 @@ class Component extends DCLogic {
     // Tóm tắt lịch nhận khách. Tính một lần ở đây rồi dùng lại ở cả mục Tôi
     // lẫn trang Lịch nhận khách, để hai chỗ không bao giờ hiển thị lệch nhau.
     const activeSlots = s.slots.filter(x => x.on);
+    // Khu vực phục vụ tổng hợp từ các khung giờ đang bật, không khai riêng —
+    // tránh hai chỗ khai cùng một thứ rồi lệch nhau.
+    const allAreas = [...new Set(activeSlots.flatMap(x => x.areas))];
+    const areaSummary = allAreas.length
+      ? allAreas.length + ' khu vực · ' + allAreas.slice(0, 3).join(' · ')
+      : 'Chưa khai khu vực nào';
+
     const availSummaryText = !s.avail
       ? 'Đang tạm dừng nhận khách'
       : activeSlots.length
@@ -1980,6 +2042,9 @@ class Component extends DCLogic {
       { icon:'🏢', t:'Liên kết trung tâm', d:'An Nhiên Wellness · từ 03/2024', tap:()=>{} },
       { icon:'💰', t:'Giá dịch vụ riêng', d:'Áp dụng cho ca tự do', tap:()=>{} },
       { icon:'🗓', t:'Khung giờ nhận khách', d:availSummaryText, tap:()=>this.go('avail') },
+      { icon:'📍', t:'Khu vực phục vụ', d:areaSummary, tap:()=>this.goSched('avail') },
+      { icon:'🏦', t:'Phương thức nhận tiền', d:'Vietcombank ···6312 · mặc định', tap:()=>{} },
+      { icon:'👁', t:'Hồ sơ công khai với khách', d:'Xem trước những gì khách nhìn thấy', tap:()=>{} },
       { icon:'⭐', t:'Đánh giá của khách', d:'4,9/5 · 38 lượt · 92% cải thiện', tap:()=>this.go('reviews') },
       { icon:'💬', t:'Tin nhắn với gia đình', d:'1 tin chưa đọc', tap:()=>this.go('chat') },
       { icon:'📜', t:'Chứng nhận & hồ sơ', d:'Bậc 2 · gia hạn 03/2027', tap:()=>{} },
@@ -2060,6 +2125,37 @@ class Component extends DCLogic {
         stFg:'var(--text2)', stBg:'var(--surface2)', dotBg:'var(--surface2)', dotFg:'var(--text3)', line:'0' }
     ];
     const mapStops = free ? stops : centerStops;
+
+    // Vẽ minh hoạ bản đồ theo đúng số điểm dừng. Các điểm rải đều trên một
+    // đường cong; một điểm thì chỉ có cơ sở → điểm đến, ba điểm thì ba chặng.
+    // Chấm cuối cùng nhấp nháy nếu tuyến chưa đi hết.
+    function mapArt(list){
+      const n = list.length;
+      if(!n) return { mapPath:'', mapDots:[], mapHasLive:false, liveX:'0', liveY:'0' };
+      // Toạ độ % trên khung 360x190, đi từ trái dưới lên phải trên.
+      const at = (i) => {
+        const t = n === 1 ? 1 : i / (n - 1);
+        return { x: 8 + t * 84, y: 86 - t * 72 };          // đơn vị %
+      };
+      const origin = { x: 8, y: 86 };
+      // Một điểm dừng thì vẫn cần hai chấm: nơi xuất phát và nơi đến.
+      const uniq = n === 1 ? [origin, at(0)] : list.map((_, i) => at(i));
+      const path = uniq.map((p, i) => {
+        const X = p.x * 3.6, Y = p.y * 1.9;                 // % → toạ độ viewBox
+        return (i ? 'L' : 'M') + X.toFixed(0) + ',' + Y.toFixed(0);
+      }).join(' ');
+      const done = list.filter(x => x.st === 'Xong').length;
+      const dots = uniq.map((p, i) => {
+        const last = i === uniq.length - 1;
+        return { x:p.x+'%', y:p.y+'%',
+          size: last ? '15px' : '12px', half: last ? '7.5px' : '6px',
+          bg: i <= done ? 'var(--gold)' : 'var(--surface)',
+          bd: i <= done ? '#fff' : 'var(--primary)' };
+      });
+      const live = uniq[Math.min(done, uniq.length - 1)];
+      return { mapPath: path, mapDots: dots,
+               mapHasLive: done < uniq.length, liveX: live.x+'%', liveY: live.y+'%' };
+    }
     // Tên tab giống nhau ở cả hai chế độ, đúng nguyên tắc của điều hướng chính.
     // Tab thứ ba làm cùng một việc — khai báo khi nào mình rảnh — chỉ khác là
     // tại trung tâm phải qua duyệt, còn tự do thì hiệu lực ngay.
@@ -2084,6 +2180,11 @@ class Component extends DCLogic {
       mapStops,
       mapDist:    mapStops.length > 1 ? '14,2 km' : '6,4 km',
       mapTime:    mapStops.length > 1 ? '52 phút' : '18 phút',
+      ...mapArt(mapStops),
+      // Nhắc điểm đến ngoài cơ sở gần nhất trong ngày.
+      hasNextStop: !free && centerStops.length > 0,
+      nextStopTitle: centerStops.length ? 'Điểm kế tiếp · ' + centerStops[0].time + ' · ' + centerStops[0].svc : '',
+      nextStopText:  centerStops.length ? centerStops[0].addr + ' · ' + centerStops[0].travel : '',
       availFree:  onSched && s.schedTab==='avail' && free,
       availCenter:onSched && s.schedTab==='avail' && !free,
       goRouteTab: () => this.goSched('map'),
@@ -2118,10 +2219,10 @@ class Component extends DCLogic {
       weekFree: s.weekFree.map(w => ({
         dows:  w.dows.length > 2 ? w.dows[0]+'–'+w.dows[w.dows.length-1] : w.dows.join(' · '),
         hours: w.from + '–' + w.to,
-        edit:   () => {},
+        edit:   () => this.weekEdit(w.id),
         remove: () => this.weekFreeRemove(w.id)
       })),
-      addWeekFree: () => {},
+      addWeekFree: () => this.weekNew(),
       sickUsed: s.sickUsed,
       reportSick: () => this.reportSick()
     };
@@ -2352,6 +2453,7 @@ class Component extends DCLogic {
     };
 
     const d = s.draft;
+    const draftOk = !!(d && d.dows.length && (d.kind === 'week' || d.areas.length));
     const availVals = {
       availSlots,
       availSummary: availSummaryText,
@@ -2362,7 +2464,9 @@ class Component extends DCLogic {
       addSlot: () => this.slotNew(),
 
       isDraft: !!d,
-      draftTitle: d && d.isNew ? 'Thêm khung giờ' : 'Sửa khung giờ',
+      draftTitle: d ? (d.kind === 'week'
+        ? (d.isNew ? 'Thêm khung giờ rảnh' : 'Sửa khung giờ rảnh')
+        : (d.isNew ? 'Thêm khung giờ nhận khách' : 'Sửa khung giờ nhận khách')) : '',
       draftFrom: d ? d.from : '',
       draftTo: d ? d.to : '',
       draftNote: d ? d.note : '',
@@ -2380,11 +2484,13 @@ class Component extends DCLogic {
       addArea: () => this.addArea(),
       addAreaBg: (d && (d.areaInput || '').trim()) ? 'var(--primary)' : 'var(--line2)',
       addAreaFg: (d && (d.areaInput || '').trim()) ? 'var(--on-primary)' : 'var(--text3)',
-      draftValid: !!(d && d.dows.length && d.areas.length),
-      draftSaveBg: (d && d.dows.length && d.areas.length) ? 'var(--primary)' : 'var(--line2)',
-      draftSaveFg: (d && d.dows.length && d.areas.length) ? 'var(--on-primary)' : 'var(--text3)',
+      draftIsWeek: !!(d && d.kind === 'week'),
+      draftNeedsArea: !!(d && d.kind !== 'week'),
+      draftValid: !!(d && d.dows.length && (d.kind === 'week' || d.areas.length)),
+      draftSaveBg: draftOk ? 'var(--primary)' : 'var(--line2)',
+      draftSaveFg: draftOk ? 'var(--on-primary)' : 'var(--text3)',
       draftHint: (d && !d.dows.length) ? 'Chọn ít nhất một ngày trong tuần'
-               : (d && !d.areas.length) ? 'Chọn ít nhất một khu vực' : '',
+               : (d && d.kind !== 'week' && !d.areas.length) ? 'Chọn ít nhất một khu vực' : '',
       saveDraft: () => this.draftSave(),
       cancelDraft: () => this.draftCancel()
     };

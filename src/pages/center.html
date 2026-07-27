@@ -747,19 +747,8 @@
       <!-- ═══ SETTINGS ═══ -->
       <sc-if value="{{ isSettings }}" hint-placeholder-val="{{ false }}">
         <div class="split">
-          <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px">
-            <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:18px">Hồ sơ trung tâm</div>
-            <div style="display:flex;flex-direction:column;gap:12px;margin-top:14px">
-              <sc-for list="{{ profileRows }}" as="p" hint-placeholder-count="5">
-                <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:14px;padding-bottom:11px;border-bottom:1px solid var(--line2)">
-                  <span style="flex:none;width:112px;font-size:11px;color:var(--text3)">{{ p.k }}</span>
-                  <span style="flex:1;text-align:right;font-size:12.5px;font-weight:600">{{ p.v }}</span>
-                </div>
-              </sc-for>
-            </div>
-            <button style="width:100%;margin-top:16px;padding:12px;border-radius:10px;background:var(--surface2);color:var(--primary);font-size:12.5px;font-weight:600;text-align:center">Chỉnh sửa hồ sơ</button>
-          </div>
-
+          <!-- Cột trái: giờ hoạt động → hồ sơ → tài khoản.
+               Cột phải: thuế & hoá đơn. -->
           <div style="display:flex;flex-direction:column;gap:14px">
             <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px">
               <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:18px">Giờ hoạt động</div>
@@ -771,9 +760,35 @@
                   </div>
                 </sc-for>
               </div>
+              <button sc-camel-on-click="{{ editHours }}" style="width:100%;margin-top:14px;padding:11px;border-radius:10px;background:var(--surface2);color:var(--text2);font-size:12px;font-weight:600">Điều chỉnh giờ hoạt động</button>
             </div>
-            <!-- Thuế & hoá đơn — trung tâm vừa là người nộp thuế, vừa là bên
-                 khấu trừ hộ cho KTV thuộc trung tâm, nên cần khai cả hai vai. -->
+            <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px">
+            <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:18px">Hồ sơ trung tâm</div>
+            <div style="display:flex;flex-direction:column;gap:12px;margin-top:14px">
+              <sc-for list="{{ profileRows }}" as="p" hint-placeholder-count="5">
+                <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:14px;padding-bottom:11px;border-bottom:1px solid var(--line2)">
+                  <span style="flex:none;width:112px;font-size:11px;color:var(--text3)">{{ p.k }}</span>
+                  <span style="flex:1;text-align:right;font-size:12.5px;font-weight:600">{{ p.v }}</span>
+                </div>
+              </sc-for>
+            </div>
+            <button style="width:100%;margin-top:16px;padding:12px;border-radius:10px;background:var(--surface2);color:var(--primary);font-size:12.5px;font-weight:600;text-align:center">Chỉnh sửa hồ sơ</button>
+          </div>
+            <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px">
+              <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:18px">Tài khoản &amp; phân quyền</div>
+              <div style="display:flex;flex-direction:column;gap:10px;margin-top:12px">
+                <sc-for list="{{ members }}" as="m" hint-placeholder-count="3">
+                  <div style="display:flex;align-items:center;gap:11px">
+                    <span style="flex:none;width:32px;height:32px;border-radius:50%;background:var(--tint);display:grid;place-items:center;font-size:11.5px;font-weight:700;color:var(--primary)">{{ m.i }}</span>
+                    <span style="flex:1;min-width:0"><span style="display:block;font-size:12.5px;font-weight:600">{{ m.n }}</span><span style="display:block;font-size:10.5px;color:var(--text3)">{{ m.e }}</span></span>
+                    <span style="flex:none;font-size:9.5px;font-weight:700;color:var(--text2);background:var(--surface2);padding:3px 9px;border-radius:99px">{{ m.role }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:14px">
             <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px">
               <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:18px">Thuế &amp; hoá đơn</div>
 
@@ -805,19 +820,6 @@
                 <button style="flex:1;padding:11px;border-radius:10px;background:var(--surface2);color:var(--text2);font-size:11.5px;font-weight:600">Hoá đơn phí nền tảng</button>
               </div>
               <p style="font-size:10px;line-height:1.6;color:var(--text3);margin-top:11px;padding-left:9px;border-left:2px solid var(--line2)">Số liệu trong bản demo chỉ để minh hoạ. Mức thuế, ngưỡng và kỳ kê khai thay đổi theo quy định từng thời kỳ — bản chạy thật cần kế toán rà soát.</p>
-            </div>
-
-            <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px">
-              <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:18px">Tài khoản &amp; phân quyền</div>
-              <div style="display:flex;flex-direction:column;gap:10px;margin-top:12px">
-                <sc-for list="{{ members }}" as="m" hint-placeholder-count="3">
-                  <div style="display:flex;align-items:center;gap:11px">
-                    <span style="flex:none;width:32px;height:32px;border-radius:50%;background:var(--tint);display:grid;place-items:center;font-size:11.5px;font-weight:700;color:var(--primary)">{{ m.i }}</span>
-                    <span style="flex:1;min-width:0"><span style="display:block;font-size:12.5px;font-weight:600">{{ m.n }}</span><span style="display:block;font-size:10.5px;color:var(--text3)">{{ m.e }}</span></span>
-                    <span style="flex:none;font-size:9.5px;font-weight:700;color:var(--text2);background:var(--surface2);padding:3px 9px;border-radius:99px">{{ m.role }}</span>
-                  </div>
-                </sc-for>
-              </div>
             </div>
           </div>
         </div>
@@ -1091,7 +1093,7 @@ class Component extends DCLogic {
       crmKpis, customers, services,
       finKpis, payouts,
       reviews, qualBars, inventory,
-      profileRows, hoursRows, members, taxRows,
+      profileRows, hoursRows, members, taxRows, editHours: () => {},
       // Công tắc khấu trừ hộ KTV. Chỉ tác động tới KTV đã chọn uỷ quyền khấu
       // trừ trong hồ sơ của họ; KTV tự kê khai thì trung tâm luôn trả đủ.
       toggleWithhold: () => this.setState({ withhold: !s.withhold }),
