@@ -584,7 +584,7 @@
           <div style="margin-top:14px;background:var(--surface);border-radius:var(--r);border:1px solid var(--card-border);border-top:3px solid var(--accent);box-shadow:var(--sh);padding:16px">
             <span style="font:700 9.5px ui-monospace,monospace;letter-spacing:.16em;color:var(--accent);text-transform:uppercase">✦ Trợ lý ANWELL</span>
             <p style="font-size:12.5px;line-height:1.6;color:var(--text);margin:9px 0 0">Mức đau giảm đều sau mỗi buổi, nhưng thường nhích lên thứ Hai — có thể do tư thế ngồi đầu tuần. Thử thêm bài giãn cơ 3 phút buổi sáng nhé.</p>
-            <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap"><button sc-camel-on-click="{{ goDiscover }}" style="font-size:11px;font-weight:600;padding:8px 12px;border-radius:99px;background:var(--surface2);color:var(--text)">Xem bài giãn cơ</button><button style="font-size:11px;font-weight:600;padding:8px 12px;border-radius:99px;background:var(--surface2);color:var(--text)">Nhắc mỗi sáng</button></div>
+            <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap"><button sc-camel-on-click="{{ goDiscover }}" style="font-size:11px;font-weight:600;padding:8px 12px;border-radius:99px;background:var(--surface2);color:var(--text)">Xem bài giãn cơ</button><button sc-camel-on-click="{{ toggleMorning }}" style="font-size:11px;font-weight:600;padding:8px 12px;border-radius:99px;background:var(--surface2);color:var(--text)">Nhắc mỗi sáng</button></div>
             <p style="font-size:10px;font-style:italic;color:var(--text3);line-height:1.5;margin-top:12px;padding-left:10px;border-left:2px solid var(--border)">Gợi ý tham khảo, không phải chẩn đoán y khoa và không thay thế ý kiến bác sĩ.</p>
           </div>
         </div>
@@ -787,7 +787,7 @@
             <sc-if value="{{ timeNotConfirmed }}" hint-placeholder-val="{{ true }}">
               <div style="display:flex;gap:9px;margin-top:12px">
                 <button sc-camel-on-click="{{ confirmTime }}" style="flex:1;padding:12px;border-radius:var(--r-sm);background:var(--primary);color:var(--on-primary);font-weight:600;font-size:13px">Xác nhận đúng</button>
-                <button style="flex:none;padding:12px 14px;border-radius:var(--r-sm);background:var(--surface2);color:var(--text2);font-weight:600;font-size:13px">Báo sai lệch</button>
+                <button sc-camel-on-click="{{ reportIssue }}" style="flex:none;padding:12px 14px;border-radius:var(--r-sm);background:var(--surface2);color:var(--text2);font-weight:600;font-size:13px">Báo sai lệch</button>
               </div>
             </sc-if>
             <sc-if value="{{ timeConfirmed }}" hint-placeholder-val="{{ false }}">
@@ -1469,7 +1469,7 @@
           <div style="margin-top:12px;border-radius:var(--r);padding:18px;background:var(--hero);color:var(--hero-text);box-shadow:0 16px 34px -14px rgba(12,63,54,.5)">
             <p style="font-size:10px;color:var(--accent-soft)">Số dư ví ANWELL</p>
             <p style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:30px;margin:2px 0 0">1.250.000₫</p>
-            <div style="display:flex;gap:9px;margin-top:14px"><button style="flex:1;padding:11px;border-radius:var(--r-sm);background:var(--accent-soft);color:#06140F;font-weight:700;font-size:12px">Nạp ví</button><button style="flex:1;padding:11px;border-radius:var(--r-sm);background:rgba(255,255,255,.12);color:#fff;font-weight:600;font-size:12px">Lịch sử</button></div>
+            <div style="display:flex;gap:9px;margin-top:14px"><button sc-camel-on-click="{{ topUp }}" style="flex:1;padding:11px;border-radius:var(--r-sm);background:var(--accent-soft);color:#06140F;font-weight:700;font-size:12px">Nạp ví</button><button sc-camel-on-click="{{ walletHistory }}" style="flex:1;padding:11px;border-radius:var(--r-sm);background:rgba(255,255,255,.12);color:#fff;font-weight:600;font-size:12px">Lịch sử</button></div>
           </div>
           <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.2em;color:var(--text3);text-transform:uppercase;margin:22px 0 10px">Gói đang dùng</p>
           <div style="display:flex;flex-direction:column;gap:10px">
@@ -1499,9 +1499,9 @@
           <p style="font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--text3);margin:22px 0 8px">MÃ GIỚI THIỆU CỦA BẠN</p>
           <div style="display:flex;gap:9px">
             <div style="flex:1;background:var(--surface);border:1.5px dashed var(--accent);border-radius:var(--r-sm);padding:15px;text-align:center;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:22px;letter-spacing:.1em;color:var(--text)">MINH-2024</div>
-            <button style="flex:none;padding:0 18px;border-radius:var(--r-sm);background:var(--primary);color:var(--on-primary);font-weight:600;font-size:13px">Sao chép</button>
+            <button sc-camel-on-click="{{ copyCode }}" style="flex:none;padding:0 18px;border-radius:var(--r-sm);background:var(--primary);color:var(--on-primary);font-weight:600;font-size:13px">Sao chép</button>
           </div>
-          <button style="width:100%;margin-top:10px;padding:14px;border-radius:var(--r-sm);background:var(--accent);color:#06140F;font-weight:700;font-size:14px">Chia sẻ lời mời</button>
+          <button sc-camel-on-click="{{ shareInvite }}" style="width:100%;margin-top:10px;padding:14px;border-radius:var(--r-sm);background:var(--accent);color:#06140F;font-weight:700;font-size:14px">Chia sẻ lời mời</button>
           <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.2em;color:var(--text3);text-transform:uppercase;margin:22px 0 10px">Bạn đã mời</p>
           <div style="background:var(--surface);border-radius:var(--r);border:1px solid var(--card-border);box-shadow:var(--sh);overflow:hidden">
             <sc-for list="{{ invited }}" as="i" hint-placeholder-count="2">
@@ -1525,7 +1525,7 @@
               <div style="display:flex;align-items:center;gap:12px;background:var(--surface);border-radius:var(--r);border:1px solid var(--card-border);box-shadow:var(--sh);padding:13px 14px"><span style="width:40px;height:40px;border-radius:50%;background:var(--surface2);display:grid;place-items:center;font-size:15px;font-weight:700;color:var(--primary)">{{ f.i }}</span><div style="flex:1;min-width:0"><p style="font-size:13.5px;font-weight:600;color:var(--text)">{{ f.name }}</p><p style="font-size:10.5px;color:var(--text3);margin-top:1px">{{ f.role }}</p></div><span style="font-size:9px;font-weight:700;color:var(--text2);background:var(--surface2);padding:3px 8px;border-radius:99px">{{ f.perm }}</span></div>
             </sc-for>
           </div>
-          <button style="width:100%;margin-top:16px;padding:14px;border-radius:var(--r-sm);background:var(--surface2);color:var(--text);font-weight:600;font-size:14px;border:1.5px dashed var(--border)">+ Mời thành viên</button>
+          <button sc-camel-on-click="{{ inviteMember }}" style="width:100%;margin-top:16px;padding:14px;border-radius:var(--r-sm);background:var(--surface2);color:var(--text);font-weight:600;font-size:14px;border:1.5px dashed var(--border)">+ Mời thành viên</button>
         </div>
       </sc-if>
 
@@ -2071,7 +2071,10 @@ class Component extends DCLogic {
       isPolicy:s.view==='policy',
       // membership / rewards
       tierName:'Vững An', tierNext:'Thịnh An', points:'1.240', tierPct:'62%', tierRemain:'760',
-      goRewards:()=>this.setState({view:'rewards'}), isRewards:s.view==='rewards',
+      goRewards:()=>this.setState({view:'rewards'}),
+      // Nút phụ: hiện chưa nối luồng thật, giữ chỗ để bấm không bị chết.
+      toggleMorning:()=>{}, reportIssue:()=>{}, topUp:()=>{}, walletHistory:()=>{},
+      copyCode:()=>{}, shareInvite:()=>{}, inviteMember:()=>{}, isRewards:s.view==='rewards',
       tiers:[
         { name:'Khởi An', req:'0 điểm', color:'#8AA396', bd:'var(--card-border)', current:false, perk:'Tích điểm mọi buổi · nhắc lịch thông minh.' },
         { name:'Vững An', req:'1.000 điểm', color:'#2E8567', bd:'var(--accent)', current:true, perk:'Giảm 5% mọi gói · ưu tiên giữ khung giờ đẹp.' },
@@ -2195,7 +2198,7 @@ class Component extends DCLogic {
       pickVideo:(i)=>this.pickVideo(i), videoMuted:s.videoMuted, videoNotMuted:!s.videoMuted, toggleVidMute:()=>this.toggleVidMute(),
       nav:{ journey:nav('journey').color, discover:nav('discover').color, book:nav('book').color, visits:nav('visits').color, me:nav('me').color },
       goJourney:()=>this.go('journey'), goDiscover:()=>this.go('discover'), goBook:()=>this.go('book'),
-      goCare:()=>this.go('care'), goCareBook:()=>this.setState({view:'carebook',careDone:false}), goCareCert:()=>this.go('carecert'), submitCare:()=>{ if(this.state.verified){ this.setState({careDone:true}); } else this.setState({view:'verify',verifyStep:'info',pendingAction:'care'}); }, goVisits:()=>this.go('visits'), goRecord:()=>this.go('record'), goMe:()=>this.go('me'),
+      goCare:()=>this.go('care'), goCareBook:()=>this.setState({view:'carebook',careDone:false}), goPackages:()=>this.setState({view:'carebook',careDone:false}), goCareCert:()=>this.go('carecert'), submitCare:()=>{ if(this.state.verified){ this.setState({careDone:true}); } else this.setState({view:'verify',verifyStep:'info',pendingAction:'care'}); }, goVisits:()=>this.go('visits'), goRecord:()=>this.go('record'), goMe:()=>this.go('me'),
       // onboarding
       ob1:s.ob===1, ob2:s.ob===2, ob3:s.ob===3,
       goExplore:()=>this.setState({view:'discover'}),

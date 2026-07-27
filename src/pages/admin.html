@@ -563,6 +563,45 @@
             </div>
           </sc-for>
         </div>
+
+        <!-- ANWELL trực tiếp quản lý KTV tự do, nên phải có chỗ xử lý khi chất
+             lượng tụt hoặc có vi phạm — không chỉ xem thống kê. -->
+        <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;margin-top:14px">
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:17px">KTV cần chú ý</div>
+            <sc-if value="{{ hasWatch }}" hint-placeholder-val="{{ true }}">
+              <span style="font-size:9.5px;font-weight:700;color:#fff;background:var(--dangerSolid);padding:3px 9px;border-radius:99px">{{ watchCount }} trường hợp</span>
+            </sc-if>
+          </div>
+
+          <sc-if value="{{ hasWatch }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;flex-direction:column;gap:11px;margin-top:13px">
+              <sc-for list="{{ watchKtv }}" as="w" hint-placeholder-count="3">
+                <div style="border:1px solid var(--line);border-left:3px solid {{ w.accent }};border-radius:12px;padding:13px">
+                  <div style="display:flex;align-items:flex-start;gap:11px;flex-wrap:wrap">
+                    <span style="flex:none;width:34px;height:34px;border-radius:50%;background:var(--goldTint);display:grid;place-items:center;font-size:11px;font-weight:700;color:var(--goldText)">{{ w.i }}</span>
+                    <span style="flex:1;min-width:180px">
+                      <span style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+                        <span style="font-size:12.5px;font-weight:600">{{ w.n }}</span>
+                        <span style="font-size:9px;font-weight:700;color:var(--text2);background:var(--surface2);padding:2px 8px;border-radius:99px">{{ w.tier }}</span>
+                        <span style="font-size:9px;font-weight:700;color:{{ w.kFg }};background:{{ w.kBg }};padding:2px 8px;border-radius:99px">{{ w.kind }}</span>
+                      </span>
+                      <span style="display:block;font-size:11.5px;color:var(--text2);margin-top:5px">{{ w.detail }}</span>
+                    </span>
+                  </div>
+                  <div style="display:flex;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid var(--line2)">
+                    <button sc-camel-on-click="{{ w.warn }}" style="flex:1;padding:9px;border-radius:9px;background:var(--surface2);color:var(--text2);font-size:11.5px;font-weight:600;text-align:center">Nhắc nhở &amp; yêu cầu giải trình</button>
+                    <button sc-camel-on-click="{{ w.pause }}" style="flex:none;padding:9px 13px;border-radius:9px;background:var(--goldTint);color:var(--goldText);font-size:11.5px;font-weight:600">Tạm dừng nhận khách</button>
+                    <button sc-camel-on-click="{{ w.demote }}" style="flex:none;padding:9px 13px;border-radius:9px;background:var(--dangerTint);color:var(--danger);font-size:11.5px;font-weight:600">Hạ bậc</button>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ noWatch }}" hint-placeholder-val="{{ false }}">
+            <p style="font-size:12px;color:var(--text3);margin-top:12px">Không có trường hợp nào cần xử lý.</p>
+          </sc-if>
+        </div>
       </sc-if>
 
       <!-- ═══ ANP LOYALTY ═══ -->
@@ -594,10 +633,19 @@
           <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px">
             <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:17px">Điểm riêng của trung tâm</div>
             <div style="font-size:11px;color:var(--text3);margin-top:1px;margin-bottom:12px">Mô hình hai lớp đang áp dụng</div>
-            <div style="display:flex;align-items:center;justify-content:space-between;padding:12px;border-radius:11px;background:var(--tint);margin-bottom:12px">
-              <span style="font-size:12px;font-weight:600;color:var(--primary)">Cho phép, nhưng có ràng buộc</span>
-              <span style="font-size:9.5px;font-weight:700;color:#fff;background:var(--okSolid);padding:3px 9px;border-radius:99px">Đang bật</span>
+            <!-- Đây là công tắc thật, không phải nhãn: bật/tắt mô hình hai lớp
+                 là quyết định chính sách lớn nhất của nền tảng. -->
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px;border-radius:11px;background:{{ dualBg }};margin-bottom:12px">
+              <span style="flex:1;min-width:0;font-size:12px;font-weight:600;color:{{ dualFg }}">{{ dualLabel }}</span>
+              <button sc-camel-on-click="{{ toggleDual }}" aria-label="Mô hình hai lớp" style="flex:none;width:46px;height:27px;border-radius:99px;background:{{ dualTrack }};position:relative;transition:background .2s">
+                <span style="position:absolute;top:3px;left:{{ dualKnob }};width:21px;height:21px;border-radius:50%;background:#fff;box-shadow:0 2px 5px rgba(0,0,0,.24);transition:left .2s"></span>
+              </button>
             </div>
+            <sc-if value="{{ dualOff }}" hint-placeholder-val="{{ false }}">
+              <div style="padding:11px 13px;border-radius:11px;background:var(--dangerTint);border:1px solid var(--danger);margin-bottom:12px">
+                <p style="font-size:11px;line-height:1.55;color:var(--text2)">Tắt mô hình hai lớp nghĩa là <strong>kỹ thuật viên đang làm tại trung tâm không được nhận khách tự do</strong>. Ràng buộc bên dưới sẽ ngừng áp dụng.</p>
+              </div>
+            </sc-if>
             <div style="display:flex;flex-direction:column;gap:9px">
               <sc-for list="{{ dualRules }}" as="r" hint-placeholder-count="4">
                 <div style="display:flex;gap:9px;align-items:flex-start">
@@ -663,7 +711,13 @@
                 <sc-for list="{{ configs }}" as="c" hint-placeholder-count="5">
                   <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding-bottom:10px;border-bottom:1px solid var(--line2)">
                     <span style="flex:1;min-width:0"><span style="display:block;font-size:12px;font-weight:600">{{ c.t }}</span><span style="display:block;font-size:10px;color:var(--text3);margin-top:1px">{{ c.d }}</span></span>
-                    <span style="flex:none;font-size:12.5px;font-weight:700;color:var(--primary)">{{ c.v }}</span>
+                    <!-- Tham số nền tảng phải sửa được ngay tại đây: đây là chỗ
+                         thể hiện "đổi quy tắc không cần sửa mã". -->
+                    <span style="flex:none;display:flex;align-items:center;gap:7px">
+                      <button sc-camel-on-click="{{ c.dec }}" aria-label="Giảm {{ c.t }}" style="width:26px;height:26px;border-radius:8px;background:var(--surface2);color:var(--text2);font-size:14px;font-weight:700">−</button>
+                      <span style="min-width:52px;text-align:center;font-size:12.5px;font-weight:700;color:var(--primary)">{{ c.v }}</span>
+                      <button sc-camel-on-click="{{ c.inc }}" aria-label="Tăng {{ c.t }}" style="width:26px;height:26px;border-radius:8px;background:var(--surface2);color:var(--text2);font-size:14px;font-weight:700">+</button>
+                    </span>
                   </div>
                 </sc-for>
               </div>
@@ -750,6 +804,24 @@ class Component extends DCLogic {
   state = { theme:'serene', page:'dash', ctrFilter:'Tất cả', pFilter:'Tất cả',
     // Bảy hồ sơ chờ duyệt — khớp đúng con số hiển thị ở badge và chỉ số.
     // hours = số giờ đã chờ, dùng để tính "quá hạn 48h" thay vì ghi cứng.
+    // k = khoá, n = giá trị, step = bước nhảy, min/max = giới hạn
+    // KTV tự do có vấn đề cần ANWELL xử lý
+    watch: [
+      { id:'w1', i:'BT', n:'Bùi Thanh Tú', tier:'Bậc 2', kind:'Chất lượng giảm',
+        detail:'Đánh giá TB tụt từ 4,8 xuống 4,1 trong 30 ngày · 3 khiếu nại chưa đóng' },
+      { id:'w2', i:'HD', n:'Hoàng Đình Nam', tier:'Bậc 1', kind:'Huỷ ca nhiều',
+        detail:'Huỷ 6 ca trong 14 ngày · tỷ lệ nhận ca còn 61%' },
+      { id:'w3', i:'LTM', n:'Lý Thu Mai', tier:'Bậc 2', kind:'Chứng chỉ hết hạn',
+        detail:'Chứng chỉ trị liệu hết hạn 12/07 · chưa nộp bản gia hạn' }
+    ],
+    dual: true,   // mô hình hai lớp: KTV vừa làm trung tâm vừa làm tự do
+    cfgs: [
+      { k:'ctrFee',  t:'Chiết khấu nền tảng · trung tâm', d:'Áp dụng trên doanh thu buổi', n:15, unit:'%',    step:1, min:5,  max:30 },
+      { k:'ktvFee',  t:'Chiết khấu nền tảng · KTV tự do', d:'Trừ trực tiếp mỗi ca',        n:15, unit:'%',    step:1, min:5,  max:30 },
+      { k:'kycSla',  t:'Cam kết duyệt hồ sơ',             d:'KYC trung tâm và KTV',        n:48, unit:' giờ', step:12, min:12, max:120 },
+      { k:'freeCan', t:'Miễn phí huỷ trước',              d:'Hoàn 100% cho khách',         n:12, unit:' giờ', step:6,  min:0,  max:72 },
+      { k:'radius',  t:'Bán kính ghép KTV tự do',         d:'Mặc định theo đô thị',        n:8,  unit:' km',  step:1,  min:2,  max:30 }
+    ],
     approvals: [
       { id:'a1', icon:'🏢', iBg:'var(--tint)', n:'Hoà Mộc Center', kind:'Trung tâm',
         kFg:'var(--primary)', kBg:'var(--tint)', hours:52,
@@ -809,6 +881,12 @@ class Component extends DCLogic {
   go(id){ this.setState({page:id}); }
   // Phê duyệt, yêu cầu bổ sung hay từ chối đều đưa hồ sơ ra khỏi hàng chờ;
   // badge và các chỉ số phía trên tự tính lại theo danh sách còn lại.
+  toggleDual(){ this.setState({ dual: !this.state.dual }); }
+  resolveWatch(id){ this.setState({ watch: this.state.watch.filter(x => x.id !== id) }); }
+  cfgStep(k, dir){
+    this.setState({ cfgs: this.state.cfgs.map(c => c.k !== k ? c
+      : {...c, n: Math.min(c.max, Math.max(c.min, c.n + dir * c.step))}) });
+  }
   resolveAppr(id){ this.setState({ approvals: this.state.approvals.filter(x => x.id !== id) }); }
 
   renderVals(){
@@ -972,13 +1050,13 @@ class Component extends DCLogic {
       { t:'Tuyên bố miễn trừ y khoa', v:'1.6', d:'Hiệu lực 01/03/2026', st:'Đang áp dụng', stFg:'var(--ok)', stBg:'var(--okTint)' }
     ];
 
-    const configs = [
-      { t:'Chiết khấu nền tảng · trung tâm', d:'Áp dụng trên doanh thu buổi', v:'15%' },
-      { t:'Chiết khấu nền tảng · KTV tự do', d:'Trừ trực tiếp mỗi ca', v:'15%' },
-      { t:'Cam kết duyệt hồ sơ', d:'KYC trung tâm và KTV', v:'48 giờ' },
-      { t:'Miễn phí huỷ trước', d:'Hoàn 100% cho khách', v:'12 giờ' },
-      { t:'Bán kính ghép KTV tự do', d:'Mặc định theo đô thị', v:'8 km' }
-    ];
+    // Tham số nền tảng — sửa được tại chỗ, mỗi tham số có bước nhảy và giới hạn
+    // riêng để không đặt được giá trị vô lý.
+    const configs = s.cfgs.map(c => ({
+      t:c.t, d:c.d, v: c.n + c.unit,
+      dec: () => this.cfgStep(c.k, -1),
+      inc: () => this.cfgStep(c.k, 1)
+    }));
 
     const campaigns = [
       { t:'Tháng phục hồi tại nhà', d:'Đang chạy · đến 15/08', reach:'42k', dot:'var(--ok)' },
@@ -1021,6 +1099,23 @@ class Component extends DCLogic {
       theme:s.theme, themeDots,
       page:s.page, pgGroup:pg.g, pgTitle:pg.t, navGroups:groups, bottomNav,
       addPartner: () => {},
+      toggleDual: () => this.toggleDual(),
+      watchKtv: s.watch.map(w => ({ ...w,
+        accent: w.kind === 'Chứng chỉ hết hạn' ? 'var(--dangerSolid)' : 'var(--accent)',
+        kFg:    w.kind === 'Chứng chỉ hết hạn' ? 'var(--danger)' : 'var(--goldText)',
+        kBg:    w.kind === 'Chứng chỉ hết hạn' ? 'var(--dangerTint)' : 'var(--goldTint)',
+        warn:   () => this.resolveWatch(w.id),
+        pause:  () => this.resolveWatch(w.id),
+        demote: () => this.resolveWatch(w.id) })),
+      watchCount: s.watch.length,
+      hasWatch: s.watch.length > 0,
+      noWatch:  s.watch.length === 0,
+      dualOff: !s.dual,
+      dualLabel: s.dual ? 'Cho phép, nhưng có ràng buộc' : 'Đang tắt · KTV chỉ được làm một bên',
+      dualBg: s.dual ? 'var(--tint)' : 'var(--surface2)',
+      dualFg: s.dual ? 'var(--primary)' : 'var(--text2)',
+      dualTrack: s.dual ? 'var(--okSolid)' : 'var(--line)',
+      dualKnob: s.dual ? '22px' : '3px',
       isDash:s.page==='dash', isCenters:s.page==='centers', isApprovals:s.page==='approvals',
       isKtv:s.page==='ktv', isLoyalty:s.page==='loyalty', isPartners:s.page==='partners',
       isPolicy:s.page==='policy', isData:s.page==='data',
