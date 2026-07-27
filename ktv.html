@@ -269,17 +269,17 @@
 </style>
 <style>
   *{margin:0;padding:0;box-sizing:border-box}
-  body{background:#EDF0EB;font-family:var(--font);-webkit-font-smoothing:antialiased}
+  body{background:#EDF0EB;font-family:'Be Vietnam Pro',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
   a{color:var(--primary)}a:hover{color:#0C3F36}
   button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;text-align:left}
   ::-webkit-scrollbar{width:0;height:0}
-  .app{font-family:var(--font);width:100%;max-width:440px;margin:0 auto;height:100vh;display:flex;flex-direction:column;overflow:hidden;background:var(--bg);position:relative;box-shadow:0 0 50px rgba(12,63,54,.12)}
+  .app{width:100%;max-width:440px;margin:0 auto;height:100vh;display:flex;flex-direction:column;overflow:hidden;background:var(--bg);position:relative;box-shadow:0 0 50px rgba(12,63,54,.12)}
   .body{flex:1;overflow-y:auto;padding:16px 16px 88px}
   .card{background:var(--surface);border:1px solid var(--line);border-radius:15px}
   @media(min-width:900px){ .app{max-width:520px} }
 
   /* ── 3 phong cách ANWELL ── */
-  .app{--font:'Be Vietnam Pro',system-ui,sans-serif;
+  .app{
     --bg:#F7F8F5;--surface:#FFFFFF;--surface2:#F1F4F0;--line:#E4E8E2;--line2:#EEF1EC;--muted:#CFDCD4;
     --text:#14211B;--text2:#4C6157;--text3:#5C6E65;
     --primary:#12564A;--on-primary:#FFFFFF;--tint:#E4EFE8;
@@ -291,7 +291,7 @@
     --ok:#177245;--okTint:#E4EFE8;--okSolid:#177245;--danger:#B3261E;--dangerTint:#FBE9E8;--dangerSolid:#B3261E;
     color:var(--text);
   }
-  .app[data-theme="forest"]{--font:'Cormorant Garamond',Georgia,serif;
+  .app[data-theme="forest"]{
     --bg:#0A1512;--surface:#12211C;--surface2:#1B2E27;--line:#22382D;--line2:#1B2E27;--muted:#2E4A3D;
     --text:#EAF4ED;--text2:#A9C4B5;--text3:#7B9587;
     --primary:#E7CE97;--on-primary:#06140F;--tint:rgba(46,133,103,.22);
@@ -302,7 +302,7 @@
     --heroGrad:linear-gradient(158deg,#071310,#0E2A22 60%,#123227);--onHero:#EAF4ED;--onSub:rgba(234,244,237,.7);--onPrimarySub:rgba(6,20,15,.66);
     --ok:#6FD3A0;--okTint:rgba(46,133,103,.24);--okSolid:#177245;--danger:#FF8A80;--dangerTint:rgba(179,38,30,.24);--dangerSolid:#8E1F19;
   }
-  .app[data-theme="clarity"]{--font:ui-rounded,-apple-system,'Segoe UI',Roboto,sans-serif;
+  .app[data-theme="clarity"]{
     --bg:#FAF7F2;--surface:#FFFDFA;--surface2:#F1EBE1;--line:#E2D9CB;--line2:#EDE6DA;--muted:#D8CDBB;
     --text:#2A2520;--text2:#544C42;--text3:#615948;
     --primary:#12564A;--on-primary:#FFFFFF;--tint:#E7EFE9;
@@ -329,12 +329,12 @@
 
   <header style="flex:none;background:var(--surface);border-bottom:1px solid var(--line)">
     <div style="display:flex;align-items:center;gap:11px;padding:13px 16px 10px">
-      <span style="flex:none;width:38px;height:38px;border-radius:50%;background:var(--tint);display:grid;place-items:center;font-weight:700;font-size:17.5px;color:var(--primary)">HY</span>
+      <span style="flex:none;width:38px;height:38px;border-radius:50%;background:var(--tint);display:grid;place-items:center;font-weight:700;font-size:14px;color:var(--primary)">HY</span>
       <div style="flex:1;min-width:0">
-        <div style="font-size:17.5px;font-weight:600;line-height:1.2">Trần Hải Yến</div>
+        <div style="font-size:14px;font-weight:600;line-height:1.2">Trần Hải Yến</div>
         <div style="display:flex;align-items:center;gap:6px;margin-top:2px">
-          <span style="font-size:10.6px;font-weight:700;color:#06140F;background:var(--gold);padding:2px 7px;border-radius:99px">Bậc 2</span>
-          <span style="font-size:10.6px;font-weight:700;color:#fff;background:var(--okSolid);padding:2px 7px;border-radius:99px;white-space:nowrap">✓ Xác minh</span>
+          <span style="font-size:8.5px;font-weight:700;color:#06140F;background:var(--gold);padding:2px 7px;border-radius:99px">Bậc 2</span>
+          <span style="font-size:8.5px;font-weight:700;color:#fff;background:var(--okSolid);padding:2px 7px;border-radius:99px;white-space:nowrap">✓ Xác minh</span>
         </div>
       </div>
       <span style="flex:none;display:flex;gap:3px;background:var(--surface2);border-radius:99px;padding:3px">
@@ -358,33 +358,33 @@
            hiện khi thật sự có việc gấp, không phải lúc nào cũng nháy. -->
       <sc-if value="{{ hasAlert }}" hint-placeholder-val="{{ true }}">
         <button sc-camel-on-click="{{ alertGo }}" class="blink" style="width:100%;display:flex;align-items:center;gap:11px;padding:14px;border-radius:14px;background:{{ alertBg }};border:1.5px solid {{ alertBd }};text-align:left;margin-bottom:12px">
-          <span style="flex:none;width:34px;height:34px;border-radius:50%;background:{{ alertBd }};display:grid;place-items:center;font-size:18.8px">{{ alertIcon }}</span>
+          <span style="flex:none;width:34px;height:34px;border-radius:50%;background:{{ alertBd }};display:grid;place-items:center;font-size:15px">{{ alertIcon }}</span>
           <span style="flex:1;min-width:0">
-            <span style="display:block;font-size:15.6px;font-weight:700;color:{{ alertFg }}">{{ alertTitle }}</span>
-            <span style="display:block;font-size:13.1px;color:var(--text2);margin-top:2px">{{ alertText }}</span>
+            <span style="display:block;font-size:12.5px;font-weight:700;color:{{ alertFg }}">{{ alertTitle }}</span>
+            <span style="display:block;font-size:10.5px;color:var(--text2);margin-top:2px">{{ alertText }}</span>
           </span>
           <svg width="15" height="15" sc-camel-view-box="0 0 24 24" fill="none" stroke="{{ alertFg }}" stroke-width="2.2" style="flex:none"><path d="m9 5 7 7-7 7"></path></svg>
         </button>
       </sc-if>
 
-      <p style="font:700 11.9px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:0 0 9px">Hôm nay · cả hai chế độ</p>
+      <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:0 0 9px">Hôm nay · cả hai chế độ</p>
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px">
         <sc-for list="{{ allKpis }}" as="k" hint-placeholder-count="3">
           <div class="card" style="padding:12px 10px;text-align:center">
-            <div style="font-family:var(--font);font-weight:700;font-size:26.2px;line-height:1.1;color:{{ k.c }}">{{ k.v }}</div>
-            <div style="font-size:11.2px;color:var(--text3);margin-top:3px;line-height:1.3">{{ k.t }}</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:21px;line-height:1.1;color:{{ k.c }}">{{ k.v }}</div>
+            <div style="font-size:9px;color:var(--text3);margin-top:3px;line-height:1.3">{{ k.t }}</div>
           </div>
         </sc-for>
       </div>
 
       <div style="display:flex;gap:4px;background:var(--surface2);border-radius:12px;padding:3px;margin-bottom:14px">
         <button sc-camel-on-click="{{ setCenterMode }}" style="flex:1;padding:9px 6px;border-radius:9px;background:{{ segCenterBg }}">
-          <span style="display:block;font-size:14.4px;font-weight:700;color:{{ segCenterFg }};line-height:1.2">Tại trung tâm</span>
-          <span style="display:block;font-size:11.2px;color:{{ segCenterSub }};margin-top:1px">An Nhiên điều phối</span>
+          <span style="display:block;font-size:11.5px;font-weight:700;color:{{ segCenterFg }};line-height:1.2">Tại trung tâm</span>
+          <span style="display:block;font-size:9px;color:{{ segCenterSub }};margin-top:1px">An Nhiên điều phối</span>
         </button>
         <button sc-camel-on-click="{{ setFreeMode }}" style="flex:1;padding:9px 6px;border-radius:9px;background:{{ segFreeBg }}">
-          <span style="display:block;font-size:14.4px;font-weight:700;color:{{ segFreeFg }};line-height:1.2">Làm tự do</span>
-          <span style="display:block;font-size:11.2px;color:{{ segFreeSub }};margin-top:1px">Khách của tôi</span>
+          <span style="display:block;font-size:11.5px;font-weight:700;color:{{ segFreeFg }};line-height:1.2">Làm tự do</span>
+          <span style="display:block;font-size:9px;color:{{ segFreeSub }};margin-top:1px">Khách của tôi</span>
         </button>
       </div>
     </sc-if>
@@ -393,32 +393,32 @@
     <sc-if value="{{ homeCenter }}" hint-placeholder-val="{{ true }}">
       <div style="border-radius:16px;padding:16px;background:var(--heroGrad);color:var(--onHero)">
         <div style="display:flex;align-items:center;justify-content:space-between">
-          <span style="font:700 11.2px ui-monospace,monospace;letter-spacing:.18em;color:var(--gold);text-transform:uppercase">Ca hôm nay · An Nhiên</span>
-          <span style="font-size:11.9px;font-weight:700;color:#06140F;background:var(--gold);padding:3px 9px;border-radius:99px">6 ca</span>
+          <span style="font:700 9px ui-monospace,monospace;letter-spacing:.18em;color:var(--gold);text-transform:uppercase">Ca hôm nay · An Nhiên</span>
+          <span style="font-size:9.5px;font-weight:700;color:#06140F;background:var(--gold);padding:3px 9px;border-radius:99px">6 ca</span>
         </div>
         <div style="display:flex;gap:18px;margin-top:12px">
-          <div><div style="font-family:var(--font);font-weight:700;font-size:32.5px;line-height:1">08:00</div><div style="font-size:11.9px;opacity:.75;margin-top:1px">Bắt đầu ca</div></div>
-          <div><div style="font-family:var(--font);font-weight:700;font-size:32.5px;line-height:1">4/6</div><div style="font-size:11.9px;opacity:.75;margin-top:1px">Đã hoàn tất</div></div>
-          <div><div style="font-family:var(--font);font-weight:700;font-size:32.5px;line-height:1;color:var(--gold)">1,2tr</div><div style="font-size:11.9px;opacity:.75;margin-top:1px">Thu nhập ca</div></div>
+          <div><div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:26px;line-height:1">08:00</div><div style="font-size:9.5px;opacity:.75;margin-top:1px">Bắt đầu ca</div></div>
+          <div><div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:26px;line-height:1">4/6</div><div style="font-size:9.5px;opacity:.75;margin-top:1px">Đã hoàn tất</div></div>
+          <div><div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:26px;line-height:1;color:var(--gold)">1,2tr</div><div style="font-size:9.5px;opacity:.75;margin-top:1px">Thu nhập ca</div></div>
         </div>
       </div>
 
       <div style="display:flex;align-items:center;justify-content:space-between;margin:18px 0 10px">
-        <span style="font-family:var(--font);font-weight:600;font-size:22.5px">Lịch trung tâm phân</span>
-        <button sc-camel-on-click="{{ goSchedule }}" style="font-size:14.4px;font-weight:600;color:var(--accent)">Cả tuần →</button>
+        <span style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:18px">Lịch trung tâm phân</span>
+        <button sc-camel-on-click="{{ goSchedule }}" style="font-size:11.5px;font-weight:600;color:var(--accent)">Cả tuần →</button>
       </div>
       <div style="display:flex;flex-direction:column;gap:9px">
         <sc-for list="{{ centerShifts }}" as="c" hint-placeholder-count="4">
           <button sc-camel-on-click="{{ c.open }}" class="card" style="width:100%;display:flex;align-items:center;gap:12px;padding:13px">
             <span style="flex:none;width:52px;text-align:center">
-              <span style="display:block;font-family:var(--font);font-weight:700;font-size:20px;color:{{ c.timeFg }}">{{ c.time }}</span>
-              <span style="display:block;font-size:11.2px;color:var(--text3);margin-top:1px">{{ c.dur }}′</span>
+              <span style="display:block;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:16px;color:{{ c.timeFg }}">{{ c.time }}</span>
+              <span style="display:block;font-size:9px;color:var(--text3);margin-top:1px">{{ c.dur }}′</span>
             </span>
             <span style="flex:1;min-width:0;border-left:1px solid var(--line2);padding-left:12px">
-              <span style="display:block;font-size:16.2px;font-weight:600">{{ c.svc }}</span>
-              <span style="display:block;font-size:13.1px;color:var(--text3);margin-top:2px">{{ c.who }} · {{ c.room }}</span>
+              <span style="display:block;font-size:13px;font-weight:600">{{ c.svc }}</span>
+              <span style="display:block;font-size:10.5px;color:var(--text3);margin-top:2px">{{ c.who }} · {{ c.room }}</span>
             </span>
-            <span style="flex:none;font-size:11.2px;font-weight:700;color:{{ c.stFg }};background:{{ c.stBg }};padding:3px 8px;border-radius:99px;white-space:nowrap">{{ c.st }}</span>
+            <span style="flex:none;font-size:9px;font-weight:700;color:{{ c.stFg }};background:{{ c.stBg }};padding:3px 8px;border-radius:99px;white-space:nowrap">{{ c.st }}</span>
           </button>
         </sc-for>
       </div>
@@ -430,59 +430,61 @@
 
     <!-- ═══════ HOME · FREELANCE MODE ═══════ -->
     <sc-if value="{{ homeFree }}" hint-placeholder-val="{{ false }}">
-      <div class="card" style="padding:14px">
+      <!-- Cùng kiểu thẻ hero xanh đậm với "Ca hôm nay" của chế độ tại trung tâm:
+           đây là thẻ mở đầu và quan trọng nhất của chế độ tự do. -->
+      <div style="border-radius:16px;padding:15px;background:var(--heroGrad);color:var(--onHero)">
         <div style="display:flex;align-items:center;gap:12px">
           <span style="flex:1;min-width:0">
-            <span style="display:block;font-size:16.2px;font-weight:600">Trạng thái nhận khách</span>
-            <span style="display:block;font-size:13.1px;color:var(--text3);margin-top:1px">{{ availSub }}</span>
+            <span style="display:block;font-size:13px;font-weight:600">Trạng thái nhận khách</span>
+            <span style="display:block;font-size:10.5px;color:var(--onSub);margin-top:2px">{{ availSub }}</span>
           </span>
           <button sc-camel-on-click="{{ toggleAvail }}" aria-label="Bật nhận khách" style="flex:none;width:52px;height:30px;border-radius:99px;background:{{ availTrack }};position:relative;transition:background .2s">
-            <span style="position:absolute;top:3px;left:{{ availKnob }};width:24px;height:24px;border-radius:50%;background:var(--surface);box-shadow:0 2px 5px rgba(0,0,0,.24);transition:left .2s"></span>
+            <span style="position:absolute;top:3px;left:{{ availKnob }};width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 2px 5px rgba(0,0,0,.28);transition:left .2s"></span>
           </button>
         </div>
-        <button sc-camel-on-click="{{ goAvail }}" style="width:100%;display:flex;align-items:center;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid var(--line2)">
-          <span style="flex:1;min-width:0;text-align:left;font-size:14.4px;color:var(--text2)">Lịch nhận khách · {{ availSummary }}</span>
-          <svg width="15" height="15" sc-camel-view-box="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" style="flex:none"><path d="m9 5 7 7-7 7"></path></svg>
+        <button sc-camel-on-click="{{ goAvail }}" style="width:100%;display:flex;align-items:center;gap:8px;margin-top:13px;padding-top:13px;border-top:1px solid rgba(231,206,151,.28)">
+          <span style="flex:1;min-width:0;text-align:left;font-size:11.5px;color:var(--onSub)">Lịch nhận khách · {{ availSummary }}</span>
+          <svg width="15" height="15" sc-camel-view-box="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" style="flex:none"><path d="m9 5 7 7-7 7"></path></svg>
         </button>
       </div>
 
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px">
         <sc-for list="{{ freeKpis }}" as="k" hint-placeholder-count="4">
           <div class="card" style="padding:13px">
-            <div style="font-size:12.5px;font-weight:600;color:var(--text3)">{{ k.t }}</div>
-            <div style="font-family:var(--font);font-weight:700;font-size:28.8px;line-height:1.1;margin-top:5px;color:{{ k.c }}">{{ k.v }}</div>
-            <div style="font-size:11.9px;color:var(--text3);margin-top:1px">{{ k.sub }}</div>
+            <div style="font-size:10px;font-weight:600;color:var(--text3)">{{ k.t }}</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:23px;line-height:1.1;margin-top:5px;color:{{ k.c }}">{{ k.v }}</div>
+            <div style="font-size:9.5px;color:var(--text3);margin-top:1px">{{ k.sub }}</div>
           </div>
         </sc-for>
       </div>
 
       <div style="display:flex;align-items:center;justify-content:space-between;margin:18px 0 10px">
-        <span style="font-family:var(--font);font-weight:600;font-size:22.5px">Yêu cầu mới</span>
-        <span style="font-size:12.5px;font-weight:700;color:#fff;background:var(--dangerSolid);padding:2px 8px;border-radius:99px">2 chờ</span>
+        <span style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:18px">Yêu cầu mới</span>
+        <span style="font-size:10px;font-weight:700;color:#fff;background:var(--dangerSolid);padding:2px 8px;border-radius:99px">2 chờ</span>
       </div>
       <div style="display:flex;flex-direction:column;gap:10px">
         <sc-for list="{{ requests }}" as="r" hint-placeholder-count="2">
           <div class="card" style="padding:14px">
             <div style="display:flex;align-items:flex-start;gap:11px">
-              <span style="flex:none;width:36px;height:36px;border-radius:50%;background:var(--goldTint);display:grid;place-items:center;font-weight:700;font-size:15px;color:var(--goldText)">{{ r.i }}</span>
+              <span style="flex:none;width:36px;height:36px;border-radius:50%;background:var(--goldTint);display:grid;place-items:center;font-weight:700;font-size:12px;color:var(--goldText)">{{ r.i }}</span>
               <span style="flex:1;min-width:0">
-                <span style="display:block;font-size:16.2px;font-weight:600">{{ r.svc }}</span>
-                <span style="display:block;font-size:13.1px;color:var(--text3);margin-top:2px">{{ r.who }} · {{ r.when }}</span>
-                <span style="display:block;font-size:13.1px;color:var(--text2);margin-top:4px">📍 {{ r.addr }} · cách {{ r.dist }}</span>
+                <span style="display:block;font-size:13px;font-weight:600">{{ r.svc }}</span>
+                <span style="display:block;font-size:10.5px;color:var(--text3);margin-top:2px">{{ r.who }} · {{ r.when }}</span>
+                <span style="display:block;font-size:10.5px;color:var(--text2);margin-top:4px">📍 {{ r.addr }} · cách {{ r.dist }}</span>
               </span>
-              <span style="flex:none;text-align:right"><span style="display:block;font-family:var(--font);font-weight:700;font-size:21.2px;color:var(--accent)">{{ r.fee }}</span></span>
+              <span style="flex:none;text-align:right"><span style="display:block;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:17px;color:var(--accent)">{{ r.fee }}</span></span>
             </div>
             <div style="display:flex;gap:8px;margin-top:12px">
-              <button style="flex:1;padding:10px;border-radius:9px;background:var(--primary);color:var(--on-primary);font-size:15px;font-weight:600;text-align:center">Nhận ca</button>
-              <button style="flex:none;padding:10px 14px;border-radius:9px;background:var(--surface2);color:var(--text2);font-size:15px;font-weight:600">Bỏ qua</button>
+              <button style="flex:1;padding:10px;border-radius:9px;background:var(--primary);color:var(--on-primary);font-size:12px;font-weight:600;text-align:center">Nhận ca</button>
+              <button style="flex:none;padding:10px 14px;border-radius:9px;background:var(--surface2);color:var(--text2);font-size:12px;font-weight:600">Bỏ qua</button>
             </div>
           </div>
         </sc-for>
       </div>
 
       <div style="display:flex;align-items:center;justify-content:space-between;margin:18px 0 10px">
-        <span style="font-family:var(--font);font-weight:600;font-size:22.5px">Lộ trình hôm nay</span>
-        <button sc-camel-on-click="{{ goRoute }}" style="font-size:14.4px;font-weight:600;color:var(--accent)">Bản đồ →</button>
+        <span style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:18px">Lộ trình hôm nay</span>
+        <button sc-camel-on-click="{{ goRoute }}" style="font-size:11.5px;font-weight:600;color:var(--accent)">Bản đồ →</button>
       </div>
       <button sc-camel-on-click="{{ goRoute }}" class="card" style="width:100%;padding:0;overflow:hidden;display:block">
         <span style="position:relative;display:block;height:120px;background:var(--heroGrad)">
@@ -490,10 +492,10 @@
           <svg sc-camel-view-box="0 0 320 120" sc-camel-preserve-aspect-ratio="none" style="position:absolute;inset:0;width:100%;height:100%"><path d="M22,100 C80,92 110,58 168,54 C226,50 258,26 300,20" fill="none" stroke="var(--gold)" stroke-width="2.4" stroke-dasharray="6 6" style="animation:dash 1.4s linear infinite"></path></svg>
           <span style="position:absolute;left:14px;bottom:14px;width:12px;height:12px;border-radius:50%;background:var(--surface);border:2px solid var(--primary)"></span>
           <span style="position:absolute;right:18px;top:12px"><span style="position:absolute;inset:0;margin:auto;width:14px;height:14px;border-radius:50%;background:var(--gold);animation:gps 1.8s ease-out infinite"></span><span style="position:relative;display:block;width:14px;height:14px;border-radius:50%;background:var(--gold);border:2px solid #fff"></span></span>
-          <span style="position:absolute;top:11px;left:12px;font-size:11.2px;font-weight:700;color:#06140F;background:var(--gold);padding:4px 9px;border-radius:99px">3 điểm · 14,2 km</span>
+          <span style="position:absolute;top:11px;left:12px;font-size:9px;font-weight:700;color:#06140F;background:var(--gold);padding:4px 9px;border-radius:99px">3 điểm · 14,2 km</span>
         </span>
         <span style="display:flex;align-items:center;gap:11px;padding:13px">
-          <span style="flex:1;min-width:0"><span style="display:block;font-size:15.6px;font-weight:600">Điểm kế: 45 Phan Xích Long, Q.PN</span><span style="display:block;font-size:13.1px;color:var(--text3);margin-top:1px">14:30 · đi 18 phút · còn 42 phút chuẩn bị</span></span>
+          <span style="flex:1;min-width:0"><span style="display:block;font-size:12.5px;font-weight:600">Điểm kế: 45 Phan Xích Long, Q.PN</span><span style="display:block;font-size:10.5px;color:var(--text3);margin-top:1px">14:30 · đi 18 phút · còn 42 phút chuẩn bị</span></span>
           <svg width="16" height="16" sc-camel-view-box="0 0 24 24" fill="none" stroke="var(--text3)" stroke-width="2" style="flex:none"><path d="m9 5 7 7-7 7"></path></svg>
         </span>
       </button>
@@ -501,11 +503,11 @@
 
     <!-- ═══════ BUỔI LÀM VIỆC (KTV thao tác) ═══════ -->
     <sc-if value="{{ isSession }}" hint-placeholder-val="{{ false }}">
-      <div class="card" style="padding:14px;display:flex;align-items:center;gap:12px">
-        <span style="flex:none;width:44px;height:44px;border-radius:50%;background:var(--goldTint);display:grid;place-items:center;font-weight:700;font-size:17.5px;color:var(--goldText)">TM</span>
+      <div style="border-radius:16px;padding:15px;background:var(--heroGrad);color:var(--onHero);display:flex;align-items:center;gap:12px">
+        <span style="flex:none;width:44px;height:44px;border-radius:50%;background:var(--goldTint);display:grid;place-items:center;font-weight:700;font-size:14px;color:var(--goldText)">TM</span>
         <span style="flex:1;min-width:0">
-          <span style="display:block;font-size:16.9px;font-weight:600">Ông Trần Văn Minh · 72t</span>
-          <span style="display:block;font-size:13.1px;color:var(--text3);margin-top:2px">Phục hồi sau đột quỵ · buổi 7/20</span>
+          <span style="display:block;font-size:13.5px;font-weight:600">Ông Trần Văn Minh · 72t</span>
+          <span style="display:block;font-size:10.5px;color:var(--text3);margin-top:2px">Phục hồi sau đột quỵ · buổi 7/20</span>
         </span>
         <button sc-camel-on-click="{{ goChat }}" aria-label="Nhắn tin" style="flex:none;width:36px;height:36px;border-radius:50%;background:var(--surface2);display:grid;place-items:center;color:var(--primary)">
           <svg width="17" height="17" sc-camel-view-box="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 11.5a8.4 8.4 0 01-9 8.4 9.5 9.5 0 01-2.7-.4L3 21l1.6-4.7A8.4 8.4 0 1121 11.5Z"></path></svg>
@@ -513,54 +515,54 @@
       </div>
 
       <div style="border-radius:16px;padding:20px 18px;margin-top:12px;text-align:center;background:{{ sessHeroBg }};color:{{ sessHeroFg }}">
-        <p style="font:700 11.2px ui-monospace,monospace;letter-spacing:.2em;text-transform:uppercase;opacity:.82">{{ sessLabel }}</p>
-        <p style="font-family:var(--font);font-weight:700;font-size:47.5px;line-height:1;margin-top:9px">{{ sessTimer }}</p>
-        <p style="font-size:13.8px;opacity:.8;margin-top:6px">{{ sessHint }}</p>
+        <p style="font:700 9px ui-monospace,monospace;letter-spacing:.2em;text-transform:uppercase;opacity:.82">{{ sessLabel }}</p>
+        <p style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:38px;line-height:1;margin-top:9px">{{ sessTimer }}</p>
+        <p style="font-size:11px;opacity:.8;margin-top:6px">{{ sessHint }}</p>
       </div>
 
       <div class="card" style="padding:13px 14px;margin-top:12px;display:flex;align-items:flex-start;gap:10px">
         <svg width="17" height="17" sc-camel-view-box="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" style="flex:none;margin-top:1px"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0116 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
         <span style="flex:1;min-width:0">
-          <span style="display:block;font-size:15px;font-weight:600">123 Nguyễn Văn A, P.Bến Nghé, Q.1</span>
-          <span style="display:block;font-size:13.1px;color:var(--text3);margin-top:2px">{{ geoNote }}</span>
+          <span style="display:block;font-size:12px;font-weight:600">123 Nguyễn Văn A, P.Bến Nghé, Q.1</span>
+          <span style="display:block;font-size:10.5px;color:var(--text3);margin-top:2px">{{ geoNote }}</span>
         </span>
       </div>
 
       <div class="card" style="padding:14px;margin-top:12px">
-        <p style="font:700 11.2px ui-monospace,monospace;letter-spacing:.14em;color:var(--accent);text-transform:uppercase">Lưu ý từ gia đình</p>
-        <p style="font-size:15px;line-height:1.6;color:var(--text2);margin-top:7px">Bố hay chóng mặt buổi sáng, cần đi nhẹ cầu thang. Ưu tiên bài thăng bằng có hỗ trợ.</p>
+        <p style="font:700 9px ui-monospace,monospace;letter-spacing:.14em;color:var(--accent);text-transform:uppercase">Lưu ý từ gia đình</p>
+        <p style="font-size:12px;line-height:1.6;color:var(--text2);margin-top:7px">Bố hay chóng mặt buổi sáng, cần đi nhẹ cầu thang. Ưu tiên bài thăng bằng có hỗ trợ.</p>
       </div>
 
       <sc-if value="{{ sessIdle }}" hint-placeholder-val="{{ true }}">
-        <button sc-camel-on-click="{{ startSession }}" style="width:100%;margin-top:14px;padding:16px;border-radius:12px;background:var(--primary);color:var(--on-primary);font-weight:700;font-size:18.8px;text-align:center">Check-in · Bắt đầu buổi</button>
-        <p style="font-size:13.1px;font-style:italic;color:var(--text3);line-height:1.55;margin:11px 2px 0">Vị trí của bạn được ghi nhận khi check-in để gia đình theo dõi minh bạch.</p>
+        <button sc-camel-on-click="{{ startSession }}" style="width:100%;margin-top:14px;padding:16px;border-radius:12px;background:var(--primary);color:var(--on-primary);font-weight:700;font-size:15px;text-align:center">Check-in · Bắt đầu buổi</button>
+        <p style="font-size:10.5px;font-style:italic;color:var(--text3);line-height:1.55;margin:11px 2px 0">Vị trí của bạn được ghi nhận khi check-in để gia đình theo dõi minh bạch.</p>
       </sc-if>
 
       <sc-if value="{{ sessRunning }}" hint-placeholder-val="{{ false }}">
-        <p style="font:700 11.9px ui-monospace,monospace;letter-spacing:.18em;color:var(--text3);text-transform:uppercase;margin:18px 0 8px">Nội dung đã thực hiện</p>
+        <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.18em;color:var(--text3);text-transform:uppercase;margin:18px 0 8px">Nội dung đã thực hiện</p>
         <div style="display:flex;flex-wrap:wrap;gap:8px">
           <sc-for list="{{ sessTasks }}" as="t" hint-placeholder-count="4">
-            <button sc-camel-on-click="{{ t.toggle }}" style="padding:9px 13px;border-radius:99px;font-size:15px;font-weight:600;background:{{ t.bg }};color:{{ t.fg }};border:1px solid {{ t.bd }}">{{ t.t }}</button>
+            <button sc-camel-on-click="{{ t.toggle }}" style="padding:9px 13px;border-radius:99px;font-size:12px;font-weight:600;background:{{ t.bg }};color:{{ t.fg }};border:1px solid {{ t.bd }}">{{ t.t }}</button>
           </sc-for>
         </div>
-        <p style="font:700 11.9px ui-monospace,monospace;letter-spacing:.18em;color:var(--text3);text-transform:uppercase;margin:18px 0 8px">Ghi chú buổi làm việc</p>
-        <textarea value="{{ sessNote }}" sc-camel-on-input="{{ onSessNote }}" placeholder="Phản ứng của người được chăm sóc, tiến triển, dặn dò cho lần sau..." style="width:100%;min-height:92px;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--text);font-size:16.2px;font-family:inherit;resize:none"></textarea>
-        <button sc-camel-on-click="{{ endSession }}" style="width:100%;margin-top:13px;padding:16px;border-radius:12px;background:var(--dangerSolid);color:#fff;font-weight:700;font-size:18.8px;text-align:center">Check-out · Kết thúc buổi</button>
+        <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.18em;color:var(--text3);text-transform:uppercase;margin:18px 0 8px">Ghi chú buổi làm việc</p>
+        <textarea value="{{ sessNote }}" sc-camel-on-input="{{ onSessNote }}" placeholder="Phản ứng của người được chăm sóc, tiến triển, dặn dò cho lần sau..." style="width:100%;min-height:92px;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--text);font-size:13px;font-family:inherit;resize:none"></textarea>
+        <button sc-camel-on-click="{{ endSession }}" style="width:100%;margin-top:13px;padding:16px;border-radius:12px;background:var(--dangerSolid);color:#fff;font-weight:700;font-size:15px;text-align:center">Check-out · Kết thúc buổi</button>
       </sc-if>
 
       <sc-if value="{{ sessDone }}" hint-placeholder-val="{{ false }}">
         <div class="card" style="padding:15px;margin-top:12px">
           <div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:11px;border-bottom:1px solid var(--line2)">
-            <span style="font-size:14.4px;color:var(--text3)">Bắt đầu 15:00</span>
-            <span style="font-size:14.4px;color:var(--text3)">Kết thúc 15:58 · 58 phút</span>
+            <span style="font-size:11.5px;color:var(--text3)">Bắt đầu 15:00</span>
+            <span style="font-size:11.5px;color:var(--text3)">Kết thúc 15:58 · 58 phút</span>
           </div>
-          <p style="font-size:15px;line-height:1.6;color:var(--text2);margin-top:11px">{{ sessNoteShown }}</p>
+          <p style="font-size:12px;line-height:1.6;color:var(--text2);margin-top:11px">{{ sessNoteShown }}</p>
         </div>
         <div class="card" style="padding:14px;margin-top:12px;display:flex;align-items:center;gap:11px">
-          <span style="flex:none;width:34px;height:34px;border-radius:9px;background:var(--tint);display:grid;place-items:center;font-size:18.8px">📤</span>
-          <span style="flex:1;min-width:0"><span style="display:block;font-size:15.6px;font-weight:600">Đã gửi cho gia đình</span><span style="display:block;font-size:13.1px;color:var(--text3);margin-top:1px">Chờ khách xác nhận thời gian &amp; đánh giá</span></span>
+          <span style="flex:none;width:34px;height:34px;border-radius:9px;background:var(--tint);display:grid;place-items:center;font-size:15px">📤</span>
+          <span style="flex:1;min-width:0"><span style="display:block;font-size:12.5px;font-weight:600">Đã gửi cho gia đình</span><span style="display:block;font-size:10.5px;color:var(--text3);margin-top:1px">Chờ khách xác nhận thời gian &amp; đánh giá</span></span>
         </div>
-        <button sc-camel-on-click="{{ goHome }}" style="width:100%;margin-top:14px;padding:15px;border-radius:12px;background:var(--primary);color:var(--on-primary);font-weight:600;font-size:18.1px;text-align:center">Về danh sách ca</button>
+        <button sc-camel-on-click="{{ goHome }}" style="width:100%;margin-top:14px;padding:15px;border-radius:12px;background:var(--primary);color:var(--on-primary);font-weight:600;font-size:14.5px;text-align:center">Về danh sách ca</button>
       </sc-if>
     </sc-if>
 
@@ -568,16 +570,16 @@
     <sc-if value="{{ isChat }}" hint-placeholder-val="{{ false }}">
       <div class="card" style="padding:12px 14px;display:flex;align-items:center;gap:11px">
         <button sc-camel-on-click="{{ goSession }}" aria-label="Quay lại" style="flex:none;width:32px;height:32px;border-radius:50%;background:var(--surface2);display:grid;place-items:center;color:var(--text2)"><svg sc-camel-view-box="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5l-7 7 7 7"></path></svg></button>
-        <span style="flex:none;width:34px;height:34px;border-radius:50%;background:var(--goldTint);display:grid;place-items:center;font-weight:700;font-size:15px;color:var(--goldText)">MT</span>
-        <span style="flex:1;min-width:0"><span style="display:block;font-size:16.2px;font-weight:600">Minh Trần</span><span style="display:block;font-size:12.5px;color:var(--ok)">● Người chăm sóc · đang hoạt động</span></span>
+        <span style="flex:none;width:34px;height:34px;border-radius:50%;background:var(--goldTint);display:grid;place-items:center;font-weight:700;font-size:12px;color:var(--goldText)">MT</span>
+        <span style="flex:1;min-width:0"><span style="display:block;font-size:13px;font-weight:600">Minh Trần</span><span style="display:block;font-size:10px;color:var(--ok)">● Người chăm sóc · đang hoạt động</span></span>
       </div>
       <div style="display:flex;flex-direction:column;gap:9px;margin-top:14px">
         <sc-for list="{{ chatMsgs }}" as="m" hint-placeholder-count="4">
-          <div style="align-self:{{ m.align }};max-width:80%;background:{{ m.bg }};color:{{ m.fg }};border-radius:{{ m.radius }};padding:10px 13px;font-size:15.6px;line-height:1.5;border:1px solid {{ m.bd }}">{{ m.text }}</div>
+          <div style="align-self:{{ m.align }};max-width:80%;background:{{ m.bg }};color:{{ m.fg }};border-radius:{{ m.radius }};padding:10px 13px;font-size:12.5px;line-height:1.5;border:1px solid {{ m.bd }}">{{ m.text }}</div>
         </sc-for>
       </div>
       <div class="card" style="margin-top:14px;padding:10px 12px;display:flex;align-items:center;gap:9px">
-        <span style="flex:1;font-size:15.6px;color:var(--text3)">Nhắn tin cho gia đình…</span>
+        <span style="flex:1;font-size:12.5px;color:var(--text3)">Nhắn tin cho gia đình…</span>
         <button aria-label="Gửi" style="flex:none;width:36px;height:36px;border-radius:50%;background:var(--primary);display:grid;place-items:center;color:var(--on-primary)"><svg width="16" height="16" sc-camel-view-box="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4z"></path></svg></button>
       </div>
     </sc-if>
@@ -585,20 +587,20 @@
     <!-- ═══════ ĐÁNH GIÁ NHẬN ĐƯỢC ═══════ -->
     <sc-if value="{{ isReviews }}" hint-placeholder-val="{{ false }}">
       <div class="card" style="padding:16px;text-align:center">
-        <div style="font-family:var(--font);font-weight:700;font-size:42.5px;line-height:1;color:var(--accent)">4,9</div>
-        <div style="font-size:13.8px;color:var(--text3);margin-top:4px">38 lượt đánh giá · 92% cải thiện rõ rệt</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:34px;line-height:1;color:var(--accent)">4,9</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:4px">38 lượt đánh giá · 92% cải thiện rõ rệt</div>
       </div>
       <div style="display:flex;flex-direction:column;gap:11px;margin-top:14px">
         <sc-for list="{{ myReviews }}" as="r" hint-placeholder-count="4">
           <div class="card" style="padding:14px">
             <div style="display:flex;align-items:center;justify-content:space-between">
-              <span style="font-size:15.6px;font-weight:600">{{ r.who }}</span>
-              <span style="font-size:14.4px;font-weight:700;color:var(--accent)">{{ r.stars }}</span>
+              <span style="font-size:12.5px;font-weight:600">{{ r.who }}</span>
+              <span style="font-size:11.5px;font-weight:700;color:var(--accent)">{{ r.stars }}</span>
             </div>
-            <p style="font-size:14.4px;line-height:1.55;color:var(--text2);margin-top:7px">{{ r.txt }}</p>
+            <p style="font-size:11.5px;line-height:1.55;color:var(--text2);margin-top:7px">{{ r.txt }}</p>
             <div style="display:flex;align-items:center;gap:8px;margin-top:9px">
-              <span style="font-size:11.2px;font-weight:700;color:{{ r.impFg }};background:{{ r.impBg }};padding:3px 8px;border-radius:99px">{{ r.imp }}</span>
-              <span style="font-size:12.5px;color:var(--text3)">{{ r.d }}</span>
+              <span style="font-size:9px;font-weight:700;color:{{ r.impFg }};background:{{ r.impBg }};padding:3px 8px;border-radius:99px">{{ r.imp }}</span>
+              <span style="font-size:10px;color:var(--text3)">{{ r.d }}</span>
             </div>
           </div>
         </sc-for>
@@ -610,23 +612,23 @@
          sc-if riêng, cờ trạng thái ghép từ page==='schedule' và schedTab, để
          khỏi lồng sc-if nhiều tầng. -->
     <sc-if value="{{ isSchedule }}" hint-placeholder-val="{{ false }}">
-      <p style="font-family:var(--font);font-weight:700;font-size:26.2px;margin:0 0 11px">Lịch làm việc</p>
+      <p style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:21px;margin:0 0 11px">Lịch làm việc</p>
 
       <div style="display:flex;gap:4px;background:var(--surface2);border-radius:12px;padding:3px;margin-bottom:10px">
         <button sc-camel-on-click="{{ setCenterMode }}" style="flex:1;padding:9px 6px;border-radius:9px;background:{{ segCenterBg }}">
-          <span style="display:block;font-size:14.4px;font-weight:700;color:{{ segCenterFg }};line-height:1.2">Tại trung tâm</span>
+          <span style="display:block;font-size:11.5px;font-weight:700;color:{{ segCenterFg }};line-height:1.2">Tại trung tâm</span>
         </button>
         <button sc-camel-on-click="{{ setFreeMode }}" style="flex:1;padding:9px 6px;border-radius:9px;background:{{ segFreeBg }}">
-          <span style="display:block;font-size:14.4px;font-weight:700;color:{{ segFreeFg }};line-height:1.2">Làm tự do</span>
+          <span style="display:block;font-size:11.5px;font-weight:700;color:{{ segFreeFg }};line-height:1.2">Làm tự do</span>
         </button>
       </div>
 
       <div style="display:flex;gap:4px;background:var(--surface2);border-radius:12px;padding:3px;margin-bottom:14px">
         <sc-for list="{{ schedTabs }}" as="tb" hint-placeholder-count="3">
-          <button sc-camel-on-click="{{ tb.pick }}" style="flex:1;padding:8px 6px;border-radius:9px;background:{{ tb.bg }};color:{{ tb.fg }};font-size:14.4px;font-weight:700;position:relative">
+          <button sc-camel-on-click="{{ tb.pick }}" style="flex:1;padding:8px 6px;border-radius:9px;background:{{ tb.bg }};color:{{ tb.fg }};font-size:11.5px;font-weight:700;position:relative">
             {{ tb.t }}
             <sc-if value="{{ tb.badge }}" hint-placeholder-val="{{ false }}">
-              <span style="position:absolute;top:2px;right:6px;min-width:15px;height:15px;padding:0 4px;border-radius:99px;background:var(--dangerSolid);color:#fff;font-size:10.6px;font-weight:700;display:grid;place-items:center">{{ tb.badge }}</span>
+              <span style="position:absolute;top:2px;right:6px;min-width:15px;height:15px;padding:0 4px;border-radius:99px;background:var(--dangerSolid);color:#fff;font-size:8.5px;font-weight:700;display:grid;place-items:center">{{ tb.badge }}</span>
             </sc-if>
           </button>
         </sc-for>
@@ -642,7 +644,7 @@
           <button sc-camel-on-click="{{ calPrev }}" aria-label="Tháng trước" style="flex:none;width:32px;height:32px;border-radius:9px;background:var(--surface2);display:grid;place-items:center">
             <svg width="16" height="16" sc-camel-view-box="0 0 24 24" fill="none" stroke="var(--text2)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"></path></svg>
           </button>
-          <span style="font-family:var(--font);font-weight:700;font-size:21.2px">{{ calTitle }}</span>
+          <span style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:17px">{{ calTitle }}</span>
           <button sc-camel-on-click="{{ calNext }}" aria-label="Tháng sau" style="flex:none;width:32px;height:32px;border-radius:9px;background:var(--surface2);display:grid;place-items:center">
             <svg width="16" height="16" sc-camel-view-box="0 0 24 24" fill="none" stroke="var(--text2)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"></path></svg>
           </button>
@@ -650,23 +652,23 @@
 
         <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-top:11px">
           <sc-for list="{{ calDows }}" as="w" hint-placeholder-count="7">
-            <span style="text-align:center;font:700 10.6px ui-monospace,monospace;letter-spacing:.06em;color:{{ w.c }}">{{ w.t }}</span>
+            <span style="text-align:center;font:700 8.5px ui-monospace,monospace;letter-spacing:.06em;color:{{ w.c }}">{{ w.t }}</span>
           </sc-for>
         </div>
 
         <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-top:5px">
           <sc-for list="{{ calCells }}" as="c" hint-placeholder-count="35">
             <button sc-camel-on-click="{{ c.pick }}" style="height:30px;border-radius:8px;background:{{ c.bg }};border:1.5px solid {{ c.bd }};opacity:{{ c.dim }};pointer-events:{{ c.tap }};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px">
-              <span style="font-family:var(--font);font-weight:700;font-size:15.6px;line-height:1;color:{{ c.fg }}">{{ c.n }}</span>
+              <span style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:12.5px;line-height:1;color:{{ c.fg }}">{{ c.n }}</span>
               <span style="width:3px;height:3px;border-radius:50%;background:{{ c.dot }}"></span>
             </button>
           </sc-for>
         </div>
 
         <div style="display:flex;align-items:center;gap:12px;margin-top:12px;padding-top:11px;border-top:1px solid var(--line2)">
-          <span style="display:flex;align-items:center;gap:5px;font-size:11.9px;color:var(--text3)"><span style="width:5px;height:5px;border-radius:50%;background:var(--accent)"></span>Có ca</span>
-          <span style="display:flex;align-items:center;gap:5px;font-size:11.9px;color:var(--text3)"><span style="width:9px;height:9px;border-radius:3px;border:1.5px solid var(--gold)"></span>Hôm nay</span>
-          <span style="flex:1;text-align:right;font-size:11.9px;color:var(--text3)">{{ calSelLabel }}</span>
+          <span style="display:flex;align-items:center;gap:5px;font-size:9.5px;color:var(--text3)"><span style="width:5px;height:5px;border-radius:50%;background:var(--accent)"></span>Có ca</span>
+          <span style="display:flex;align-items:center;gap:5px;font-size:9.5px;color:var(--text3)"><span style="width:9px;height:9px;border-radius:3px;border:1.5px solid var(--gold)"></span>Hôm nay</span>
+          <span style="flex:1;text-align:right;font-size:9.5px;color:var(--text3)">{{ calSelLabel }}</span>
         </div>
       </div>
 
@@ -674,7 +676,7 @@
         <sc-for list="{{ agenda }}" as="a" hint-placeholder-count="5">
           <div style="display:flex;gap:11px">
             <span style="flex:none;width:44px;text-align:right;padding-top:13px">
-              <span style="display:block;font-size:14.4px;font-weight:700;color:var(--text2)">{{ a.time }}</span>
+              <span style="display:block;font-size:11.5px;font-weight:700;color:var(--text2)">{{ a.time }}</span>
             </span>
             <span style="flex:none;display:flex;flex-direction:column;align-items:center;padding-top:16px">
               <span style="width:9px;height:9px;border-radius:50%;background:{{ a.dot }};flex:none"></span>
@@ -682,19 +684,19 @@
             </span>
             <span class="card" style="flex:1;min-width:0;padding:12px;margin-bottom:4px;border-left:3px solid {{ a.dot }}">
               <span style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px">
-                <span style="min-width:0"><span style="display:block;font-size:15.6px;font-weight:600">{{ a.svc }}</span><span style="display:block;font-size:13.1px;color:var(--text3);margin-top:2px">{{ a.who }}</span></span>
-                <span style="flex:none;font-size:11.2px;font-weight:700;color:{{ a.kFg }};background:{{ a.kBg }};padding:2px 7px;border-radius:99px;white-space:nowrap">{{ a.kind }}</span>
+                <span style="min-width:0"><span style="display:block;font-size:12.5px;font-weight:600">{{ a.svc }}</span><span style="display:block;font-size:10.5px;color:var(--text3);margin-top:2px">{{ a.who }}</span></span>
+                <span style="flex:none;font-size:9px;font-weight:700;color:{{ a.kFg }};background:{{ a.kBg }};padding:2px 7px;border-radius:99px;white-space:nowrap">{{ a.kind }}</span>
               </span>
-              <span style="display:block;font-size:13.1px;color:var(--text2);margin-top:7px">📍 {{ a.loc }}</span>
+              <span style="display:block;font-size:10.5px;color:var(--text2);margin-top:7px">📍 {{ a.loc }}</span>
 
               <sc-if value="{{ a.hasReq }}" hint-placeholder-val="{{ false }}">
-                <span style="display:block;font-size:12.5px;font-weight:700;color:{{ a.reqFg }};background:{{ a.reqBg }};padding:5px 9px;border-radius:8px;margin-top:9px">{{ a.reqLabel }}</span>
+                <span style="display:block;font-size:10px;font-weight:700;color:{{ a.reqFg }};background:{{ a.reqBg }};padding:5px 9px;border-radius:8px;margin-top:9px">{{ a.reqLabel }}</span>
               </sc-if>
 
               <sc-if value="{{ a.canAsk }}" hint-placeholder-val="{{ true }}">
                 <span style="display:flex;gap:7px;margin-top:10px;padding-top:10px;border-top:1px solid var(--line2)">
-                  <button sc-camel-on-click="{{ a.askMove }}" style="flex:1;padding:8px;border-radius:8px;background:var(--surface2);color:var(--text2);font-size:13.8px;font-weight:600">{{ a.moveLabel }}</button>
-                  <button sc-camel-on-click="{{ a.askCancel }}" style="flex:1;padding:8px;border-radius:8px;background:var(--dangerTint);color:var(--danger);font-size:13.8px;font-weight:600">{{ a.cancelLabel }}</button>
+                  <button sc-camel-on-click="{{ a.askMove }}" style="flex:1;padding:8px;border-radius:8px;background:var(--surface2);color:var(--text2);font-size:11px;font-weight:600">{{ a.moveLabel }}</button>
+                  <button sc-camel-on-click="{{ a.askCancel }}" style="flex:1;padding:8px;border-radius:8px;background:var(--dangerTint);color:var(--danger);font-size:11px;font-weight:600">{{ a.cancelLabel }}</button>
                 </span>
               </sc-if>
             </span>
@@ -705,24 +707,24 @@
 
     <!-- ═══════ KHÁCH HÀNG ═══════ -->
     <sc-if value="{{ isClients }}" hint-placeholder-val="{{ false }}">
-      <p style="font-family:var(--font);font-weight:700;font-size:26.2px;margin:0 0 11px">Khách hàng</p>
+      <p style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:21px;margin:0 0 11px">Khách hàng</p>
 
-      <p style="font:700 11.9px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:0 0 9px">Tổng · cả hai chế độ</p>
+      <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:0 0 9px">Tổng · cả hai chế độ</p>
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px">
         <sc-for list="{{ allClientKpis }}" as="k" hint-placeholder-count="3">
           <div class="card" style="padding:12px 10px;text-align:center">
-            <div style="font-family:var(--font);font-weight:700;font-size:26.2px;line-height:1.1;color:{{ k.c }}">{{ k.v }}</div>
-            <div style="font-size:11.2px;color:var(--text3);margin-top:3px;line-height:1.3">{{ k.t }}</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:21px;line-height:1.1;color:{{ k.c }}">{{ k.v }}</div>
+            <div style="font-size:9px;color:var(--text3);margin-top:3px;line-height:1.3">{{ k.t }}</div>
           </div>
         </sc-for>
       </div>
 
       <div style="display:flex;gap:4px;background:var(--surface2);border-radius:12px;padding:3px;margin-bottom:14px">
         <button sc-camel-on-click="{{ setCenterMode }}" style="flex:1;padding:9px 6px;border-radius:9px;background:{{ segCenterBg }}">
-          <span style="display:block;font-size:14.4px;font-weight:700;color:{{ segCenterFg }};line-height:1.2">Tại trung tâm</span>
+          <span style="display:block;font-size:11.5px;font-weight:700;color:{{ segCenterFg }};line-height:1.2">Tại trung tâm</span>
         </button>
         <button sc-camel-on-click="{{ setFreeMode }}" style="flex:1;padding:9px 6px;border-radius:9px;background:{{ segFreeBg }}">
-          <span style="display:block;font-size:14.4px;font-weight:700;color:{{ segFreeFg }};line-height:1.2">Làm tự do</span>
+          <span style="display:block;font-size:11.5px;font-weight:700;color:{{ segFreeFg }};line-height:1.2">Làm tự do</span>
         </button>
       </div>
 
@@ -732,44 +734,44 @@
            của "mô hình hai lớp" mà admin.html mô tả. -->
       <sc-if value="{{ modeIsCenter }}" hint-placeholder-val="{{ false }}">
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-          <div class="card" style="padding:13px"><div style="font-size:12.5px;font-weight:600;color:var(--text3)">Đang phụ trách</div><div style="font-family:var(--font);font-weight:700;font-size:28.8px;margin-top:5px">{{ ccCount }}</div><div style="font-size:11.9px;color:var(--text3)">khách của An Nhiên</div></div>
-          <div class="card" style="padding:13px"><div style="font-size:12.5px;font-weight:600;color:var(--text3)">Đang theo liệu trình</div><div style="font-family:var(--font);font-weight:700;font-size:28.8px;margin-top:5px;color:var(--primary)">{{ ccCourse }}</div><div style="font-size:11.9px;color:var(--text3)">cần theo dõi tiến triển</div></div>
+          <div class="card" style="padding:13px"><div style="font-size:10px;font-weight:600;color:var(--text3)">Đang phụ trách</div><div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:23px;margin-top:5px">{{ ccCount }}</div><div style="font-size:9.5px;color:var(--text3)">khách của An Nhiên</div></div>
+          <div class="card" style="padding:13px"><div style="font-size:10px;font-weight:600;color:var(--text3)">Đang theo liệu trình</div><div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:23px;margin-top:5px;color:var(--primary)">{{ ccCourse }}</div><div style="font-size:9.5px;color:var(--text3)">cần theo dõi tiến triển</div></div>
         </div>
 
         <div class="card" style="padding:12px 14px;margin-top:12px;background:var(--surface2)">
-          <p style="font-size:13.1px;line-height:1.6;color:var(--text2)">🔒 Hồ sơ khách thuộc <strong>An Nhiên Wellness</strong>. Bạn xem được nội dung chuyên môn để làm đúng liệu trình; số điện thoại, địa chỉ và giá dịch vụ do trung tâm giữ.</p>
+          <p style="font-size:10.5px;line-height:1.6;color:var(--text2)">🔒 Hồ sơ khách thuộc <strong>An Nhiên Wellness</strong>. Bạn xem được nội dung chuyên môn để làm đúng liệu trình; số điện thoại, địa chỉ và giá dịch vụ do trung tâm giữ.</p>
         </div>
 
         <div style="display:flex;flex-direction:column;gap:10px;margin-top:14px">
           <sc-for list="{{ centerClients }}" as="c" hint-placeholder-count="4">
             <div class="card" style="padding:14px">
               <div style="display:flex;align-items:flex-start;gap:11px">
-                <span style="flex:none;width:36px;height:36px;border-radius:50%;background:var(--tint);display:grid;place-items:center;font-weight:700;font-size:15px;color:var(--primary)">{{ c.i }}</span>
+                <span style="flex:none;width:36px;height:36px;border-radius:50%;background:var(--tint);display:grid;place-items:center;font-weight:700;font-size:12px;color:var(--primary)">{{ c.i }}</span>
                 <span style="flex:1;min-width:0">
-                  <span style="display:block;font-size:16.2px;font-weight:700">{{ c.n }}</span>
-                  <span style="display:block;font-size:13.8px;color:var(--text3);margin-top:2px">{{ c.svc }} · {{ c.room }}</span>
+                  <span style="display:block;font-size:13px;font-weight:700">{{ c.n }}</span>
+                  <span style="display:block;font-size:11px;color:var(--text3);margin-top:2px">{{ c.svc }} · {{ c.room }}</span>
                 </span>
-                <span style="flex:none;font-size:11.2px;font-weight:700;color:{{ c.tFg }};background:{{ c.tBg }};padding:3px 8px;border-radius:99px;white-space:nowrap">{{ c.course }}</span>
+                <span style="flex:none;font-size:9px;font-weight:700;color:{{ c.tFg }};background:{{ c.tBg }};padding:3px 8px;border-radius:99px;white-space:nowrap">{{ c.course }}</span>
               </div>
 
               <div style="margin-top:11px">
                 <div style="display:flex;align-items:center;justify-content:space-between">
-                  <span style="font-size:12.5px;color:var(--text3)">Tiến triển liệu trình</span>
-                  <span style="font-size:12.5px;font-weight:700;color:var(--primary)">{{ c.pct }}</span>
+                  <span style="font-size:10px;color:var(--text3)">Tiến triển liệu trình</span>
+                  <span style="font-size:10px;font-weight:700;color:var(--primary)">{{ c.pct }}</span>
                 </div>
                 <div style="height:6px;border-radius:99px;background:var(--line2);margin-top:5px;overflow:hidden"><div style="height:100%;width:{{ c.pct }};background:var(--primary);border-radius:99px"></div></div>
               </div>
 
-              <p style="font-size:13.1px;line-height:1.6;color:var(--text2);margin-top:10px;padding-left:9px;border-left:2px solid var(--line2)">{{ c.note }}</p>
+              <p style="font-size:10.5px;line-height:1.6;color:var(--text2);margin-top:10px;padding-left:9px;border-left:2px solid var(--line2)">{{ c.note }}</p>
 
               <sc-if value="{{ c.hasAlert }}" hint-placeholder-val="{{ true }}">
-                <p style="font-size:13.1px;line-height:1.6;color:var(--danger);background:var(--dangerTint);border-radius:9px;padding:8px 10px;margin-top:8px">⚠️ {{ c.alert }}</p>
+                <p style="font-size:10.5px;line-height:1.6;color:var(--danger);background:var(--dangerTint);border-radius:9px;padding:8px 10px;margin-top:8px">⚠️ {{ c.alert }}</p>
               </sc-if>
 
               <div style="display:flex;align-items:center;gap:8px;margin-top:12px;padding-top:11px;border-top:1px solid var(--line2)">
-                <span style="flex:1;font-size:12.5px;color:var(--text3)">Buổi gần nhất: {{ c.last }}</span>
-                <button sc-camel-on-click="{{ goSession }}" style="flex:none;padding:8px 13px;border-radius:9px;background:var(--surface2);color:var(--text2);font-size:13.8px;font-weight:600">Ghi chú buổi</button>
-                <button sc-camel-on-click="{{ goChat }}" style="flex:none;padding:8px 13px;border-radius:9px;background:var(--surface2);color:var(--text2);font-size:13.8px;font-weight:600">Nhắn qua TT</button>
+                <span style="flex:1;font-size:10px;color:var(--text3)">Buổi gần nhất: {{ c.last }}</span>
+                <button sc-camel-on-click="{{ goSession }}" style="flex:none;padding:8px 13px;border-radius:9px;background:var(--surface2);color:var(--text2);font-size:11px;font-weight:600">Ghi chú buổi</button>
+                <button sc-camel-on-click="{{ goChat }}" style="flex:none;padding:8px 13px;border-radius:9px;background:var(--surface2);color:var(--text2);font-size:11px;font-weight:600">Nhắn qua TT</button>
               </div>
             </div>
           </sc-for>
@@ -777,29 +779,29 @@
       </sc-if>
       <sc-if value="{{ modeIsFree }}" hint-placeholder-val="{{ true }}">
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-          <div class="card" style="padding:13px"><div style="font-size:12.5px;font-weight:600;color:var(--text3)">Khách của tôi</div><div style="font-family:var(--font);font-weight:700;font-size:28.8px;margin-top:5px">38</div><div style="font-size:11.9px;color:var(--text3)">12 khách định kỳ</div></div>
-          <div class="card" style="padding:13px"><div style="font-size:12.5px;font-weight:600;color:var(--text3)">Tỷ lệ quay lại</div><div style="font-family:var(--font);font-weight:700;font-size:28.8px;margin-top:5px;color:var(--ok)">71%</div><div style="font-size:11.9px;color:var(--text3)">Cao hơn TB 9%</div></div>
+          <div class="card" style="padding:13px"><div style="font-size:10px;font-weight:600;color:var(--text3)">Khách của tôi</div><div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:23px;margin-top:5px">38</div><div style="font-size:9.5px;color:var(--text3)">12 khách định kỳ</div></div>
+          <div class="card" style="padding:13px"><div style="font-size:10px;font-weight:600;color:var(--text3)">Tỷ lệ quay lại</div><div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:23px;margin-top:5px;color:var(--ok)">71%</div><div style="font-size:9.5px;color:var(--text3)">Cao hơn TB 9%</div></div>
         </div>
         <div style="display:flex;align-items:center;justify-content:space-between;margin:18px 0 10px">
-          <span style="font-family:var(--font);font-weight:600;font-size:22.5px">Cần chăm sóc</span>
-          <span style="font-size:13.1px;color:var(--text3)">3 khách</span>
+          <span style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:18px">Cần chăm sóc</span>
+          <span style="font-size:10.5px;color:var(--text3)">3 khách</span>
         </div>
         <div style="display:flex;flex-direction:column;gap:9px">
           <sc-for list="{{ clients }}" as="c" hint-placeholder-count="4">
             <div class="card" style="padding:13px;display:flex;align-items:center;gap:11px">
-              <span style="flex:none;width:36px;height:36px;border-radius:50%;background:var(--tint);display:grid;place-items:center;font-weight:700;font-size:15px;color:var(--primary)">{{ c.i }}</span>
+              <span style="flex:none;width:36px;height:36px;border-radius:50%;background:var(--tint);display:grid;place-items:center;font-weight:700;font-size:12px;color:var(--primary)">{{ c.i }}</span>
               <span style="flex:1;min-width:0">
-                <span style="display:block;font-size:15.6px;font-weight:600">{{ c.n }}</span>
-                <span style="display:block;font-size:13.1px;color:var(--text3);margin-top:1px">{{ c.note }}</span>
+                <span style="display:block;font-size:12.5px;font-weight:600">{{ c.n }}</span>
+                <span style="display:block;font-size:10.5px;color:var(--text3);margin-top:1px">{{ c.note }}</span>
               </span>
               <span style="flex:none;text-align:right">
-                <span style="display:block;font-size:11.2px;font-weight:700;color:{{ c.tFg }};background:{{ c.tBg }};padding:3px 8px;border-radius:99px;white-space:nowrap">{{ c.tag }}</span>
-                <span style="display:block;font-size:11.9px;color:var(--text3);margin-top:4px">{{ c.last }}</span>
+                <span style="display:block;font-size:9px;font-weight:700;color:{{ c.tFg }};background:{{ c.tBg }};padding:3px 8px;border-radius:99px;white-space:nowrap">{{ c.tag }}</span>
+                <span style="display:block;font-size:9.5px;color:var(--text3);margin-top:4px">{{ c.last }}</span>
               </span>
             </div>
           </sc-for>
         </div>
-        <button style="width:100%;margin-top:14px;padding:12px;border-radius:11px;background:var(--surface);border:1.5px dashed var(--line);color:var(--text2);font-size:15.6px;font-weight:600;text-align:center">+ Thêm khách thủ công</button>
+        <button style="width:100%;margin-top:14px;padding:12px;border-radius:11px;background:var(--surface);border:1.5px dashed var(--line);color:var(--text2);font-size:12.5px;font-weight:600;text-align:center">+ Thêm khách thủ công</button>
       </sc-if>
     </sc-if>
 
@@ -807,9 +809,9 @@
     <sc-if value="{{ schedMap }}" hint-placeholder-val="{{ false }}">
       <sc-if value="{{ mapEmpty }}" hint-placeholder-val="{{ false }}">
         <div class="card" style="padding:24px 18px;text-align:center">
-          <span style="font-size:32.5px">🏢</span>
-          <p style="font-family:var(--font);font-weight:600;font-size:21.2px;margin-top:9px">Hôm nay không có ca ngoài cơ sở</p>
-          <p style="font-size:14.4px;line-height:1.6;color:var(--text3);margin-top:6px">Bản đồ chỉ hiện khi có ca tại nhà khách. Các ca trong ngày đều ở phòng trị liệu của trung tâm.</p>
+          <span style="font-size:26px">🏢</span>
+          <p style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:17px;margin-top:9px">Hôm nay không có ca ngoài cơ sở</p>
+          <p style="font-size:11.5px;line-height:1.6;color:var(--text3);margin-top:6px">Bản đồ chỉ hiện khi có ca tại nhà khách. Các ca trong ngày đều ở phòng trị liệu của trung tâm.</p>
         </div>
       </sc-if>
       <sc-if value="{{ mapShown }}" hint-placeholder-val="{{ true }}">
@@ -822,9 +824,9 @@
           <span style="position:absolute;right:22px;top:22px"><span style="position:absolute;inset:0;margin:auto;width:15px;height:15px;border-radius:50%;background:var(--gold);animation:gps 1.8s ease-out infinite"></span><span style="position:relative;display:block;width:15px;height:15px;border-radius:50%;background:var(--gold);border:2px solid #fff"></span></span>
         </div>
         <div style="padding:14px;display:flex;align-items:center;gap:14px;border-top:1px solid var(--line2)">
-          <div style="flex:1"><div style="font-size:12.5px;color:var(--text3)">Tổng quãng đường</div><div style="font-family:var(--font);font-weight:700;font-size:23.8px">{{ mapDist }}</div></div>
-          <div style="flex:1"><div style="font-size:12.5px;color:var(--text3)">Thời gian di chuyển</div><div style="font-family:var(--font);font-weight:700;font-size:23.8px">{{ mapTime }}</div></div>
-          <button style="flex:none;padding:11px 15px;border-radius:10px;background:var(--primary);color:var(--on-primary);font-size:15px;font-weight:600">Chỉ đường</button>
+          <div style="flex:1"><div style="font-size:10px;color:var(--text3)">Tổng quãng đường</div><div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:19px">{{ mapDist }}</div></div>
+          <div style="flex:1"><div style="font-size:10px;color:var(--text3)">Thời gian di chuyển</div><div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:19px">{{ mapTime }}</div></div>
+          <button style="flex:none;padding:11px 15px;border-radius:10px;background:var(--primary);color:var(--on-primary);font-size:12px;font-weight:600">Chỉ đường</button>
         </div>
       </div>
 
@@ -832,16 +834,16 @@
         <sc-for list="{{ mapStops }}" as="st" hint-placeholder-count="3">
           <div style="display:flex;gap:12px">
             <div style="flex:none;display:flex;flex-direction:column;align-items:center">
-              <span style="width:26px;height:26px;border-radius:50%;background:{{ st.dotBg }};color:{{ st.dotFg }};display:grid;place-items:center;font-size:13.8px;font-weight:700">{{ st.n }}</span>
+              <span style="width:26px;height:26px;border-radius:50%;background:{{ st.dotBg }};color:{{ st.dotFg }};display:grid;place-items:center;font-size:11px;font-weight:700">{{ st.n }}</span>
               <span style="flex:1;width:2px;background:var(--line2);min-height:{{ st.line }}"></span>
             </div>
             <div style="flex:1;min-width:0;padding-bottom:16px">
               <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
-                <span style="font-size:15.6px;font-weight:600">{{ st.time }} · {{ st.svc }}</span>
-                <span style="flex:none;font-size:11.2px;font-weight:700;color:{{ st.stFg }};background:{{ st.stBg }};padding:2px 7px;border-radius:99px">{{ st.st }}</span>
+                <span style="font-size:12.5px;font-weight:600">{{ st.time }} · {{ st.svc }}</span>
+                <span style="flex:none;font-size:9px;font-weight:700;color:{{ st.stFg }};background:{{ st.stBg }};padding:2px 7px;border-radius:99px">{{ st.st }}</span>
               </div>
-              <p style="font-size:13.8px;color:var(--text3);margin-top:3px">{{ st.addr }}</p>
-              <p style="font-size:13.1px;color:var(--accent);margin-top:4px">{{ st.travel }}</p>
+              <p style="font-size:11px;color:var(--text3);margin-top:3px">{{ st.addr }}</p>
+              <p style="font-size:10.5px;color:var(--accent);margin-top:4px">{{ st.travel }}</p>
             </div>
           </div>
         </sc-for>
@@ -854,19 +856,19 @@
          hai nguồn" mở phần gộp bên dưới. Trước đây trang này chỉ vào được từ
          chế độ tại trung tâm, dù ví đã gộp cả tiền ca tự do. -->
     <sc-if value="{{ isWallet }}" hint-placeholder-val="{{ false }}">
-      <p style="font-family:var(--font);font-weight:700;font-size:26.2px;margin:0 0 11px">Tài chính</p>
+      <p style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:21px;margin:0 0 11px">Tài chính</p>
 
-      <p style="font:700 11.9px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:0 0 9px">Tháng 7/2026 · cả hai nguồn</p>
+      <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:0 0 9px">Tháng 7/2026 · cả hai nguồn</p>
       <div class="card" style="padding:15px;margin-bottom:14px">
         <div style="display:flex;align-items:baseline;gap:8px">
-          <span style="font-family:var(--font);font-weight:700;font-size:33.8px">18,60tr</span>
-          <span style="font-size:13.1px;color:var(--text3)">tổng ghi nhận</span>
+          <span style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:27px">18,60tr</span>
+          <span style="font-size:10.5px;color:var(--text3)">tổng ghi nhận</span>
         </div>
         <div style="display:flex;gap:7px;margin-top:12px">
           <sc-for list="{{ allPayKpis }}" as="k" hint-placeholder-count="3">
             <div style="flex:1;min-width:0">
-              <div style="font-size:11.2px;color:var(--text3)">{{ k.t }}</div>
-              <div style="font-size:17.5px;font-weight:700;color:{{ k.c }};margin-top:2px">{{ k.v }}</div>
+              <div style="font-size:9px;color:var(--text3)">{{ k.t }}</div>
+              <div style="font-size:14px;font-weight:700;color:{{ k.c }};margin-top:2px">{{ k.v }}</div>
             </div>
           </sc-for>
         </div>
@@ -874,81 +876,81 @@
 
       <div style="display:flex;gap:4px;background:var(--surface2);border-radius:12px;padding:3px;margin-bottom:14px">
         <button sc-camel-on-click="{{ setCenterMode }}" style="flex:1;padding:9px 6px;border-radius:9px;background:{{ segCenterBg }}">
-          <span style="display:block;font-size:14.4px;font-weight:700;color:{{ segCenterFg }};line-height:1.2">Tại trung tâm</span>
+          <span style="display:block;font-size:11.5px;font-weight:700;color:{{ segCenterFg }};line-height:1.2">Tại trung tâm</span>
         </button>
         <button sc-camel-on-click="{{ setFreeMode }}" style="flex:1;padding:9px 6px;border-radius:9px;background:{{ segFreeBg }}">
-          <span style="display:block;font-size:14.4px;font-weight:700;color:{{ segFreeFg }};line-height:1.2">Làm tự do</span>
+          <span style="display:block;font-size:11.5px;font-weight:700;color:{{ segFreeFg }};line-height:1.2">Làm tự do</span>
         </button>
       </div>
 
       <div style="border-radius:16px;padding:18px;background:var(--heroGrad);color:var(--onHero)">
-        <div style="font-size:12.5px;color:var(--gold)">{{ payTitle }}</div>
-        <div style="font-family:var(--font);font-weight:700;font-size:40px;margin-top:3px">{{ payBig }}</div>
-        <div style="font-size:13.8px;color:var(--onSub);margin-top:4px">{{ paySub }}</div>
+        <div style="font-size:10px;color:var(--gold)">{{ payTitle }}</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:32px;margin-top:3px">{{ payBig }}</div>
+        <div style="font-size:11px;color:var(--onSub);margin-top:4px">{{ paySub }}</div>
         <div style="display:flex;flex-direction:column;gap:8px;margin-top:15px;padding-top:14px;border-top:1px solid rgba(231,206,151,.28)">
           <sc-for list="{{ payModeRows }}" as="p" hint-placeholder-count="3">
             <div style="display:flex;align-items:baseline;gap:10px">
-              <span style="flex:1;min-width:0;font-size:14.4px;color:{{ p.labelFg }}">{{ p.k }}</span>
-              <span style="flex:none;font-size:16.2px;font-weight:700;color:{{ p.fg }}">{{ p.v }}</span>
+              <span style="flex:1;min-width:0;font-size:11.5px;color:{{ p.labelFg }}">{{ p.k }}</span>
+              <span style="flex:none;font-size:13px;font-weight:700;color:{{ p.fg }}">{{ p.v }}</span>
             </div>
           </sc-for>
         </div>
       </div>
 
       <div class="card" style="padding:14px;margin-top:12px;border-left:3px solid {{ payNextFg }}">
-        <span style="display:block;font-size:13.8px;font-weight:700;color:{{ payNextFg }}">{{ payNextTitle }}</span>
-        <p style="font-size:14.4px;line-height:1.6;color:var(--text2);margin-top:4px">{{ payNextText }}</p>
+        <span style="display:block;font-size:11px;font-weight:700;color:{{ payNextFg }}">{{ payNextTitle }}</span>
+        <p style="font-size:11.5px;line-height:1.6;color:var(--text2);margin-top:4px">{{ payNextText }}</p>
         <div style="display:flex;gap:8px;margin-top:12px">
-          <button style="flex:1;padding:10px;border-radius:9px;background:var(--primary);color:var(--on-primary);font-size:14.4px;font-weight:700">{{ payAction1 }}</button>
-          <button style="flex:1;padding:10px;border-radius:9px;background:var(--surface2);color:var(--text2);font-size:14.4px;font-weight:600">{{ payAction2 }}</button>
+          <button style="flex:1;padding:10px;border-radius:9px;background:var(--primary);color:var(--on-primary);font-size:11.5px;font-weight:700">{{ payAction1 }}</button>
+          <button style="flex:1;padding:10px;border-radius:9px;background:var(--surface2);color:var(--text2);font-size:11.5px;font-weight:600">{{ payAction2 }}</button>
         </div>
       </div>
 
       <button sc-camel-on-click="{{ toggleTotal }}" class="card" style="width:100%;display:flex;align-items:center;gap:9px;padding:14px;margin-top:12px">
         <span style="flex:1;min-width:0;text-align:left">
-          <span style="display:block;font-size:15.6px;font-weight:700">Bóc tách chi tiết cả hai nguồn</span>
-          <span style="display:block;font-size:13.1px;color:var(--text3);margin-top:2px">Trừ phí, thuế, đã nhận và còn phải nhận</span>
+          <span style="display:block;font-size:12.5px;font-weight:700">Bóc tách chi tiết cả hai nguồn</span>
+          <span style="display:block;font-size:10.5px;color:var(--text3);margin-top:2px">Trừ phí, thuế, đã nhận và còn phải nhận</span>
         </span>
-        <span style="flex:none;font-size:13.8px;font-weight:700;color:var(--accent)">{{ totalToggleLabel }}</span>
+        <span style="flex:none;font-size:11px;font-weight:700;color:var(--accent)">{{ totalToggleLabel }}</span>
       </button>
 
       <sc-if value="{{ showTotal }}" hint-placeholder-val="{{ true }}">
       <div style="border-radius:16px;padding:18px;margin-top:12px;background:var(--heroGrad);color:var(--onHero)">
-        <div style="font-size:12.5px;color:var(--gold)">Tổng thu nhập tháng 7/2026</div>
-        <div style="font-family:var(--font);font-weight:700;font-size:40px;margin-top:3px">18.600.000₫</div>
+        <div style="font-size:10px;color:var(--gold)">Tổng thu nhập tháng 7/2026</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:32px;margin-top:3px">18.600.000₫</div>
         <div style="display:flex;flex-direction:column;gap:8px;margin-top:15px;padding-top:14px;border-top:1px solid rgba(231,206,151,.28)">
           <sc-for list="{{ payoutRows }}" as="p" hint-placeholder-count="4">
             <div style="display:flex;align-items:baseline;gap:10px">
-              <span style="flex:1;min-width:0;font-size:14.4px;color:{{ p.labelFg }}">{{ p.k }}</span>
-              <span style="flex:none;font-size:16.2px;font-weight:700;color:{{ p.fg }}">{{ p.v }}</span>
+              <span style="flex:1;min-width:0;font-size:11.5px;color:{{ p.labelFg }}">{{ p.k }}</span>
+              <span style="flex:none;font-size:13px;font-weight:700;color:{{ p.fg }}">{{ p.v }}</span>
             </div>
           </sc-for>
         </div>
       </div>
 
-      <p style="font:700 11.9px ui-monospace,monospace;letter-spacing:.18em;color:var(--text3);text-transform:uppercase;margin:18px 0 10px">Đã nhận · theo nguồn chi trả</p>
+      <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.18em;color:var(--text3);text-transform:uppercase;margin:18px 0 10px">Đã nhận · theo nguồn chi trả</p>
       <div class="card" style="overflow:hidden">
         <sc-for list="{{ paidBySource }}" as="p" hint-placeholder-count="3">
           <div style="display:flex;align-items:center;gap:11px;padding:13px 14px;border-bottom:1px solid var(--line2)">
-            <span style="flex:none;width:32px;height:32px;border-radius:9px;background:{{ p.iBg }};display:grid;place-items:center;font-size:17.5px">{{ p.icon }}</span>
-            <span style="flex:1;min-width:0"><span style="display:block;font-size:15.6px;font-weight:600">{{ p.k }}</span><span style="display:block;font-size:12.5px;color:var(--text3);margin-top:1px">{{ p.d }}</span></span>
+            <span style="flex:none;width:32px;height:32px;border-radius:9px;background:{{ p.iBg }};display:grid;place-items:center;font-size:14px">{{ p.icon }}</span>
+            <span style="flex:1;min-width:0"><span style="display:block;font-size:12.5px;font-weight:600">{{ p.k }}</span><span style="display:block;font-size:10px;color:var(--text3);margin-top:1px">{{ p.d }}</span></span>
             <span style="flex:none;text-align:right">
-              <span style="display:block;font-size:16.2px;font-weight:700;color:var(--ok)">{{ p.paid }}</span>
-              <span style="display:block;font-size:11.9px;color:var(--text3);margin-top:1px">đã nhận</span>
+              <span style="display:block;font-size:13px;font-weight:700;color:var(--ok)">{{ p.paid }}</span>
+              <span style="display:block;font-size:9.5px;color:var(--text3);margin-top:1px">đã nhận</span>
             </span>
           </div>
         </sc-for>
       </div>
 
-      <p style="font:700 11.9px ui-monospace,monospace;letter-spacing:.18em;color:var(--text3);text-transform:uppercase;margin:18px 0 10px">Còn phải nhận</p>
+      <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.18em;color:var(--text3);text-transform:uppercase;margin:18px 0 10px">Còn phải nhận</p>
       <div class="card" style="overflow:hidden">
         <sc-for list="{{ dueBySource }}" as="p" hint-placeholder-count="3">
           <div style="display:flex;align-items:center;gap:11px;padding:13px 14px;border-bottom:1px solid var(--line2)">
-            <span style="flex:none;width:32px;height:32px;border-radius:9px;background:{{ p.iBg }};display:grid;place-items:center;font-size:17.5px">{{ p.icon }}</span>
-            <span style="flex:1;min-width:0"><span style="display:block;font-size:15.6px;font-weight:600">{{ p.k }}</span><span style="display:block;font-size:12.5px;color:var(--text3);margin-top:1px">{{ p.d }}</span></span>
+            <span style="flex:none;width:32px;height:32px;border-radius:9px;background:{{ p.iBg }};display:grid;place-items:center;font-size:14px">{{ p.icon }}</span>
+            <span style="flex:1;min-width:0"><span style="display:block;font-size:12.5px;font-weight:600">{{ p.k }}</span><span style="display:block;font-size:10px;color:var(--text3);margin-top:1px">{{ p.d }}</span></span>
             <span style="flex:none;text-align:right">
-              <span style="display:block;font-size:16.2px;font-weight:700;color:{{ p.fg }}">{{ p.due }}</span>
-              <span style="display:block;font-size:11.9px;color:var(--text3);margin-top:1px">{{ p.when }}</span>
+              <span style="display:block;font-size:13px;font-weight:700;color:{{ p.fg }}">{{ p.due }}</span>
+              <span style="display:block;font-size:9.5px;color:var(--text3);margin-top:1px">{{ p.when }}</span>
             </span>
           </div>
         </sc-for>
@@ -957,20 +959,20 @@
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px">
         <sc-for list="{{ walletKpis }}" as="k" hint-placeholder-count="4">
           <div class="card" style="padding:13px">
-            <div style="font-size:12.5px;font-weight:600;color:var(--text3)">{{ k.t }}</div>
-            <div style="font-family:var(--font);font-weight:700;font-size:26.2px;line-height:1.1;margin-top:5px;color:{{ k.c }}">{{ k.v }}</div>
-            <div style="font-size:11.9px;color:var(--text3);margin-top:1px">{{ k.sub }}</div>
+            <div style="font-size:10px;font-weight:600;color:var(--text3)">{{ k.t }}</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:21px;line-height:1.1;margin-top:5px;color:{{ k.c }}">{{ k.v }}</div>
+            <div style="font-size:9.5px;color:var(--text3);margin-top:1px">{{ k.sub }}</div>
           </div>
         </sc-for>
       </div>
 
-      <p style="font:700 11.9px ui-monospace,monospace;letter-spacing:.18em;color:var(--text3);text-transform:uppercase;margin:20px 0 10px">Giao dịch gần đây</p>
+      <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.18em;color:var(--text3);text-transform:uppercase;margin:20px 0 10px">Giao dịch gần đây</p>
       <div class="card" style="overflow:hidden">
         <sc-for list="{{ txns }}" as="t" hint-placeholder-count="5">
           <div style="display:flex;align-items:center;gap:11px;padding:13px 14px;border-bottom:1px solid var(--line2)">
-            <span style="flex:none;width:32px;height:32px;border-radius:9px;background:{{ t.iBg }};display:grid;place-items:center;font-size:17.5px">{{ t.icon }}</span>
-            <span style="flex:1;min-width:0"><span style="display:block;font-size:15.6px;font-weight:600">{{ t.t }}</span><span style="display:block;font-size:12.5px;color:var(--text3);margin-top:1px">{{ t.d }}</span></span>
-            <span style="flex:none;font-size:16.2px;font-weight:700;color:{{ t.c }}">{{ t.v }}</span>
+            <span style="flex:none;width:32px;height:32px;border-radius:9px;background:{{ t.iBg }};display:grid;place-items:center;font-size:14px">{{ t.icon }}</span>
+            <span style="flex:1;min-width:0"><span style="display:block;font-size:12.5px;font-weight:600">{{ t.t }}</span><span style="display:block;font-size:10px;color:var(--text3);margin-top:1px">{{ t.d }}</span></span>
+            <span style="flex:none;font-size:13px;font-weight:700;color:{{ t.c }}">{{ t.v }}</span>
           </div>
         </sc-for>
       </div>
@@ -982,8 +984,8 @@
 
       <div class="card" style="padding:14px;display:flex;align-items:center;gap:12px">
         <span style="flex:1;min-width:0">
-          <span style="display:block;font-size:16.2px;font-weight:600">Trạng thái nhận khách</span>
-          <span style="display:block;font-size:13.1px;color:var(--text3);margin-top:1px">{{ availSub }}</span>
+          <span style="display:block;font-size:13px;font-weight:600">Trạng thái nhận khách</span>
+          <span style="display:block;font-size:10.5px;color:var(--onSub);margin-top:2px">{{ availSub }}</span>
         </span>
         <button sc-camel-on-click="{{ toggleAvail }}" aria-label="Bật nhận khách" style="flex:none;width:52px;height:30px;border-radius:99px;background:{{ availTrack }};position:relative;transition:background .2s">
           <span style="position:absolute;top:3px;left:{{ availKnob }};width:24px;height:24px;border-radius:50%;background:var(--surface);box-shadow:0 2px 5px rgba(0,0,0,.24);transition:left .2s"></span>
@@ -991,18 +993,18 @@
       </div>
 
       <sc-if value="{{ avail }}" hint-placeholder-val="{{ true }}">
-        <p style="font-size:13.1px;line-height:1.6;color:var(--text3);margin-top:9px">Tắt công tắc này để tạm dừng nhận ca mới mà vẫn giữ nguyên các khung giờ bên dưới. Ca đã nhận không bị ảnh hưởng.</p>
+        <p style="font-size:10.5px;line-height:1.6;color:var(--text3);margin-top:9px">Tắt công tắc này để tạm dừng nhận ca mới mà vẫn giữ nguyên các khung giờ bên dưới. Ca đã nhận không bị ảnh hưởng.</p>
       </sc-if>
       <sc-if value="{{ availPaused }}" hint-placeholder-val="{{ false }}">
         <div class="card" style="padding:12px 14px;margin-top:9px;background:var(--goldTint);border:1px solid var(--gold)">
-          <span style="display:block;font-size:14.4px;font-weight:700;color:var(--goldText)">Đang ở chế độ bận</span>
-          <span style="display:block;font-size:13.1px;line-height:1.6;color:var(--text2);margin-top:3px">Khách không tìm thấy bạn trong kết quả tìm kiếm. Các khung giờ bên dưới được giữ nguyên, bật lại là hoạt động ngay.</span>
+          <span style="display:block;font-size:11.5px;font-weight:700;color:var(--goldText)">Đang ở chế độ bận</span>
+          <span style="display:block;font-size:10.5px;line-height:1.6;color:var(--text2);margin-top:3px">Khách không tìm thấy bạn trong kết quả tìm kiếm. Các khung giờ bên dưới được giữ nguyên, bật lại là hoạt động ngay.</span>
         </div>
       </sc-if>
 
       <div style="display:flex;align-items:center;justify-content:space-between;margin:20px 0 10px">
-        <span style="font-family:var(--font);font-weight:600;font-size:22.5px">Khung giờ nhận khách</span>
-        <button sc-camel-on-click="{{ addSlot }}" style="font-size:14.4px;font-weight:700;color:var(--accent)">+ Thêm</button>
+        <span style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:18px">Khung giờ nhận khách</span>
+        <button sc-camel-on-click="{{ addSlot }}" style="font-size:11.5px;font-weight:700;color:var(--accent)">+ Thêm</button>
       </div>
 
       <sc-if value="{{ hasSlots }}" hint-placeholder-val="{{ true }}">
@@ -1011,30 +1013,30 @@
             <div class="card" style="padding:14px;opacity:{{ sl.dim }}">
 
               <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px">
-                <span style="font-size:16.2px;font-weight:700;min-width:0">{{ sl.when }}</span>
-                <span style="flex:none;font-size:11.2px;font-weight:700;color:{{ sl.stFg }};background:{{ sl.stBg }};padding:3px 8px;border-radius:99px;white-space:nowrap">{{ sl.state }}</span>
+                <span style="font-size:13px;font-weight:700;min-width:0">{{ sl.when }}</span>
+                <span style="flex:none;font-size:9px;font-weight:700;color:{{ sl.stFg }};background:{{ sl.stBg }};padding:3px 8px;border-radius:99px;white-space:nowrap">{{ sl.state }}</span>
               </div>
 
               <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:10px">
                 <sc-for list="{{ sl.areas }}" as="a" hint-placeholder-count="2">
-                  <span style="font-size:12.5px;font-weight:600;color:var(--primary);background:var(--tint);padding:3px 9px;border-radius:99px">📍 {{ a.t }}</span>
+                  <span style="font-size:10px;font-weight:600;color:var(--primary);background:var(--tint);padding:3px 9px;border-radius:99px">📍 {{ a.t }}</span>
                 </sc-for>
               </div>
 
               <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:6px">
                 <sc-for list="{{ sl.svcs }}" as="v" hint-placeholder-count="2">
-                  <span style="font-size:12.5px;color:var(--text2);background:var(--surface2);padding:3px 9px;border-radius:99px">{{ v.t }}</span>
+                  <span style="font-size:10px;color:var(--text2);background:var(--surface2);padding:3px 9px;border-radius:99px">{{ v.t }}</span>
                 </sc-for>
               </div>
 
               <sc-if value="{{ sl.hasNote }}" hint-placeholder-val="{{ true }}">
-                <p style="font-size:13.1px;line-height:1.6;color:var(--text3);margin-top:9px;padding-left:9px;border-left:2px solid var(--line2)">{{ sl.note }}</p>
+                <p style="font-size:10.5px;line-height:1.6;color:var(--text3);margin-top:9px;padding-left:9px;border-left:2px solid var(--line2)">{{ sl.note }}</p>
               </sc-if>
 
               <div style="display:flex;gap:7px;margin-top:12px">
-                <button sc-camel-on-click="{{ sl.edit }}" style="flex:1;padding:9px;border-radius:9px;background:var(--surface2);color:var(--text2);font-size:14.4px;font-weight:600">Sửa</button>
-                <button sc-camel-on-click="{{ sl.toggle }}" style="flex:1;padding:9px;border-radius:9px;background:var(--surface2);color:var(--text2);font-size:14.4px;font-weight:600">{{ sl.toggleLabel }}</button>
-                <button sc-camel-on-click="{{ sl.remove }}" aria-label="Xoá khung giờ" style="flex:none;padding:9px 13px;border-radius:9px;background:var(--dangerTint);color:var(--danger);font-size:14.4px;font-weight:600">Xoá</button>
+                <button sc-camel-on-click="{{ sl.edit }}" style="flex:1;padding:9px;border-radius:9px;background:var(--surface2);color:var(--text2);font-size:11.5px;font-weight:600">Sửa</button>
+                <button sc-camel-on-click="{{ sl.toggle }}" style="flex:1;padding:9px;border-radius:9px;background:var(--surface2);color:var(--text2);font-size:11.5px;font-weight:600">{{ sl.toggleLabel }}</button>
+                <button sc-camel-on-click="{{ sl.remove }}" aria-label="Xoá khung giờ" style="flex:none;padding:9px 13px;border-radius:9px;background:var(--dangerTint);color:var(--danger);font-size:11.5px;font-weight:600">Xoá</button>
               </div>
 
             </div>
@@ -1044,10 +1046,10 @@
 
       <sc-if value="{{ noSlots }}" hint-placeholder-val="{{ false }}">
         <div class="card" style="padding:24px 18px;text-align:center">
-          <span style="font-size:32.5px">🗓</span>
-          <p style="font-family:var(--font);font-weight:600;font-size:21.2px;margin-top:9px">Chưa có khung giờ nào</p>
-          <p style="font-size:14.4px;line-height:1.6;color:var(--text3);margin-top:6px">Thêm khung giờ để khách biết khi nào và ở đâu bạn nhận ca.</p>
-          <button sc-camel-on-click="{{ addSlot }}" style="margin-top:14px;padding:11px 20px;border-radius:10px;background:var(--primary);color:var(--on-primary);font-size:15px;font-weight:700">+ Thêm khung giờ</button>
+          <span style="font-size:26px">🗓</span>
+          <p style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:17px;margin-top:9px">Chưa có khung giờ nào</p>
+          <p style="font-size:11.5px;line-height:1.6;color:var(--text3);margin-top:6px">Thêm khung giờ để khách biết khi nào và ở đâu bạn nhận ca.</p>
+          <button sc-camel-on-click="{{ addSlot }}" style="margin-top:14px;padding:11px 20px;border-radius:10px;background:var(--primary);color:var(--on-primary);font-size:12px;font-weight:700">+ Thêm khung giờ</button>
         </div>
       </sc-if>
 
@@ -1061,9 +1063,9 @@
 
       <!-- ① Chờ tôi xác nhận -->
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-        <span style="font-family:var(--font);font-weight:600;font-size:22.5px">Chờ tôi xác nhận</span>
+        <span style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:18px">Chờ tôi xác nhận</span>
         <sc-if value="{{ hasPending }}" hint-placeholder-val="{{ true }}">
-          <span style="font-size:12.5px;font-weight:700;color:#fff;background:var(--dangerSolid);padding:2px 8px;border-radius:99px">{{ pendingCount }} chờ</span>
+          <span style="font-size:10px;font-weight:700;color:#fff;background:var(--dangerSolid);padding:2px 8px;border-radius:99px">{{ pendingCount }} chờ</span>
         </sc-if>
       </div>
 
@@ -1073,16 +1075,16 @@
             <div class="card" style="padding:14px;border-left:3px solid var(--accent)">
               <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px">
                 <span style="min-width:0">
-                  <span style="display:block;font-size:16.2px;font-weight:700">{{ p.when }}</span>
-                  <span style="display:block;font-size:14.4px;color:var(--text2);margin-top:2px">{{ p.svc }} · {{ p.where }}</span>
+                  <span style="display:block;font-size:13px;font-weight:700">{{ p.when }}</span>
+                  <span style="display:block;font-size:11.5px;color:var(--text2);margin-top:2px">{{ p.svc }} · {{ p.where }}</span>
                 </span>
-                <span style="flex:none;font-size:11.2px;font-weight:700;color:var(--goldText);background:var(--goldTint);padding:3px 8px;border-radius:99px;white-space:nowrap">Trung tâm phân</span>
+                <span style="flex:none;font-size:9px;font-weight:700;color:var(--goldText);background:var(--goldTint);padding:3px 8px;border-radius:99px;white-space:nowrap">Trung tâm phân</span>
               </div>
-              <p style="font-size:13.1px;color:var(--text3);margin-top:6px">{{ p.sent }}</p>
+              <p style="font-size:10.5px;color:var(--text3);margin-top:6px">{{ p.sent }}</p>
               <div style="display:flex;gap:7px;margin-top:12px">
-                <button sc-camel-on-click="{{ p.accept }}" style="flex:1;padding:10px;border-radius:9px;background:var(--primary);color:var(--on-primary);font-size:14.4px;font-weight:700">Xác nhận</button>
-                <button sc-camel-on-click="{{ p.counter }}" style="flex:1;padding:10px;border-radius:9px;background:var(--surface2);color:var(--text2);font-size:14.4px;font-weight:600">Đề xuất giờ khác</button>
-                <button sc-camel-on-click="{{ p.decline }}" style="flex:none;padding:10px 13px;border-radius:9px;background:var(--dangerTint);color:var(--danger);font-size:14.4px;font-weight:600">Từ chối</button>
+                <button sc-camel-on-click="{{ p.accept }}" style="flex:1;padding:10px;border-radius:9px;background:var(--primary);color:var(--on-primary);font-size:11.5px;font-weight:700">Xác nhận</button>
+                <button sc-camel-on-click="{{ p.counter }}" style="flex:1;padding:10px;border-radius:9px;background:var(--surface2);color:var(--text2);font-size:11.5px;font-weight:600">Đề xuất giờ khác</button>
+                <button sc-camel-on-click="{{ p.decline }}" style="flex:none;padding:10px 13px;border-radius:9px;background:var(--dangerTint);color:var(--danger);font-size:11.5px;font-weight:600">Từ chối</button>
               </div>
             </div>
           </sc-for>
@@ -1090,30 +1092,30 @@
       </sc-if>
       <sc-if value="{{ noPending }}" hint-placeholder-val="{{ false }}">
         <div class="card" style="padding:18px;text-align:center">
-          <p style="font-size:15px;color:var(--text3)">Không có ca nào chờ bạn xác nhận.</p>
+          <p style="font-size:12px;color:var(--text3)">Không có ca nào chờ bạn xác nhận.</p>
         </div>
       </sc-if>
 
       <!-- ② Tôi đề xuất, chờ trung tâm duyệt -->
-      <p style="font:700 11.9px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:22px 0 10px">Tôi đề xuất · chờ trung tâm duyệt</p>
+      <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:22px 0 10px">Tôi đề xuất · chờ trung tâm duyệt</p>
       <sc-if value="{{ hasProposals }}" hint-placeholder-val="{{ true }}">
         <div style="display:flex;flex-direction:column;gap:10px">
           <sc-for list="{{ proposals }}" as="q" hint-placeholder-count="1">
             <div class="card" style="padding:14px;opacity:{{ q.dim }}">
               <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px">
                 <span style="min-width:0">
-                  <span style="display:block;font-size:15.6px;font-weight:700">{{ q.what }}</span>
-                  <span style="display:block;font-size:15px;color:var(--text2);margin-top:2px">{{ q.detail }}</span>
+                  <span style="display:block;font-size:12.5px;font-weight:700">{{ q.what }}</span>
+                  <span style="display:block;font-size:12px;color:var(--text2);margin-top:2px">{{ q.detail }}</span>
                 </span>
-                <span style="flex:none;font-size:11.2px;font-weight:700;color:{{ q.stFg }};background:{{ q.stBg }};padding:3px 8px;border-radius:99px;white-space:nowrap">{{ q.st }}</span>
+                <span style="flex:none;font-size:9px;font-weight:700;color:{{ q.stFg }};background:{{ q.stBg }};padding:3px 8px;border-radius:99px;white-space:nowrap">{{ q.st }}</span>
               </div>
               <sc-if value="{{ q.hasReason }}" hint-placeholder-val="{{ true }}">
-                <p style="font-size:13.1px;line-height:1.6;color:var(--text3);margin-top:8px;padding-left:9px;border-left:2px solid var(--line2)">Lý do: {{ q.reason }}</p>
+                <p style="font-size:10.5px;line-height:1.6;color:var(--text3);margin-top:8px;padding-left:9px;border-left:2px solid var(--line2)">Lý do: {{ q.reason }}</p>
               </sc-if>
               <div style="display:flex;align-items:center;gap:8px;margin-top:11px">
-                <span style="flex:1;font-size:12.5px;color:var(--text3)">{{ q.sent }}</span>
+                <span style="flex:1;font-size:10px;color:var(--text3)">{{ q.sent }}</span>
                 <sc-if value="{{ q.canCancel }}" hint-placeholder-val="{{ true }}">
-                  <button sc-camel-on-click="{{ q.cancel }}" style="flex:none;padding:8px 14px;border-radius:9px;background:var(--surface2);color:var(--text2);font-size:13.8px;font-weight:600">Huỷ đề xuất</button>
+                  <button sc-camel-on-click="{{ q.cancel }}" style="flex:none;padding:8px 14px;border-radius:9px;background:var(--surface2);color:var(--text2);font-size:11px;font-weight:600">Huỷ đề xuất</button>
                 </sc-if>
               </div>
             </div>
@@ -1122,64 +1124,64 @@
       </sc-if>
       <sc-if value="{{ noProposals }}" hint-placeholder-val="{{ false }}">
         <div class="card" style="padding:18px;text-align:center">
-          <p style="font-size:15px;color:var(--text3)">Bạn chưa gửi đề xuất nào.</p>
+          <p style="font-size:12px;color:var(--text3)">Bạn chưa gửi đề xuất nào.</p>
         </div>
       </sc-if>
 
       <!-- ③ Khung giờ rảnh hằng tuần -->
       <div style="display:flex;align-items:center;justify-content:space-between;margin:22px 0 10px">
-        <span style="font-family:var(--font);font-weight:600;font-size:22.5px">Khung giờ rảnh hằng tuần</span>
-        <button sc-camel-on-click="{{ addWeekFree }}" style="font-size:14.4px;font-weight:700;color:var(--accent)">+ Thêm</button>
+        <span style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:18px">Khung giờ rảnh hằng tuần</span>
+        <button sc-camel-on-click="{{ addWeekFree }}" style="font-size:11.5px;font-weight:700;color:var(--accent)">+ Thêm</button>
       </div>
       <div class="card" style="padding:12px 14px;background:var(--tint);border:1px solid var(--primary);margin-bottom:10px">
-        <p style="font-size:13.1px;line-height:1.6;color:var(--text2)">Đây là <strong>đề xuất</strong> để An Nhiên làm căn cứ phân ca. Trung tâm vẫn có thể phân ca ngoài khung này — bạn xác nhận hoặc từ chối ở mục trên cùng.</p>
+        <p style="font-size:10.5px;line-height:1.6;color:var(--text2)">Đây là <strong>đề xuất</strong> để An Nhiên làm căn cứ phân ca. Trung tâm vẫn có thể phân ca ngoài khung này — bạn xác nhận hoặc từ chối ở mục trên cùng.</p>
       </div>
       <div style="display:flex;flex-direction:column;gap:9px">
         <sc-for list="{{ weekFree }}" as="w" hint-placeholder-count="3">
           <div class="card" style="padding:13px 14px;display:flex;align-items:center;gap:10px">
             <span style="flex:1;min-width:0">
-              <span style="display:block;font-size:15.6px;font-weight:700">{{ w.dows }}</span>
-              <span style="display:block;font-size:13.8px;color:var(--text3);margin-top:2px">{{ w.hours }}</span>
+              <span style="display:block;font-size:12.5px;font-weight:700">{{ w.dows }}</span>
+              <span style="display:block;font-size:11px;color:var(--text3);margin-top:2px">{{ w.hours }}</span>
             </span>
-            <button sc-camel-on-click="{{ w.edit }}" style="flex:none;padding:8px 13px;border-radius:9px;background:var(--surface2);color:var(--text2);font-size:13.8px;font-weight:600">Sửa</button>
-            <button sc-camel-on-click="{{ w.remove }}" aria-label="Xoá khung giờ rảnh" style="flex:none;padding:8px 12px;border-radius:9px;background:var(--dangerTint);color:var(--danger);font-size:13.8px;font-weight:600">Xoá</button>
+            <button sc-camel-on-click="{{ w.edit }}" style="flex:none;padding:8px 13px;border-radius:9px;background:var(--surface2);color:var(--text2);font-size:11px;font-weight:600">Sửa</button>
+            <button sc-camel-on-click="{{ w.remove }}" aria-label="Xoá khung giờ rảnh" style="flex:none;padding:8px 12px;border-radius:9px;background:var(--dangerTint);color:var(--danger);font-size:11px;font-weight:600">Xoá</button>
           </div>
         </sc-for>
       </div>
 
       <!-- ④ Đề nghị nhận thêm việc — KTV chủ động xin ca, trung tâm duyệt -->
-      <p style="font:700 11.9px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:22px 0 10px">Đề nghị nhận thêm việc</p>
+      <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:22px 0 10px">Đề nghị nhận thêm việc</p>
       <div class="card" style="padding:15px">
-        <p style="font-size:13.8px;line-height:1.6;color:var(--text2)">Chủ động xin thêm ca khi bạn còn trống. Trung tâm xem đề nghị và phân ca nếu có nhu cầu — không đảm bảo được duyệt.</p>
+        <p style="font-size:11px;line-height:1.6;color:var(--text2)">Chủ động xin thêm ca khi bạn còn trống. Trung tâm xem đề nghị và phân ca nếu có nhu cầu — không đảm bảo được duyệt.</p>
 
-        <p style="font:700 11.2px ui-monospace,monospace;letter-spacing:.14em;color:var(--text3);text-transform:uppercase;margin:15px 0 8px">Loại hình muốn nhận</p>
+        <p style="font:700 9px ui-monospace,monospace;letter-spacing:.14em;color:var(--text3);text-transform:uppercase;margin:15px 0 8px">Loại hình muốn nhận</p>
         <div style="display:flex;flex-wrap:wrap;gap:6px">
           <sc-for list="{{ wantSvcs }}" as="c" hint-placeholder-count="6">
-            <button sc-camel-on-click="{{ c.tap }}" style="padding:7px 12px;border-radius:99px;background:{{ c.bg }};color:{{ c.fg }};border:1px solid {{ c.bd }};font-size:13.8px;font-weight:600">{{ c.t }}</button>
+            <button sc-camel-on-click="{{ c.tap }}" style="padding:7px 12px;border-radius:99px;background:{{ c.bg }};color:{{ c.fg }};border:1px solid {{ c.bd }};font-size:11px;font-weight:600">{{ c.t }}</button>
           </sc-for>
         </div>
 
-        <p style="font:700 11.2px ui-monospace,monospace;letter-spacing:.14em;color:var(--text3);text-transform:uppercase;margin:15px 0 8px">Khung thời gian rảnh</p>
+        <p style="font:700 9px ui-monospace,monospace;letter-spacing:.14em;color:var(--text3);text-transform:uppercase;margin:15px 0 8px">Khung thời gian rảnh</p>
         <div style="display:flex;flex-wrap:wrap;gap:6px">
           <sc-for list="{{ wantSlots }}" as="c" hint-placeholder-count="4">
-            <button sc-camel-on-click="{{ c.tap }}" style="padding:7px 12px;border-radius:99px;background:{{ c.bg }};color:{{ c.fg }};border:1px solid {{ c.bd }};font-size:13.8px;font-weight:600">{{ c.t }}</button>
+            <button sc-camel-on-click="{{ c.tap }}" style="padding:7px 12px;border-radius:99px;background:{{ c.bg }};color:{{ c.fg }};border:1px solid {{ c.bd }};font-size:11px;font-weight:600">{{ c.t }}</button>
           </sc-for>
         </div>
 
         <sc-if value="{{ wantHint }}" hint-placeholder-val="{{ false }}">
-          <p style="font-size:13.8px;color:var(--danger);margin-top:11px">{{ wantHint }}</p>
+          <p style="font-size:11px;color:var(--danger);margin-top:11px">{{ wantHint }}</p>
         </sc-if>
-        <button sc-camel-on-click="{{ sendWant }}" style="width:100%;margin-top:13px;padding:12px;border-radius:10px;background:{{ wantBg }};color:{{ wantFg }};font-size:15px;font-weight:700">Gửi đề nghị cho trung tâm</button>
+        <button sc-camel-on-click="{{ sendWant }}" style="width:100%;margin-top:13px;padding:12px;border-radius:10px;background:{{ wantBg }};color:{{ wantFg }};font-size:12px;font-weight:700">Gửi đề nghị cho trung tâm</button>
       </div>
 
       <!-- ⑤ Báo bận khẩn cấp -->
-      <p style="font:700 11.9px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:22px 0 10px">Bất khả kháng</p>
+      <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:22px 0 10px">Bất khả kháng</p>
       <div class="card" style="padding:15px;border-top:3px solid var(--danger)">
-        <span style="display:block;font-size:16.2px;font-weight:700">Báo bận khẩn cấp</span>
-        <p style="font-size:13.8px;line-height:1.6;color:var(--text2);margin-top:5px">Ốm đau, tai nạn, việc gia đình đột xuất. <strong>Có hiệu lực ngay, không chờ duyệt</strong> — trung tâm được báo tự động để điều phối lại. Bắt buộc ghi lý do.</p>
+        <span style="display:block;font-size:13px;font-weight:700">Báo bận khẩn cấp</span>
+        <p style="font-size:11px;line-height:1.6;color:var(--text2);margin-top:5px">Ốm đau, tai nạn, việc gia đình đột xuất. <strong>Có hiệu lực ngay, không chờ duyệt</strong> — trung tâm được báo tự động để điều phối lại. Bắt buộc ghi lý do.</p>
         <div style="display:flex;align-items:center;gap:9px;margin-top:12px;padding-top:12px;border-top:1px solid var(--line2)">
-          <span style="flex:1;font-size:13.1px;color:var(--text3)">Đã dùng <strong style="color:var(--text2)">{{ sickUsed }} lần</strong> trong 90 ngày · ảnh hưởng chỉ số Tuân thủ quy trình</span>
-          <button sc-camel-on-click="{{ reportSick }}" style="flex:none;padding:10px 16px;border-radius:10px;background:var(--dangerTint);color:var(--danger);font-size:14.4px;font-weight:700">Báo bận</button>
+          <span style="flex:1;font-size:10.5px;color:var(--text3)">Đã dùng <strong style="color:var(--text2)">{{ sickUsed }} lần</strong> trong 90 ngày · ảnh hưởng chỉ số Tuân thủ quy trình</span>
+          <button sc-camel-on-click="{{ reportSick }}" style="flex:none;padding:10px 16px;border-radius:10px;background:var(--dangerTint);color:var(--danger);font-size:11.5px;font-weight:700">Báo bận</button>
         </div>
       </div>
 
@@ -1189,17 +1191,17 @@
       <div class="card" style="padding:16px;text-align:center">
         <!-- Avatar bấm được để đổi ảnh. Không có bộ chọn chế độ ở mục này: hồ sơ
              là của một người, không phụ thuộc đang làm cho ai. -->
-        <button sc-camel-on-click="{{ pickAvatar }}" aria-label="Đổi ảnh đại diện" style="position:relative;display:inline-grid;place-items:center;width:66px;height:66px;border-radius:50%;background:var(--tint);font-weight:700;font-size:27.5px;color:var(--primary)">HY
+        <button sc-camel-on-click="{{ pickAvatar }}" aria-label="Đổi ảnh đại diện" style="position:relative;display:inline-grid;place-items:center;width:66px;height:66px;border-radius:50%;background:var(--tint);font-weight:700;font-size:22px;color:var(--primary)">HY
           <span style="position:absolute;right:-2px;bottom:-2px;width:24px;height:24px;border-radius:50%;background:var(--primary);border:2px solid var(--surface);display:grid;place-items:center">
             <svg width="12" height="12" sc-camel-view-box="0 0 24 24" fill="none" stroke="var(--on-primary)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9a2 2 0 0 1 2-2h1.5l1-2h7l1 2H19a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><circle cx="12" cy="13" r="3.2"></circle></svg>
           </span>
         </button>
-        <p style="font-size:12.5px;color:var(--text3);margin-top:7px">{{ avatarNote }}</p>
-        <div style="font-family:var(--font);font-weight:700;font-size:25px;margin-top:10px">Trần Hải Yến</div>
-        <div style="font-size:13.8px;color:var(--text3);margin-top:2px">Mã KTV · AW-KTV-0316 · tham gia 03/2024</div>
+        <p style="font-size:10px;color:var(--text3);margin-top:7px">{{ avatarNote }}</p>
+        <div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:20px;margin-top:10px">Trần Hải Yến</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:2px">Mã KTV · AW-KTV-0316 · tham gia 03/2024</div>
         <div style="display:flex;justify-content:center;gap:7px;margin-top:10px">
-          <span style="font-size:11.9px;font-weight:700;color:#06140F;background:var(--gold);padding:3px 9px;border-radius:99px">Bậc 2 · Trị liệu</span>
-          <span style="font-size:11.9px;font-weight:700;color:#fff;background:var(--okSolid);padding:3px 9px;border-radius:99px">✓ Xác minh</span>
+          <span style="font-size:9.5px;font-weight:700;color:#06140F;background:var(--gold);padding:3px 9px;border-radius:99px">Bậc 2 · Trị liệu</span>
+          <span style="font-size:9.5px;font-weight:700;color:#fff;background:var(--okSolid);padding:3px 9px;border-radius:99px">✓ Xác minh</span>
         </div>
       </div>
 
@@ -1208,99 +1210,99 @@
            chấm theo trải nghiệm; giấu bớt một bên là méo hồ sơ nghề nghiệp. -->
       <div class="card" style="padding:15px;margin-top:12px;border-top:3px solid var(--accent)">
         <div style="display:flex;align-items:center;justify-content:space-between">
-          <span style="font:700 11.2px ui-monospace,monospace;letter-spacing:.14em;color:var(--accent);text-transform:uppercase">An Nhiên chấm điểm</span>
-          <span style="font-size:13.8px;font-weight:700;color:var(--ok)">94/100</span>
+          <span style="font:700 9px ui-monospace,monospace;letter-spacing:.14em;color:var(--accent);text-transform:uppercase">An Nhiên chấm điểm</span>
+          <span style="font-size:11px;font-weight:700;color:var(--ok)">94/100</span>
         </div>
         <div style="display:flex;flex-direction:column;gap:10px;margin-top:12px">
           <sc-for list="{{ scoreBars }}" as="q" hint-placeholder-count="3">
             <div>
               <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
-                <span style="font-size:14.4px;color:var(--text2)">{{ q.t }}</span>
-                <span style="font-size:14.4px;font-weight:700;color:{{ q.c }}">{{ q.v }}</span>
+                <span style="font-size:11.5px;color:var(--text2)">{{ q.t }}</span>
+                <span style="font-size:11.5px;font-weight:700;color:{{ q.c }}">{{ q.v }}</span>
               </div>
               <div style="height:6px;border-radius:99px;background:var(--line2);overflow:hidden"><div style="height:100%;width:{{ q.w }};background:{{ q.c }};border-radius:99px"></div></div>
             </div>
           </sc-for>
         </div>
-        <p style="font-size:13.1px;line-height:1.55;color:var(--text3);margin-top:12px;padding-left:9px;border-left:2px solid var(--line2)">Điểm do quản lý ca của An Nhiên ghi nhận, ảnh hưởng tới phân ca và xét nâng bậc.</p>
+        <p style="font-size:10.5px;line-height:1.55;color:var(--text3);margin-top:12px;padding-left:9px;border-left:2px solid var(--line2)">Điểm do quản lý ca của An Nhiên ghi nhận, ảnh hưởng tới phân ca và xét nâng bậc.</p>
       </div>
 
       <button sc-camel-on-click="{{ goReviews }}" class="card" style="width:100%;padding:15px;margin-top:10px;border-top:3px solid var(--gold);text-align:left;display:block">
         <div style="display:flex;align-items:center;justify-content:space-between">
-          <span style="font:700 11.2px ui-monospace,monospace;letter-spacing:.14em;color:var(--goldText);text-transform:uppercase">Khách đánh giá</span>
-          <span style="font-size:13.8px;font-weight:700;color:var(--goldText)">4,9 ★</span>
+          <span style="font:700 9px ui-monospace,monospace;letter-spacing:.14em;color:var(--goldText);text-transform:uppercase">Khách đánh giá</span>
+          <span style="font-size:11px;font-weight:700;color:var(--goldText)">4,9 ★</span>
         </div>
         <div style="display:flex;align-items:center;gap:14px;margin-top:12px">
-          <span style="flex:1"><span style="display:block;font-size:12.5px;color:var(--text3)">Lượt đánh giá</span><span style="display:block;font-family:var(--font);font-weight:700;font-size:25px">38</span></span>
-          <span style="flex:1"><span style="display:block;font-size:12.5px;color:var(--text3)">Khách cải thiện</span><span style="display:block;font-family:var(--font);font-weight:700;font-size:25px;color:var(--ok)">92%</span></span>
-          <span style="flex:1"><span style="display:block;font-size:12.5px;color:var(--text3)">Tỷ lệ nhận ca</span><span style="display:block;font-family:var(--font);font-weight:700;font-size:25px;color:var(--accent)">92%</span></span>
+          <span style="flex:1"><span style="display:block;font-size:10px;color:var(--text3)">Lượt đánh giá</span><span style="display:block;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:20px">38</span></span>
+          <span style="flex:1"><span style="display:block;font-size:10px;color:var(--text3)">Khách cải thiện</span><span style="display:block;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:20px;color:var(--ok)">92%</span></span>
+          <span style="flex:1"><span style="display:block;font-size:10px;color:var(--text3)">Tỷ lệ nhận ca</span><span style="display:block;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:20px;color:var(--accent)">92%</span></span>
         </div>
-        <p style="font-size:13.1px;line-height:1.55;color:var(--text3);margin-top:12px;padding-left:9px;border-left:2px solid var(--line2)">Do khách chấm sau mỗi buổi. Tỷ lệ nhận ca ảnh hưởng thứ hạng hiển thị khi khách tìm KTV. Bấm để xem từng nhận xét →</p>
+        <p style="font-size:10.5px;line-height:1.55;color:var(--text3);margin-top:12px;padding-left:9px;border-left:2px solid var(--line2)">Do khách chấm sau mỗi buổi. Tỷ lệ nhận ca ảnh hưởng thứ hạng hiển thị khi khách tìm KTV. Bấm để xem từng nhận xét →</p>
       </button>
 
       <div class="card" style="padding:16px;margin-top:12px;border-top:3px solid var(--accent)">
         <div style="display:flex;align-items:center;justify-content:space-between">
-          <span style="font-family:var(--font);font-weight:600;font-size:21.2px">Lộ trình lên Bậc 3</span>
-          <span style="font-size:13.8px;font-weight:700;color:var(--accent)">68%</span>
+          <span style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:17px">Lộ trình lên Bậc 3</span>
+          <span style="font-size:11px;font-weight:700;color:var(--accent)">68%</span>
         </div>
         <div style="height:7px;border-radius:99px;background:var(--line2);margin-top:10px;overflow:hidden"><div style="height:100%;width:68%;background:linear-gradient(90deg,var(--accent),var(--gold));border-radius:99px"></div></div>
         <div style="display:flex;flex-direction:column;gap:8px;margin-top:13px">
           <sc-for list="{{ tierReqs }}" as="t" hint-placeholder-count="4">
             <div style="display:flex;align-items:center;gap:10px">
               <span style="flex:none;width:19px;height:19px;border-radius:50%;background:{{ t.bg }};display:grid;place-items:center">{{ t.mark }}</span>
-              <span style="flex:1;font-size:14.4px;color:{{ t.fg }}">{{ t.t }}</span>
+              <span style="flex:1;font-size:11.5px;color:{{ t.fg }}">{{ t.t }}</span>
             </div>
           </sc-for>
         </div>
       </div>
 
       <!-- Thông tin liên hệ — kênh khách và trung tâm gọi được cho KTV -->
-      <p style="font:700 11.9px ui-monospace,monospace;letter-spacing:.18em;color:var(--text3);text-transform:uppercase;margin:20px 0 10px">Thông tin liên hệ</p>
+      <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.18em;color:var(--text3);text-transform:uppercase;margin:20px 0 10px">Thông tin liên hệ</p>
       <div class="card" style="overflow:hidden">
         <sc-for list="{{ contacts }}" as="c" hint-placeholder-count="5">
           <button sc-camel-on-click="{{ c.tap }}" style="width:100%;display:flex;align-items:center;gap:11px;padding:13px 14px;border-bottom:1px solid var(--line2)">
-            <span style="flex:none;width:30px;height:30px;border-radius:9px;background:var(--surface2);display:grid;place-items:center;font-size:17.5px">{{ c.icon }}</span>
+            <span style="flex:none;width:30px;height:30px;border-radius:9px;background:var(--surface2);display:grid;place-items:center;font-size:14px">{{ c.icon }}</span>
             <span style="flex:1;min-width:0;text-align:left">
-              <span style="display:block;font-size:15.6px;font-weight:600">{{ c.t }}</span>
-              <span style="display:block;font-size:12.5px;color:{{ c.vFg }};margin-top:1px">{{ c.v }}</span>
+              <span style="display:block;font-size:12.5px;font-weight:600">{{ c.t }}</span>
+              <span style="display:block;font-size:10px;color:{{ c.vFg }};margin-top:1px">{{ c.v }}</span>
             </span>
-            <span style="flex:none;font-size:13.1px;font-weight:700;color:var(--accent)">{{ c.action }}</span>
+            <span style="flex:none;font-size:10.5px;font-weight:700;color:var(--accent)">{{ c.action }}</span>
           </button>
         </sc-for>
       </div>
 
       <!-- Chứng chỉ — thêm, sửa, theo dõi hạn -->
       <div style="display:flex;align-items:center;justify-content:space-between;margin:20px 0 10px">
-        <span style="font:700 11.9px ui-monospace,monospace;letter-spacing:.18em;color:var(--text3);text-transform:uppercase">Chứng chỉ &amp; bằng cấp</span>
-        <button sc-camel-on-click="{{ addCert }}" style="font-size:14.4px;font-weight:700;color:var(--accent)">+ Thêm</button>
+        <span style="font:700 9.5px ui-monospace,monospace;letter-spacing:.18em;color:var(--text3);text-transform:uppercase">Chứng chỉ &amp; bằng cấp</span>
+        <button sc-camel-on-click="{{ addCert }}" style="font-size:11.5px;font-weight:700;color:var(--accent)">+ Thêm</button>
       </div>
       <div style="display:flex;flex-direction:column;gap:9px">
         <sc-for list="{{ certs }}" as="c" hint-placeholder-count="3">
           <div class="card" style="padding:13px 14px">
             <div style="display:flex;align-items:flex-start;gap:9px">
               <span style="flex:1;min-width:0">
-                <span style="display:block;font-size:15.6px;font-weight:700">{{ c.t }}</span>
-                <span style="display:block;font-size:13.1px;color:var(--text3);margin-top:2px">{{ c.by }} · cấp {{ c.issued }}</span>
+                <span style="display:block;font-size:12.5px;font-weight:700">{{ c.t }}</span>
+                <span style="display:block;font-size:10.5px;color:var(--text3);margin-top:2px">{{ c.by }} · cấp {{ c.issued }}</span>
               </span>
-              <span style="flex:none;font-size:11.2px;font-weight:700;color:{{ c.stFg }};background:{{ c.stBg }};padding:3px 8px;border-radius:99px;white-space:nowrap">{{ c.st }}</span>
+              <span style="flex:none;font-size:9px;font-weight:700;color:{{ c.stFg }};background:{{ c.stBg }};padding:3px 8px;border-radius:99px;white-space:nowrap">{{ c.st }}</span>
             </div>
             <div style="display:flex;gap:7px;margin-top:11px">
-              <button sc-camel-on-click="{{ c.edit }}" style="flex:1;padding:8px;border-radius:8px;background:var(--surface2);color:var(--text2);font-size:13.8px;font-weight:600">Sửa</button>
-              <button sc-camel-on-click="{{ c.replace }}" style="flex:1;padding:8px;border-radius:8px;background:var(--surface2);color:var(--text2);font-size:13.8px;font-weight:600">Tải ảnh mới</button>
-              <button sc-camel-on-click="{{ c.remove }}" style="flex:none;padding:8px 12px;border-radius:8px;background:var(--dangerTint);color:var(--danger);font-size:13.8px;font-weight:600">Xoá</button>
+              <button sc-camel-on-click="{{ c.edit }}" style="flex:1;padding:8px;border-radius:8px;background:var(--surface2);color:var(--text2);font-size:11px;font-weight:600">Sửa</button>
+              <button sc-camel-on-click="{{ c.replace }}" style="flex:1;padding:8px;border-radius:8px;background:var(--surface2);color:var(--text2);font-size:11px;font-weight:600">Tải ảnh mới</button>
+              <button sc-camel-on-click="{{ c.remove }}" style="flex:none;padding:8px 12px;border-radius:8px;background:var(--dangerTint);color:var(--danger);font-size:11px;font-weight:600">Xoá</button>
             </div>
           </div>
         </sc-for>
       </div>
 
       <!-- Cấu hình những gì khách nhìn thấy trên hồ sơ công khai -->
-      <p style="font:700 11.9px ui-monospace,monospace;letter-spacing:.18em;color:var(--text3);text-transform:uppercase;margin:20px 0 10px">Cấu hình hiển thị</p>
+      <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.18em;color:var(--text3);text-transform:uppercase;margin:20px 0 10px">Cấu hình hiển thị</p>
       <div class="card" style="overflow:hidden">
         <sc-for list="{{ displayCfg }}" as="g" hint-placeholder-count="4">
           <div style="display:flex;align-items:center;gap:11px;padding:13px 14px;border-bottom:1px solid var(--line2)">
             <span style="flex:1;min-width:0">
-              <span style="display:block;font-size:15.6px;font-weight:600">{{ g.t }}</span>
-              <span style="display:block;font-size:12.5px;color:var(--text3);margin-top:1px">{{ g.d }}</span>
+              <span style="display:block;font-size:12.5px;font-weight:600">{{ g.t }}</span>
+              <span style="display:block;font-size:10px;color:var(--text3);margin-top:1px">{{ g.d }}</span>
             </span>
             <button sc-camel-on-click="{{ g.toggle }}" aria-label="{{ g.t }}" style="flex:none;width:46px;height:27px;border-radius:99px;background:{{ g.track }};position:relative;transition:background .2s">
               <span style="position:absolute;top:3px;left:{{ g.knob }};width:21px;height:21px;border-radius:50%;background:var(--surface);box-shadow:0 2px 5px rgba(0,0,0,.24);transition:left .2s"></span>
@@ -1309,28 +1311,28 @@
         </sc-for>
       </div>
 
-      <p style="font:700 11.9px ui-monospace,monospace;letter-spacing:.18em;color:var(--text3);text-transform:uppercase;margin:20px 0 10px">Chế độ &amp; liên kết</p>
+      <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.18em;color:var(--text3);text-transform:uppercase;margin:20px 0 10px">Chế độ &amp; liên kết</p>
       <div class="card" style="overflow:hidden">
         <sc-for list="{{ meLinks }}" as="m" hint-placeholder-count="6">
           <button sc-camel-on-click="{{ m.tap }}" style="width:100%;display:flex;align-items:center;gap:11px;padding:13px 14px;border-bottom:1px solid var(--line2)">
-            <span style="flex:none;width:30px;height:30px;border-radius:9px;background:var(--surface2);display:grid;place-items:center;font-size:17.5px">{{ m.icon }}</span>
-            <span style="flex:1;min-width:0"><span style="display:block;font-size:15.6px;font-weight:600">{{ m.t }}</span><span style="display:block;font-size:12.5px;color:var(--text3);margin-top:1px">{{ m.d }}</span></span>
+            <span style="flex:none;width:30px;height:30px;border-radius:9px;background:var(--surface2);display:grid;place-items:center;font-size:14px">{{ m.icon }}</span>
+            <span style="flex:1;min-width:0"><span style="display:block;font-size:12.5px;font-weight:600">{{ m.t }}</span><span style="display:block;font-size:10px;color:var(--text3);margin-top:1px">{{ m.d }}</span></span>
             <svg width="15" height="15" sc-camel-view-box="0 0 24 24" fill="none" stroke="var(--text3)" stroke-width="2" style="flex:none"><path d="m9 5 7 7-7 7"></path></svg>
           </button>
         </sc-for>
       </div>
 
-      <button style="width:100%;margin-top:14px;padding:13px;border-radius:11px;background:var(--dangerTint);color:var(--danger);font-size:15.6px;font-weight:700;text-align:center">SOS · Khẩn cấp</button>
+      <button style="width:100%;margin-top:14px;padding:13px;border-radius:11px;background:var(--dangerTint);color:var(--danger);font-size:12.5px;font-weight:700;text-align:center">SOS · Khẩn cấp</button>
     </sc-if>
 
   </main>
 
-  <!-- Nav chỉ dùng icon, không chữ. aria-label giữ lại tên mục cho trình đọc
-       màn hình và cho người dùng bàn phím. -->
-  <nav style="flex:none;display:grid;grid-template-columns:repeat(5,1fr);align-items:center;background:var(--tabbar);border-top:1px solid var(--line);padding:9px 4px 13px;backdrop-filter:blur(12px)">
+  <!-- Nav có chữ dưới icon, theo đúng chuẩn của app.html. -->
+  <nav style="flex:none;display:grid;grid-template-columns:repeat(5,1fr);align-items:center;background:var(--tabbar);border-top:1px solid var(--line);padding:7px 4px 11px;backdrop-filter:blur(12px)">
     <sc-for list="{{ nav }}" as="n" hint-placeholder-count="5">
-      <button sc-camel-on-click="{{ n.go }}" aria-label="{{ n.t }}" title="{{ n.t }}" style="display:flex;align-items:center;justify-content:center;padding:2px 0">
-        <span style="display:grid;place-items:center;width:46px;height:36px;border-radius:12px;background:{{ n.chip }};color:{{ n.ic }}">{{ n.icon }}</span>
+      <button sc-camel-on-click="{{ n.go }}" aria-label="{{ n.t }}" style="display:flex;flex-direction:column;align-items:center;gap:4px;padding:2px 0">
+        <span style="display:grid;place-items:center;width:40px;height:28px;border-radius:10px;background:{{ n.chip }};color:{{ n.ic }}">{{ n.icon }}</span>
+        <span style="font-size:9px;font-weight:600;white-space:nowrap;color:{{ n.fg }}">{{ n.t }}</span>
       </button>
     </sc-for>
   </nav>
@@ -1343,43 +1345,43 @@
     <div style="position:absolute;left:0;right:0;bottom:0;z-index:41;max-height:88%;overflow-y:auto;background:var(--bg);border-radius:20px 20px 0 0;padding:18px 16px 26px;box-shadow:0 -8px 30px rgba(0,0,0,.22)">
 
       <div style="display:flex;align-items:center;justify-content:space-between">
-        <span style="font-family:var(--font);font-weight:700;font-size:23.8px">{{ reqTitle }}</span>
-        <button sc-camel-on-click="{{ closeReq }}" aria-label="Đóng" style="font-size:15px;font-weight:600;color:var(--text3)">Đóng</button>
+        <span style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:19px">{{ reqTitle }}</span>
+        <button sc-camel-on-click="{{ closeReq }}" aria-label="Đóng" style="font-size:12px;font-weight:600;color:var(--text3)">Đóng</button>
       </div>
 
       <div class="card" style="padding:12px 14px;margin-top:14px;background:var(--surface2)">
-        <span style="display:block;font-size:15.6px;font-weight:700">{{ reqShiftSvc }}</span>
-        <span style="display:block;font-size:13.8px;color:var(--text3);margin-top:2px">{{ reqShiftWhen }} · {{ reqShiftWho }}</span>
+        <span style="display:block;font-size:12.5px;font-weight:700">{{ reqShiftSvc }}</span>
+        <span style="display:block;font-size:11px;color:var(--text3);margin-top:2px">{{ reqShiftWhen }} · {{ reqShiftWho }}</span>
       </div>
 
       <sc-if value="{{ reqIsMove }}" hint-placeholder-val="{{ true }}">
-        <p style="font:700 11.9px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:18px 0 8px">Giờ đề nghị chuyển sang</p>
+        <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:18px 0 8px">Giờ đề nghị chuyển sang</p>
         <div style="display:flex;flex-wrap:wrap;gap:6px">
           <sc-for list="{{ reqSlots }}" as="c" hint-placeholder-count="6">
-            <button sc-camel-on-click="{{ c.tap }}" style="padding:8px 14px;border-radius:99px;background:{{ c.bg }};color:{{ c.fg }};border:1px solid {{ c.bd }};font-size:14.4px;font-weight:600">{{ c.t }}</button>
+            <button sc-camel-on-click="{{ c.tap }}" style="padding:8px 14px;border-radius:99px;background:{{ c.bg }};color:{{ c.fg }};border:1px solid {{ c.bd }};font-size:11.5px;font-weight:600">{{ c.t }}</button>
           </sc-for>
         </div>
       </sc-if>
 
-      <p style="font:700 11.9px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:18px 0 8px">Lý do <span style="color:var(--danger)">(bắt buộc)</span></p>
+      <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:18px 0 8px">Lý do <span style="color:var(--danger)">(bắt buộc)</span></p>
       <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:9px">
         <sc-for list="{{ reqReasons }}" as="r" hint-placeholder-count="4">
-          <button sc-camel-on-click="{{ r.tap }}" style="padding:7px 12px;border-radius:99px;background:{{ r.bg }};color:{{ r.fg }};border:1px solid {{ r.bd }};font-size:13.8px;font-weight:600">{{ r.t }}</button>
+          <button sc-camel-on-click="{{ r.tap }}" style="padding:7px 12px;border-radius:99px;background:{{ r.bg }};color:{{ r.fg }};border:1px solid {{ r.bd }};font-size:11px;font-weight:600">{{ r.t }}</button>
         </sc-for>
       </div>
-      <textarea value="{{ reqReason }}" sc-camel-on-input="{{ onReqReason }}" placeholder="Ghi rõ lý do để trung tâm và khách hiểu…" style="width:100%;min-height:74px;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--text);font-size:16.2px;font-family:inherit;resize:none"></textarea>
+      <textarea value="{{ reqReason }}" sc-camel-on-input="{{ onReqReason }}" placeholder="Ghi rõ lý do để trung tâm và khách hiểu…" style="width:100%;min-height:74px;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--text);font-size:13px;font-family:inherit;resize:none"></textarea>
 
       <div class="card" style="padding:12px 14px;margin-top:12px;background:{{ reqNoteBg }};border:1px solid {{ reqNoteBd }}">
-        <p style="font-size:13.1px;line-height:1.6;color:var(--text2)">{{ reqNote }}</p>
+        <p style="font-size:10.5px;line-height:1.6;color:var(--text2)">{{ reqNote }}</p>
       </div>
 
       <sc-if value="{{ reqHint }}" hint-placeholder-val="{{ false }}">
-        <p style="font-size:13.8px;color:var(--danger);margin-top:10px">{{ reqHint }}</p>
+        <p style="font-size:11px;color:var(--danger);margin-top:10px">{{ reqHint }}</p>
       </sc-if>
 
       <div style="position:sticky;bottom:-26px;display:flex;gap:9px;margin-top:16px;padding:12px 0 0;background:linear-gradient(to bottom,transparent,var(--bg) 22%)">
-        <button sc-camel-on-click="{{ closeReq }}" style="flex:none;padding:13px 20px;border-radius:11px;background:var(--surface2);color:var(--text2);font-size:15.6px;font-weight:700">Huỷ</button>
-        <button sc-camel-on-click="{{ sendReq }}" style="flex:1;padding:13px;border-radius:11px;background:{{ reqSendBg }};color:{{ reqSendFg }};font-size:15.6px;font-weight:700">{{ reqSendLabel }}</button>
+        <button sc-camel-on-click="{{ closeReq }}" style="flex:none;padding:13px 20px;border-radius:11px;background:var(--surface2);color:var(--text2);font-size:12.5px;font-weight:700">Huỷ</button>
+        <button sc-camel-on-click="{{ sendReq }}" style="flex:1;padding:13px;border-radius:11px;background:{{ reqSendBg }};color:{{ reqSendFg }};font-size:12.5px;font-weight:700">{{ reqSendLabel }}</button>
       </div>
 
     </div>
@@ -1395,54 +1397,54 @@
     <div style="position:absolute;left:0;right:0;bottom:0;z-index:41;max-height:88%;overflow-y:auto;background:var(--bg);border-radius:20px 20px 0 0;padding:18px 16px 26px;box-shadow:0 -8px 30px rgba(0,0,0,.22)">
 
       <div style="display:flex;align-items:center;justify-content:space-between">
-        <span style="font-family:var(--font);font-weight:700;font-size:23.8px">{{ draftTitle }}</span>
-        <button sc-camel-on-click="{{ cancelDraft }}" aria-label="Đóng" style="font-size:15px;font-weight:600;color:var(--text3)">Đóng</button>
+        <span style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:19px">{{ draftTitle }}</span>
+        <button sc-camel-on-click="{{ cancelDraft }}" aria-label="Đóng" style="font-size:12px;font-weight:600;color:var(--text3)">Đóng</button>
       </div>
 
-      <p style="font:700 11.9px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:18px 0 8px">Ngày trong tuần</p>
+      <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:18px 0 8px">Ngày trong tuần</p>
       <div style="display:flex;flex-wrap:wrap;gap:6px">
         <sc-for list="{{ draftDows }}" as="c" hint-placeholder-count="7">
-          <button sc-camel-on-click="{{ c.tap }}" style="padding:8px 14px;border-radius:99px;background:{{ c.bg }};color:{{ c.fg }};border:1px solid {{ c.bd }};font-size:14.4px;font-weight:600">{{ c.t }}</button>
+          <button sc-camel-on-click="{{ c.tap }}" style="padding:8px 14px;border-radius:99px;background:{{ c.bg }};color:{{ c.fg }};border:1px solid {{ c.bd }};font-size:11.5px;font-weight:600">{{ c.t }}</button>
         </sc-for>
       </div>
 
-      <p style="font:700 11.9px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:18px 0 8px">Khung giờ</p>
+      <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:18px 0 8px">Khung giờ</p>
       <div style="display:flex;align-items:center;gap:9px">
-        <input type="time" value="{{ draftFrom }}" sc-camel-on-input="{{ onDraftFrom }}" aria-label="Giờ bắt đầu" style="flex:1;min-width:0;padding:11px 10px;border-radius:11px;border:1px solid var(--line);background:var(--surface);color:var(--text);font-size:16.2px;font-family:inherit">
-        <span style="flex:none;color:var(--text3);font-size:15px">đến</span>
-        <input type="time" value="{{ draftTo }}" sc-camel-on-input="{{ onDraftTo }}" aria-label="Giờ kết thúc" style="flex:1;min-width:0;padding:11px 10px;border-radius:11px;border:1px solid var(--line);background:var(--surface);color:var(--text);font-size:16.2px;font-family:inherit">
+        <input type="time" value="{{ draftFrom }}" sc-camel-on-input="{{ onDraftFrom }}" aria-label="Giờ bắt đầu" style="flex:1;min-width:0;padding:11px 10px;border-radius:11px;border:1px solid var(--line);background:var(--surface);color:var(--text);font-size:13px;font-family:inherit">
+        <span style="flex:none;color:var(--text3);font-size:12px">đến</span>
+        <input type="time" value="{{ draftTo }}" sc-camel-on-input="{{ onDraftTo }}" aria-label="Giờ kết thúc" style="flex:1;min-width:0;padding:11px 10px;border-radius:11px;border:1px solid var(--line);background:var(--surface);color:var(--text);font-size:13px;font-family:inherit">
       </div>
 
-      <p style="font:700 11.9px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:18px 0 8px">Khu vực nhận khách</p>
+      <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:18px 0 8px">Khu vực nhận khách</p>
       <div style="display:flex;flex-wrap:wrap;gap:6px">
         <sc-for list="{{ draftAreas }}" as="c" hint-placeholder-count="8">
-          <button sc-camel-on-click="{{ c.tap }}" style="padding:8px 13px;border-radius:99px;background:{{ c.bg }};color:{{ c.fg }};border:1px solid {{ c.bd }};font-size:14.4px;font-weight:600">{{ c.t }}</button>
+          <button sc-camel-on-click="{{ c.tap }}" style="padding:8px 13px;border-radius:99px;background:{{ c.bg }};color:{{ c.fg }};border:1px solid {{ c.bd }};font-size:11.5px;font-weight:600">{{ c.t }}</button>
         </sc-for>
       </div>
       <div style="display:flex;align-items:center;gap:8px;margin-top:9px">
-        <input type="text" value="{{ draftAreaInput }}" sc-camel-on-input="{{ onDraftAreaInput }}" sc-camel-on-key-down="{{ onDraftAreaKey }}" placeholder="Nhập khu vực khác, ví dụ: Q.Tân Bình, TX.Dĩ An…" aria-label="Thêm khu vực" style="flex:1;min-width:0;padding:10px 13px;border-radius:11px;border:1px solid var(--line);background:var(--surface);color:var(--text);font-size:15.6px;font-family:inherit">
-        <button sc-camel-on-click="{{ addArea }}" style="flex:none;padding:10px 16px;border-radius:11px;background:{{ addAreaBg }};color:{{ addAreaFg }};font-size:15px;font-weight:700">Thêm</button>
+        <input type="text" value="{{ draftAreaInput }}" sc-camel-on-input="{{ onDraftAreaInput }}" sc-camel-on-key-down="{{ onDraftAreaKey }}" placeholder="Nhập khu vực khác, ví dụ: Q.Tân Bình, TX.Dĩ An…" aria-label="Thêm khu vực" style="flex:1;min-width:0;padding:10px 13px;border-radius:11px;border:1px solid var(--line);background:var(--surface);color:var(--text);font-size:12.5px;font-family:inherit">
+        <button sc-camel-on-click="{{ addArea }}" style="flex:none;padding:10px 16px;border-radius:11px;background:{{ addAreaBg }};color:{{ addAreaFg }};font-size:12px;font-weight:700">Thêm</button>
       </div>
 
-      <p style="font:700 11.9px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:18px 0 8px">Loại hình dịch vụ</p>
+      <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:18px 0 8px">Loại hình dịch vụ</p>
       <div style="display:flex;flex-wrap:wrap;gap:6px">
         <sc-for list="{{ draftSvcs }}" as="c" hint-placeholder-count="6">
-          <button sc-camel-on-click="{{ c.tap }}" style="padding:8px 13px;border-radius:99px;background:{{ c.bg }};color:{{ c.fg }};border:1px solid {{ c.bd }};font-size:14.4px;font-weight:600">{{ c.t }}</button>
+          <button sc-camel-on-click="{{ c.tap }}" style="padding:8px 13px;border-radius:99px;background:{{ c.bg }};color:{{ c.fg }};border:1px solid {{ c.bd }};font-size:11.5px;font-weight:600">{{ c.t }}</button>
         </sc-for>
       </div>
 
-      <p style="font:700 11.9px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:18px 0 8px">Ghi chú</p>
-      <textarea value="{{ draftNote }}" sc-camel-on-input="{{ onDraftNote }}" placeholder="Ví dụ: ưu tiên khách định kỳ, không nhận ca cách quá 5 km..." style="width:100%;min-height:74px;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--text);font-size:16.2px;font-family:inherit;resize:none"></textarea>
+      <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:18px 0 8px">Ghi chú</p>
+      <textarea value="{{ draftNote }}" sc-camel-on-input="{{ onDraftNote }}" placeholder="Ví dụ: ưu tiên khách định kỳ, không nhận ca cách quá 5 km..." style="width:100%;min-height:74px;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--text);font-size:13px;font-family:inherit;resize:none"></textarea>
 
       <sc-if value="{{ draftHint }}" hint-placeholder-val="{{ false }}">
-        <p style="font-size:13.8px;color:var(--danger);margin-top:10px">{{ draftHint }}</p>
+        <p style="font-size:11px;color:var(--danger);margin-top:10px">{{ draftHint }}</p>
       </sc-if>
 
       <!-- Ghim xuống đáy biểu mẫu: nội dung dài hơn màn hình thì hai nút này
            vẫn luôn nhìn thấy, không phải cuộn xuống mới bấm được. -->
       <div style="position:sticky;bottom:-26px;display:flex;gap:9px;margin-top:16px;padding:12px 0 0;background:linear-gradient(to bottom,transparent,var(--bg) 22%)">
-        <button sc-camel-on-click="{{ cancelDraft }}" style="flex:none;padding:13px 20px;border-radius:11px;background:var(--surface2);color:var(--text2);font-size:15.6px;font-weight:700">Huỷ</button>
-        <button sc-camel-on-click="{{ saveDraft }}" style="flex:1;padding:13px;border-radius:11px;background:{{ draftSaveBg }};color:{{ draftSaveFg }};font-size:15.6px;font-weight:700">Lưu khung giờ</button>
+        <button sc-camel-on-click="{{ cancelDraft }}" style="flex:none;padding:13px 20px;border-radius:11px;background:var(--surface2);color:var(--text2);font-size:12.5px;font-weight:700">Huỷ</button>
+        <button sc-camel-on-click="{{ saveDraft }}" style="flex:1;padding:13px;border-radius:11px;background:{{ draftSaveBg }};color:{{ draftSaveFg }};font-size:12.5px;font-weight:700">Lưu khung giờ</button>
       </div>
 
     </div>
@@ -1453,10 +1455,9 @@
 <script type="text/x-dc" data-dc-script="" data-props="{&quot;$preview&quot;:{&quot;width&quot;:460,&quot;height&quot;:940},&quot;startMode&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;center&quot;,&quot;free&quot;],&quot;default&quot;:&quot;center&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Demo&quot;}}">
 class Component extends DCLogic {
   // Mỗi mục menu nhớ riêng chế độ đang xem: đổi sang "Làm tự do" ở Lịch làm thì
-  // Khách hàng và Tài chính vẫn giữ lựa chọn cũ của chúng. Mục Tôi không có
-  // trong bảng này vì hồ sơ không phụ thuộc chế độ.
-  state = { theme:'serene', modes:{ home:'center', schedule:'center', clients:'center', wallet:'center' },
-    page:'home', avail:true, day:25, sess:'idle', sessNote:'', sessDone:['t1'],
+  // Khách hàng và Tài chính vẫn giữ lựa chọn cũ. Mục Tôi không có trong bảng này
+  // vì hồ sơ là của một người, không phụ thuộc đang làm cho ai.
+  state = { theme:'serene', modes:{ home:'center', schedule:'center', clients:'center', wallet:'center' }, page:'home', avail:true, day:25, sess:'idle', sessNote:'', sessDone:['t1'],
     // Lịch nhận khách của chế độ tự do. Mỗi khung giờ gồm: ngày trong tuần,
     // giờ bắt đầu/kết thúc, khu vực nhận, loại hình dịch vụ và ghi chú.
     slots: [
@@ -1513,11 +1514,8 @@ class Component extends DCLogic {
   go(p){ this.setState({page:p}); }
   goSched(tab){ this.setState({page:'schedule', schedTab:tab}); }
   // Đổi chế độ thì GIỮ NGUYÊN trang và tab đang xem, chỉ thay nội dung bên
-  // dưới, và chỉ đổi cho đúng mục đang mở. Trước đây ép về trang chủ nên đang ở
-  // Lịch làm mà bấm đổi chế độ là văng về Tổng quan — người dùng mất chỗ đứng.
+  // dưới, và chỉ đổi cho đúng mục đang mở.
   setMode(m){ this.setState({ modes: {...this.state.modes, [this.state.page]: m} }); }
-  // Chế độ của trang đang mở. Trang không có bộ chọn (session, chat, reviews…)
-  // thì bám theo trang đã dẫn nó tới, mặc định là tại trung tâm.
   modeOf(page){ return this.state.modes[page || this.state.page] || 'center'; }
 
   // ── lịch tháng ────────────────────────────────────────────────────
@@ -1542,8 +1540,6 @@ class Component extends DCLogic {
   reqSet(patch){ this.setState({ shiftReq: {...this.state.shiftReq, ...patch} }); }
   closeShiftReq(){ this.setState({ shiftReq:null }); }
   sendShiftReq(){
-    // Ca chỉ mở được từ Lịch làm, nên hệ quả của việc đổi/huỷ bám theo chế độ
-    // đang chọn ở chính mục đó.
     const r = this.state.shiftReq, free = this.modeOf('schedule')==='free';
     if(!r.reason.trim()) return;                       // lý do là bắt buộc
     if(r.kind==='move' && !r.newTime) return;          // đổi giờ thì phải chọn giờ mới
@@ -1667,7 +1663,7 @@ class Component extends DCLogic {
   draftCancel(){ this.setState({ draft:null }); }
 
   renderVals(){
-    // free = chế độ của ĐÚNG mục đang mở, không phải một biến chung toàn app.
+    // free = chế độ của ĐÚNG mục đang mở, không phải biến chung toàn app.
     const s = this.state, free = this.modeOf()==='free';
 
     // Tóm tắt lịch nhận khách. Tính một lần ở đây rồi dùng lại ở cả mục Tôi
@@ -1691,7 +1687,7 @@ class Component extends DCLogic {
     ];
     const nav = navIds.map(([icon,id,t])=>{
       const on = s.page===id;
-      return { t, icon:this.ic(icon,22), go:()=>this.go(id),
+      return { t, icon:this.ic(icon,19), go:()=>this.go(id),
         chip:on?'var(--primary)':'transparent', ic:on?'var(--on-primary)':'var(--text3)', fg:on?'var(--primary)':'var(--text3)' };
     });
 
@@ -1793,10 +1789,8 @@ class Component extends DCLogic {
           : (free ? '⏳ Đã báo khách huỷ ca'      : '⏳ Đã gửi yêu cầu huỷ · chờ An Nhiên duyệt'),
         reqFg: sent==='cancel' ? 'var(--danger)' : 'var(--goldText)',
         reqBg: sent==='cancel' ? 'var(--dangerTint)' : 'var(--goldTint)',
-        // Nhãn ngắn để vừa một dòng sau khi tăng cỡ chữ; sắc thái "đề nghị chờ
-        // duyệt" hay "hiệu lực ngay" đã nói rõ trong biểu mẫu mở ra sau đó.
-        moveLabel:   'Đổi giờ',
-        cancelLabel: 'Huỷ ca',
+        moveLabel:   free ? 'Xin đổi giờ' : 'Đề nghị đổi giờ',
+        cancelLabel: free ? 'Huỷ ca' : 'Xin huỷ ca',
         askMove:   () => this.openShiftReq('move',   { key, time:a.time, svc:a.svc, who:a.who }),
         askCancel: () => this.openShiftReq('cancel', { key, time:a.time, svc:a.svc, who:a.who })
       };
@@ -2195,7 +2189,7 @@ class Component extends DCLogic {
       addCert: () => {},
       displayCfg: cfgDefs.map(([k,t,dsc]) => ({
         t, d:dsc, toggle: () => this.cfgToggle(k),
-        track: s.cfg[k] ? 'var(--primary)' : 'var(--line)',
+        track: s.cfg[k] ? 'var(--ok)' : 'var(--line)',
         knob:  s.cfg[k] ? '22px' : '3px'
       }))
     };
@@ -2267,9 +2261,7 @@ theme:s.theme, themeDots,
       centerShifts, scoreBars,
       freeKpis, requests,
       avail:s.avail, toggleAvail:()=>this.setState({avail:!s.avail}),
-      // Dùng --primary (#12564A) chứ không --ok (#177245): cùng tông xanh với
-      // thẻ hero và nút chính, để trong một màn hình không có hai sắc xanh lệch nhau.
-      availTrack: s.avail?'var(--primary)':'var(--line)', availKnob: s.avail?'25px':'3px',
+      availTrack: s.avail?'var(--gold)':'rgba(255,255,255,.24)', availKnob: s.avail?'25px':'3px',
       availSub: s.avail ? 'Đang bật · khách có thể đặt bạn' : 'Tạm dừng · không nhận ca mới',
       goAvail:()=>this.goSched('avail'),
       goReviews:()=>this.go('reviews'),
