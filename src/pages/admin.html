@@ -507,12 +507,28 @@
                     </sc-for>
                   </span>
                 </span>
-                <span style="flex:none;text-align:right"><span style="display:block;font-size:10px;color:var(--text3)">Chờ {{ a.wait }}</span></span>
+                <span style="flex:none;text-align:right">
+                  <span style="display:block;font-size:10px;color:var(--text3)">Chờ {{ a.wait }}</span>
+                  <sc-if value="{{ a.late }}" hint-placeholder-val="{{ false }}">
+                    <span style="display:block;font-size:9.5px;font-weight:700;color:var(--danger);background:var(--dangerTint);padding:3px 8px;border-radius:99px;margin-top:5px">Quá hạn 48h</span>
+                  </sc-if>
+                </span>
               </div>
+
+              <!-- Hồ sơ thiếu giấy tờ bắt buộc thì KHÔNG cho duyệt thẳng: duyệt
+                   một trung tâm chưa có chứng nhận vệ sinh là rủi ro pháp lý và
+                   an toàn cho khách. Nút chính đổi thành "Yêu cầu bổ sung". -->
+              <sc-if value="{{ a.blocked }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;align-items:flex-start;gap:9px;margin-top:12px;padding:10px 12px;border-radius:10px;background:var(--dangerTint);border:1px solid var(--danger)">
+                  <span style="font-size:13px">⚠️</span>
+                  <p style="font-size:11px;line-height:1.55;color:var(--text2)">Thiếu <strong>{{ a.missing }}</strong> — hồ sơ bắt buộc. Chưa đủ điều kiện phê duyệt.</p>
+                </div>
+              </sc-if>
+
               <div style="display:flex;gap:8px;margin-top:13px;padding-top:13px;border-top:1px solid var(--line2)">
-                <button style="flex:1;padding:10px;border-radius:9px;background:var(--primary);color:var(--on-primary);font-size:12px;font-weight:600;text-align:center">Phê duyệt</button>
-                <button style="flex:1;padding:10px;border-radius:9px;background:var(--surface2);color:var(--text2);font-size:12px;font-weight:600;text-align:center">Yêu cầu bổ sung</button>
-                <button style="flex:none;padding:10px 14px;border-radius:9px;background:var(--dangerTint);color:var(--danger);font-size:12px;font-weight:600">Từ chối</button>
+                <button sc-camel-on-click="{{ a.approve }}" style="flex:1;padding:10px;border-radius:9px;background:{{ a.okBg }};color:{{ a.okFg }};font-size:12px;font-weight:600;text-align:center">Phê duyệt</button>
+                <button sc-camel-on-click="{{ a.ask }}" style="flex:1;padding:10px;border-radius:9px;background:{{ a.askBg }};color:{{ a.askFg }};font-size:12px;font-weight:600;text-align:center">Yêu cầu bổ sung</button>
+                <button sc-camel-on-click="{{ a.reject }}" style="flex:none;padding:10px 14px;border-radius:9px;background:var(--dangerTint);color:var(--danger);font-size:12px;font-weight:600">Từ chối</button>
               </div>
             </div>
           </sc-for>
@@ -605,7 +621,7 @@
             <button sc-camel-on-click="{{ f.pick }}" style="padding:8px 14px;border-radius:99px;font-size:12px;font-weight:600;background:{{ f.bg }};color:{{ f.fg }};border:1px solid {{ f.bd }}">{{ f.t }}</button>
           </sc-for>
           <span style="flex:1"></span>
-          <button style="padding:9px 15px;border-radius:10px;background:var(--primary);color:var(--on-primary);font-size:12px;font-weight:600">+ Thêm đối tác</button>
+          <button sc-camel-on-click="{{ addPartner }}" style="padding:9px 15px;border-radius:10px;background:var(--primary);color:var(--on-primary);font-size:12px;font-weight:600">+ Thêm đối tác</button>
         </div>
         <div class="split">
           <sc-for list="{{ partners }}" as="p" hint-placeholder-count="4">
@@ -731,7 +747,39 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script="" data-props="{&quot;startPage&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;dash&quot;,&quot;centers&quot;,&quot;approvals&quot;,&quot;ktv&quot;,&quot;loyalty&quot;,&quot;partners&quot;,&quot;policy&quot;,&quot;data&quot;],&quot;default&quot;:&quot;dash&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Demo&quot;}}">
 class Component extends DCLogic {
-  state = { theme:'serene', page:'dash', ctrFilter:'Tất cả', pFilter:'Tất cả' };
+  state = { theme:'serene', page:'dash', ctrFilter:'Tất cả', pFilter:'Tất cả',
+    // Bảy hồ sơ chờ duyệt — khớp đúng con số hiển thị ở badge và chỉ số.
+    // hours = số giờ đã chờ, dùng để tính "quá hạn 48h" thay vì ghi cứng.
+    approvals: [
+      { id:'a1', icon:'🏢', iBg:'var(--tint)', n:'Hoà Mộc Center', kind:'Trung tâm',
+        kFg:'var(--primary)', kBg:'var(--tint)', hours:52,
+        sub:'Hà Nội · 11 KTV đăng ký · người đại diện Lê Hoà',
+        docs:[{t:'✓ Giấy phép KD'},{t:'✓ PCCC'},{t:'✗ Chứng nhận vệ sinh'}] },
+      { id:'a2', icon:'🏢', iBg:'var(--tint)', n:'Sen Việt Spa', kind:'Trung tâm',
+        kFg:'var(--primary)', kBg:'var(--tint)', hours:61,
+        sub:'TP.HCM · Q.7 · 6 KTV đăng ký · chuyển từ mô hình lẻ',
+        docs:[{t:'✓ Giấy phép KD'},{t:'✗ PCCC'},{t:'✗ Chứng nhận vệ sinh'}] },
+      { id:'a3', icon:'🏢', iBg:'var(--tint)', n:'Thảo Mộc Wellness', kind:'Trung tâm',
+        kFg:'var(--primary)', kBg:'var(--tint)', hours:9,
+        sub:'Đà Nẵng · 8 KTV đăng ký · mở rộng khu vực miền Trung',
+        docs:[{t:'✓ Giấy phép KD'},{t:'✓ PCCC'},{t:'✓ Vệ sinh'}] },
+      { id:'a4', icon:'🧑‍⚕️', iBg:'var(--goldTint)', n:'Lê Ngọc Anh', kind:'KTV · xin Bậc 2',
+        kFg:'var(--goldText)', kBg:'var(--goldTint)', hours:26,
+        sub:'29 tuổi · 6 năm KN · VLTL thần kinh · Q.Phú Nhuận',
+        docs:[{t:'✓ CCCD'},{t:'✓ Chứng chỉ trị liệu'},{t:'✓ Khám sức khoẻ'}] },
+      { id:'a5', icon:'🧑‍⚕️', iBg:'var(--goldTint)', n:'Đỗ Quỳnh Anh', kind:'KTV · nâng Bậc 2',
+        kFg:'var(--goldText)', kBg:'var(--goldTint)', hours:18,
+        sub:'26 tuổi · 720 buổi · điểm chất lượng 88',
+        docs:[{t:'✓ Hồ sơ buổi'},{t:'✓ Đào tạo 40h'},{t:'✗ Thực hành giám sát'}] },
+      { id:'a6', icon:'🧑‍⚕️', iBg:'var(--goldTint)', n:'Vũ Thanh Hà', kind:'KTV · hồ sơ mới',
+        kFg:'var(--goldText)', kBg:'var(--goldTint)', hours:14,
+        sub:'34 tuổi · 9 năm KN · hậu sản · TP.Thủ Đức',
+        docs:[{t:'✓ CCCD'},{t:'✓ Chứng chỉ trị liệu'},{t:'✓ Khám sức khoẻ'}] },
+      { id:'a7', icon:'🧑‍⚕️', iBg:'var(--goldTint)', n:'Bùi Đức Trung', kind:'KTV · nâng Bậc 3',
+        kFg:'var(--goldText)', kBg:'var(--goldTint)', hours:5,
+        sub:'41 tuổi · 1.850 buổi · điểm chất lượng 96',
+        docs:[{t:'✓ Hồ sơ buổi'},{t:'✓ Đào tạo nâng cao'},{t:'✓ Thực hành giám sát'}] }
+    ] };
 
   ic(name,size){
     const P = {
@@ -750,7 +798,7 @@ class Component extends DCLogic {
   pages = [
     { id:'dash',      g:'Tổng quan',   t:'Bảng điều hành',      ic:'grid' },
     { id:'centers',   g:'Đối tượng',   t:'Quản lý trung tâm',   ic:'building' },
-    { id:'approvals', g:'Đối tượng',   t:'Phê duyệt hồ sơ',     ic:'check', count:7 },
+    { id:'approvals', g:'Đối tượng',   t:'Phê duyệt hồ sơ',     ic:'check', live:'approvals' },
     { id:'ktv',       g:'Đối tượng',   t:'KTV tự do',           ic:'users' },
     { id:'loyalty',   g:'Khách hàng',  t:'Loyalty ANP',         ic:'award' },
     { id:'partners',  g:'Khách hàng',  t:'Đối tác liên kết',    ic:'link' },
@@ -759,6 +807,9 @@ class Component extends DCLogic {
   ];
 
   go(id){ this.setState({page:id}); }
+  // Phê duyệt, yêu cầu bổ sung hay từ chối đều đưa hồ sơ ra khỏi hàng chờ;
+  // badge và các chỉ số phía trên tự tính lại theo danh sách còn lại.
+  resolveAppr(id){ this.setState({ approvals: this.state.approvals.filter(x => x.id !== id) }); }
 
   renderVals(){
     const s = this.state, pg = this.pages.find(p=>p.id===s.page) || this.pages[0];
@@ -770,7 +821,8 @@ class Component extends DCLogic {
       const on = s.page===p.id;
       g.items.push({ t:p.t, icon:this.ic(p.ic,18), go:()=>this.go(p.id),
         bg:on?'var(--railOn)':'transparent', fg:on?'var(--railFgOn)':'var(--railFg)', wt:on?'700':'500',
-        ic:on?'var(--gold)':'var(--railFg2)', hasCount:!!p.count, count:p.count });
+        ic:on?'var(--gold)':'var(--railFg2)', hasCount: p.live ? s[p.live].length > 0 : !!p.count,
+        count: p.live ? s[p.live].length : p.count });
     });
 
     const bIds = ['dash','centers','approvals','loyalty','data'];
@@ -829,25 +881,36 @@ class Component extends DCLogic {
       stBg: c.st==='Hoạt động'?'var(--tint)' : c.st==='Cảnh báo'?'var(--dangerTint)' : 'var(--goldTint)'
     }));
 
+    const apprCenters = s.approvals.filter(a => a.kind === 'Trung tâm').length;
+    const apprLate = s.approvals.filter(a => a.hours > 48).length;
     const apprKpis = [
-      { t:'Chờ phê duyệt', v:'7', sub:'3 trung tâm · 4 KTV', c:'var(--accent)' },
-      { t:'Quá hạn 48h', v:'2', sub:'Cần xử lý ngay', c:'var(--danger)' },
+      { t:'Chờ phê duyệt', v:String(s.approvals.length),
+        sub: apprCenters + ' trung tâm · ' + (s.approvals.length - apprCenters) + ' KTV', c:'var(--accent)' },
+      { t:'Quá hạn 48h', v:String(apprLate), sub: apprLate ? 'Cần xử lý ngay' : 'Không có hồ sơ nào', c: apprLate ? 'var(--danger)' : 'var(--ok)' },
       { t:'Duyệt trong tháng', v:'38', sub:'Tỷ lệ chấp thuận 84%', c:'var(--ok)' },
       { t:'Thời gian duyệt TB', v:'31 giờ', sub:'Cam kết ≤ 48 giờ', c:'var(--primary)' }
     ];
 
     const docOk = t => ({ t, c:'var(--ok)', bg:'var(--tint)' });
     const docNo = t => ({ t, c:'var(--danger)', bg:'var(--dangerTint)' });
-    const approvals = [
-      { icon:'🏢', iBg:'var(--tint)', n:'Hoà Mộc Center', kind:'Trung tâm', kFg:'var(--primary)', kBg:'var(--tint)', sub:'Hà Nội · 11 KTV đăng ký · người đại diện Lê Hoà', wait:'52 giờ',
-        docs:[docOk('✓ Giấy phép KD'), docOk('✓ PCCC'), docNo('✗ Chứng nhận vệ sinh')] },
-      { icon:'🧑‍⚕️', iBg:'var(--goldTint)', n:'Lê Ngọc Anh', kind:'KTV · xin Bậc 2', kFg:'var(--goldText)', kBg:'var(--goldTint)', sub:'29 tuổi · 6 năm KN · VLTL thần kinh · Q.Phú Nhuận', wait:'26 giờ',
-        docs:[docOk('✓ CCCD'), docOk('✓ Chứng chỉ trị liệu'), docOk('✓ Khám sức khoẻ')] },
-      { icon:'🧑‍⚕️', iBg:'var(--goldTint)', n:'Đỗ Quỳnh Anh', kind:'KTV · nâng Bậc 2', kFg:'var(--goldText)', kBg:'var(--goldTint)', sub:'26 tuổi · 720 buổi · điểm chất lượng 88', wait:'18 giờ',
-        docs:[docOk('✓ Hồ sơ buổi'), docOk('✓ Đào tạo 40h'), docNo('✗ Thực hành giám sát')] },
-      { icon:'🏢', iBg:'var(--tint)', n:'Thảo Mộc Wellness', kind:'Trung tâm', kFg:'var(--primary)', kBg:'var(--tint)', sub:'Đà Nẵng · 8 KTV đăng ký · mở rộng khu vực miền Trung', wait:'9 giờ',
-        docs:[docOk('✓ Giấy phép KD'), docOk('✓ PCCC'), docOk('✓ Vệ sinh')] }
-    ];
+    // Hồ sơ chờ duyệt lấy từ state để phê duyệt / từ chối đổi được danh sách và
+    // các chỉ số phía trên cùng cập nhật theo.
+    const approvals = s.approvals.map(a => {
+      const missing = a.docs.filter(d => d.t.startsWith('✗')).map(d => d.t.slice(2));
+      const blocked = missing.length > 0;
+      const late = a.hours > 48;
+      return { ...a, late, blocked, missing: missing.join(', '),
+        docs: a.docs.map(d => d.t.startsWith('✓') ? docOk(d.t) : docNo(d.t)),
+        wait: a.hours + ' giờ',
+        // Thiếu giấy tờ thì nút Phê duyệt mờ đi, nút Yêu cầu bổ sung thành nút chính.
+        okBg:  blocked ? 'var(--line2)' : 'var(--primary)',
+        okFg:  blocked ? 'var(--text3)' : 'var(--on-primary)',
+        askBg: blocked ? 'var(--primary)' : 'var(--surface2)',
+        askFg: blocked ? 'var(--on-primary)' : 'var(--text2)',
+        approve: () => blocked ? null : this.resolveAppr(a.id),
+        ask:     () => this.resolveAppr(a.id),
+        reject:  () => this.resolveAppr(a.id) };
+    });
 
     const ktvKpis = [
       { t:'KTV tự do', v:'184', sub:'38% tổng số KTV', c:'var(--text)' },
@@ -957,6 +1020,7 @@ class Component extends DCLogic {
     return {
       theme:s.theme, themeDots,
       page:s.page, pgGroup:pg.g, pgTitle:pg.t, navGroups:groups, bottomNav,
+      addPartner: () => {},
       isDash:s.page==='dash', isCenters:s.page==='centers', isApprovals:s.page==='approvals',
       isKtv:s.page==='ktv', isLoyalty:s.page==='loyalty', isPartners:s.page==='partners',
       isPolicy:s.page==='policy', isData:s.page==='data',
