@@ -261,7 +261,9 @@
   ::-webkit-scrollbar{width:0;height:0}
   .app{width:100%;max-width:440px;margin:0 auto;height:100vh;display:flex;flex-direction:column;overflow:hidden;background:var(--bg);position:relative;box-shadow:0 0 50px rgba(12,63,54,.12)}
   .body{flex:1;overflow-y:auto;padding:16px 16px 88px}
-  .card{background:var(--surface);border:1px solid var(--line);border-radius:15px}
+  /* Bo góc 18px cho khớp token --r của app.html — hai app điện thoại phải
+     giống nhau tuyệt đối vì dùng chung vỏ trang. */
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:18px}
   @media(min-width:900px){ .app{max-width:520px} }
 
   /* ── 3 phong cách ANWELL ── */
