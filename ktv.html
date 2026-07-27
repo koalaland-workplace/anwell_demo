@@ -1345,6 +1345,84 @@
         </sc-for>
       </div>
 
+      <!-- Thuế & hoá đơn — KTV có hai nguồn thu (lương trung tâm và ca tự do),
+           hai nguồn này chịu thuế khác nhau nên phải khai rõ hình thức nộp. -->
+      <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.18em;color:var(--text3);text-transform:uppercase;margin:20px 0 10px">Thuế &amp; hoá đơn</p>
+
+      <div class="card" style="padding:15px">
+        <div style="display:flex;align-items:center;gap:11px">
+          <span style="flex:1;min-width:0">
+            <span style="display:block;font-size:12.5px;font-weight:700">Mã số thuế cá nhân</span>
+            <span style="display:block;font-size:11px;color:var(--text3);margin-top:2px">{{ taxCode }}</span>
+          </span>
+          <span style="flex:none;font-size:9px;font-weight:700;color:{{ taxCodeFg }};background:{{ taxCodeBg }};padding:3px 8px;border-radius:99px">{{ taxCodeSt }}</span>
+          <button sc-camel-on-click="{{ editTaxCode }}" style="flex:none;font-size:11px;font-weight:700;color:var(--accent)">Sửa</button>
+        </div>
+
+        <p style="font:700 9px ui-monospace,monospace;letter-spacing:.14em;color:var(--text3);text-transform:uppercase;margin:16px 0 8px">Hình thức nộp thuế</p>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <sc-for list="{{ taxModes }}" as="m" hint-placeholder-count="2">
+            <button sc-camel-on-click="{{ m.tap }}" style="width:100%;text-align:left;padding:12px 13px;border-radius:11px;background:{{ m.bg }};border:1.5px solid {{ m.bd }}">
+              <span style="display:flex;align-items:center;gap:9px">
+                <span style="flex:none;width:16px;height:16px;border-radius:50%;border:2px solid {{ m.dot }};display:grid;place-items:center">
+                  <span style="width:7px;height:7px;border-radius:50%;background:{{ m.dotIn }}"></span>
+                </span>
+                <span style="flex:1;min-width:0;font-size:12.5px;font-weight:700;color:{{ m.fg }}">{{ m.t }}</span>
+              </span>
+              <span style="display:block;font-size:10.5px;line-height:1.6;color:var(--text3);margin-top:6px;padding-left:25px">{{ m.d }}</span>
+            </button>
+          </sc-for>
+        </div>
+
+        <sc-if value="{{ taxSelf }}" hint-placeholder-val="{{ false }}">
+          <div class="card" style="padding:11px 13px;margin-top:10px;background:var(--goldTint);border:1px solid var(--gold)">
+            <p style="font-size:10.5px;line-height:1.6;color:var(--text2)">Chọn tự kê khai thì bạn cần có mã số thuế hộ kinh doanh và tự nộp tờ khai theo kỳ. ANWELL và trung tâm sẽ <strong>không khấu trừ</strong>, trả đủ vào ví của bạn.</p>
+          </div>
+        </sc-if>
+
+        <div style="display:flex;align-items:center;gap:11px;margin-top:16px;padding-top:14px;border-top:1px solid var(--line2)">
+          <span style="flex:1;min-width:0">
+            <span style="display:block;font-size:12.5px;font-weight:700">Người phụ thuộc</span>
+            <span style="display:block;font-size:10.5px;color:var(--text3);margin-top:2px">Dùng để giảm trừ gia cảnh khi quyết toán</span>
+          </span>
+          <span style="flex:none;display:flex;align-items:center;gap:9px">
+            <button sc-camel-on-click="{{ depDown }}" aria-label="Bớt một người" style="width:28px;height:28px;border-radius:8px;background:var(--surface2);color:var(--text2);font-size:15px;font-weight:700">−</button>
+            <span style="min-width:16px;text-align:center;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:19px">{{ deps }}</span>
+            <button sc-camel-on-click="{{ depUp }}" aria-label="Thêm một người" style="width:28px;height:28px;border-radius:8px;background:var(--surface2);color:var(--text2);font-size:15px;font-weight:700">+</button>
+          </span>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:11px;margin-top:13px;padding-top:13px;border-top:1px solid var(--line2)">
+          <span style="flex:1;min-width:0">
+            <span style="display:block;font-size:12.5px;font-weight:700">Nhận chứng từ khấu trừ</span>
+            <span style="display:block;font-size:10.5px;color:var(--text3);margin-top:2px">Gửi về haiyen.tran@email.com sau mỗi kỳ</span>
+          </span>
+          <button sc-camel-on-click="{{ toggleReceipt }}" aria-label="Nhận chứng từ khấu trừ" style="flex:none;width:46px;height:27px;border-radius:99px;background:{{ receiptTrack }};position:relative;transition:background .2s">
+            <span style="position:absolute;top:3px;left:{{ receiptKnob }};width:21px;height:21px;border-radius:50%;background:var(--surface);box-shadow:0 2px 5px rgba(0,0,0,.24);transition:left .2s"></span>
+          </button>
+        </div>
+      </div>
+
+      <div class="card" style="padding:15px;margin-top:10px">
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <span style="font-size:12.5px;font-weight:700">Kỳ thuế 2026</span>
+          <span style="font-size:10px;color:var(--text3)">tính đến 31/07</span>
+        </div>
+        <div style="display:flex;gap:9px;margin-top:12px">
+          <sc-for list="{{ taxKpis }}" as="k" hint-placeholder-count="3">
+            <span style="flex:1;min-width:0">
+              <span style="display:block;font-size:9.5px;color:var(--text3)">{{ k.t }}</span>
+              <span style="display:block;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:18px;color:{{ k.c }};margin-top:2px">{{ k.v }}</span>
+            </span>
+          </sc-for>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:14px">
+          <button style="flex:1;padding:11px;border-radius:10px;background:var(--surface2);color:var(--text2);font-size:11.5px;font-weight:600">Tải chứng từ khấu trừ</button>
+          <button style="flex:1;padding:11px;border-radius:10px;background:var(--surface2);color:var(--text2);font-size:11.5px;font-weight:600">Xuất tờ khai năm</button>
+        </div>
+        <p style="font-size:10px;line-height:1.6;color:var(--text3);margin-top:11px;padding-left:9px;border-left:2px solid var(--line2)">Số liệu trong bản demo chỉ để minh hoạ. Mức thuế và ngưỡng chịu thuế thay đổi theo quy định từng thời kỳ — bản chạy thật cần kế toán rà soát.</p>
+      </div>
+
       <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.18em;color:var(--text3);text-transform:uppercase;margin:20px 0 10px">Chế độ &amp; liên kết</p>
       <div class="card" style="overflow:hidden">
         <sc-for list="{{ meLinks }}" as="m" hint-placeholder-count="6">
@@ -1517,6 +1595,9 @@ class Component extends DCLogic {
     wantSvcs:[], wantSlots:[],   // đề nghị nhận thêm việc
     avatarN:0,          // số lần đổi ảnh đại diện (mô phỏng)
     cfg:{ phone:false, zalo:true, price:true, area:true },  // hiện gì trên hồ sơ công khai
+    // Khai báo thuế cá nhân. taxMode: 'withhold' = uỷ quyền khấu trừ tại nguồn,
+    // 'self' = tự kê khai theo diện hộ kinh doanh.
+    tax:{ mode:'withhold', deps:2, receipt:true },
 
     // ── điều phối hai chiều với trung tâm ──
     // Ca trung tâm vừa phân, chờ KTV xác nhận.
@@ -1615,6 +1696,7 @@ class Component extends DCLogic {
 
   // ── hồ sơ cá nhân ─────────────────────────────────────────────────
   cfgToggle(k){ this.setState({ cfg: {...this.state.cfg, [k]: !this.state.cfg[k]} }); }
+  taxSet(patch){ this.setState({ tax: {...this.state.tax, ...patch} }); }
   pickAvatar(){ this.setState({ avatarN: this.state.avatarN + 1 }); }
 
   // ── điều phối hai chiều (chế độ tại trung tâm) ────────────────────
@@ -2228,6 +2310,40 @@ class Component extends DCLogic {
           st:'Hết hạn 06/2026', stFg:'var(--danger)', stBg:'var(--dangerTint)' }
       ].map(c => ({ ...c, edit:()=>{}, replace:()=>{}, remove:()=>{} })),
       addCert: () => {},
+      // ── thuế & hoá đơn ──────────────────────────────────────────
+      taxCode: '8123 456 789',
+      taxCodeSt: 'Đã xác minh', taxCodeFg: 'var(--ok)', taxCodeBg: 'var(--okTint)',
+      editTaxCode: () => {},
+      taxSelf: s.tax.mode === 'self',
+      taxModes: [
+        ['withhold','Uỷ quyền khấu trừ tại nguồn',
+         'Trung tâm và ANWELL khấu trừ trước khi trả vào ví. Bạn không phải tự nộp tờ khai theo kỳ.'],
+        ['self','Tự kê khai · hộ kinh doanh',
+         'Bạn nhận đủ tiền và tự kê khai, tự nộp. Cần mã số thuế hộ kinh doanh còn hiệu lực.']
+      ].map(([k,t,dsc]) => {
+        const on = s.tax.mode === k;
+        return { t, d:dsc, tap: () => this.taxSet({ mode:k }),
+          bg: on ? 'var(--tint)' : 'var(--surface)',
+          bd: on ? 'var(--primary)' : 'var(--line)',
+          fg: on ? 'var(--primary)' : 'var(--text)',
+          dot: on ? 'var(--primary)' : 'var(--line)',
+          dotIn: on ? 'var(--primary)' : 'transparent' };
+      }),
+      deps: s.tax.deps,
+      depUp:   () => this.taxSet({ deps: Math.min(s.tax.deps + 1, 9) }),
+      depDown: () => this.taxSet({ deps: Math.max(s.tax.deps - 1, 0) }),
+      toggleReceipt: () => this.taxSet({ receipt: !s.tax.receipt }),
+      receiptTrack: s.tax.receipt ? 'var(--primary)' : 'var(--line)',
+      receiptKnob:  s.tax.receipt ? '22px' : '3px',
+      // Chế độ tự kê khai thì không ai khấu trừ, nên các con số đổi theo.
+      taxKpis: s.tax.mode === 'withhold'
+        ? [ { t:'Thu nhập chịu thuế', v:'18,6tr', c:'var(--text)' },
+            { t:'Đã khấu trừ',        v:'0,93tr', c:'var(--danger)' },
+            { t:'Còn phải nộp',       v:'0',      c:'var(--ok)' } ]
+        : [ { t:'Doanh thu ghi nhận', v:'18,6tr', c:'var(--text)' },
+            { t:'Đã khấu trừ',        v:'0',      c:'var(--text3)' },
+            { t:'Bạn tự nộp',         v:'0,93tr', c:'var(--danger)' } ],
+
       displayCfg: cfgDefs.map(([k,t,dsc]) => ({
         t, d:dsc, toggle: () => this.cfgToggle(k),
         track: s.cfg[k] ? 'var(--ok)' : 'var(--line)',

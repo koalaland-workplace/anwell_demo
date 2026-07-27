@@ -772,6 +772,41 @@
                 </sc-for>
               </div>
             </div>
+            <!-- Thuế & hoá đơn — trung tâm vừa là người nộp thuế, vừa là bên
+                 khấu trừ hộ cho KTV thuộc trung tâm, nên cần khai cả hai vai. -->
+            <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px">
+              <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:18px">Thuế &amp; hoá đơn</div>
+
+              <div style="display:flex;flex-direction:column;gap:11px;margin-top:13px">
+                <sc-for list="{{ taxRows }}" as="t" hint-placeholder-count="4">
+                  <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px">
+                    <span style="min-width:0">
+                      <span style="display:block;font-size:12.5px;color:var(--text2)">{{ t.k }}</span>
+                      <span style="display:block;font-size:10.5px;color:var(--text3);margin-top:1px">{{ t.d }}</span>
+                    </span>
+                    <span style="flex:none;font-size:12.5px;font-weight:600;text-align:right;color:{{ t.c }}">{{ t.v }}</span>
+                  </div>
+                </sc-for>
+              </div>
+
+              <div style="margin-top:15px;padding-top:14px;border-top:1px solid var(--line2)">
+                <div style="font:700 9px ui-monospace,monospace;letter-spacing:.14em;color:var(--text3);text-transform:uppercase">Khấu trừ hộ kỹ thuật viên</div>
+                <div style="display:flex;align-items:center;gap:11px;margin-top:10px">
+                  <span style="flex:1;min-width:0;font-size:11.5px;line-height:1.6;color:var(--text2)">{{ withholdText }}</span>
+                  <button sc-camel-on-click="{{ toggleWithhold }}" aria-label="Khấu trừ hộ kỹ thuật viên" style="flex:none;width:46px;height:27px;border-radius:99px;background:{{ withholdTrack }};position:relative;transition:background .2s">
+                    <span style="position:absolute;top:3px;left:{{ withholdKnob }};width:21px;height:21px;border-radius:50%;background:var(--surface);box-shadow:0 2px 5px rgba(0,0,0,.24);transition:left .2s"></span>
+                  </button>
+                </div>
+                <p style="font-size:10.5px;line-height:1.6;color:var(--text3);margin-top:8px">Chỉ áp dụng cho KTV đã chọn <em>uỷ quyền khấu trừ tại nguồn</em> trong hồ sơ của họ. KTV tự kê khai theo diện hộ kinh doanh thì trung tâm trả đủ, không khấu trừ.</p>
+              </div>
+
+              <div style="display:flex;gap:8px;margin-top:15px">
+                <button style="flex:1;padding:11px;border-radius:10px;background:var(--surface2);color:var(--text2);font-size:11.5px;font-weight:600">Xuất bảng kê thuế kỳ này</button>
+                <button style="flex:1;padding:11px;border-radius:10px;background:var(--surface2);color:var(--text2);font-size:11.5px;font-weight:600">Hoá đơn phí nền tảng</button>
+              </div>
+              <p style="font-size:10px;line-height:1.6;color:var(--text3);margin-top:11px;padding-left:9px;border-left:2px solid var(--line2)">Số liệu trong bản demo chỉ để minh hoạ. Mức thuế, ngưỡng và kỳ kê khai thay đổi theo quy định từng thời kỳ — bản chạy thật cần kế toán rà soát.</p>
+            </div>
+
             <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px">
               <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:18px">Tài khoản &amp; phân quyền</div>
               <div style="display:flex;flex-direction:column;gap:10px;margin-top:12px">
@@ -804,7 +839,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script="" data-props="{&quot;startPage&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;dash&quot;,&quot;schedule&quot;,&quot;staff&quot;,&quot;customers&quot;,&quot;services&quot;,&quot;finance&quot;,&quot;quality&quot;,&quot;inventory&quot;,&quot;settings&quot;],&quot;default&quot;:&quot;dash&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Demo&quot;}}">
 class Component extends DCLogic {
-  state = { theme:'serene', page:'dash', day:'T7', staffFilter:'Tất cả' };
+  state = { theme:'serene', page:'dash', day:'T7', staffFilter:'Tất cả', withhold:true };
 
   ic(name, size){
     const P = {
@@ -1000,6 +1035,16 @@ class Component extends DCLogic {
       { d:'Ngày lễ', t:'9:00 – 18:00' }
     ];
 
+    // ── thuế & hoá đơn ──
+    const taxRows = [
+      { k:'Mã số thuế', d:'Doanh nghiệp', v:'0312 345 678', c:'var(--text)' },
+      { k:'Phương pháp tính GTGT', d:'Áp dụng từ 01/2024', v:'Khấu trừ', c:'var(--text)' },
+      { k:'Kỳ kê khai', d:'Hạn nộp ngày 30 tháng kế tiếp', v:'Theo quý', c:'var(--text)' },
+      { k:'Hoá đơn điện tử', d:'Chữ ký số còn hạn tới 09/2027', v:'Đã kết nối', c:'var(--ok)' },
+      { k:'Hoá đơn đã phát hành', d:'Quý 3/2026', v:'1.284', c:'var(--text)' },
+      { k:'Phí nền tảng ANWELL', d:'Chiết khấu 15% · nhận hoá đơn GTGT', v:'Có hoá đơn', c:'var(--ok)' }
+    ];
+
     const members = [
       { i:'NA', n:'Nguyễn Thị An', e:'an@annhien.vn', role:'Chủ cơ sở' },
       { i:'TD', n:'Trần Đức', e:'duc@annhien.vn', role:'Quản lý ca' },
@@ -1046,7 +1091,15 @@ class Component extends DCLogic {
       crmKpis, customers, services,
       finKpis, payouts,
       reviews, qualBars, inventory,
-      profileRows, hoursRows, members
+      profileRows, hoursRows, members, taxRows,
+      // Công tắc khấu trừ hộ KTV. Chỉ tác động tới KTV đã chọn uỷ quyền khấu
+      // trừ trong hồ sơ của họ; KTV tự kê khai thì trung tâm luôn trả đủ.
+      toggleWithhold: () => this.setState({ withhold: !s.withhold }),
+      withholdTrack: s.withhold ? 'var(--primary)' : 'var(--line)',
+      withholdKnob:  s.withhold ? '22px' : '3px',
+      withholdText: s.withhold
+        ? 'Đang bật · trung tâm khấu trừ thuế TNCN trước khi trả lương ca cho KTV'
+        : 'Đang tắt · trung tâm trả đủ, KTV tự chịu trách nhiệm kê khai'
     };
   }
 }
