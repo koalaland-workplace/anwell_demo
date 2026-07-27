@@ -524,8 +524,8 @@
               <span style="flex:none;text-align:right"><span style="display:block;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:17px;color:var(--accent)">{{ r.fee }}</span></span>
             </div>
             <div style="display:flex;gap:8px;margin-top:12px">
-              <button style="flex:1;padding:10px;border-radius:9px;background:var(--primary);color:var(--on-primary);font-size:12px;font-weight:600;text-align:center">Nhận ca</button>
-              <button style="flex:none;padding:10px 14px;border-radius:9px;background:var(--surface2);color:var(--text2);font-size:12px;font-weight:600">Bỏ qua</button>
+              <button sc-camel-on-click="{{ r.take }}" style="flex:1;padding:10px;border-radius:9px;background:var(--primary);color:var(--on-primary);font-size:12px;font-weight:600;text-align:center">Nhận ca</button>
+              <button sc-camel-on-click="{{ r.skip }}" style="flex:none;padding:10px 14px;border-radius:9px;background:var(--surface2);color:var(--text2);font-size:12px;font-weight:600">Bỏ qua</button>
             </div>
           </div>
         </sc-for>
@@ -850,7 +850,7 @@
             </div>
           </sc-for>
         </div>
-        <button style="width:100%;margin-top:14px;padding:12px;border-radius:11px;background:var(--surface);border:1.5px dashed var(--line);color:var(--text2);font-size:12.5px;font-weight:600;text-align:center">+ Thêm khách thủ công</button>
+        <button sc-camel-on-click="{{ addClient }}" style="width:100%;margin-top:14px;padding:12px;border-radius:11px;background:var(--surface);border:1.5px dashed var(--line);color:var(--text2);font-size:12.5px;font-weight:600;text-align:center">+ Thêm khách thủ công</button>
       </sc-if>
     </sc-if>
 
@@ -882,7 +882,7 @@
         <div style="padding:14px;display:flex;align-items:center;gap:14px;border-top:1px solid var(--line2)">
           <div style="flex:1"><div style="font-size:10px;color:var(--text3)">Tổng quãng đường</div><div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:19px">{{ mapDist }}</div></div>
           <div style="flex:1"><div style="font-size:10px;color:var(--text3)">Thời gian di chuyển</div><div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:19px">{{ mapTime }}</div></div>
-          <button style="flex:none;padding:11px 15px;border-radius:10px;background:var(--primary);color:var(--on-primary);font-size:12px;font-weight:600">Chỉ đường</button>
+          <button sc-camel-on-click="{{ openMaps }}" style="flex:none;padding:11px 15px;border-radius:10px;background:var(--primary);color:var(--on-primary);font-size:12px;font-weight:600">Chỉ đường</button>
         </div>
       </div>
 
@@ -1439,8 +1439,8 @@
           </sc-for>
         </div>
         <div style="display:flex;gap:8px;margin-top:14px">
-          <button style="flex:1;padding:11px;border-radius:10px;background:var(--surface2);color:var(--text2);font-size:11.5px;font-weight:600">Tải chứng từ khấu trừ</button>
-          <button style="flex:1;padding:11px;border-radius:10px;background:var(--surface2);color:var(--text2);font-size:11.5px;font-weight:600">Xuất tờ khai năm</button>
+          <button sc-camel-on-click="{{ dlWithhold }}" style="flex:1;padding:11px;border-radius:10px;background:var(--surface2);color:var(--text2);font-size:11.5px;font-weight:600">Tải chứng từ khấu trừ</button>
+          <button sc-camel-on-click="{{ dlTaxForm }}" style="flex:1;padding:11px;border-radius:10px;background:var(--surface2);color:var(--text2);font-size:11.5px;font-weight:600">Xuất tờ khai năm</button>
         </div>
         <p style="font-size:10px;line-height:1.6;color:var(--text3);margin-top:11px;padding-left:9px;border-left:2px solid var(--line2)">Số liệu trong bản demo chỉ để minh hoạ. Mức thuế và ngưỡng chịu thuế thay đổi theo quy định từng thời kỳ — bản chạy thật cần kế toán rà soát.</p>
       </div>
@@ -1456,7 +1456,7 @@
         </sc-for>
       </div>
 
-      <button style="width:100%;margin-top:14px;padding:13px;border-radius:11px;background:var(--dangerTint);color:var(--danger);font-size:12.5px;font-weight:700;text-align:center">SOS · Khẩn cấp</button>
+      <button sc-camel-on-click="{{ sos }}" style="width:100%;margin-top:14px;padding:13px;border-radius:11px;background:var(--dangerTint);color:var(--danger);font-size:12.5px;font-weight:700;text-align:center">SOS · Khẩn cấp</button>
     </sc-if>
 
   </main>
@@ -1626,6 +1626,10 @@ class Component extends DCLogic {
     calY:2026, calM:7,  // tháng đang xem trên lịch
     shiftReq:null,      // ca đang xin đổi/huỷ; null = không mở biểu mẫu
     shiftReqs:{},       // ca đã gửi yêu cầu: khoá ca -> 'move' | 'cancel'
+    newReqs: [
+      { id:'nr1', i:'NT', svc:'Trị liệu cổ vai gáy · 60′', who:'Ngô Thanh (nữ, 34t)', when:'Hôm nay 16:30', addr:'88 Võ Văn Tần, Q.3', dist:'2,1 km', fee:'480k' },
+      { id:'nr2', i:'HL', svc:'Phục hồi tại nhà · 60′', who:'Ông Hoàng L. (78t)', when:'Mai 09:00', addr:'12 Trần Quốc Thảo, Q.3', dist:'3,4 km', fee:'550k' }
+    ],
     wantSvcs:[], wantSlots:[],   // đề nghị nhận thêm việc
     avatarN:0,          // số lần đổi ảnh đại diện (mô phỏng)
     cfg:{ phone:false, zalo:true, price:true, area:true },  // hiện gì trên hồ sơ công khai
@@ -1731,6 +1735,9 @@ class Component extends DCLogic {
   // ── hồ sơ cá nhân ─────────────────────────────────────────────────
   cfgToggle(k){ this.setState({ cfg: {...this.state.cfg, [k]: !this.state.cfg[k]} }); }
   taxSet(patch){ this.setState({ tax: {...this.state.tax, ...patch} }); }
+  answerReq(id, take){
+    this.setState({ newReqs: this.state.newReqs.filter(x => x.id !== id) });
+  }
   pickAvatar(){ this.setState({ avatarN: this.state.avatarN + 1 }); }
 
   // ── điều phối hai chiều (chế độ tại trung tâm) ────────────────────
@@ -1897,10 +1904,11 @@ class Component extends DCLogic {
       { t:'Tỷ lệ nhận ca', v:'92%', sub:'Ảnh hưởng thứ hạng', c:'var(--ok)' }
     ];
 
-    const requests = [
-      { i:'NT', svc:'Trị liệu cổ vai gáy · 60′', who:'Ngô Thanh (nữ, 34t)', when:'Hôm nay 16:30', addr:'88 Võ Văn Tần, Q.3', dist:'2,1 km', fee:'480k' },
-      { i:'HL', svc:'Phục hồi tại nhà · 60′', who:'Ông Hoàng L. (78t)', when:'Mai 09:00', addr:'12 Trần Quốc Thảo, Q.3', dist:'3,4 km', fee:'550k' }
-    ];
+    // Yêu cầu khách gửi tới KTV tự do. Nhận thì ca vào lịch, bỏ qua thì mất khỏi
+    // hàng chờ — cả hai đều ảnh hưởng tỷ lệ nhận ca nên không phải thao tác vô hại.
+    const requests = s.newReqs.map(r => ({ ...r,
+      take: () => this.answerReq(r.id, true),
+      skip: () => this.answerReq(r.id, false) }));
 
     // ── lịch tháng ─────────────────────────────────────────────────
     const D = this.constructor, T = D.TODAY;
@@ -2484,6 +2492,7 @@ class Component extends DCLogic {
       onDraftAreaInput: (e) => this.draftSet({ areaInput:e.target.value }),
       onDraftAreaKey: (e) => { if(e.key==='Enter'){ e.preventDefault(); this.addArea(); } },
       addArea: () => this.addArea(),
+      addClient:()=>{}, openMaps:()=>{}, dlWithhold:()=>{}, dlTaxForm:()=>{}, sos:()=>{},
       addAreaBg: (d && (d.areaInput || '').trim()) ? 'var(--primary)' : 'var(--line2)',
       addAreaFg: (d && (d.areaInput || '').trim()) ? 'var(--on-primary)' : 'var(--text3)',
       draftIsWeek: !!(d && d.kind === 'week'),
