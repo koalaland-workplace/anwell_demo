@@ -494,7 +494,7 @@
             <button sc-camel-on-click="{{ d.pick }}" style="padding:8px 14px;border-radius:99px;font-size:12px;font-weight:600;background:{{ d.bg }};color:{{ d.fg }};border:1px solid {{ d.bd }}">{{ d.t }}</button>
           </sc-for>
           <span style="flex:1"></span>
-          <button style="padding:9px 15px;border-radius:10px;background:var(--primary);color:var(--on-primary);font-size:12px;font-weight:600">+ Thêm lịch</button>
+          <button sc-camel-on-click="{{ addShift }}" style="padding:9px 15px;border-radius:10px;background:var(--primary);color:var(--on-primary);font-size:12px;font-weight:600">+ Thêm lịch</button>
         </div>
 
         <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden">
@@ -552,10 +552,19 @@
                   <span style="display:block;font-size:9.5px;font-weight:700;color:{{ r.slaFg }};background:{{ r.slaBg }};padding:3px 8px;border-radius:99px;margin-top:5px">{{ r.sla }}</span>
                 </span>
               </div>
+              <!-- Không còn khung trống thì KHÔNG cho chấp nhận thẳng: chấp
+                   nhận đổi giờ mà không có chỗ là hứa suông với khách. Nút chính
+                   đổi thành "Đề xuất giờ khác". -->
+              <sc-if value="{{ r.noSlot }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;align-items:flex-start;gap:9px;margin-top:12px;padding:10px 12px;border-radius:10px;background:var(--goldTint);border:1px solid var(--gold)">
+                  <span style="font-size:13px">⚠️</span>
+                  <p style="font-size:11px;line-height:1.55;color:var(--text2)">Chưa có khung giờ trống phù hợp. Hãy đề xuất giờ khác thay vì chấp nhận — tránh hứa rồi không xếp được lịch.</p>
+                </div>
+              </sc-if>
               <div style="display:flex;gap:8px;margin-top:13px;padding-top:13px;border-top:1px solid var(--line2)">
-                <button style="flex:1;padding:10px;border-radius:9px;background:var(--primary);color:var(--on-primary);font-size:12px;font-weight:600;text-align:center">{{ r.okLabel }}</button>
-                <button style="flex:none;padding:10px 14px;border-radius:9px;background:var(--surface2);color:var(--text2);font-size:12px;font-weight:600">Đề xuất giờ khác</button>
-                <button style="flex:none;padding:10px 14px;border-radius:9px;background:var(--dangerTint);color:var(--danger);font-size:12px;font-weight:600">Từ chối</button>
+                <button sc-camel-on-click="{{ r.accept }}" style="flex:1;padding:10px;border-radius:9px;background:{{ r.okBg }};color:{{ r.okFg }};font-size:12px;font-weight:600;text-align:center">{{ r.okLabel }}</button>
+                <button sc-camel-on-click="{{ r.offer }}" style="flex:none;padding:10px 14px;border-radius:9px;background:{{ r.offerBg }};color:{{ r.offerFg }};font-size:12px;font-weight:600">Đề xuất giờ khác</button>
+                <button sc-camel-on-click="{{ r.decline }}" style="flex:none;padding:10px 14px;border-radius:9px;background:var(--dangerTint);color:var(--danger);font-size:12px;font-weight:600">Từ chối</button>
               </div>
             </div>
           </sc-for>
@@ -569,7 +578,7 @@
             <button sc-camel-on-click="{{ f.pick }}" style="padding:8px 14px;border-radius:99px;font-size:12px;font-weight:600;background:{{ f.bg }};color:{{ f.fg }};border:1px solid {{ f.bd }}">{{ f.t }}</button>
           </sc-for>
           <span style="flex:1"></span>
-          <button style="padding:9px 15px;border-radius:10px;background:var(--primary);color:var(--on-primary);font-size:12px;font-weight:600">+ Mời KTV</button>
+          <button sc-camel-on-click="{{ inviteKtv }}" style="padding:9px 15px;border-radius:10px;background:var(--primary);color:var(--on-primary);font-size:12px;font-weight:600">+ Mời KTV</button>
         </div>
 
         <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden">
@@ -627,7 +636,7 @@
       <sc-if value="{{ isServices }}" hint-placeholder-val="{{ false }}">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
           <p style="font-size:12px;color:var(--text2);max-width:520px">Dịch vụ và bảng giá hiển thị trên app khách hàng. Thay đổi được ANWELL rà soát trong 24 giờ.</p>
-          <button style="flex:none;padding:9px 15px;border-radius:10px;background:var(--primary);color:var(--on-primary);font-size:12px;font-weight:600">+ Thêm dịch vụ</button>
+          <button sc-camel-on-click="{{ addService }}" style="flex:none;padding:9px 15px;border-radius:10px;background:var(--primary);color:var(--on-primary);font-size:12px;font-weight:600">+ Thêm dịch vụ</button>
         </div>
         <div class="split">
           <sc-for list="{{ services }}" as="sv" hint-placeholder-count="4">
@@ -680,7 +689,7 @@
         <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:14px">
           <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--line)">
             <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:17px">Kỳ đối soát</div>
-            <button style="font-size:11.5px;font-weight:600;color:var(--accent)">Xuất Excel</button>
+            <button sc-camel-on-click="{{ exportXls }}" style="font-size:11.5px;font-weight:600;color:var(--accent)">Xuất Excel</button>
           </div>
           <sc-for list="{{ payouts }}" as="p" hint-placeholder-count="4">
             <div style="display:flex;align-items:center;flex-wrap:wrap;gap:10px;padding:13px 16px;border-bottom:1px solid var(--line2)">
@@ -712,6 +721,24 @@
                     <span style="font-size:9.5px;font-weight:700;color:{{ r.impFg }};background:{{ r.impBg }};padding:3px 9px;border-radius:99px">{{ r.imp }}</span>
                     <span style="font-size:10px;color:var(--text3)">{{ r.d }}</span>
                   </div>
+
+                  <!-- Phản hồi dưới 4 sao là việc cần xử lý, không phải tin để
+                       đọc rồi thôi. Mở hành động ngay tại chỗ. -->
+                  <sc-if value="{{ r.needsAction }}" hint-placeholder-val="{{ false }}">
+                    <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--line2)">
+                      <p style="font-size:10.5px;color:var(--danger);margin-bottom:8px">⚠️ {{ r.issue }}</p>
+                      <div style="display:flex;gap:7px;flex-wrap:wrap">
+                        <button sc-camel-on-click="{{ r.reply }}" style="flex:1;min-width:104px;padding:8px;border-radius:8px;background:var(--primary);color:var(--on-primary);font-size:11px;font-weight:600;text-align:center">Trả lời khách</button>
+                        <button sc-camel-on-click="{{ r.brief }}" style="flex:1;min-width:104px;padding:8px;border-radius:8px;background:var(--surface2);color:var(--text2);font-size:11px;font-weight:600;text-align:center">Nhắc nhở KTV</button>
+                        <button sc-camel-on-click="{{ r.close }}" style="flex:none;padding:8px 12px;border-radius:8px;background:var(--surface2);color:var(--text2);font-size:11px;font-weight:600">Đã xử lý</button>
+                      </div>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ r.handled }}" hint-placeholder-val="{{ false }}">
+                    <div style="margin-top:10px;padding:8px 11px;border-radius:8px;background:var(--okTint)">
+                      <p style="font-size:10.5px;font-weight:600;color:var(--ok)">✓ Đã xử lý · đã trả lời khách và trao đổi với KTV</p>
+                    </div>
+                  </sc-if>
                 </div>
               </sc-for>
             </div>
@@ -742,7 +769,7 @@
       <sc-if value="{{ isInventory }}" hint-placeholder-val="{{ false }}">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
           <p style="font-size:12px;color:var(--text2);max-width:520px">Vật tư tiêu hao và thiết bị của cơ sở. Đặt bổ sung qua đối tác cung ứng của ANWELL.</p>
-          <button style="flex:none;padding:9px 15px;border-radius:10px;background:var(--primary);color:var(--on-primary);font-size:12px;font-weight:600">+ Đặt vật tư</button>
+          <button sc-camel-on-click="{{ orderStock }}" style="flex:none;padding:9px 15px;border-radius:10px;background:var(--primary);color:var(--on-primary);font-size:12px;font-weight:600">+ Đặt vật tư</button>
         </div>
         <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden">
           <sc-for list="{{ inventory }}" as="i" hint-placeholder-count="5">
@@ -885,7 +912,7 @@
                 </div>
               </sc-for>
             </div>
-            <button style="width:100%;margin-top:16px;padding:12px;border-radius:10px;background:var(--surface2);color:var(--primary);font-size:12.5px;font-weight:600;text-align:center">Chỉnh sửa hồ sơ</button>
+            <button sc-camel-on-click="{{ editProfile }}" style="width:100%;margin-top:16px;padding:12px;border-radius:10px;background:var(--surface2);color:var(--primary);font-size:12.5px;font-weight:600;text-align:center">Chỉnh sửa hồ sơ</button>
           </div>
             <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px">
               <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:18px">Tài khoản &amp; phân quyền</div>
@@ -929,8 +956,8 @@
               </div>
 
               <div style="display:flex;gap:8px;margin-top:15px">
-                <button style="flex:1;padding:11px;border-radius:10px;background:var(--surface2);color:var(--text2);font-size:11.5px;font-weight:600">Xuất bảng kê thuế kỳ này</button>
-                <button style="flex:1;padding:11px;border-radius:10px;background:var(--surface2);color:var(--text2);font-size:11.5px;font-weight:600">Hoá đơn phí nền tảng</button>
+                <button sc-camel-on-click="{{ exportTax }}" style="flex:1;padding:11px;border-radius:10px;background:var(--surface2);color:var(--text2);font-size:11.5px;font-weight:600">Xuất bảng kê thuế kỳ này</button>
+                <button sc-camel-on-click="{{ platformInvoice }}" style="flex:1;padding:11px;border-radius:10px;background:var(--surface2);color:var(--text2);font-size:11.5px;font-weight:600">Hoá đơn phí nền tảng</button>
               </div>
               <p style="font-size:10px;line-height:1.6;color:var(--text3);margin-top:11px;padding-left:9px;border-left:2px solid var(--line2)">Số liệu trong bản demo chỉ để minh hoạ. Mức thuế, ngưỡng và kỳ kê khai thay đổi theo quy định từng thời kỳ — bản chạy thật cần kế toán rà soát.</p>
             </div>
@@ -955,6 +982,41 @@
 <script type="text/x-dc" data-dc-script="" data-props="{&quot;startPage&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;dash&quot;,&quot;schedule&quot;,&quot;staff&quot;,&quot;customers&quot;,&quot;services&quot;,&quot;finance&quot;,&quot;quality&quot;,&quot;inventory&quot;,&quot;settings&quot;],&quot;default&quot;:&quot;dash&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Demo&quot;}}">
 class Component extends DCLogic {
   state = { theme:'serene', page:'dash', day:'T7', staffFilter:'Tất cả', withhold:true,
+    // Yêu cầu khách gửi từ app.html
+    reqs: [
+      { id:'r1', who:'Nguyễn Thu Hà', kind:'Đổi giờ', svc:'Trị liệu cổ vai gáy · 60′', ktv:'Hải Yến',
+        detail:'Từ T5 24/07 · 09:00 → T6 25/07 · 16:00',
+        note:'KTV Hải Yến còn trống 16:00 ngày 25/07', noSlot:false,
+        ago:'18 phút trước', sla:'Còn 11 giờ', slaFg:'var(--ok)', slaBg:'var(--okTint)' },
+      { id:'r2', who:'Minh Trần (chăm bố)', kind:'Tạm hoãn', svc:'Phục hồi sau đột quỵ · gói 20 buổi', ktv:'Nguyễn Minh',
+        detail:'Tạm dừng 2 tuần · bảo lưu 14 buổi còn lại',
+        note:'Lý do: bố nhập viện kiểm tra định kỳ', noSlot:false,
+        ago:'2 giờ trước', sla:'Còn 6 giờ', slaFg:'var(--goldText)', slaBg:'var(--goldTint)' },
+      { id:'r3', who:'Lê Quang Tuấn', kind:'Huỷ lịch', svc:'Massage trị liệu · 90′', ktv:'Quỳnh Anh',
+        detail:'T7 26/07 · 19:00 — huỷ trước 48 giờ',
+        note:'Đủ điều kiện hoàn 100% · 620.000₫', noSlot:false,
+        ago:'5 giờ trước', sla:'Còn 3 giờ', slaFg:'var(--danger)', slaBg:'var(--dangerTint)' },
+      { id:'r4', who:'Phạm Thị Lan', kind:'Đổi giờ', svc:'Hậu phẫu khớp gối · 45′', ktv:'Phương Dung',
+        detail:'Từ T6 25/07 · 14:00 → sớm hơn trong ngày',
+        note:'Chưa có khung trống — cần đề xuất giờ khác', noSlot:true,
+        ago:'1 ngày trước', sla:'Quá hạn', slaFg:'var(--danger)', slaBg:'var(--dangerTint)' }
+    ],
+    // Phản hồi khách. done = trung tâm đã xử lý phản hồi điểm thấp.
+    reviews: [
+      { id:'v1', who:'Minh T.', ktv:'Hải Yến', stars:'★★★★★', d:'2 ngày trước', done:false, issue:'',
+        txt:'Bố tôi đứng vững lâu hơn hẳn sau 3 buổi. KTV rất kiên nhẫn và hướng dẫn kỹ cho người nhà.',
+        imp:'Cải thiện rõ rệt', impFg:'var(--ok)', impBg:'var(--okTint)' },
+      { id:'v2', who:'Thu H.', ktv:'Quỳnh Anh', stars:'★★★★★', d:'3 ngày trước', done:false, issue:'',
+        txt:'Không gian sạch, đúng giờ, tay nghề tốt. Vai gáy nhẹ hẳn.',
+        imp:'Cải thiện rõ rệt', impFg:'var(--ok)', impBg:'var(--okTint)' },
+      { id:'v3', who:'Quang T.', ktv:'Bách', stars:'★★★☆☆', d:'4 ngày trước', done:false,
+        issue:'KTV đi trễ không báo trước — ảnh hưởng chỉ số đúng giờ của cơ sở',
+        txt:'KTV tới trễ 20 phút, chưa báo trước. Chuyên môn thì ổn.',
+        imp:'Có tiến triển', impFg:'var(--goldText)', impBg:'var(--goldTint)' },
+      { id:'v4', who:'P. Lan', ktv:'P. Dung', stars:'★★★★★', d:'1 tuần trước', done:false, issue:'',
+        txt:'Chị Dung chăm mẹ tôi sau mổ rất kỹ và dịu dàng, gia đình rất yên tâm.',
+        imp:'Cải thiện rõ rệt', impFg:'var(--ok)', impBg:'var(--okTint)' }
+    ],
     // Yêu cầu KTV gửi lên — khớp đúng những gì ktv.html cho phép gửi.
     ktvReqs: [
       { id:'k1', i:'HY', ktv:'Trần Hải Yến', tier:'Bậc 2', kind:'move',
@@ -986,8 +1048,8 @@ class Component extends DCLogic {
   pages = [
     { id:'dash',      g:'Vận hành',  t:'Tổng quan hôm nay', ic:'grid' },
     { id:'schedule',  g:'Vận hành',  t:'Điều phối lịch',    ic:'cal' },
-    { id:'requests',  g:'Vận hành',  t:'Yêu cầu từ khách',  ic:'cal', count:4 },
-    { id:'ktvreq',    g:'Vận hành',  t:'Yêu cầu từ KTV',    ic:'users', count:3 },
+    { id:'requests',  g:'Vận hành',  t:'Yêu cầu từ khách',  ic:'cal', live:'reqs' },
+    { id:'ktvreq',    g:'Vận hành',  t:'Yêu cầu từ KTV',    ic:'users', live:'ktvReqs' },
     { id:'staff',     g:'Vận hành',  t:'Kỹ thuật viên',     ic:'users', count:2 },
     { id:'customers', g:'Kinh doanh',t:'Khách hàng',        ic:'heart' },
     { id:'services',  g:'Kinh doanh',t:'Dịch vụ & bảng giá',ic:'tag' },
@@ -998,6 +1060,8 @@ class Component extends DCLogic {
   ];
 
   go(id){ this.setState({page:id}); }
+  resolveReq(id){ this.setState({ reqs: this.state.reqs.filter(x => x.id !== id) }); }
+  closeReview(id){ this.setState({ reviews: this.state.reviews.map(r => r.id===id ? {...r, done:true} : r) }); }
   // Duyệt hay từ chối đều lấy yêu cầu ra khỏi hàng chờ; KTV nhận kết quả ở
   // khối "Tôi đề xuất" bên ứng dụng của họ.
   resolveKtvReq(id){ this.setState({ ktvReqs: this.state.ktvReqs.filter(x => x.id !== id) }); }
@@ -1012,7 +1076,8 @@ class Component extends DCLogic {
       const on = s.page===p.id;
       g.items.push({ t:p.t, icon:this.ic(p.ic,18), go:()=>this.go(p.id),
         bg:on?'var(--tint)':'transparent', fg:on?'var(--primary)':'var(--text)', wt:on?'700':'500',
-        ic:on?'var(--primary)':'var(--text3)', hasCount:!!p.count, count:p.count });
+        ic:on?'var(--primary)':'var(--text3)', hasCount: p.live ? s[p.live].length > 0 : !!p.count,
+        count: p.live ? s[p.live].length : p.count });
     });
 
     const bIds = ['dash','schedule','staff','customers','finance'];
@@ -1131,12 +1196,16 @@ class Component extends DCLogic {
       { period:'01–15/06/2026', n:461, gross:'214tr', net:'182tr', st:'Đã chuyển', stFg:'var(--ok)', stBg:'var(--okTint)' }
     ];
 
-    const reviews = [
-      { who:'Minh T.', ktv:'Hải Yến', stars:'★★★★★', txt:'Bố tôi đứng vững lâu hơn hẳn sau 3 buổi. KTV rất kiên nhẫn và hướng dẫn kỹ cho người nhà.', imp:'Cải thiện rõ rệt', impFg:'var(--ok)', impBg:'var(--okTint)', d:'2 ngày trước' },
-      { who:'Thu H.', ktv:'Quỳnh Anh', stars:'★★★★★', txt:'Không gian sạch, đúng giờ, tay nghề tốt. Vai gáy nhẹ hẳn.', imp:'Cải thiện rõ rệt', impFg:'var(--ok)', impBg:'var(--okTint)', d:'3 ngày trước' },
-      { who:'Quang T.', ktv:'Bách', stars:'★★★☆☆', txt:'KTV tới trễ 20 phút, chưa báo trước. Chuyên môn thì ổn.', imp:'Có tiến triển', impFg:'var(--goldText)', impBg:'var(--goldTint)', d:'4 ngày trước' },
-      { who:'P. Lan', ktv:'P. Dung', stars:'★★★★★', txt:'Chị Dung chăm mẹ tôi sau mổ rất kỹ và dịu dàng, gia đình rất yên tâm.', imp:'Cải thiện rõ rệt', impFg:'var(--ok)', impBg:'var(--okTint)', d:'1 tuần trước' }
-    ];
+    // Phản hồi dưới 4 sao đánh dấu cần xử lý; xử lý xong thì đổi trạng thái.
+    const reviews = s.reviews.map(r => {
+      const low = (r.stars.split('★').length - 1) < 4;
+      return { ...r,
+        needsAction: low && !r.done,
+        handled: low && r.done,
+        reply: () => this.closeReview(r.id),
+        brief: () => this.closeReview(r.id),
+        close: () => this.closeReview(r.id) };
+    });
 
     const qualBars = [
       { t:'Cảm nhận khách hàng', v:'4,86/5', w:'97%', c:'var(--ok)' },
@@ -1226,16 +1295,19 @@ class Component extends DCLogic {
       'Tạm hoãn':  { icon:'⏸️', iBg:'var(--goldTint)', kFg:'var(--goldText)', kBg:'var(--goldTint)', accent:'var(--accent)',  okLabel:'Chấp nhận tạm hoãn' },
       'Huỷ lịch':  { icon:'✖️', iBg:'var(--dangerTint)',         kFg:'var(--danger)',         kBg:'var(--dangerTint)',         accent:'var(--danger)',        okLabel:'Xác nhận huỷ & hoàn tiền' }
     };
-    const requests = [
-      { who:'Nguyễn Thu Hà', kind:'Đổi giờ', svc:'Trị liệu cổ vai gáy · 60′', ktv:'Hải Yến',
-        detail:'Từ T5 24/07 · 09:00 → T6 25/07 · 16:00', note:'KTV Hải Yến còn trống 16:00 ngày 25/07', ago:'18 phút trước', sla:'Còn 11 giờ', slaFg:'var(--ok)', slaBg:'var(--okTint)' },
-      { who:'Minh Trần (chăm bố)', kind:'Tạm hoãn', svc:'Phục hồi sau đột quỵ · gói 20 buổi', ktv:'Nguyễn Minh',
-        detail:'Tạm dừng 2 tuần · bảo lưu 14 buổi còn lại', note:'Lý do: bố nhập viện kiểm tra định kỳ', ago:'2 giờ trước', sla:'Còn 6 giờ', slaFg:'var(--goldText)', slaBg:'var(--goldTint)' },
-      { who:'Lê Quang Tuấn', kind:'Huỷ lịch', svc:'Massage trị liệu · 90′', ktv:'Quỳnh Anh',
-        detail:'T7 26/07 · 19:00 — huỷ trước 48 giờ', note:'Đủ điều kiện hoàn 100% · 620.000₫', ago:'5 giờ trước', sla:'Còn 3 giờ', slaFg:'var(--danger)', slaBg:'var(--dangerTint)' },
-      { who:'Phạm Thị Lan', kind:'Đổi giờ', svc:'Hậu phẫu khớp gối · 45′', ktv:'Phương Dung',
-        detail:'Từ T6 25/07 · 14:00 → sớm hơn trong ngày', note:'Chưa có khung trống — cần đề xuất giờ khác', ago:'1 ngày trước', sla:'Quá hạn', slaFg:'var(--danger)', slaBg:'var(--dangerTint)' }
-    ].map(r=>({ ...r, ...rKind[r.kind] }));
+    // Yêu cầu khách gửi từ ứng dụng. noSlot = chưa tìm được khung giờ thay thế.
+    const requests = s.reqs.map(r => {
+      const meta = rKind[r.kind];
+      return { ...r, ...meta,
+        // Không có chỗ trống thì nút chấp nhận mờ đi, nút đề xuất giờ khác lên chính.
+        okBg:    r.noSlot ? 'var(--line2)' : 'var(--primary)',
+        okFg:    r.noSlot ? 'var(--text3)' : 'var(--on-primary)',
+        offerBg: r.noSlot ? 'var(--primary)' : 'var(--surface2)',
+        offerFg: r.noSlot ? 'var(--on-primary)' : 'var(--text2)',
+        accept:  () => r.noSlot ? null : this.resolveReq(r.id),
+        offer:   () => this.resolveReq(r.id),
+        decline: () => this.resolveReq(r.id) };
+    });
 
     const themeDefs = [
       { key:'serene',  name:'An Nhiên',  sw:'linear-gradient(150deg,#0C3F36,#12564A)' },
@@ -1260,7 +1332,10 @@ class Component extends DCLogic {
       crmKpis, customers, services,
       finKpis, payouts,
       reviews, qualBars, inventory,
-      profileRows, hoursRows, members, taxRows, editHours: () => {},
+      profileRows, hoursRows, members, taxRows,
+      editHours:()=>{}, addShift:()=>{}, inviteKtv:()=>{}, addService:()=>{},
+      exportXls:()=>{}, orderStock:()=>{}, editProfile:()=>{}, exportTax:()=>{},
+      platformInvoice:()=>{},
       // Công tắc khấu trừ hộ KTV. Chỉ tác động tới KTV đã chọn uỷ quyền khấu
       // trừ trong hồ sơ của họ; KTV tự kê khai thì trung tâm luôn trả đủ.
       toggleWithhold: () => this.setState({ withhold: !s.withhold }),
