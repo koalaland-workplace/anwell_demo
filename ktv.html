@@ -648,17 +648,17 @@
           </button>
         </div>
 
-        <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-top:12px">
+        <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-top:11px">
           <sc-for list="{{ calDows }}" as="w" hint-placeholder-count="7">
-            <span style="text-align:center;font:700 9px ui-monospace,monospace;letter-spacing:.08em;color:var(--text3)">{{ w.t }}</span>
+            <span style="text-align:center;font:700 8.5px ui-monospace,monospace;letter-spacing:.06em;color:{{ w.c }}">{{ w.t }}</span>
           </sc-for>
         </div>
 
-        <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-top:6px">
+        <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-top:5px">
           <sc-for list="{{ calCells }}" as="c" hint-placeholder-count="35">
-            <button sc-camel-on-click="{{ c.pick }}" style="aspect-ratio:1;border-radius:10px;background:{{ c.bg }};border:1.5px solid {{ c.bd }};opacity:{{ c.dim }};pointer-events:{{ c.tap }};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px">
-              <span style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:14px;line-height:1;color:{{ c.fg }}">{{ c.n }}</span>
-              <span style="width:4px;height:4px;border-radius:50%;background:{{ c.dot }}"></span>
+            <button sc-camel-on-click="{{ c.pick }}" style="height:30px;border-radius:8px;background:{{ c.bg }};border:1.5px solid {{ c.bd }};opacity:{{ c.dim }};pointer-events:{{ c.tap }};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px">
+              <span style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:12.5px;line-height:1;color:{{ c.fg }}">{{ c.n }}</span>
+              <span style="width:3px;height:3px;border-radius:50%;background:{{ c.dot }}"></span>
             </button>
           </sc-for>
         </div>
@@ -1325,11 +1325,12 @@
 
   </main>
 
-  <nav style="flex:none;display:grid;grid-template-columns:repeat(5,1fr);align-items:center;background:var(--tabbar);border-top:1px solid var(--line);padding:7px 4px 11px;backdrop-filter:blur(12px)">
+  <!-- Nav chỉ dùng icon, không chữ. aria-label giữ lại tên mục cho trình đọc
+       màn hình và cho người dùng bàn phím. -->
+  <nav style="flex:none;display:grid;grid-template-columns:repeat(5,1fr);align-items:center;background:var(--tabbar);border-top:1px solid var(--line);padding:9px 4px 13px;backdrop-filter:blur(12px)">
     <sc-for list="{{ nav }}" as="n" hint-placeholder-count="5">
-      <button sc-camel-on-click="{{ n.go }}" style="display:flex;flex-direction:column;align-items:center;gap:4px;padding:2px 0">
-        <span style="display:grid;place-items:center;width:40px;height:28px;border-radius:10px;background:{{ n.chip }};color:{{ n.ic }}">{{ n.icon }}</span>
-        <span style="font-size:9px;font-weight:600;white-space:nowrap;color:{{ n.fg }}">{{ n.t }}</span>
+      <button sc-camel-on-click="{{ n.go }}" aria-label="{{ n.t }}" title="{{ n.t }}" style="display:flex;align-items:center;justify-content:center;padding:2px 0">
+        <span style="display:grid;place-items:center;width:46px;height:36px;border-radius:12px;background:{{ n.chip }};color:{{ n.ic }}">{{ n.icon }}</span>
       </button>
     </sc-for>
   </nav>
@@ -1496,7 +1497,8 @@ class Component extends DCLogic {
     const P = {
       home:'<path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/>',
       cal:'<rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/>',
-      users:'<circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c0-3.6 3.3-5.4 7.5-5.4s7.5 1.8 7.5 5.4"/>',
+      // Nhóm người — phải khác rõ icon "me" (một người) để nav không bị trùng.
+      users:'<circle cx="9" cy="8.4" r="3.1"/><path d="M2.6 19.8c0-3.3 2.8-5 6.4-5s6.4 1.7 6.4 5"/><path d="M16.6 5.9a3 3 0 0 1 0 5.9"/><path d="M18.2 14.6c1.9.6 3.2 2 3.2 4"/>',
       route:'<circle cx="6" cy="18" r="2.6"/><circle cx="18" cy="6" r="2.6"/><path d="M8.6 18h5.4a3.4 3.4 0 000-6.8h-4a3.4 3.4 0 010-6.8h5.4"/>',
       wallet:'<rect x="3" y="6" width="18" height="13" rx="2.4"/><path d="M3 10h18M16.5 14.5h1.5"/>',
       me:'<circle cx="12" cy="8" r="3.8"/><path d="M4.5 21c0-4 3.4-6 7.5-6s7.5 2 7.5 6"/>'
@@ -1506,7 +1508,10 @@ class Component extends DCLogic {
 
   go(p){ this.setState({page:p}); }
   goSched(tab){ this.setState({page:'schedule', schedTab:tab}); }
-  setMode(m){ this.setState({mode:m, page:'home', schedTab:'list'}); }
+  // Đổi chế độ thì GIỮ NGUYÊN trang và tab đang xem, chỉ thay nội dung bên
+  // dưới. Trước đây ép về trang chủ nên đang ở Lịch làm mà bấm đổi chế độ là
+  // văng về Tổng quan — người dùng mất chỗ đang đứng.
+  setMode(m){ this.setState({ mode:m }); }
 
   // ── lịch tháng ────────────────────────────────────────────────────
   // Neo "hôm nay" vào 25/07/2026 thay vì đồng hồ máy: toàn bộ số liệu trong bản
@@ -1676,7 +1681,7 @@ class Component extends DCLogic {
     ];
     const nav = navIds.map(([icon,id,t])=>{
       const on = s.page===id;
-      return { t, icon:this.ic(icon,19), go:()=>this.go(id),
+      return { t, icon:this.ic(icon,22), go:()=>this.go(id),
         chip:on?'var(--primary)':'transparent', ic:on?'var(--on-primary)':'var(--text3)', fg:on?'var(--primary)':'var(--text3)' };
     });
 
@@ -1709,7 +1714,11 @@ class Component extends DCLogic {
 
     // ── lịch tháng ─────────────────────────────────────────────────
     const D = this.constructor, T = D.TODAY;
-    const calDows = ['T2','T3','T4','T5','T6','T7','CN'].map(t => ({ t }));
+    // Cuối tuần tô riêng: T7 xám gần đen, CN đỏ — quy ước lịch Việt Nam.
+    const SAT = '#2C2C2C', SUN = '#C0322B';
+    const colFg = (i) => i===5 ? SAT : i===6 ? SUN : null;
+    const calDows = ['T2','T3','T4','T5','T6','T7','CN']
+      .map((t,i) => ({ t, c: colFg(i) || 'var(--text3)' }));
     // getDay() trả 0 cho Chủ nhật; tuần ở đây bắt đầu từ T2 nên xoay lại.
     const firstDow = (new Date(s.calY, s.calM - 1, 1).getDay() + 6) % 7;
     const daysInMonth = new Date(s.calY, s.calM, 0).getDate();
@@ -1725,13 +1734,15 @@ class Component extends DCLogic {
       const today = isAnchorMonth && n === T.d;
       const on = isAnchorMonth && s.day === n;
       const b = isAnchorMonth ? (D.MONTH_BUSY[n] || 0) : 0;
+      // Cột trong lưới quyết định màu chữ: 5 = T7, 6 = CN.
+      const col = (firstDow + n - 1) % 7;
       calCells.push({
         n, pick: () => this.setState({ day:n }),
         dim:  past ? '.38' : '1',
         tap:  'auto',
         bg:   on ? 'var(--primary)' : 'transparent',
         bd:   on ? 'var(--primary)' : today ? 'var(--gold)' : 'transparent',
-        fg:   on ? 'var(--on-primary)' : 'var(--text)',
+        fg:   on ? 'var(--on-primary)' : (colFg(col) || 'var(--text)'),
         dot:  b === 2 ? (on ? 'var(--on-primary)' : 'var(--accent)')
             : b === 1 ? (on ? 'var(--onPrimarySub)' : 'var(--muted)')
             : 'transparent'
