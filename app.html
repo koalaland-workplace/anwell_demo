@@ -336,6 +336,8 @@
   .tabbar{position:absolute;bottom:0;left:0;right:0;height:70px;display:grid;grid-template-columns:repeat(5,1fr);align-items:center;padding-bottom:8px;backdrop-filter:blur(16px);z-index:20}
   .tb{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:9px;font-weight:600}
   .tb svg{width:22px;height:22px}
+  /* Nhãn nhóm trong biểu mẫu đặt lịch */
+  .secTitle{font:700 10px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:22px 0 10px}
   .lo{display:inline-flex;align-items:center;gap:6px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:20px}
   @keyframes bloomIn{from{opacity:0;transform:scale(.55)}to{opacity:1;transform:scale(1)}}
   @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
@@ -617,19 +619,113 @@
 
           <div key="{{ stepKey }}" style="animation:slideIn .34s cubic-bezier(.22,.61,.36,1)">
           <sc-if value="{{ b1 }}" hint-placeholder-val="{{ true }}">
-            <h1 style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:25px;line-height:1.15;margin:14px 0 0">Cơ thể bạn <span style="font-style:italic;color:var(--accent)">cần gì?</span></h1>
-            <p style="font-size:12px;color:var(--text3);font-style:italic;margin:3px 0 14px">Start from how your body feels</p>
-            <div style="display:flex;flex-wrap:wrap;gap:9px">
-              <sc-for list="{{ areas }}" as="a" hint-placeholder-count="6">
-                <button sc-camel-on-click="{{ a.pick }}" style="padding:11px 15px;border-radius:var(--r-sm);font-size:13px;font-weight:600;white-space:nowrap;background:{{ a.bg }};color:{{ a.fg }};border:1px solid {{ a.bd }}">{{ a.label }}</button>
+            <h1 style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:25px;line-height:1.15;margin:14px 0 0">Bạn cần <span style="color:var(--accent);font-style:italic">điều gì?</span></h1>
+            <p style="font-size:12px;color:var(--text3);font-style:italic;margin:3px 0 0">Tell us what you need</p>
+
+            <!-- ① Hình thức: tại cơ sở hay tại nhà — quyết định cả danh sách kết
+                 quả ở bước sau là trung tâm hay kỹ thuật viên. -->
+            <p class="secTitle">HÌNH THỨC</p>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+              <sc-for list="{{ venueOpts }}" as="v" hint-placeholder-count="2">
+                <button sc-camel-on-click="{{ v.pick }}" style="text-align:left;padding:14px;border-radius:var(--r-sm);background:{{ v.bg }};border:1.5px solid {{ v.bd }}">
+                  <span style="display:block;font-size:18px">{{ v.icon }}</span>
+                  <span style="display:block;font-size:13.5px;font-weight:600;color:{{ v.fg }};margin-top:6px">{{ v.t }}</span>
+                  <span style="display:block;font-size:10.5px;color:var(--text3);margin-top:2px">{{ v.d }}</span>
+                </button>
               </sc-for>
             </div>
-            <p style="font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--text3);margin:22px 0 10px">HÌNH THỨC</p>
-            <div style="display:flex;gap:10px">
-              <button sc-camel-on-click="{{ pickVenueCenter }}" style="flex:1;text-align:left;padding:14px;border-radius:var(--r-sm);background:var(--surface);border:2px solid {{ venueCenterBd }};box-shadow:var(--sh)"><svg width="20" height="20" sc-camel-view-box="0 0 24 24" fill="none" stroke="{{ venueCenterIc }}" stroke-width="1.8"><path d="M3 21h18M5 21V7l7-4 7 4v14"></path></svg><p style="font-size:13px;font-weight:600;margin-top:8px;color:var(--text)">Tại cơ sở</p></button>
-              <button sc-camel-on-click="{{ pickVenueHome }}" style="flex:1;text-align:left;padding:14px;border-radius:var(--r-sm);background:var(--surface);border:2px solid {{ venueHomeBd }};box-shadow:var(--sh)"><svg width="20" height="20" sc-camel-view-box="0 0 24 24" fill="none" stroke="{{ venueHomeIc }}" stroke-width="1.8"><path d="M3 7h18v11H3zM8 21h8"></path></svg><p style="font-size:13px;font-weight:600;margin-top:8px;color:var(--text)">Tại nhà</p></button>
+
+            <!-- ② Đặt cho ai — chọn "người nhà" thì mở thêm mục Phục hồi bên dưới -->
+            <p class="secTitle">ĐẶT CHO AI</p>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+              <sc-for list="{{ whoOpts }}" as="w" hint-placeholder-count="2">
+                <button sc-camel-on-click="{{ w.pick }}" style="padding:12px;border-radius:var(--r-sm);background:{{ w.bg }};border:1.5px solid {{ w.bd }};font-size:13px;font-weight:600;color:{{ w.fg }};text-align:center">{{ w.t }}</button>
+              </sc-for>
             </div>
-            <button sc-camel-on-click="{{ bookNext }}" style="margin-top:26px;width:100%;padding:15px;border-radius:var(--r-sm);background:var(--primary);color:var(--on-primary);font-weight:600;font-size:15px">{{ venueCta }}</button>
+
+            <p class="secTitle">LOẠI HÌNH</p>
+            <div style="display:flex;flex-wrap:wrap;gap:7px">
+              <sc-for list="{{ svcOpts }}" as="c" hint-placeholder-count="7">
+                <button sc-camel-on-click="{{ c.pick }}" style="padding:9px 14px;border-radius:99px;background:{{ c.bg }};color:{{ c.fg }};border:1px solid {{ c.bd }};font-size:12.5px;font-weight:600">{{ c.t }}</button>
+              </sc-for>
+            </div>
+
+            <!-- ③ Phục hồi — chỉ hiện khi đặt cho người nhà, vì đây là nhóm dịch
+                 vụ cho người bệnh và người cao tuổi, không phải thư giãn. -->
+            <sc-if value="{{ showRecover }}" hint-placeholder-val="{{ false }}">
+              <p class="secTitle">PHỤC HỒI · cho người bệnh, người cao tuổi</p>
+              <div style="display:flex;flex-wrap:wrap;gap:7px">
+                <sc-for list="{{ recOpts }}" as="c" hint-placeholder-count="5">
+                  <button sc-camel-on-click="{{ c.pick }}" style="padding:9px 14px;border-radius:99px;background:{{ c.bg }};color:{{ c.fg }};border:1px solid {{ c.bd }};font-size:12.5px;font-weight:600">{{ c.t }}</button>
+                </sc-for>
+              </div>
+            </sc-if>
+
+            <p class="secTitle">PHƯƠNG PHÁP</p>
+            <div style="display:flex;flex-wrap:wrap;gap:7px">
+              <sc-for list="{{ methodOpts }}" as="c" hint-placeholder-count="3">
+                <button sc-camel-on-click="{{ c.pick }}" style="padding:9px 14px;border-radius:99px;background:{{ c.bg }};color:{{ c.fg }};border:1px solid {{ c.bd }};font-size:12.5px;font-weight:600">{{ c.t }}</button>
+              </sc-for>
+            </div>
+            <!-- Chọn máy thì bắt buộc lộ thương hiệu: khách có quyền biết mình
+                 sắp nằm lên thiết bị của hãng nào. -->
+            <sc-if value="{{ showBrands }}" hint-placeholder-val="{{ false }}">
+              <p style="font-size:10.5px;color:var(--text3);margin:10px 0 7px">Thương hiệu thiết bị</p>
+              <div style="display:flex;flex-wrap:wrap;gap:7px">
+                <sc-for list="{{ brandOpts }}" as="c" hint-placeholder-count="4">
+                  <button sc-camel-on-click="{{ c.pick }}" style="padding:8px 13px;border-radius:99px;background:{{ c.bg }};color:{{ c.fg }};border:1px solid {{ c.bd }};font-size:12px;font-weight:600">{{ c.t }}</button>
+                </sc-for>
+              </div>
+            </sc-if>
+
+            <p class="secTitle">KHU VỰC</p>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+              <sc-for list="{{ locOpts }}" as="l" hint-placeholder-count="2">
+                <button sc-camel-on-click="{{ l.pick }}" style="text-align:left;padding:12px 13px;border-radius:var(--r-sm);background:{{ l.bg }};border:1.5px solid {{ l.bd }}">
+                  <span style="display:block;font-size:13px;font-weight:600;color:{{ l.fg }}">{{ l.t }}</span>
+                  <span style="display:block;font-size:10.5px;color:var(--text3);margin-top:2px">{{ l.d }}</span>
+                </button>
+              </sc-for>
+            </div>
+            <sc-if value="{{ showArea }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;gap:8px;margin-top:10px">
+                <select value="{{ province }}" sc-camel-on-change="{{ onProvince }}" aria-label="Tỉnh, thành phố" style="flex:1;min-width:0;padding:12px;border-radius:var(--r-sm);border:1px solid var(--card-border);background:var(--surface);color:var(--text);font-size:12.5px;font-family:inherit">
+                  <sc-for list="{{ provinces }}" as="o" hint-placeholder-count="4">
+                    <option value="{{ o.v }}">{{ o.v }}</option>
+                  </sc-for>
+                </select>
+                <select value="{{ ward }}" sc-camel-on-change="{{ onWard }}" aria-label="Xã, phường" style="flex:1;min-width:0;padding:12px;border-radius:var(--r-sm);border:1px solid var(--card-border);background:var(--surface);color:var(--text);font-size:12.5px;font-family:inherit">
+                  <sc-for list="{{ wards }}" as="o" hint-placeholder-count="5">
+                    <option value="{{ o.v }}">{{ o.v }}</option>
+                  </sc-for>
+                </select>
+              </div>
+            </sc-if>
+
+            <p class="secTitle">KHUNG GIỜ MONG MUỐN</p>
+            <div style="display:flex;flex-wrap:wrap;gap:7px">
+              <sc-for list="{{ bandOpts }}" as="c" hint-placeholder-count="4">
+                <button sc-camel-on-click="{{ c.pick }}" style="padding:9px 14px;border-radius:99px;background:{{ c.bg }};color:{{ c.fg }};border:1px solid {{ c.bd }};font-size:12.5px;font-weight:600">{{ c.t }}</button>
+              </sc-for>
+            </div>
+
+            <button sc-camel-on-click="{{ bookNext }}" style="margin-top:24px;width:100%;padding:15px;border-radius:var(--r-sm);background:var(--primary);color:var(--on-primary);font-weight:600;font-size:15px">{{ venueCta }}</button>
+
+            <!-- Ưu đãi ở cuối trang: khách đã chọn xong mới gợi ý, không chen
+                 ngang lúc đang chọn. -->
+            <p class="secTitle">ƯU ĐÃI GẦN BẠN</p>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <sc-for list="{{ promos }}" as="p" hint-placeholder-count="3">
+                <button sc-camel-on-click="{{ p.tap }}" style="width:100%;text-align:left;display:flex;align-items:center;gap:12px;padding:13px;border-radius:var(--r-sm);background:var(--surface);border:1px solid var(--card-border);box-shadow:var(--sh)">
+                  <span style="flex:none;width:40px;height:40px;border-radius:11px;background:{{ p.iBg }};display:grid;place-items:center;font-size:17px">{{ p.icon }}</span>
+                  <span style="flex:1;min-width:0">
+                    <span style="display:block;font-size:12.5px;font-weight:600">{{ p.t }}</span>
+                    <span style="display:block;font-size:10.5px;color:var(--text3);margin-top:2px">{{ p.d }}</span>
+                  </span>
+                  <span style="flex:none;font-size:11px;font-weight:700;color:var(--accent)">{{ p.tag }}</span>
+                </button>
+              </sc-for>
+            </div>
           </sc-if>
 
           <sc-if value="{{ b2 }}" hint-placeholder-val="{{ true }}">
@@ -643,7 +739,13 @@
                   <div style="flex:1;min-width:0">
                     <div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><p style="font-weight:600;font-size:14.5px;color:var(--text);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ c.name }}</p><span style="flex:none;font-size:15px;font-weight:700;color:var(--primary);letter-spacing:-.2px">{{ c.price }}</span></div>
                     <p style="font-size:11px;color:var(--text2);margin:4px 0 0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"><span style="font-weight:700;color:var(--accent)">★ {{ c.rating }}</span> · {{ c.dist }} · {{ c.tag }}</p>
-                    <div style="display:flex;gap:5px;margin-top:7px"><span style="font-size:8.5px;font-weight:700;color:#fff;background:#177245;padding:2px 7px;border-radius:99px">✓ Xác minh</span></div>
+                    <!-- Có địa chỉ và phương pháp; KHÔNG có số điện thoại —
+                         liên hệ đi qua nền tảng, không để khách gọi thẳng cơ sở. -->
+                    <p style="font-size:10px;color:var(--text3);margin:4px 0 0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">📍 {{ c.addr }}</p>
+                    <div style="display:flex;gap:5px;margin-top:7px;flex-wrap:wrap">
+                      <span style="font-size:8.5px;font-weight:700;color:#fff;background:#177245;padding:2px 7px;border-radius:99px">✓ Xác minh</span>
+                      <span style="font-size:8.5px;font-weight:700;color:var(--text2);background:var(--surface2);padding:2px 7px;border-radius:99px">{{ c.method }}</span>
+                    </div>
                   </div>
                 </button>
               </sc-for>
@@ -668,7 +770,11 @@
                   <div style="flex:1;min-width:0">
                     <div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><p style="font-weight:600;font-size:14.5px;color:var(--text);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ k.name }}</p><span style="flex:none;font-size:15px;font-weight:700;color:var(--primary);letter-spacing:-.2px">{{ k.price }}</span></div>
                     <p style="font-size:11px;color:var(--text2);margin:4px 0 0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"><span style="font-weight:700;color:var(--accent)">★ {{ k.rating }}</span> · {{ k.dist }} · {{ k.role }}</p>
-                    <div style="display:flex;gap:5px;margin-top:7px;flex-wrap:wrap"><span style="font-size:8.5px;font-weight:700;color:#06140F;background:var(--accent-soft);padding:2px 7px;border-radius:99px">{{ k.tier }}</span><span style="font-size:8.5px;font-weight:700;color:#fff;background:#177245;padding:2px 7px;border-radius:99px">● {{ k.slot }}</span></div>
+                    <div style="display:flex;gap:5px;margin-top:7px;flex-wrap:wrap"><span style="font-size:8.5px;font-weight:700;color:#06140F;background:var(--accent-soft);padding:2px 7px;border-radius:99px">{{ k.tier }}</span><span style="font-size:8.5px;font-weight:700;color:#fff;background:#177245;padding:2px 7px;border-radius:99px">● {{ k.slot }}</span><span style="font-size:8.5px;font-weight:700;color:var(--text2);background:var(--surface2);padding:2px 7px;border-radius:99px">{{ k.method }}</span></div>
+                    <!-- Nói rõ KTV tự do hay thuộc trung tâm: khách có quyền
+                         biết mình đang đặt ai và ai chịu trách nhiệm.
+                         KHÔNG hiển thị số điện thoại. -->
+                    <p style="font-size:10px;margin:6px 0 0;color:{{ k.affFg }}">{{ k.affiliation }}</p>
                   </div>
                 </button>
               </sc-for>
@@ -1821,7 +1927,16 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script="" data-props="{&quot;$preview&quot;:{&quot;width&quot;:760,&quot;height&quot;:980}}">
 class Component extends DCLogic {
-  state = { theme:'serene', view:'onboard', ob:1, need:'ache',
+  state = { theme:'serene', view:'book', ob:1, need:'ache',
+    // ── bộ lọc đặt lịch ──
+    forWho:'self',            // self | family
+    svc:'vaigay',             // loại hình
+    rec:'',                   // nhóm phục hồi, chỉ dùng khi đặt cho người nhà
+    method:'all',             // all | trad | machine
+    brand:'Fohoways',
+    locMode:'gps',            // gps | area
+    province:'TP. Hồ Chí Minh', ward:'Tất cả phường/xã',
+    band:'Chiều · 12–17',
     // Đặt null nếu khách không chăm sóc ai — khối trên trang Hành trình sẽ ẩn.
     carePlan: { name:'Ông Trần Văn Minh · 72t', plan:'Phục hồi sau đột quỵ · buổi 6/20', next:'T5 · 09:00' }, venue:'center', locMode:'home', addr:'', recipient:'', careSvc:'Phục hồi vận động', bookNote:'', timeConfirmed:false, rating:0, ratingImprove:0, feedback:'', reviewed:false, manageOpen:false, manageStep:'idle', pausePick:'2 tuần', cancelReason:'', remind:{visit:true,exercise:true,promo:false}, verified:false, verifyStep:'info', vName:'', vPhone:'', vOtp:'', pendingAction:null, book:1, careCond:'Sau đột quỵ', careProbs:[], careDoc:'Có giấy ra viện kèm hướng dẫn tập', careContra:[], careSlot:'Sáng (8–11h)', careDone:false, pain:3, booked:false, lang:'vi', goal:'Đau vai gáy', area:'Vai gáy', day:24, slot:'09:00', center:null, prev:'book', sound:false, activeVid:0, videoMuted:true, foodIdx:0, musicMode:'list', musicSel:['t1','t3'], curTrack:null };
 
@@ -1955,6 +2070,70 @@ class Component extends DCLogic {
         fg: on ? '#fff' : 'var(--text3)' };
     });
 
+    // ── bộ lọc đặt lịch ──────────────────────────────────────────
+    // chip: một lựa chọn trong nhóm; on = đang chọn.
+    const chip = (t, on, tap) => ({ t, pick:tap,
+      bg: on ? 'var(--primary)' : 'var(--surface)',
+      fg: on ? 'var(--on-primary)' : 'var(--text)',
+      bd: on ? 'var(--primary)' : 'var(--card-border)' });
+    const card = (t, d, icon, on, tap) => ({ t, d, icon, pick:tap,
+      bg: on ? 'var(--tint)' : 'var(--surface)',
+      bd: on ? 'var(--primary)' : 'var(--card-border)',
+      fg: on ? 'var(--primary)' : 'var(--text)' });
+
+    const SVCS = [
+      ['vaigay','Cổ vai gáy'], ['chan','Massage chân'], ['toanthan','Toàn thân'],
+      ['coxuong','Nhức mỏi cơ xương khớp'], ['phocap','Massage phổ thông'],
+      ['thugian','Thư giãn'], ['sacdep','Chăm sóc sắc đẹp']
+    ];
+    const RECS = [
+      ['dotquy','Sau đột quỵ'], ['khop','Sau mổ khớp'], ['hausan','Hậu sản'],
+      ['caotuoi','Người cao tuổi'], ['manTinh','Bệnh mạn tính']
+    ];
+    const BRANDS = ['Fohoways','Tiens','Ceragem','Migun'];
+    const PROVINCES = ['TP. Hồ Chí Minh','Hà Nội','Đà Nẵng','Bình Dương','Cần Thơ'];
+    const WARDS = ['Tất cả phường/xã','P. Võ Thị Sáu','P. Bến Nghé','P. Đa Kao','P. 2','P. Tân Định'];
+    const BANDS = ['Sáng · 08–12','Chiều · 12–17','Tối · 17–21','Cuối tuần'];
+
+    const isMachine = s.method === 'machine';
+    const bookFilters = {
+      venueOpts: [
+        card('Tại cơ sở', 'Đến trung tâm đã xác minh', '🏢', s.venue!=='home', () => this.set({venue:'center'})),
+        card('Tại nhà',   'Kỹ thuật viên đến tận nơi', '🏠', s.venue==='home', () => this.set({venue:'home'}))
+      ],
+      whoOpts: [
+        chip('Cho tôi',      s.forWho==='self',   () => this.set({forWho:'self', rec:''})),
+        chip('Cho người nhà', s.forWho==='family', () => this.set({forWho:'family'}))
+      ],
+      svcOpts: SVCS.map(([k,t]) => chip(t, s.svc===k, () => this.set({svc:k}))),
+      // Nhóm phục hồi chỉ có nghĩa khi đặt cho người nhà.
+      showRecover: s.forWho === 'family',
+      recOpts: RECS.map(([k,t]) => chip(t, s.rec===k, () => this.set({rec:k}))),
+      methodOpts: [
+        chip('Tất cả',            s.method==='all',     () => this.set({method:'all'})),
+        chip('Cổ truyền',         s.method==='trad',    () => this.set({method:'trad'})),
+        chip('Máy công nghệ cao', s.method==='machine', () => this.set({method:'machine'}))
+      ],
+      showBrands: isMachine,
+      brandOpts: BRANDS.map(b => chip(b, s.brand===b, () => this.set({brand:b}))),
+      locOpts: [
+        card('Ở gần tôi', 'Theo định vị hiện tại', '', s.locMode==='gps',  () => this.set({locMode:'gps'})),
+        card('Ở khu vực', 'Chọn tỉnh, thành và phường', '', s.locMode==='area', () => this.set({locMode:'area'}))
+      ],
+      showArea: s.locMode === 'area',
+      provinces: PROVINCES.map(v => ({ v })),
+      wards: WARDS.map(v => ({ v })),
+      province: s.province, ward: s.ward,
+      onProvince: (e) => this.set({ province:e.target.value }),
+      onWard:     (e) => this.set({ ward:e.target.value }),
+      bandOpts: BANDS.map(b => chip(b, s.band===b, () => this.set({band:b}))),
+      promos: [
+        { icon:'🎁', iBg:'var(--tint)',     t:'Buổi đầu giảm 30%', d:'An Nhiên Wellness · cách 1,2 km', tag:'−30%', tap:()=>{} },
+        { icon:'🌿', iBg:'rgba(216,169,78,.16)', t:'Gói 10 buổi phục hồi tại nhà', d:'Tặng 1 buổi đánh giá miễn phí', tag:'Gói', tap:()=>{} },
+        { icon:'👥', iBg:'var(--surface2)', t:'Giới thiệu bạn · nhận 200 ANP', d:'Áp dụng cho cả hai bên', tag:'200 ANP', tap:()=>{} }
+      ]
+    };
+
     const centerData = [
       { img:(window.ANWELL_IMG||{})['tt-01'], name:'An Nhiên Wellness & Spa', rating:'4.9', dist:'1,2 km · Q.3', tag:'Trị liệu cổ vai gáy', price:'380k', addr:'12 Lê Quý Đôn, P.Võ Thị Sáu, Q.3, TP.HCM', hours:'8:00–22:00', intro:'Không gian trị liệu cao cấp giữa trung tâm Q.3, trần sao lung linh và thác nước tĩnh lặng. Đội ngũ kỹ thuật viên được cấp chứng chỉ, chuyên phục hồi cơ xương khớp và thư giãn sâu.' },
       { img:(window.ANWELL_IMG||{})['tt-02'], name:'Padma Spa & Therapy', rating:'4.8', dist:'2,0 km · Q.Phú Nhuận', tag:'Trị liệu đá nóng', price:'420k', addr:'45 Phan Xích Long, P.2, Q.Phú Nhuận, TP.HCM', hours:'9:00–22:00', intro:'Spa trị liệu phong cách Việt mộc mạc, chuyên massage đá nóng và bấm huyệt thư giãn. Kỹ thuật viên đồng phục, quy trình chuẩn hoá, sạch sẽ.' },
@@ -1963,7 +2142,10 @@ class Component extends DCLogic {
       { img:(window.ANWELL_IMG||{})['tt-05'], name:'Dưỡng Sinh Đông Y Bình Tân', rating:'4.8', dist:'6,8 km · Q.Bình Tân', tag:'Dưỡng sinh Đông y', price:'300k', addr:'217 Tên Lửa, P.Bình Trị Đông B, Q.Bình Tân, TP.HCM', hours:'7:30–21:00', intro:'Mô hình dưỡng sinh Đông y kết hợp công nghệ cao: xông hơi thảo dược, giác hơi, chăm sóc sức khoẻ và sắc đẹp theo y học cổ truyền.' }
     ];
     const openPlace = c => this.setState({ center:c, prev:this.state.view, view:'place' });
-    const centers = centerData.map(c => ({ ...c, open:()=>openPlace(c) }));
+    // Phương pháp hiển thị theo bộ lọc đang chọn; khi chọn máy thì lộ luôn hãng.
+    const methodLabel = s.method === 'machine' ? ('Máy ' + s.brand)
+                      : s.method === 'trad' ? 'Cổ truyền' : 'Cổ truyền · Máy';
+    const centers = centerData.map(c => ({ ...c, method: methodLabel, open:()=>openPlace(c) }));
 
     const services = [
       { t:'Trị liệu cổ vai gáy', d:'60 phút · giảm căng cơ sâu', p:'450k' },
@@ -2256,14 +2438,22 @@ class Component extends DCLogic {
       feedback:s.feedback, onFeedback:(e)=>this.set({feedback:e.target.value}),
       submitReview:()=>this.set({reviewed:true}), ratingShown:s.rating||5,
       homeKtvs: [
-        { img:(window.ANWELL_IMG||{})['hai-yen'], name:'Trần Hải Yến', price:'420k', age:32, rating:'4.9', dist:'1,2 km', field:'Phục hồi cơ xương khớp', area:'Q.1 · Q.3 · Q.Bình Thạnh', tier:'Bậc 2', slot:'Rảnh 15:30 hôm nay', years:8, sessions:'1.284', reviewCount:216, since:'03/2024', bio:'Chuyên phục hồi cổ vai gáy và vận động khớp sau chấn thương. Nhẹ nhàng, tận tâm, luôn hướng dẫn bài tập tại nhà giữa các buổi.', reviews:[ {name:'Ngọc P.',stars:'★★★★★',text:'Cô Yến rất mát tay, vai gáy đỡ hẳn sau 3 buổi. Đúng giờ, sạch sẽ.',date:'2 tuần trước'}, {name:'Minh H.',stars:'★★★★★',text:'Hướng dẫn bài tập kỹ, theo dõi sát tiến triển của mẹ mình.',date:'1 tháng trước'} ] },
+        { img:(window.ANWELL_IMG||{})['hai-yen'], name:'Trần Hải Yến', center:'An Nhiên Wellness', price:'420k', age:32, rating:'4.9', dist:'1,2 km', field:'Phục hồi cơ xương khớp', area:'Q.1 · Q.3 · Q.Bình Thạnh', tier:'Bậc 2', slot:'Rảnh 15:30 hôm nay', years:8, sessions:'1.284', reviewCount:216, since:'03/2024', bio:'Chuyên phục hồi cổ vai gáy và vận động khớp sau chấn thương. Nhẹ nhàng, tận tâm, luôn hướng dẫn bài tập tại nhà giữa các buổi.', reviews:[ {name:'Ngọc P.',stars:'★★★★★',text:'Cô Yến rất mát tay, vai gáy đỡ hẳn sau 3 buổi. Đúng giờ, sạch sẽ.',date:'2 tuần trước'}, {name:'Minh H.',stars:'★★★★★',text:'Hướng dẫn bài tập kỹ, theo dõi sát tiến triển của mẹ mình.',date:'1 tháng trước'} ] },
         { img:(window.ANWELL_IMG||{})['ngoc-anh'], name:'Lê Ngọc Anh', price:'450k', age:29, rating:'4.8', dist:'2,1 km', field:'Vật lý trị liệu thần kinh', area:'Q.Phú Nhuận · Q.3', tier:'Bậc 2', slot:'Rảnh 17:00 hôm nay', years:6, sessions:'940', reviewCount:152, since:'07/2024', bio:'Vật lý trị liệu phục hồi vận động và thần kinh ngoại biên. Kiên nhẫn, bài bản, phù hợp người sau tai biến nhẹ.', reviews:[ {name:'Hương L.',stars:'★★★★★',text:'Rất chuyên nghiệp, ba mình tiến bộ rõ sau 2 tuần.',date:'3 tuần trước'}, {name:'Tú A.',stars:'★★★★☆',text:'Tận tâm, giải thích dễ hiểu cho người nhà.',date:'1 tháng trước'} ] },
         { img:(window.ANWELL_IMG||{})['nguyen-minh'], name:'Nguyễn Minh', price:'650k', age:38, rating:'5.0', dist:'3,0 km', field:'Phục hồi thần kinh sau đột quỵ', area:'Toàn TP.HCM · có BS giám sát', tier:'Bậc 3', slot:'Rảnh 09:00 mai', years:12, sessions:'2.610', reviewCount:388, since:'01/2024', bio:'Kỹ thuật viên trưởng, chuyên ca sau đột quỵ phức tạp dưới giám sát của bác sĩ phục hồi chức năng. Lập kế hoạch phục hồi cá nhân hoá.', reviews:[ {name:'Bà Lan',stars:'★★★★★',text:'Nhờ anh Minh mà chồng tôi đi lại được. Vô cùng biết ơn.',date:'2 tuần trước'}, {name:'Quang T.',stars:'★★★★★',text:'Chuyên môn rất cao, phối hợp tốt với bác sĩ bệnh viện.',date:'1 tháng trước'} ] },
-        { img:(window.ANWELL_IMG||{})['nguyen-bich'], name:'Nguyễn Bách', price:'350k', age:27, rating:'4.7', dist:'3,4 km', field:'Hỗ trợ vận động người cao tuổi', area:'Q.7 · Nhà Bè', tier:'Bậc 1', slot:'Rảnh 14:00 mai', years:4, sessions:'560', reviewCount:88, since:'02/2025', bio:'Hỗ trợ vận động nhẹ, tập đi và sinh hoạt cho người cao tuổi. Khoẻ, cẩn thận, hợp với các cụ cần người trợ giúp di chuyển.', reviews:[ {name:'Chị Hoa',stars:'★★★★★',text:'Bách nhiệt tình, đỡ đần ông nội mình rất khéo.',date:'1 tuần trước'}, {name:'Đức N.',stars:'★★★★☆',text:'Đúng giờ, lễ phép, làm việc chắc tay.',date:'3 tuần trước'} ] },
+        { img:(window.ANWELL_IMG||{})['nguyen-bich'], name:'Nguyễn Bách', center:'Padma Spa & Therapy', price:'350k', age:27, rating:'4.7', dist:'3,4 km', field:'Hỗ trợ vận động người cao tuổi', area:'Q.7 · Nhà Bè', tier:'Bậc 1', slot:'Rảnh 14:00 mai', years:4, sessions:'560', reviewCount:88, since:'02/2025', bio:'Hỗ trợ vận động nhẹ, tập đi và sinh hoạt cho người cao tuổi. Khoẻ, cẩn thận, hợp với các cụ cần người trợ giúp di chuyển.', reviews:[ {name:'Chị Hoa',stars:'★★★★★',text:'Bách nhiệt tình, đỡ đần ông nội mình rất khéo.',date:'1 tuần trước'}, {name:'Đức N.',stars:'★★★★☆',text:'Đúng giờ, lễ phép, làm việc chắc tay.',date:'3 tuần trước'} ] },
         { img:(window.ANWELL_IMG||{})['phuong-dung'], name:'Phạm Phương Dung', price:'420k', age:30, rating:'4.9', dist:'2,8 km', field:'Chăm sóc sau mổ · hậu sản', area:'Q.10 · Q.5', tier:'Bậc 2', slot:'Rảnh 16:00 hôm nay', years:7, sessions:'1.020', reviewCount:174, since:'05/2024', bio:'Chăm sóc phục hồi sau phẫu thuật và hậu sản, thay băng, vận động sớm. Chu đáo, sạch sẽ, được nhiều gia đình tin tưởng.', reviews:[ {name:'Mai T.',stars:'★★★★★',text:'Chị Dung chăm mẹ mình sau mổ rất kỹ và dịu dàng.',date:'2 tuần trước'}, {name:'Lan P.',stars:'★★★★★',text:'Yên tâm giao người nhà cho chị. Sẽ đặt lại.',date:'1 tháng trước'} ] },
-        { img:(window.ANWELL_IMG||{})['quynh-anh'], name:'Đỗ Quỳnh Anh', price:'380k', age:26, rating:'4.8', dist:'3,6 km', field:'Massage trị liệu · thư giãn', area:'Q.Tân Bình · Q.Gò Vấp', tier:'Bậc 1', slot:'Rảnh 10:30 mai', years:5, sessions:'720', reviewCount:110, since:'09/2024', bio:'Massage trị liệu và thư giãn sâu, giảm căng cơ do ngồi lâu. Không gian trị liệu tại nhà nhẹ nhàng, chuyên nghiệp.', reviews:[ {name:'Trang L.',stars:'★★★★★',text:'Rất thư giãn, tay nghề tốt. Sẽ đặt lại.',date:'1 tuần trước'}, {name:'Quân P.',stars:'★★★★★',text:'Đúng giờ, lịch sự, hiệu quả.',date:'2 tuần trước'} ] }
-      ].map(k=>({ ...k, role:k.field+' · '+k.years+' năm', pick:()=>this.setState({ ktvSel:k, view:'ktv' }) })),
+        { img:(window.ANWELL_IMG||{})['quynh-anh'], name:'Đỗ Quỳnh Anh', center:'Tịnh Viên Retreat', price:'380k', age:26, rating:'4.8', dist:'3,6 km', field:'Massage trị liệu · thư giãn', area:'Q.Tân Bình · Q.Gò Vấp', tier:'Bậc 1', slot:'Rảnh 10:30 mai', years:5, sessions:'720', reviewCount:110, since:'09/2024', bio:'Massage trị liệu và thư giãn sâu, giảm căng cơ do ngồi lâu. Không gian trị liệu tại nhà nhẹ nhàng, chuyên nghiệp.', reviews:[ {name:'Trang L.',stars:'★★★★★',text:'Rất thư giãn, tay nghề tốt. Sẽ đặt lại.',date:'1 tuần trước'}, {name:'Quân P.',stars:'★★★★★',text:'Đúng giờ, lịch sự, hiệu quả.',date:'2 tuần trước'} ] }
+      ].map((k,idx)=>({ ...k,
+        role: k.field+' · '+k.years+' năm KN',
+        method: methodLabel,
+        // Nói rõ KTV tự do hay thuộc trung tâm: hai bên chịu trách nhiệm khác
+        // nhau, khách có quyền biết trước khi đặt.
+        affiliation: k.center ? ('🏢 Thuộc ' + k.center) : '🟢 KTV tự do · ANWELL quản lý',
+        affFg: k.center ? 'var(--text3)' : 'var(--primary)',
+        pick:()=>this.setState({ ktvSel:k, view:'ktv' }) })),
       meGoSpa:()=>this.setState({need:'spa',view:'book',book:1,booked:false}),
+      ...bookFilters,
       // Có lịch chăm sóc người thân hay không — dữ liệu thật, không phải bộ chọn.
       hasCare: !!s.carePlan,
       // Cắt phần sau dấu · trước rồi mới lấy tên gọi, nếu không sẽ ra chữ đầu
