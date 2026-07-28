@@ -477,6 +477,23 @@
           <h1 style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:29px;line-height:1.12;margin:6px 0 0">Hôm nay bạn <span style="font-style:italic;color:var(--accent)">thế nào?</span></h1>
           <p style="font-size:11px;color:var(--text3);font-style:italic;margin:2px 0 0">How are you feeling today?</p>
 
+          <!-- Lịch chăm sóc người thân nổi lên đây khi có. Không có lịch thì
+               khối này biến mất hoàn toàn, không để lại chỗ trống. -->
+          <sc-if value="{{ hasCare }}" hint-placeholder-val="{{ true }}">
+            <button sc-camel-on-click="{{ goCare }}" style="width:100%;text-align:left;display:flex;align-items:center;gap:13px;padding:15px;border-radius:var(--r);margin-top:16px;background:var(--hero);color:var(--hero-text);box-shadow:0 16px 34px -14px rgba(12,63,54,.5)">
+              <span style="flex:none;width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.14);display:grid;place-items:center;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:19px;color:var(--accent-soft)">{{ careInitial }}</span>
+              <span style="flex:1;min-width:0">
+                <span style="display:block;font:700 9px ui-monospace,monospace;letter-spacing:.16em;color:var(--accent-soft);text-transform:uppercase">Đang chăm sóc</span>
+                <span style="display:block;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:18px;margin-top:2px">{{ careName }}</span>
+                <span style="display:block;font-size:11px;opacity:.8;margin-top:2px">{{ careProgress }}</span>
+              </span>
+              <span style="flex:none;text-align:right">
+                <span style="display:block;font-size:10px;opacity:.75">Buổi kế</span>
+                <span style="display:block;font-size:12.5px;font-weight:700;color:var(--accent-soft);margin-top:1px">{{ careNext }}</span>
+              </span>
+            </button>
+          </sc-if>
+
           <!-- PROGRESS VIZ — differs by theme -->
           <sc-if value="{{ isSerene }}" hint-placeholder-val="{{ true }}">
             <div style="margin-top:18px;border-radius:20px;padding:18px;background:var(--hero);color:var(--hero-text);box-shadow:0 16px 34px -14px rgba(12,63,54,.5)">
@@ -1287,19 +1304,9 @@
             <p style="font-size:10.5px;opacity:.85;margin:8px 0 0">Còn {{ tierRemain }} điểm để lên hạng {{ tierNext }} →</p>
           </button>
 
-          <p style="font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--text3);margin:22px 0 10px">KHÔNG GIAN</p>
-          <div style="display:flex;gap:10px">
-            <button sc-camel-on-click="{{ meGoAche }}" style="flex:1;min-height:60px;padding:12px;border-radius:var(--r);font-size:14px;font-weight:600;background:{{ spSelfBg }};color:{{ spSelfFg }};border:1px solid {{ spSelfBd }};box-shadow:var(--sh)">Cho tôi</button>
-            <button sc-camel-on-click="{{ meGoCare }}" style="flex:1;min-height:60px;padding:12px;border-radius:var(--r);font-size:14px;font-weight:600;line-height:1.25;background:{{ spCareBg }};color:{{ spCareFg }};border:1px solid {{ spCareBd }};box-shadow:var(--sh)">Chăm sóc người thân</button>
-          </div>
-          <sc-if value="{{ meCareActive }}" hint-placeholder-val="{{ true }}">
-            <p style="font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--text3);margin:22px 0 10px">NGƯỜI ĐANG ĐƯỢC CHĂM SÓC</p>
-            <button sc-camel-on-click="{{ goCare }}" style="width:100%;text-align:left;display:flex;align-items:center;gap:13px;padding:15px;border-radius:var(--r);background:var(--surface);border:1px solid var(--card-border);box-shadow:var(--sh)">
-              <span style="width:46px;height:46px;border-radius:50%;flex:none;background:var(--surface2);display:grid;place-items:center;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:19px;color:var(--primary)">M</span>
-              <span style="flex:1;min-width:0"><span style="display:block;font-size:15px;font-weight:600;color:var(--text)">Ông Trần Văn Minh · 72t</span><span style="display:block;font-size:11.5px;color:var(--text2);margin-top:2px">Phục hồi sau đột quỵ · buổi 6/20</span></span>
-              <svg width="18" height="18" sc-camel-view-box="0 0 24 24" fill="none" stroke="var(--text3)" stroke-width="2" stroke-linecap="round"><path d="m9 5 7 7-7 7"></path></svg>
-            </button>
-          </sc-if>
+          <!-- Bỏ bộ chọn "Cho tôi / Chăm sóc người thân": đây không phải cài đặt
+               cá nhân mà là việc có hay không có lịch chăm sóc người thân. Khi có
+               lịch, nó nổi lên đầu trang Hành trình; không có thì không hiện. -->
           <p style="font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--text3);margin:24px 0 10px">PHONG CÁCH GIAO DIỆN</p>
           <div style="display:flex;flex-direction:column;gap:10px">
             <sc-for list="{{ styleCards }}" as="s" hint-placeholder-count="3">
@@ -1800,7 +1807,9 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script="" data-props="{&quot;$preview&quot;:{&quot;width&quot;:760,&quot;height&quot;:980}}">
 class Component extends DCLogic {
-  state = { theme:'serene', view:'onboard', ob:1, need:'ache', venue:'center', locMode:'home', addr:'', recipient:'', careSvc:'Phục hồi vận động', bookNote:'', timeConfirmed:false, rating:0, ratingImprove:0, feedback:'', reviewed:false, manageOpen:false, manageStep:'idle', pausePick:'2 tuần', cancelReason:'', remind:{visit:true,exercise:true,promo:false}, verified:false, verifyStep:'info', vName:'', vPhone:'', vOtp:'', pendingAction:null, book:1, careCond:'Sau đột quỵ', careProbs:[], careDoc:'Có giấy ra viện kèm hướng dẫn tập', careContra:[], careSlot:'Sáng (8–11h)', careDone:false, pain:3, booked:false, lang:'vi', goal:'Đau vai gáy', area:'Vai gáy', day:24, slot:'09:00', center:null, prev:'book', sound:false, activeVid:0, videoMuted:true, foodIdx:0, musicMode:'list', musicSel:['t1','t3'], curTrack:null };
+  state = { theme:'serene', view:'onboard', ob:1, need:'ache',
+    // Đặt null nếu khách không chăm sóc ai — khối trên trang Hành trình sẽ ẩn.
+    carePlan: { name:'Ông Trần Văn Minh · 72t', plan:'Phục hồi sau đột quỵ · buổi 6/20', next:'T5 · 09:00' }, venue:'center', locMode:'home', addr:'', recipient:'', careSvc:'Phục hồi vận động', bookNote:'', timeConfirmed:false, rating:0, ratingImprove:0, feedback:'', reviewed:false, manageOpen:false, manageStep:'idle', pausePick:'2 tuần', cancelReason:'', remind:{visit:true,exercise:true,promo:false}, verified:false, verifyStep:'info', vName:'', vPhone:'', vOtp:'', pendingAction:null, book:1, careCond:'Sau đột quỵ', careProbs:[], careDoc:'Có giấy ra viện kèm hướng dẫn tập', careContra:[], careSlot:'Sáng (8–11h)', careDone:false, pain:3, booked:false, lang:'vi', goal:'Đau vai gáy', area:'Vai gáy', day:24, slot:'09:00', center:null, prev:'book', sound:false, activeVid:0, videoMuted:true, foodIdx:0, musicMode:'list', musicSel:['t1','t3'], curTrack:null };
 
   musicTracks = [
     { id:'t1', title:'Tụng niệm Hanshan', mood:'Thiền · có lời', vocal:true, src:'https://archive.org/download/9hourstibetanhealingsoundssingingbowlsnaturalsoundsgoldformeditationrelaxation/Buddhist%20Chants%20%26%20Peace%20Music%20-%20Hanshan%20Temple.mp3' },
@@ -2240,12 +2249,15 @@ class Component extends DCLogic {
         { img:(window.ANWELL_IMG||{})['phuong-dung'], name:'Phạm Phương Dung', price:'420k', age:30, rating:'4.9', dist:'2,8 km', field:'Chăm sóc sau mổ · hậu sản', area:'Q.10 · Q.5', tier:'Bậc 2', slot:'Rảnh 16:00 hôm nay', years:7, sessions:'1.020', reviewCount:174, since:'05/2024', bio:'Chăm sóc phục hồi sau phẫu thuật và hậu sản, thay băng, vận động sớm. Chu đáo, sạch sẽ, được nhiều gia đình tin tưởng.', reviews:[ {name:'Mai T.',stars:'★★★★★',text:'Chị Dung chăm mẹ mình sau mổ rất kỹ và dịu dàng.',date:'2 tuần trước'}, {name:'Lan P.',stars:'★★★★★',text:'Yên tâm giao người nhà cho chị. Sẽ đặt lại.',date:'1 tháng trước'} ] },
         { img:(window.ANWELL_IMG||{})['quynh-anh'], name:'Đỗ Quỳnh Anh', price:'380k', age:26, rating:'4.8', dist:'3,6 km', field:'Massage trị liệu · thư giãn', area:'Q.Tân Bình · Q.Gò Vấp', tier:'Bậc 1', slot:'Rảnh 10:30 mai', years:5, sessions:'720', reviewCount:110, since:'09/2024', bio:'Massage trị liệu và thư giãn sâu, giảm căng cơ do ngồi lâu. Không gian trị liệu tại nhà nhẹ nhàng, chuyên nghiệp.', reviews:[ {name:'Trang L.',stars:'★★★★★',text:'Rất thư giãn, tay nghề tốt. Sẽ đặt lại.',date:'1 tuần trước'}, {name:'Quân P.',stars:'★★★★★',text:'Đúng giờ, lịch sự, hiệu quả.',date:'2 tuần trước'} ] }
       ].map(k=>({ ...k, role:k.field+' · '+k.years+' năm', pick:()=>this.setState({ ktvSel:k, view:'ktv' }) })),
-      meGoAche:()=>this.setState({need:'ache',view:'journey',book:1,booked:false}),
-      meGoCare:()=>this.setState({need:'care',view:'care'}),
       meGoSpa:()=>this.setState({need:'spa',view:'book',book:1,booked:false}),
-      meCareActive: s.need==='care',
-      spSelfBg: s.need!=='care'?'var(--primary)':'var(--surface)', spSelfFg: s.need!=='care'?'var(--on-primary)':'var(--text)', spSelfBd: s.need!=='care'?'var(--primary)':'var(--card-border)',
-      spCareBg: s.need==='care'?'var(--primary)':'var(--surface)', spCareFg: s.need==='care'?'var(--on-primary)':'var(--text)', spCareBd: s.need==='care'?'var(--primary)':'var(--card-border)',
+      // Có lịch chăm sóc người thân hay không — dữ liệu thật, không phải bộ chọn.
+      hasCare: !!s.carePlan,
+      // Cắt phần sau dấu · trước rồi mới lấy tên gọi, nếu không sẽ ra chữ đầu
+      // của tuổi ("72t" -> "7") thay vì của tên ("Minh" -> "M").
+      careInitial: s.carePlan ? s.carePlan.name.split('·')[0].trim().split(/\s+/).pop()[0] : '',
+      careName: s.carePlan ? s.carePlan.name : '',
+      careProgress: s.carePlan ? s.carePlan.plan : '',
+      careNext: s.carePlan ? s.carePlan.next : '',
       goals,
       // booking
       book:s.book, bookPct:(s.book*25)+'%',
