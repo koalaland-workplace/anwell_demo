@@ -880,6 +880,93 @@
             </div>
           </div>
 
+          <!-- ══ Bộ chọn giai đoạn — công cụ trình diễn, để xem được cả ba trạng
+               thái của một buổi mà không phải chờ thời gian thật ══ -->
+          <div style="display:flex;gap:4px;background:var(--surface2);border-radius:99px;padding:3px;margin-top:14px">
+            <sc-for list="{{ phaseTabs }}" as="t" hint-placeholder-count="3">
+              <button sc-camel-on-click="{{ t.pick }}" style="flex:1;padding:8px 4px;border-radius:99px;background:{{ t.bg }};color:{{ t.fg }};font-size:11px;font-weight:600">{{ t.t }}</button>
+            </sc-for>
+          </div>
+
+          <!-- ══ GIAI ĐOẠN 1 · KTV ĐANG ĐẾN ══ -->
+          <sc-if value="{{ sessComing }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:14px;border-radius:var(--r);overflow:hidden;border:1px solid var(--card-border);box-shadow:var(--sh)">
+              <div style="position:relative;height:150px;background:var(--hero)">
+                <div style="position:absolute;inset:0;opacity:.45;background-image:linear-gradient(rgba(231,206,151,.16) 1px,transparent 1px),linear-gradient(90deg,rgba(231,206,151,.16) 1px,transparent 1px);background-size:26px 26px"></div>
+                <svg sc-camel-view-box="0 0 340 150" sc-camel-preserve-aspect-ratio="none" style="position:absolute;inset:0;width:100%;height:100%"><path d="M30,124 C90,110 130,70 200,52 C250,40 285,32 310,28" fill="none" stroke="var(--accent-soft)" stroke-width="2.4" stroke-dasharray="6 6" style="animation:dash 1.4s linear infinite"></path></svg>
+                <span style="position:absolute;left:22px;bottom:18px;width:13px;height:13px;border-radius:50%;background:var(--accent-soft);border:2px solid #fff"></span>
+                <span style="position:absolute;right:20px;top:20px;width:15px;height:15px;border-radius:50%;background:#fff;border:3px solid var(--accent-soft)"></span>
+              </div>
+              <div style="padding:14px;background:var(--surface);display:flex;align-items:center;gap:12px">
+                <span style="flex:1;min-width:0">
+                  <span style="display:block;font-size:13.5px;font-weight:600">KTV đang trên đường</span>
+                  <span style="display:block;font-size:11px;color:var(--text3);margin-top:2px">Còn khoảng {{ eta }} phút · cập nhật liên tục</span>
+                </span>
+                <span style="flex:none;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:26px;color:var(--primary)">{{ eta }}′</span>
+              </div>
+            </div>
+
+            <!-- An toàn: mã đối chiếu người đến nhà -->
+            <div style="margin-top:12px;padding:16px;border-radius:var(--r);background:var(--hero);color:var(--hero-text);box-shadow:0 16px 34px -14px rgba(12,63,54,.5)">
+              <p style="font:700 9px ui-monospace,monospace;letter-spacing:.16em;color:var(--accent-soft);text-transform:uppercase">Mã xác minh buổi</p>
+              <p style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:38px;letter-spacing:.14em;margin:6px 0 0">{{ sessCode }}</p>
+              <p style="font-size:11px;line-height:1.55;opacity:.85;margin-top:8px">Khi kỹ thuật viên tới, <strong>hãy hỏi mã này trước khi mở cửa</strong>. Người đến phải đọc đúng bốn số. Không đúng thì đừng cho vào và bấm nút khẩn cấp bên dưới.</p>
+            </div>
+          </sc-if>
+
+          <!-- ══ GIAI ĐOẠN 2 · ĐANG DIỄN RA ══ -->
+          <sc-if value="{{ sessLive }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:14px;padding:15px;border-radius:var(--r);background:var(--surface);border:1px solid var(--card-border);box-shadow:var(--sh);display:flex;align-items:center;gap:12px">
+              <span style="flex:none;width:10px;height:10px;border-radius:50%;background:#177245"></span>
+              <span style="flex:1;min-width:0">
+                <span style="display:block;font-size:13.5px;font-weight:600">Buổi đang diễn ra</span>
+                <span style="display:block;font-size:11px;color:var(--text3);margin-top:2px">Bắt đầu 15:00 · dự kiến kết thúc 16:00</span>
+              </span>
+              <span style="flex:none;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:22px;color:var(--primary)">32′</span>
+            </div>
+
+            <!-- Đề xuất từ KTV đang chờ khách duyệt -->
+            <sc-if value="{{ hasAdj }}" hint-placeholder-val="{{ true }}">
+              <div style="margin-top:12px;padding:15px;border-radius:var(--r);background:var(--surface);border:1.5px solid var(--accent);box-shadow:var(--sh)">
+                <p style="font:700 9px ui-monospace,monospace;letter-spacing:.16em;color:var(--accent);text-transform:uppercase">KTV đề xuất · chờ bạn đồng ý</p>
+                <p style="font-size:13.5px;font-weight:600;margin-top:7px">{{ adjTitle }}</p>
+                <p style="font-size:11.5px;line-height:1.6;color:var(--text2);margin-top:5px">{{ adjReason }}</p>
+                <div style="margin-top:11px;padding:11px 13px;border-radius:12px;background:var(--surface2)">
+                  <div style="display:flex;justify-content:space-between;font-size:11.5px;color:var(--text2)"><span>{{ adjFromName }}</span><span>{{ adjFromPrice }}</span></div>
+                  <div style="display:flex;justify-content:space-between;font-size:11.5px;color:var(--text2);margin-top:4px"><span>{{ adjToName }}</span><span>{{ adjToPrice }}</span></div>
+                  <div style="display:flex;justify-content:space-between;font-size:13px;font-weight:700;margin-top:8px;padding-top:8px;border-top:1px solid var(--card-border);color:{{ adjDiffFg }}"><span>{{ adjDiffLabel }}</span><span>{{ adjDiff }}</span></div>
+                </div>
+                <div style="display:flex;gap:8px;margin-top:12px">
+                  <button sc-camel-on-click="{{ acceptAdj }}" style="flex:1;padding:12px;border-radius:var(--r-sm);background:var(--primary);color:var(--on-primary);font-size:12.5px;font-weight:600">Đồng ý đổi</button>
+                  <button sc-camel-on-click="{{ rejectAdj }}" style="flex:none;padding:12px 16px;border-radius:var(--r-sm);background:var(--surface2);color:var(--text2);font-size:12.5px;font-weight:600">Giữ nguyên</button>
+                </div>
+              </div>
+            </sc-if>
+
+            <button sc-camel-on-click="{{ openAdj }}" style="width:100%;margin-top:12px;padding:14px;border-radius:var(--r-sm);background:var(--surface);border:1px dashed var(--accent);color:var(--primary);font-size:13px;font-weight:600">+ Đổi hoặc thêm dịch vụ</button>
+
+            <sc-if value="{{ hasAddons }}" hint-placeholder-val="{{ false }}">
+              <div style="margin-top:12px;padding:13px 15px;border-radius:var(--r);background:var(--surface);border:1px solid var(--card-border)">
+                <p style="font:700 9px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase">Đã thêm trong buổi này</p>
+                <sc-for list="{{ addons }}" as="a" hint-placeholder-count="1">
+                  <div style="display:flex;justify-content:space-between;font-size:12.5px;margin-top:8px"><span>{{ a.t }}</span><span style="font-weight:700;color:var(--primary)">{{ a.p }}</span></div>
+                </sc-for>
+              </div>
+            </sc-if>
+          </sc-if>
+
+          <!-- An toàn dùng chung cho hai giai đoạn đầu -->
+          <sc-if value="{{ sessActive }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;gap:9px;margin-top:12px">
+              <button sc-camel-on-click="{{ toggleShare }}" style="flex:1;padding:13px;border-radius:var(--r-sm);background:{{ shareBg }};border:1px solid {{ shareBd }};color:{{ shareFg }};font-size:12.5px;font-weight:600">{{ shareLabel }}</button>
+              <button sc-camel-on-click="{{ sosCustomer }}" style="flex:none;padding:13px 18px;border-radius:var(--r-sm);background:#FBE9E8;color:#B3261E;font-size:12.5px;font-weight:700">SOS</button>
+            </div>
+            <sc-if value="{{ shareOn }}" hint-placeholder-val="{{ false }}">
+              <p style="font-size:11px;line-height:1.6;color:var(--text3);margin-top:9px;padding-left:9px;border-left:2px solid var(--card-border)">Đang chia sẻ buổi này với <strong>Minh Trần</strong> và <strong>Thu Hương</strong> trong nhóm gia đình. Họ thấy được trạng thái buổi và ghi chú của KTV, không thấy thông tin thanh toán.</p>
+            </sc-if>
+          </sc-if>
+
+          <sc-if value="{{ sessDoneView }}" hint-placeholder-val="{{ true }}">
           <div style="margin-top:14px;border-radius:var(--r);padding:20px 18px;text-align:center;background:var(--surface2);color:var(--text);box-shadow:var(--sh)">
             <span style="display:inline-flex;align-items:center;gap:6px;font:700 9.5px ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase;color:#177245;background:#e7f0e8;padding:4px 10px;border-radius:99px">✓ Đã hoàn tất</span>
             <p style="font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:700;line-height:1;margin:12px 0 0">58 phút</p>
@@ -920,10 +1007,65 @@
 
           <button sc-camel-on-click="{{ goReview }}" style="margin-top:16px;width:100%;padding:16px;border-radius:var(--r-sm);background:var(--primary);color:var(--on-primary);font-weight:700;font-size:15px">Nhận xét &amp; đánh giá buổi</button>
           <p style="font-size:10.5px;color:var(--text3);font-style:italic;line-height:1.55;margin:12px 2px 0">Việc bắt đầu/kết thúc do KTV thao tác trên ứng dụng riêng; màn hình này chỉ hiển thị để gia đình theo dõi minh bạch.</p>
+          </sc-if>
         </div>
       </sc-if>
 
       <!-- ══════════ REVIEW (người nhà đánh giá) ══════════ -->
+      <!-- ══ Biểu mẫu đổi / thêm dịch vụ tại chỗ ══
+           Chỉ liệt kê những lựa chọn mà KTV còn đủ giờ và phòng còn trống.
+           Lựa chọn không khả dụng vẫn hiện nhưng mờ và nói rõ vì sao, kèm
+           phương án thay thế — báo "không được" mà không nói tại sao là cụt. -->
+      <sc-if value="{{ adjOpen }}" hint-placeholder-val="{{ false }}">
+        <div sc-camel-on-click="{{ closeAdj }}" style="position:absolute;inset:0;background:rgba(0,0,0,.45);z-index:60"></div>
+        <div style="position:absolute;left:0;right:0;bottom:0;z-index:61;max-height:88%;overflow-y:auto;background:var(--bg);border-radius:20px 20px 0 0;padding:18px 16px 26px;box-shadow:0 -8px 30px rgba(0,0,0,.22)">
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <span style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:19px">Đổi hoặc thêm dịch vụ</span>
+            <button sc-camel-on-click="{{ closeAdj }}" style="font-size:12px;font-weight:600;color:var(--text3)">Đóng</button>
+          </div>
+
+          <div style="display:flex;gap:4px;background:var(--surface2);border-radius:12px;padding:3px;margin-top:14px">
+            <sc-for list="{{ adjTabs }}" as="t" hint-placeholder-count="2">
+              <button sc-camel-on-click="{{ t.pick }}" style="flex:1;padding:9px;border-radius:9px;background:{{ t.bg }};color:{{ t.fg }};font-size:12px;font-weight:600">{{ t.t }}</button>
+            </sc-for>
+          </div>
+
+          <div style="padding:11px 13px;border-radius:11px;background:var(--surface2);margin-top:12px">
+            <p style="font-size:11px;line-height:1.55;color:var(--text2)">Đang dùng: <strong>{{ curSvcName }}</strong> · {{ curSvcPrice }}. KTV còn rảnh <strong>{{ freeMin }} phút</strong> trước ca kế tiếp.</p>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:9px;margin-top:12px">
+            <sc-for list="{{ adjOptions }}" as="o" hint-placeholder-count="4">
+              <button sc-camel-on-click="{{ o.pick }}" style="width:100%;text-align:left;padding:13px 14px;border-radius:var(--r-sm);background:{{ o.bg }};border:1.5px solid {{ o.bd }};opacity:{{ o.dim }}">
+                <span style="display:flex;align-items:baseline;justify-content:space-between;gap:10px">
+                  <span style="font-size:13px;font-weight:600;color:{{ o.fg }}">{{ o.t }}</span>
+                  <span style="flex:none;font-size:13px;font-weight:700;color:{{ o.priceFg }}">{{ o.p }}</span>
+                </span>
+                <span style="display:block;font-size:10.5px;color:var(--text3);margin-top:3px">{{ o.d }}</span>
+                <sc-if value="{{ o.blocked }}" hint-placeholder-val="{{ false }}">
+                  <span style="display:block;font-size:10.5px;line-height:1.55;color:var(--danger);margin-top:6px">⚠️ {{ o.why }}</span>
+                  <span style="display:block;font-size:10.5px;line-height:1.55;color:var(--text2);margin-top:3px">Thay vào đó: {{ o.alt }}</span>
+                </sc-if>
+              </button>
+            </sc-for>
+          </div>
+
+          <sc-if value="{{ adjPicked }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:14px;padding:13px 15px;border-radius:var(--r-sm);background:var(--surface);border:1px solid var(--card-border)">
+              <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text2)"><span>{{ sumFromName }}</span><span>{{ sumFromPrice }}</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text2);margin-top:5px"><span>{{ sumToName }}</span><span>{{ sumToPrice }}</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:14px;font-weight:700;margin-top:9px;padding-top:9px;border-top:1px solid var(--card-border);color:{{ sumDiffFg }}"><span>{{ sumDiffLabel }}</span><span>{{ sumDiff }}</span></div>
+              <p style="font-size:10.5px;line-height:1.55;color:var(--text3);margin-top:9px">Ghi vào chính đơn hôm nay dưới dạng dòng điều chỉnh, không tạo đơn mới — điểm ANP và đối soát giữ nguyên.</p>
+            </div>
+          </sc-if>
+
+          <div style="position:sticky;bottom:-26px;display:flex;gap:9px;margin-top:16px;padding:12px 0 0;background:linear-gradient(to bottom,transparent,var(--bg) 22%)">
+            <button sc-camel-on-click="{{ closeAdj }}" style="flex:none;padding:13px 20px;border-radius:var(--r-sm);background:var(--surface2);color:var(--text2);font-size:12.5px;font-weight:700">Huỷ</button>
+            <button sc-camel-on-click="{{ applyAdj }}" style="flex:1;padding:13px;border-radius:var(--r-sm);background:{{ applyBg }};color:{{ applyFg }};font-size:12.5px;font-weight:700">{{ applyLabel }}</button>
+          </div>
+        </div>
+      </sc-if>
+
       <sc-if value="{{ isReview }}" hint-placeholder-val="{{ false }}">
         <div class="body pad view">
           <div style="display:flex;align-items:center;gap:10px;padding:12px 0 4px">
@@ -1097,7 +1239,7 @@
             <p style="font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:600">Trị liệu cổ vai gáy · 60′</p>
             <p style="font-size:11.5px;opacity:.85;margin:5px 0 0">An Nhiên Wellness · Q.3 — KTV Trần Thu Hà</p>
             <div style="display:flex;gap:16px;margin:14px 0 0;font-size:12px"><div><div style="opacity:.65;font-size:9px">NGÀY</div><div style="font-weight:700;margin-top:2px">Thứ 5, 24/07</div></div><div><div style="opacity:.65;font-size:9px">GIỜ</div><div style="font-weight:700;margin-top:2px">09:00 – 10:00</div></div></div>
-            <div style="display:flex;gap:9px;margin-top:16px"><button sc-camel-on-click="{{ openManage }}" style="flex:1;padding:11px;border-radius:var(--r-sm);background:var(--accent-soft);color:#06140F;font-weight:700;font-size:12px">Quản lý lịch</button><button sc-camel-on-click="{{ openMaps }}" style="flex:1;padding:11px;border-radius:var(--r-sm);background:rgba(255,255,255,.12);color:#fff;font-weight:600;font-size:12px">Chỉ đường</button></div>
+            <div style="display:flex;gap:9px;margin-top:16px"><button sc-camel-on-click="{{ openManage }}" style="flex:1;padding:11px;border-radius:var(--r-sm);background:var(--accent-soft);color:#06140F;font-weight:700;font-size:12px">Quản lý lịch</button><button sc-camel-on-click="{{ goSession }}" style="flex:1;padding:11px;border-radius:var(--r-sm);background:rgba(255,255,255,.12);color:#fff;font-weight:600;font-size:12px">Xem buổi</button><button sc-camel-on-click="{{ openMaps }}" style="flex:none;padding:11px 14px;border-radius:var(--r-sm);background:rgba(255,255,255,.12);color:#fff;font-weight:600;font-size:12px">Chỉ đường</button></div>
           </div>
           <p style="font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--text3);margin:24px 0 10px">ĐÃ HOÀN THÀNH</p>
           <div style="display:flex;flex-direction:column;gap:10px">
@@ -1935,6 +2077,15 @@
 <script type="text/x-dc" data-dc-script="" data-props="{&quot;$preview&quot;:{&quot;width&quot;:760,&quot;height&quot;:980}}">
 class Component extends DCLogic {
   state = { theme:'serene', view:'onboard', ob:1, need:'ache',
+    // ── buổi làm việc ──
+    sessPhase:'coming',      // coming | live | done
+    eta:8,                   // phút KTV còn cách nhà
+    shareOn:false,           // chia sẻ buổi cho nhóm gia đình
+    adjOpen:false,           // biểu mẫu đổi/thêm dịch vụ
+    adjTab:'swap',           // swap | add
+    adjSel:null,             // lựa chọn đang chọn trong biểu mẫu
+    adjPending:true,         // KTV đang có đề xuất chờ khách duyệt
+    addons:[],               // dịch vụ đã thêm trong buổi
     // ── bộ lọc đặt lịch ──
     forWho:'self',            // self | family
     svc:'vaigay',             // loại hình
@@ -2076,6 +2227,101 @@ class Component extends DCLogic {
         bg: on ? (n<=3?'#2E8567':n<=6?'#B9893B':'#B3261E') : 'var(--surface2)',
         fg: on ? '#fff' : 'var(--text3)' };
     });
+
+    // ── buổi làm việc: ba giai đoạn ────────────────────────────────
+    const PH = [['coming','Đang đến'],['live','Đang diễn ra'],['done','Đã xong']];
+    const CUR = { name:'Trị liệu cổ vai gáy 60′', price:'450k', n:450 };
+    const FREE_MIN = 25;   // KTV còn rảnh bao nhiêu phút trước ca kế tiếp
+
+    // Mỗi lựa chọn khai rõ cần bao nhiêu phút; quá quỹ thời gian thì khoá lại
+    // và nói vì sao, kèm phương án thay thế.
+    const SWAP = [
+      { t:'Vật lý trị liệu 45′', p:'380k', n:380, mins:45, d:'Phù hợp hơn với đau vai gáy mạn tính' },
+      { t:'Trị liệu đá nóng 60′', p:'520k', n:520, mins:60, d:'Giãn cơ sâu bằng nhiệt' },
+      { t:'Dưỡng sinh Đông y 90′', p:'680k', n:680, mins:90, d:'Bấm huyệt kết hợp xoa bóp' }
+    ];
+    const ADD = [
+      { t:'Massage chân 30′', p:'220k', n:220, mins:30, d:'Thêm vào cuối buổi' },
+      { t:'Chườm thảo dược 15′', p:'120k', n:120, mins:15, d:'Giữ ấm vùng vai gáy sau trị liệu' },
+      { t:'Massage đầu 20′', p:'160k', n:160, mins:20, d:'Giảm căng thẳng, dễ ngủ' }
+    ];
+    const isSwap = s.adjTab === 'swap';
+    const pool = isSwap ? SWAP : ADD;
+    // Đổi dịch vụ thì tính phần chênh thời lượng; thêm thì tính trọn thời lượng.
+    const needMins = (o) => isSwap ? Math.max(0, o.mins - 60) : o.mins;
+    const money = (n) => (n >= 0 ? '+' : '−') + Math.abs(n) + 'k';
+
+    const adjOptions = pool.map(o => {
+      const blocked = needMins(o) > FREE_MIN;
+      const on = s.adjSel && s.adjSel.t === o.t;
+      return { t:o.t, p:o.p, d:o.d, blocked,
+        why: blocked ? ('Cần thêm ' + needMins(o) + ' phút, KTV chỉ còn rảnh ' + FREE_MIN + ' phút trước ca kế tiếp') : '',
+        alt: blocked ? 'đặt buổi riêng ngày mai và giữ giá hôm nay, hoặc chọn kỹ thuật viên khác đang rảnh' : '',
+        dim: blocked ? '.55' : '1',
+        bg: on ? 'var(--tint)' : 'var(--surface)',
+        bd: on ? 'var(--primary)' : 'var(--card-border)',
+        fg: on ? 'var(--primary)' : 'var(--text)',
+        priceFg: blocked ? 'var(--text3)' : 'var(--primary)',
+        pick: () => blocked ? null : this.set({ adjSel:o }) };
+    });
+
+    const sel = s.adjSel;
+    const diffN = sel ? (isSwap ? sel.n - CUR.n : sel.n) : 0;
+    const sessionVals = {
+      phaseTabs: PH.map(([k,t]) => ({ t, pick:()=>this.set({sessPhase:k}),
+        bg: s.sessPhase===k ? 'var(--surface)' : 'transparent',
+        fg: s.sessPhase===k ? 'var(--text)' : 'var(--text3)' })),
+      sessComing: s.sessPhase==='coming',
+      sessLive:   s.sessPhase==='live',
+      sessDoneView: s.sessPhase==='done',
+      sessActive: s.sessPhase!=='done',
+      eta: s.eta,
+      sessCode: '4 7 2 9',
+
+      // Chia sẻ buổi cho nhóm gia đình — con cái ở xa theo dõi được.
+      toggleShare: () => this.set({ shareOn: !s.shareOn }),
+      shareOn: s.shareOn,
+      shareLabel: s.shareOn ? '✓ Đang chia sẻ với gia đình' : 'Chia sẻ buổi cho người thân',
+      shareBg: s.shareOn ? 'var(--tint)' : 'var(--surface)',
+      shareBd: s.shareOn ? 'var(--primary)' : 'var(--card-border)',
+      shareFg: s.shareOn ? 'var(--primary)' : 'var(--text)',
+      sosCustomer: () => {},
+
+      // Đề xuất do KTV gửi lên, khách quyết.
+      hasAdj: s.adjPending,
+      adjTitle: 'Đổi sang Vật lý trị liệu 45′',
+      adjReason: 'Sau khi khám sơ bộ, tôi thấy vai gáy của chị cứng ở nhóm cơ sâu — vật lý trị liệu sẽ hiệu quả hơn massage thường.',
+      adjFromName: CUR.name, adjFromPrice: CUR.price,
+      adjToName: 'Vật lý trị liệu 45′', adjToPrice: '380k',
+      adjDiffLabel: 'Hoàn lại ví', adjDiff: '70k', adjDiffFg: 'var(--ok)',
+      acceptAdj: () => this.set({ adjPending:false }),
+      rejectAdj: () => this.set({ adjPending:false }),
+
+      openAdj:  () => this.set({ adjOpen:true, adjSel:null }),
+      closeAdj: () => this.set({ adjOpen:false, adjSel:null }),
+      adjOpen: s.adjOpen,
+      adjTabs: [['swap','Đổi dịch vụ'],['add','Thêm dịch vụ']].map(([k,t]) => ({
+        t, pick:()=>this.set({adjTab:k, adjSel:null}),
+        bg: s.adjTab===k ? 'var(--surface)' : 'transparent',
+        fg: s.adjTab===k ? 'var(--text)' : 'var(--text3)' })),
+      adjOptions,
+      curSvcName: CUR.name, curSvcPrice: CUR.price, freeMin: FREE_MIN,
+      adjPicked: !!sel,
+      sumFromName: isSwap ? CUR.name : 'Buổi hiện tại',
+      sumFromPrice: CUR.price,
+      sumToName: sel ? (isSwap ? sel.t : ('Thêm: ' + sel.t)) : '',
+      sumToPrice: sel ? sel.p : '',
+      sumDiffLabel: diffN >= 0 ? 'Cần thanh toán thêm' : 'Hoàn lại ví',
+      sumDiff: sel ? money(diffN).replace('+','').replace('−','') + '' : '',
+      sumDiffFg: diffN >= 0 ? 'var(--text)' : 'var(--ok)',
+      applyLabel: sel ? (diffN >= 0 ? 'Xác nhận & thanh toán thêm' : 'Xác nhận & nhận hoàn') : 'Chọn một dịch vụ',
+      applyBg: sel ? 'var(--primary)' : 'var(--surface2)',
+      applyFg: sel ? 'var(--on-primary)' : 'var(--text3)',
+      applyAdj: () => sel ? this.setState({ adjOpen:false, adjSel:null,
+        addons: isSwap ? s.addons : [...s.addons, { t:sel.t, p:sel.p }] }) : null,
+      addons: s.addons,
+      hasAddons: s.addons.length > 0
+    };
 
     // ── bộ lọc đặt lịch ──────────────────────────────────────────
     // chip: một lựa chọn trong nhóm; on = đang chọn.
@@ -2466,7 +2712,7 @@ class Component extends DCLogic {
         affFg: k.center ? 'var(--text3)' : 'var(--primary)',
         pick:()=>this.setState({ ktvSel:k, view:'ktv' }) })),
       meGoSpa:()=>this.setState({need:'spa',view:'book',book:1,booked:false}),
-      ...bookFilters,
+      ...bookFilters, ...sessionVals,
       // Có lịch chăm sóc người thân hay không — dữ liệu thật, không phải bộ chọn.
       hasCare: !!s.carePlan,
       // Cắt phần sau dấu · trước rồi mới lấy tên gọi, nếu không sẽ ra chữ đầu
