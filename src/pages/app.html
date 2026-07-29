@@ -1926,7 +1926,7 @@ class Component extends DCLogic {
     svc:'vaigay',             // loại hình
     rec:'',                   // nhóm phục hồi, chỉ dùng khi đặt cho người nhà
     method:'all',             // all | trad | machine
-    brand:'Fohoways',
+    brand:'Tất cả',
     locMode:'gps',            // gps | area
     province:'TP. Hồ Chí Minh', ward:'Tất cả phường/xã',
     band:'Chiều · 12–17',
@@ -2083,7 +2083,8 @@ class Component extends DCLogic {
       ['dotquy','Sau đột quỵ'], ['khop','Sau mổ khớp'], ['hausan','Hậu sản'],
       ['caotuoi','Người cao tuổi'], ['manTinh','Bệnh mạn tính']
     ];
-    const BRANDS = ['Fohoways','Tiens','Ceragem','Migun'];
+    // 'Tất cả' = máy hãng nào cũng được, để mặc định cho khách không rành thiết bị.
+    const BRANDS = ['Tất cả','Fohoways','Tiens','Ceragem','Migun'];
     const PROVINCES = ['TP. Hồ Chí Minh','Hà Nội','Đà Nẵng','Bình Dương','Cần Thơ'];
     const WARDS = ['Tất cả phường/xã','P. Võ Thị Sáu','P. Bến Nghé','P. Đa Kao','P. 2','P. Tân Định'];
     const BANDS = ['Sáng · 08–12','Chiều · 12–17','Tối · 17–21','Cuối tuần'];
@@ -2136,7 +2137,8 @@ class Component extends DCLogic {
     ];
     const openPlace = c => this.setState({ center:c, prev:this.state.view, view:'place' });
     // Phương pháp hiển thị theo bộ lọc đang chọn; khi chọn máy thì lộ luôn hãng.
-    const methodLabel = s.method === 'machine' ? ('Máy ' + s.brand)
+    const methodLabel = s.method === 'machine'
+                      ? (s.brand === 'Tất cả' ? 'Máy công nghệ cao' : 'Máy ' + s.brand)
                       : s.method === 'trad' ? 'Cổ truyền' : 'Cổ truyền · Máy';
     const centers = centerData.map(c => ({ ...c, method: methodLabel, open:()=>openPlace(c) }));
 
