@@ -647,6 +647,16 @@
               </div>
             </sc-if>
 
+            <!-- Nối hồ sơ sức khoẻ vào đây: khai bệnh nền mà lúc chọn dịch vụ
+                 không nhắc gì thì việc khai thành vô nghĩa. -->
+            <sc-if value="{{ svcRisk }}" hint-placeholder-val="{{ false }}">
+              <div style="margin-top:12px;padding:13px 14px;border-radius:var(--r-sm);background:#FBE9E8;border:1px solid #B3261E">
+                <p style="font-size:12px;font-weight:700;color:#B3261E">⚠️ {{ riskTitle }}</p>
+                <p style="font-size:11px;line-height:1.6;color:var(--text2);margin-top:4px">{{ riskText }}</p>
+                <button sc-camel-on-click="{{ goHealth }}" style="font-size:11.5px;font-weight:700;color:var(--primary);margin-top:8px">Xem hồ sơ sức khoẻ →</button>
+              </div>
+            </sc-if>
+
             <p class="secTitle">PHƯƠNG PHÁP</p>
             <div style="display:flex;flex-wrap:wrap;gap:7px">
               <sc-for list="{{ methodOpts }}" as="c" hint-placeholder-count="3">
@@ -1049,6 +1059,64 @@
             <button sc-camel-on-click="{{ closeAdj }}" style="flex:none;padding:13px 20px;border-radius:var(--r-sm);background:var(--surface2);color:var(--text2);font-size:12.5px;font-weight:700">Huỷ</button>
             <button sc-camel-on-click="{{ applyAdj }}" style="flex:1;padding:13px;border-radius:var(--r-sm);background:{{ applyBg }};color:{{ applyFg }};font-size:12.5px;font-weight:700">{{ applyLabel }}</button>
           </div>
+        </div>
+      </sc-if>
+
+      <!-- ══════════ HỒ SƠ SỨC KHOẺ ══════════
+           Không chỉ là biểu mẫu thu thập: chọn tình trạng nào thì hệ thống
+           cảnh báo ngay dịch vụ nào cần tránh. Thông tin này đi tới KTV được
+           phân trước khi buổi bắt đầu, để không phải hỏi giữa chừng. -->
+      <sc-if value="{{ isHealth }}" hint-placeholder-val="{{ false }}">
+        <div class="body pad view">
+          <div style="display:flex;align-items:center;gap:10px;padding:12px 0 4px">
+            <button sc-camel-on-click="{{ goMe }}" style="width:36px;height:36px;border-radius:50%;border:1px solid var(--border);display:grid;place-items:center;color:var(--text2)"><svg sc-camel-view-box="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5l-7 7 7 7"></path></svg></button>
+            <span class="lo" style="color:var(--text)">Hồ sơ sức khoẻ</span>
+          </div>
+
+          <!-- Hồ sơ của ai: bản thân hay người nhà đang chăm sóc -->
+          <div style="display:flex;gap:4px;background:var(--surface2);border-radius:99px;padding:3px;margin-top:14px">
+            <sc-for list="{{ hProfiles }}" as="h" hint-placeholder-count="2">
+              <button sc-camel-on-click="{{ h.pick }}" style="flex:1;padding:9px 6px;border-radius:99px;background:{{ h.bg }};color:{{ h.fg }};font-size:12px;font-weight:600">{{ h.t }}</button>
+            </sc-for>
+          </div>
+
+          <p style="font-size:11.5px;line-height:1.6;color:var(--text3);margin-top:12px">Thông tin này được gửi cho kỹ thuật viên phụ trách <strong>trước khi buổi bắt đầu</strong>. Khai đúng giúp buổi trị liệu an toàn hơn.</p>
+
+          <p class="secTitle">TÌNH TRẠNG SỨC KHOẺ</p>
+          <div style="display:flex;flex-wrap:wrap;gap:7px">
+            <sc-for list="{{ hConds }}" as="c" hint-placeholder-count="8">
+              <button sc-camel-on-click="{{ c.pick }}" style="padding:9px 13px;border-radius:99px;background:{{ c.bg }};color:{{ c.fg }};border:1px solid {{ c.bd }};font-size:12.5px;font-weight:600">{{ c.t }}</button>
+            </sc-for>
+          </div>
+
+          <!-- Cảnh báo tự động — phần có giá trị nhất của màn này -->
+          <sc-if value="{{ hasWarn }}" hint-placeholder-val="{{ true }}">
+            <p class="secTitle">CẦN TRÁNH</p>
+            <div style="display:flex;flex-direction:column;gap:9px">
+              <sc-for list="{{ hWarns }}" as="w" hint-placeholder-count="2">
+                <div style="padding:13px 14px;border-radius:var(--r-sm);background:#FBE9E8;border:1px solid #B3261E">
+                  <p style="font-size:12.5px;font-weight:700;color:#B3261E">{{ w.t }}</p>
+                  <p style="font-size:11px;line-height:1.6;color:var(--text2);margin-top:4px">{{ w.d }}</p>
+                </div>
+              </sc-for>
+            </div>
+            <p style="font-size:10.5px;line-height:1.6;color:var(--text3);margin-top:10px">Những dịch vụ này sẽ bị đánh dấu khi bạn đặt lịch. Đây là khuyến cáo chung, không thay thế ý kiến bác sĩ.</p>
+          </sc-if>
+
+          <p class="secTitle">THUỐC ĐANG DÙNG</p>
+          <textarea value="{{ hMeds }}" sc-camel-on-input="{{ onHMeds }}" placeholder="Ví dụ: Amlodipine 5mg mỗi sáng, thuốc chống đông..." style="width:100%;min-height:70px;padding:12px 14px;border-radius:var(--r-sm);border:1px solid var(--card-border);background:var(--surface);color:var(--text);font-size:13px;font-family:inherit;resize:none"></textarea>
+
+          <p class="secTitle">DỊ ỨNG</p>
+          <textarea value="{{ hAllergy }}" sc-camel-on-input="{{ onHAllergy }}" placeholder="Tinh dầu, thảo dược, cao dán..." style="width:100%;min-height:56px;padding:12px 14px;border-radius:var(--r-sm);border:1px solid var(--card-border);background:var(--surface);color:var(--text);font-size:13px;font-family:inherit;resize:none"></textarea>
+
+          <p class="secTitle">DẶN DÒ CHO KỸ THUẬT VIÊN</p>
+          <textarea value="{{ hNote }}" sc-camel-on-input="{{ onHNote }}" placeholder="Ví dụ: bố hay chóng mặt khi ngồi dậy nhanh, cần đỡ..." style="width:100%;min-height:70px;padding:12px 14px;border-radius:var(--r-sm);border:1px solid var(--card-border);background:var(--surface);color:var(--text);font-size:13px;font-family:inherit;resize:none"></textarea>
+
+          <div style="margin-top:16px;padding:13px 15px;border-radius:var(--r-sm);background:var(--surface2)">
+            <p style="font-size:11px;line-height:1.6;color:var(--text2)">🔒 <strong>Ai xem được:</strong> kỹ thuật viên được phân cho buổi của bạn, và quản lý ca của trung tâm. Không chia sẻ cho bên thứ ba. Bạn xoá được bất cứ lúc nào trong mục Tài khoản.</p>
+          </div>
+
+          <button sc-camel-on-click="{{ goMe }}" style="width:100%;margin-top:16px;padding:15px;border-radius:var(--r-sm);background:var(--primary);color:var(--on-primary);font-weight:600;font-size:15px">Lưu hồ sơ</button>
         </div>
       </sc-if>
 
@@ -2063,6 +2131,11 @@
 <script type="text/x-dc" data-dc-script="" data-props="{&quot;$preview&quot;:{&quot;width&quot;:760,&quot;height&quot;:980}}">
 class Component extends DCLogic {
   state = { theme:'serene', view:'onboard', ob:1, need:'ache',
+    // ── hồ sơ sức khoẻ ──
+    hWho:'self',                       // self | family
+    hSelf:{ conds:['huyetap'], meds:'', allergy:'', note:'' },
+    hFam: { conds:['dotquy','huyetap'], meds:'Amlodipine 5mg mỗi sáng', allergy:'',
+            note:'Bố hay chóng mặt khi ngồi dậy nhanh, cần đỡ.' },
     // ── buổi làm việc ──
     sessPhase:'coming',      // coming | live | done
     eta:8,                   // phút KTV còn cách nhà
@@ -2214,6 +2287,48 @@ class Component extends DCLogic {
         fg: on ? '#fff' : 'var(--text3)' };
     });
 
+    // ── hồ sơ sức khoẻ ─────────────────────────────────────────────
+    // Mỗi tình trạng kèm sẵn khuyến cáo cần tránh — đây mới là phần có giá trị,
+    // không phải cái biểu mẫu. Khai xong là biết ngay dịch vụ nào không nên làm.
+    const CONDS = [
+      ['huyetap','Huyết áp cao','Trị liệu nhiệt và đá nóng','Nhiệt cao làm giãn mạch, dễ tụt huyết áp đột ngột. Ưu tiên xoa bóp nhẹ, đo huyết áp trước buổi.'],
+      ['timmach','Bệnh tim mạch','Xông hơi, bồn sục nóng','Tăng gánh nặng cho tim. Cần ý kiến bác sĩ trước khi trị liệu nhiệt.'],
+      ['tieuduong','Tiểu đường','Ngâm chân nước nóng','Giảm cảm giác ở chân nên dễ bỏng mà không biết. Kiểm tra nhiệt độ bằng tay người khác.'],
+      ['loangxuong','Loãng xương','Nắn chỉnh, bấm huyệt mạnh','Xương giòn, lực mạnh có thể gây rạn. Chỉ xoa bóp mô mềm.'],
+      ['thoatvi','Thoát vị đĩa đệm','Vặn xoắn cột sống','Có thể làm khối thoát vị chèn ép nặng hơn.'],
+      ['mangthai','Đang mang thai','Bấm huyệt vùng bụng, lưng dưới, cổ chân','Một số huyệt kích thích co bóp tử cung. Cần KTV có chứng chỉ chăm sóc thai sản.'],
+      ['moigan','Mới phẫu thuật dưới 6 tuần','Tác động lên vùng mổ','Vết mổ chưa lành hẳn. Tránh hoàn toàn vùng đó cho tới khi bác sĩ cho phép.'],
+      ['ungthu','Đang điều trị ung thư','Massage sâu, giác hơi','Cần chỉ định của bác sĩ điều trị. Chỉ làm nhẹ nhàng thư giãn.']
+    ];
+    const hCur = s.hWho === 'self' ? s.hSelf : s.hFam;
+    const hSet = (patch) => this.setState(s.hWho === 'self'
+      ? { hSelf: {...s.hSelf, ...patch} } : { hFam: {...s.hFam, ...patch} });
+    const hToggle = (k) => hSet({ conds: hCur.conds.includes(k)
+      ? hCur.conds.filter(x => x !== k) : [...hCur.conds, k] });
+    const warns = CONDS.filter(c => hCur.conds.includes(c[0]))
+                       .map(c => ({ t:'Tránh: ' + c[2], d:c[3] }));
+    const healthVals = {
+      isHealth: s.view === 'health',
+      hProfiles: [['self','Của tôi'],['family','Người nhà']].map(([k,t]) => ({
+        t, pick:()=>this.set({hWho:k}),
+        bg: s.hWho===k ? 'var(--surface)' : 'transparent',
+        fg: s.hWho===k ? 'var(--text)' : 'var(--text3)' })),
+      hConds: CONDS.map(([k,t]) => {
+        const on = hCur.conds.includes(k);
+        return { t, pick:()=>hToggle(k),
+          bg: on ? 'var(--primary)' : 'var(--surface)',
+          fg: on ? 'var(--on-primary)' : 'var(--text)',
+          bd: on ? 'var(--primary)' : 'var(--card-border)' };
+      }),
+      hWarns: warns, hasWarn: warns.length > 0,
+      hMeds: hCur.meds, hAllergy: hCur.allergy, hNote: hCur.note,
+      onHMeds:    (e)=>hSet({ meds:e.target.value }),
+      onHAllergy: (e)=>hSet({ allergy:e.target.value }),
+      onHNote:    (e)=>hSet({ note:e.target.value }),
+      // Số tình trạng đã khai, hiện làm nhãn ở mục Tôi
+      hBadge: hCur.conds.length ? hCur.conds.length + ' mục' : 'Chưa khai'
+    };
+
     // ── buổi làm việc: ba giai đoạn ────────────────────────────────
     const PH = [['coming','Đang đến'],['live','Đang diễn ra'],['done','Đã xong']];
     const CUR = { name:'Trị liệu cổ vai gáy 60′', price:'450k', n:450 };
@@ -2335,6 +2450,27 @@ class Component extends DCLogic {
     const WARDS = ['Tất cả phường/xã','P. Võ Thị Sáu','P. Bến Nghé','P. Đa Kao','P. 2','P. Tân Định'];
     const BANDS = ['Sáng · 08–12','Chiều · 12–17','Tối · 17–21','Cuối tuần'];
 
+    // Bản đồ dịch vụ ↔ tình trạng cần tránh. Người nhận là ai thì lấy hồ sơ
+    // của người đó — đặt cho người nhà thì soi hồ sơ người nhà.
+    const RISK = {
+      thugian:  ['timmach'],
+      toanthan: ['loangxuong','ungthu','mangthai'],
+      coxuong:  ['loangxuong','thoatvi','moigan'],
+      chan:     ['tieuduong'],
+      sacdep:   ['mangthai'],
+      vaigay:   ['thoatvi'],
+      phocap:   ['loangxuong','ungthu']
+    };
+    const RISK_LABEL = Object.fromEntries(CONDS.map(c => [c[0], [c[1], c[3]]]));
+    const target = s.forWho === 'family' ? s.hFam : s.hSelf;
+    const hit = (RISK[s.svc] || []).find(k => target.conds.includes(k));
+    const riskVals = {
+      svcRisk: !!hit,
+      riskTitle: hit ? ('Cân nhắc: hồ sơ có ghi ' + RISK_LABEL[hit][0].toLowerCase()) : '',
+      riskText:  hit ? RISK_LABEL[hit][1] : '',
+      goHealth: () => this.setState({ view:'health', hWho: s.forWho === 'family' ? 'family' : 'self' })
+    };
+
     const isMachine = s.method === 'machine';
     const bookFilters = {
       venueOpts: [
@@ -2367,6 +2503,8 @@ class Component extends DCLogic {
       onProvince: (e) => this.set({ province:e.target.value }),
       onWard:     (e) => this.set({ ward:e.target.value }),
       bandOpts: BANDS.map(b => chip(b, s.band===b, () => this.set({band:b}))),
+      // Dịch vụ đang chọn có nằm trong nhóm cần tránh của người sẽ nhận không.
+      ...riskVals,
       promos: [
         { icon:'🎁', iBg:'var(--tint)',     t:'Buổi đầu giảm 30%', d:'An Nhiên Wellness · cách 1,2 km', tag:'−30%', tap:()=>{} },
         { icon:'🌿', iBg:'rgba(216,169,78,.16)', t:'Gói 10 buổi phục hồi tại nhà', d:'Tặng 1 buổi đánh giá miễn phí', tag:'Gói', tap:()=>{} },
@@ -2545,6 +2683,7 @@ class Component extends DCLogic {
       reportStats:[ {k:'Buổi hoàn tất',v:'8',color:'var(--text)'}, {k:'Đi liên tục',v:'40m',color:'var(--text)'}, {k:'Mức đau',v:'3/10',color:'var(--accent)'} ],
       // utilities list
       utilities:[
+        {icon:'🩺',label:'Hồ sơ sức khoẻ',desc:'Bệnh nền, thuốc, dặn dò cho KTV',badge:healthVals.hBadge,tap:()=>this.setState({view:'health'})},
         {icon:'🏅',label:'Hạng thành viên',desc:'Hành trình An · điểm thưởng',badge:'Vững An',tap:()=>this.setState({view:'rewards'})},
         {icon:'👛',label:'Ví & gói của tôi',desc:'Số dư, gói trả trước, buổi còn lại',badge:'',tap:()=>this.setState({view:'wallet'})},
         {icon:'🎁',label:'Giới thiệu bạn',desc:'Tặng 150k, nhận 200 điểm',badge:'',tap:()=>this.setState({view:'referral'})},
@@ -2698,7 +2837,7 @@ class Component extends DCLogic {
         affFg: k.center ? 'var(--text3)' : 'var(--primary)',
         pick:()=>this.setState({ ktvSel:k, view:'ktv' }) })),
       meGoSpa:()=>this.setState({need:'spa',view:'book',book:1,booked:false}),
-      ...bookFilters, ...sessionVals,
+      ...bookFilters, ...sessionVals, ...healthVals,
       // Có lịch chăm sóc người thân hay không — dữ liệu thật, không phải bộ chọn.
       hasCare: !!s.carePlan,
       // Cắt phần sau dấu · trước rồi mới lấy tên gọi, nếu không sẽ ra chữ đầu
