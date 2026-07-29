@@ -2435,7 +2435,7 @@ class Component extends DCLogic {
         method: methodLabel,
         // Nói rõ KTV tự do hay thuộc trung tâm: hai bên chịu trách nhiệm khác
         // nhau, khách có quyền biết trước khi đặt.
-        affiliation: k.center ? ('🏢 Thuộc ' + k.center) : '🟢 KTV tự do · ANWELL quản lý',
+        affiliation: k.center ? ('🏢 ' + k.center) : '🟢 KTV tự do',
         affFg: k.center ? 'var(--text3)' : 'var(--primary)',
         pick:()=>this.setState({ ktvSel:k, view:'ktv' }) })),
       meGoSpa:()=>this.setState({need:'spa',view:'book',book:1,booked:false}),
