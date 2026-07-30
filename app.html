@@ -510,6 +510,20 @@
             </button>
           </sc-if>
 
+          <!-- Nhóm gia đình về đây: nó tồn tại để cùng theo dõi phục hồi của
+               người thân, mà thẻ chăm sóc đã nằm ngay trên. Phần phân quyền tài
+               khoản vẫn ở Tôi. -->
+          <sc-if value="{{ hasCare }}" hint-placeholder-val="{{ true }}">
+            <button sc-camel-on-click="{{ goFamily }}" style="width:100%;text-align:left;display:flex;align-items:center;gap:12px;padding:13px 15px;border-radius:var(--r-sm);margin-top:10px;background:var(--surface);border:1px solid var(--card-border);box-shadow:var(--sh)">
+              <span style="flex:none;width:36px;height:36px;border-radius:11px;background:var(--surface2);display:grid;place-items:center;font-size:16px">👪</span>
+              <span style="flex:1;min-width:0">
+                <span style="display:block;font-size:12.5px;font-weight:600">Nhóm gia đình</span>
+                <span style="display:block;font-size:10.5px;color:var(--text3);margin-top:2px">{{ famSummary }}</span>
+              </span>
+              <svg width="15" height="15" sc-camel-view-box="0 0 24 24" fill="none" stroke="var(--text3)" stroke-width="2" style="flex:none"><path d="m9 5 7 7-7 7"></path></svg>
+            </button>
+          </sc-if>
+
           <!-- PROGRESS VIZ — differs by theme -->
           <sc-if value="{{ isSerene }}" hint-placeholder-val="{{ true }}">
             <div style="margin-top:18px;border-radius:20px;padding:18px;background:var(--hero);color:var(--hero-text);box-shadow:0 16px 34px -14px rgba(12,63,54,.5)">
@@ -605,6 +619,23 @@
             <p style="font-size:12.5px;line-height:1.6;color:var(--text);margin:9px 0 0">Mức đau giảm đều sau mỗi buổi, nhưng thường nhích lên thứ Hai — có thể do tư thế ngồi đầu tuần. Thử thêm bài giãn cơ 3 phút buổi sáng nhé.</p>
             <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap"><button sc-camel-on-click="{{ goDiscover }}" style="font-size:11px;font-weight:600;padding:8px 12px;border-radius:99px;background:var(--surface2);color:var(--text)">Xem bài giãn cơ</button><button sc-camel-on-click="{{ toggleMorning }}" style="font-size:11px;font-weight:600;padding:8px 12px;border-radius:99px;background:var(--surface2);color:var(--text)">Nhắc mỗi sáng</button></div>
             <p style="font-size:10px;font-style:italic;color:var(--text3);line-height:1.5;margin-top:12px;padding-left:10px;border-left:2px solid var(--border)">Gợi ý tham khảo, không phải chẩn đoán y khoa và không thay thế ý kiến bác sĩ.</p>
+          </div>
+
+          <!-- Nhắc bài tập về đây, tách khỏi nhắc buổi hẹn: bài tập là phần của
+               liệu trình phục hồi, không phải chuyện lịch hẹn. -->
+          <p style="font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--text3);margin:24px 0 10px">NHẮC BÀI TẬP</p>
+          <div style="background:var(--surface);border:1px solid var(--card-border);border-radius:var(--r);box-shadow:var(--sh);overflow:hidden">
+            <sc-for list="{{ exRemind }}" as="r" hint-placeholder-count="3">
+              <div style="display:flex;align-items:center;gap:11px;padding:13px 15px;border-bottom:1px solid var(--card-border)">
+                <span style="flex:1;min-width:0">
+                  <span style="display:block;font-size:12.5px;font-weight:600">{{ r.t }}</span>
+                  <span style="display:block;font-size:10.5px;color:var(--text3);margin-top:1px">{{ r.d }}</span>
+                </span>
+                <button sc-camel-on-click="{{ r.toggle }}" aria-label="{{ r.t }}" style="flex:none;width:46px;height:27px;border-radius:99px;background:{{ r.track }};position:relative;transition:background .2s">
+                  <span style="position:absolute;top:3px;left:{{ r.knob }};width:21px;height:21px;border-radius:50%;background:var(--surface);box-shadow:0 2px 5px rgba(0,0,0,.24);transition:left .2s"></span>
+                </button>
+              </div>
+            </sc-for>
           </div>
         </div>
       </sc-if>
@@ -1307,8 +1338,25 @@
             <p style="font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:600">Trị liệu cổ vai gáy · 60′</p>
             <p style="font-size:11.5px;opacity:.85;margin:5px 0 0">An Nhiên Wellness · Q.3 — KTV Trần Thu Hà</p>
             <div style="display:flex;gap:16px;margin:14px 0 0;font-size:12px"><div><div style="opacity:.65;font-size:9px">NGÀY</div><div style="font-weight:700;margin-top:2px">Thứ 5, 24/07</div></div><div><div style="opacity:.65;font-size:9px">GIỜ</div><div style="font-weight:700;margin-top:2px">09:00 – 10:00</div></div></div>
-            <div style="display:flex;gap:9px;margin-top:16px"><button sc-camel-on-click="{{ openManage }}" style="flex:1;padding:11px;border-radius:var(--r-sm);background:var(--accent-soft);color:#06140F;font-weight:700;font-size:12px">Quản lý lịch</button><button sc-camel-on-click="{{ goSession }}" style="flex:1;padding:11px;border-radius:var(--r-sm);background:rgba(255,255,255,.12);color:#fff;font-weight:600;font-size:12px">Xem buổi</button><button sc-camel-on-click="{{ openMaps }}" style="flex:none;padding:11px 14px;border-radius:var(--r-sm);background:rgba(255,255,255,.12);color:#fff;font-weight:600;font-size:12px">Chỉ đường</button></div>
+            <div style="display:flex;gap:9px;margin-top:16px"><button sc-camel-on-click="{{ openManage }}" style="flex:1;padding:11px;border-radius:var(--r-sm);background:var(--accent-soft);color:#06140F;font-weight:700;font-size:12px">Quản lý lịch</button><button sc-camel-on-click="{{ goSession }}" style="flex:1;padding:11px;border-radius:var(--r-sm);background:rgba(255,255,255,.12);color:#fff;font-weight:600;font-size:12px">Xem buổi</button><button sc-camel-on-click="{{ goChat }}" aria-label="Nhắn tin với KTV" title="Nhắn tin với KTV" style="flex:none;padding:11px 13px;border-radius:var(--r-sm);background:rgba(255,255,255,.12);color:#fff;font-weight:600;font-size:12px">💬</button><button sc-camel-on-click="{{ openMaps }}" aria-label="Chỉ đường" title="Chỉ đường" style="flex:none;padding:11px 13px;border-radius:var(--r-sm);background:rgba(255,255,255,.12);color:#fff;font-weight:600;font-size:12px">📍</button></div>
           </div>
+          <!-- Nhắc buổi hẹn về đây: nhắc lịch là chuyện thời gian, mà Lịch hẹn
+               là nơi khách nghĩ về thời gian. Nhắc bài tập tách sang Tiến triển. -->
+          <p style="font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--text3);margin:24px 0 10px">NHẮC BUỔI HẸN</p>
+          <div style="background:var(--surface);border:1px solid var(--card-border);border-radius:var(--r);box-shadow:var(--sh);overflow:hidden">
+            <sc-for list="{{ apptRemind }}" as="r" hint-placeholder-count="3">
+              <div style="display:flex;align-items:center;gap:11px;padding:13px 15px;border-bottom:1px solid var(--card-border)">
+                <span style="flex:1;min-width:0">
+                  <span style="display:block;font-size:12.5px;font-weight:600">{{ r.t }}</span>
+                  <span style="display:block;font-size:10.5px;color:var(--text3);margin-top:1px">{{ r.d }}</span>
+                </span>
+                <button sc-camel-on-click="{{ r.toggle }}" aria-label="{{ r.t }}" style="flex:none;width:46px;height:27px;border-radius:99px;background:{{ r.track }};position:relative;transition:background .2s">
+                  <span style="position:absolute;top:3px;left:{{ r.knob }};width:21px;height:21px;border-radius:50%;background:var(--surface);box-shadow:0 2px 5px rgba(0,0,0,.24);transition:left .2s"></span>
+                </button>
+              </div>
+            </sc-for>
+          </div>
+
           <p style="font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--text3);margin:24px 0 10px">ĐÃ HOÀN THÀNH</p>
           <div style="display:flex;flex-direction:column;gap:10px">
             <sc-for list="{{ history }}" as="h" hint-placeholder-count="4">
@@ -2145,6 +2193,10 @@
 <script type="text/x-dc" data-dc-script="" data-props="{&quot;$preview&quot;:{&quot;width&quot;:760,&quot;height&quot;:980}}">
 class Component extends DCLogic {
   state = { theme:'serene', view:'onboard', ob:1, need:'ache',
+    // Nhắc buổi hẹn (ở Lịch hẹn) và nhắc bài tập (ở Tiến triển) — hai nhóm
+    // khác bản chất nên tách, trước đây gộp chung một mục trong Tiện ích.
+    apptRem:{ before1d:true, before2h:true, ktvOnWay:true },
+    exRem:{ daily:true, weekly:false, missed:true },
     // ── hồ sơ sức khoẻ ──
     hWho:'self',                       // self | family
     hSelf:{ conds:['huyetap'], meds:'', allergy:'', note:'' },
@@ -2300,6 +2352,32 @@ class Component extends DCLogic {
         bg: on ? (n<=3?'#2E8567':n<=6?'#B9893B':'#B3261E') : 'var(--surface2)',
         fg: on ? '#fff' : 'var(--text3)' };
     });
+
+    // ── nhắc lịch, tách hai nhóm ───────────────────────────────────
+    const remToggle = (grp, k) => this.setState(grp === 'appt'
+      ? { apptRem: {...s.apptRem, [k]: !s.apptRem[k]} }
+      : { exRem:   {...s.exRem,   [k]: !s.exRem[k]} });
+    const remRow = (grp, k, t, d) => {
+      const on = (grp === 'appt' ? s.apptRem : s.exRem)[k];
+      return { t, d, toggle:()=>remToggle(grp,k),
+        track: on ? 'var(--primary)' : 'var(--border)',
+        knob:  on ? '22px' : '3px' };
+    };
+    const remindVals = {
+      apptRemind: [
+        remRow('appt','before1d','Trước 1 ngày','Nhắc lúc 20:00 hôm trước'),
+        remRow('appt','before2h','Trước 2 giờ','Kịp chuẩn bị và di chuyển'),
+        remRow('appt','ktvOnWay','Khi KTV lên đường','Chỉ với buổi tại nhà')
+      ],
+      exRemind: [
+        remRow('ex','daily','Bài tập hằng ngày','Nhắc 07:30 mỗi sáng'),
+        remRow('ex','weekly','Tổng kết tuần','Chủ nhật · xem tiến triển 7 ngày'),
+        remRow('ex','missed','Khi bỏ lỡ 2 ngày','Nhắc nhẹ, không gây áp lực')
+      ],
+      goFamily: () => this.setState({ view:'family' }),
+      goChat:   () => this.setState({ view:'chat' }),
+      famSummary: 'Minh Trần · Thu Hương · cùng theo dõi buổi và tiến triển'
+    };
 
     // ── hồ sơ sức khoẻ ─────────────────────────────────────────────
     // Mỗi tình trạng kèm sẵn khuyến cáo cần tránh — đây mới là phần có giá trị,
@@ -2701,9 +2779,6 @@ class Component extends DCLogic {
         {icon:'🏅',label:'Hạng thành viên',desc:'Hành trình An · điểm thưởng',badge:'Vững An',tap:()=>this.setState({view:'rewards'})},
         {icon:'👛',label:'Ví & gói của tôi',desc:'Số dư, gói trả trước, buổi còn lại',badge:'',tap:()=>this.setState({view:'wallet'})},
         {icon:'🎁',label:'Giới thiệu bạn',desc:'Tặng 150k, nhận 200 điểm',badge:'',tap:()=>this.setState({view:'referral'})},
-        {icon:'👪',label:'Nhóm gia đình',desc:'Cùng theo dõi, phân quyền',badge:'',tap:()=>this.setState({view:'family'})},
-        {icon:'🔔',label:'Nhắc lịch',desc:'Lời nhắc buổi hẹn & bài tập',badge:'',tap:()=>this.setState({view:'reminders'})},
-        {icon:'💬',label:'Nhắn tin với KTV',desc:'Trao đổi, gửi ảnh trước buổi',badge:'',tap:()=>this.setState({view:'chat'})},
         {icon:'📈',label:'Báo cáo tiến triển',desc:'Xuất PDF chia sẻ bác sĩ',badge:'',tap:()=>this.setState({view:'report'})}
       ],
       // manage appointment
@@ -2851,7 +2926,7 @@ class Component extends DCLogic {
         affFg: k.center ? 'var(--text3)' : 'var(--primary)',
         pick:()=>this.setState({ ktvSel:k, view:'ktv' }) })),
       meGoSpa:()=>this.setState({need:'spa',view:'book',book:1,booked:false}),
-      ...bookFilters, ...sessionVals, ...healthVals,
+      ...bookFilters, ...sessionVals, ...healthVals, ...remindVals,
       // Có lịch chăm sóc người thân hay không — dữ liệu thật, không phải bộ chọn.
       hasCare: !!s.carePlan,
       // Cắt phần sau dấu · trước rồi mới lấy tên gọi, nếu không sẽ ra chữ đầu
