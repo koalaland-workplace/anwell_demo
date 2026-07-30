@@ -380,6 +380,16 @@
         </div>
       </div>
 
+      <!-- Thanh quay lại dùng chung cho mọi màn phụ. Đặt một chỗ ở đây thay vì
+           lặp trong từng màn, và "<" trả về đúng màn trước đó trong ngăn xếp
+           chứ không phải một tab cố định. -->
+      <sc-if value="{{ canBack }}" hint-placeholder-val="{{ false }}">
+        <div style="flex:none;display:flex;align-items:center;gap:9px;padding:6px 18px 4px">
+          <button sc-camel-on-click="{{ goBack }}" aria-label="Quay lại" style="flex:none;width:31px;height:31px;border-radius:50%;background:var(--surface2);display:grid;place-items:center;color:var(--text2)"><svg sc-camel-view-box="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"></path></svg></button>
+          <span style="font-size:12.5px;font-weight:600;color:var(--text2)">{{ backTitle }}</span>
+        </div>
+      </sc-if>
+
       <!-- ══════════ ONBOARDING ══════════ -->
       <sc-if value="{{ isOnboard }}" hint-placeholder-val="{{ true }}">
         <div class="body pad view" style="display:flex;flex-direction:column">
@@ -1117,10 +1127,6 @@
            phân trước khi buổi bắt đầu, để không phải hỏi giữa chừng. -->
       <sc-if value="{{ isHealth }}" hint-placeholder-val="{{ false }}">
         <div class="body pad view">
-          <div style="display:flex;align-items:center;gap:10px;padding:12px 0 4px">
-            <button sc-camel-on-click="{{ goMe }}" style="width:36px;height:36px;border-radius:50%;border:1px solid var(--border);display:grid;place-items:center;color:var(--text2)"><svg sc-camel-view-box="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5l-7 7 7 7"></path></svg></button>
-            <span class="lo" style="color:var(--text)">Hồ sơ sức khoẻ</span>
-          </div>
 
           <!-- Hồ sơ của ai: bản thân hay người nhà đang chăm sóc -->
           <div style="display:flex;gap:4px;background:var(--surface2);border-radius:99px;padding:3px;margin-top:14px">
@@ -1896,93 +1902,6 @@
       <!-- ══════════ CHÍNH SÁCH & QUY ĐỊNH ══════════ -->
       <sc-if value="{{ isPolicy }}" hint-placeholder-val="{{ false }}">
         <div class="body pad view">
-          <div style="display:flex;align-items:center;gap:10px;padding:12px 0 4px">
-            <button sc-camel-on-click="{{ goMe }}" style="width:36px;height:36px;border-radius:50%;border:1px solid var(--border);display:grid;place-items:center;color:var(--text2)"><svg sc-camel-view-box="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5l-7 7 7 7"></path></svg></button>
-            <span class="lo" style="color:var(--text)">Chính sách &amp; Quy định</span>
-          </div>
-
-          <h1 style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:25px;line-height:1.15;margin:14px 0 0">Minh bạch &amp; <span style="font-style:italic;color:var(--accent)">an toàn cho mọi bên</span></h1>
-          <p style="font-size:12px;color:var(--text3);line-height:1.6;margin:6px 0 0">ANWELL là nền tảng kết nối khách hàng với các trung tâm và kỹ thuật viên (KTV) đã được xác minh, cung cấp dịch vụ trị liệu, dưỡng sinh và chăm sóc phục hồi tại nhà. Các chính sách dưới đây áp dụng cho toàn bộ dịch vụ trên ứng dụng.</p>
-
-          <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.2em;color:var(--text3);text-transform:uppercase;margin:22px 0 10px">Chính sách tuân thủ chung</p>
-          <div style="background:var(--surface);border-radius:var(--r);border:1px solid var(--card-border);box-shadow:var(--sh);padding:4px 15px">
-            <sc-for list="{{ policyCommon }}" as="p" hint-placeholder-count="4">
-              <div style="display:flex;gap:11px;align-items:flex-start;padding:13px 0;border-top:1px solid var(--border)">
-                <span style="width:22px;height:22px;border-radius:50%;background:var(--surface2);color:var(--accent);display:grid;place-items:center;flex:none;margin-top:1px"><svg width="12" height="12" sc-camel-view-box="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20 6 9 17l-5-5"></path></svg></span>
-                <p style="font-size:12.5px;line-height:1.55;color:var(--text2);margin:0">{{ p }}</p>
-              </div>
-            </sc-for>
-          </div>
-
-          <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.2em;color:var(--text3);text-transform:uppercase;margin:22px 0 10px">Quy định theo đối tượng</p>
-          <div style="display:flex;flex-direction:column;gap:11px">
-            <sc-for list="{{ policyGroups }}" as="g" hint-placeholder-count="3">
-              <div style="background:var(--surface);border-radius:var(--r);border:1px solid var(--card-border);border-left:3px solid var(--accent);box-shadow:var(--sh);padding:15px">
-                <div style="display:flex;align-items:center;gap:9px"><span style="font-size:16px">{{ g.icon }}</span><p style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:17px;color:var(--text)">{{ g.title }}</p></div>
-                <div style="display:flex;flex-direction:column;gap:7px;margin-top:10px">
-                  <sc-for list="{{ g.rules }}" as="r" hint-placeholder-count="3">
-                    <div style="display:flex;gap:9px;align-items:flex-start"><span style="width:5px;height:5px;border-radius:50%;background:var(--accent);flex:none;margin-top:7px"></span><p style="font-size:12px;line-height:1.55;color:var(--text2);margin:0">{{ r }}</p></div>
-                  </sc-for>
-                </div>
-              </div>
-            </sc-for>
-          </div>
-
-          <div style="margin-top:20px;background:var(--surface2);border-radius:var(--r-sm);padding:15px;border-left:3px solid var(--text3)">
-            <p style="font-size:9.5px;font-weight:700;letter-spacing:.14em;color:var(--text3);text-transform:uppercase;margin:0 0 8px">Tuyên bố miễn trừ</p>
-            <p style="font-size:11.5px;line-height:1.65;color:var(--text2);margin:0;text-wrap:pretty">{{ policyDisclaimer }}</p>
-          </div>
-          <p style="text-align:center;font-size:11px;color:var(--text3);font-style:italic;margin:18px 0 0">Cập nhật 07/2026 · ANWELL</p>
-        </div>
-      </sc-if>
-
-      <!-- ══════════ REWARDS · HẠNG THÀNH VIÊN ══════════ -->
-      <sc-if value="{{ isRewards }}" hint-placeholder-val="{{ false }}">
-        <div class="body pad view">
-          <div style="display:flex;align-items:center;gap:10px;padding:12px 0 4px">
-            <button sc-camel-on-click="{{ goMe }}" style="width:36px;height:36px;border-radius:50%;border:1px solid var(--border);display:grid;place-items:center;color:var(--text2)"><svg sc-camel-view-box="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5l-7 7 7 7"></path></svg></button>
-            <span class="lo" style="color:var(--text)">Hành trình An</span>
-          </div>
-          <div style="margin-top:12px;border-radius:var(--r);padding:20px 18px;background:var(--hero);color:var(--hero-text);box-shadow:0 16px 34px -14px rgba(12,63,54,.5)">
-            <p style="font:700 9px ui-monospace,monospace;letter-spacing:.16em;color:var(--accent-soft);text-transform:uppercase">Hạng hiện tại</p>
-            <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-top:4px"><p style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:30px">{{ tierName }}</p><div style="text-align:right"><div style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:var(--accent-soft);line-height:1">{{ points }}</div><div style="font-size:8.5px;opacity:.75">điểm An</div></div></div>
-            <div style="height:8px;border-radius:99px;background:rgba(255,255,255,.16);margin-top:14px;overflow:hidden"><div style="height:100%;width:{{ tierPct }};background:linear-gradient(90deg,#D8A94E,#E7CE97);border-radius:99px"></div></div>
-            <p style="font-size:10.5px;opacity:.85;margin:8px 0 0">Còn {{ tierRemain }} điểm để lên hạng {{ tierNext }}</p>
-          </div>
-
-          <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.2em;color:var(--text3);text-transform:uppercase;margin:22px 0 10px">Các hạng &amp; quyền lợi</p>
-          <div style="display:flex;flex-direction:column;gap:10px">
-            <sc-for list="{{ tiers }}" as="t" hint-placeholder-count="4">
-              <div style="background:var(--surface);border-radius:var(--r);border:1px solid {{ t.bd }};border-left:3px solid {{ t.color }};box-shadow:var(--sh);padding:14px">
-                <div style="display:flex;justify-content:space-between;align-items:center"><p style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:16px;color:var(--text)">{{ t.name }} <sc-if value="{{ t.current }}" hint-placeholder-val="{{ false }}"><span style="font-size:9px;font-weight:700;color:#06140F;background:var(--accent-soft);padding:2px 7px;border-radius:99px;margin-left:4px">Hiện tại</span></sc-if></p><span style="font-size:10.5px;color:var(--text3)">{{ t.req }}</span></div>
-                <p style="font-size:11.5px;color:var(--text2);line-height:1.5;margin-top:6px">{{ t.perk }}</p>
-              </div>
-            </sc-for>
-          </div>
-
-          <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.2em;color:var(--text3);text-transform:uppercase;margin:22px 0 10px">Cách tích điểm</p>
-          <div style="display:flex;flex-direction:column;gap:8px">
-            <sc-for list="{{ earnWays }}" as="e" hint-placeholder-count="3">
-              <div style="display:flex;align-items:center;gap:11px;background:var(--surface);border-radius:var(--r-sm);border:1px solid var(--card-border);box-shadow:var(--sh);padding:12px 14px"><span style="font-size:16px">{{ e.icon }}</span><span style="flex:1;font-size:12.5px;color:var(--text)">{{ e.label }}</span><span style="font-size:12px;font-weight:700;color:var(--accent)">+{{ e.pts }}</span></div>
-            </sc-for>
-          </div>
-
-          <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.2em;color:var(--text3);text-transform:uppercase;margin:22px 0 10px">Lịch sử điểm</p>
-          <div style="background:var(--surface);border-radius:var(--r);border:1px solid var(--card-border);box-shadow:var(--sh);overflow:hidden">
-            <sc-for list="{{ pointsLog }}" as="p" hint-placeholder-count="4">
-              <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 14px;border-bottom:1px solid var(--border)"><div style="min-width:0"><p style="font-size:12.5px;font-weight:600;color:var(--text)">{{ p.t }}</p><p style="font-size:10px;color:var(--text3);margin-top:1px">{{ p.d }}</p></div><span style="font-size:13px;font-weight:700;color:{{ p.fg }}">{{ p.v }}</span></div>
-            </sc-for>
-          </div>
-        </div>
-      </sc-if>
-
-      <!-- ══════════ VÍ & GÓI TRẢ TRƯỚC ══════════ -->
-      <sc-if value="{{ isWallet }}" hint-placeholder-val="{{ false }}">
-        <div class="body pad view">
-          <div style="display:flex;align-items:center;gap:10px;padding:12px 0 4px">
-            <button sc-camel-on-click="{{ goMe }}" style="width:36px;height:36px;border-radius:50%;border:1px solid var(--border);display:grid;place-items:center;color:var(--text2)"><svg sc-camel-view-box="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5l-7 7 7 7"></path></svg></button>
-            <span class="lo" style="color:var(--text)">Ví &amp; gói của tôi</span>
-          </div>
           <div style="margin-top:12px;border-radius:var(--r);padding:18px;background:var(--hero);color:var(--hero-text);box-shadow:0 16px 34px -14px rgba(12,63,54,.5)">
             <p style="font-size:10px;color:var(--accent-soft)">Số dư ví ANWELL</p>
             <p style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:30px;margin:2px 0 0">1.250.000₫</p>
@@ -2335,7 +2254,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script="" data-props="{&quot;$preview&quot;:{&quot;width&quot;:760,&quot;height&quot;:980}}">
 class Component extends DCLogic {
-  state = { theme:'serene', view:'onboard', ob:1, need:'ache',
+  state = { theme:'serene', view:'onboard', ob:1, need:'ache', navStack:[],
     // ── luồng sau đăng ký ──
     regStep:1, regPwd:'', faceOn:false,
     regDob:'', regGender:'', regAddr:'', regAreas:[], regInterests:[],
@@ -2384,6 +2303,35 @@ class Component extends DCLogic {
   };
 
   set(o){ this.setState(o); }
+  // ── Ngăn xếp điều hướng ──────────────────────────────────────────
+  // Năm mục ở thanh đáy là gốc: vào một mục là bắt đầu nhánh mới, xoá ngăn xếp.
+  // Ba màn của luồng vào app cũng là gốc — chúng có nút riêng, không cần "<".
+  static get ROOTS(){ return ['book','visits','discover','journey','me','onboard','verify','reg']; }
+  static get TITLES(){ return {
+    care:'Chăm sóc người thân', carebook:'Đăng ký chăm sóc', carecert:'Chứng nhận KTV',
+    chat:'Nhắn tin', family:'Nhóm gia đình', health:'Hồ sơ sức khoẻ', ktv:'Kỹ thuật viên',
+    place:'Cơ sở', policy:'Chính sách & quyền riêng tư', recipe:'Món ăn dưỡng sinh',
+    record:'Bài tập tại nhà', referral:'Giới thiệu bạn bè', reminders:'Nhắc lịch',
+    report:'Báo cáo tiến triển', review:'Đánh giá buổi', rewards:'Hạng thành viên',
+    session:'Buổi làm việc', wallet:'Ví & gói của tôi'
+  }; }
+  // Chặn ngay ở setState thay vì ở từng nút: trong file này có gần năm mươi chỗ
+  // đổi màn, phần lớn gọi setState thẳng chứ không qua go().
+  setState(patch, cb){
+    const from = this.state.view, to = patch && patch.view;
+    if (to && to !== from && !this._popping) {
+      const stack = this.state.navStack || [];
+      patch = { ...patch, navStack: Component.ROOTS.includes(to) ? [] : [...stack, from] };
+    }
+    return super.setState(patch, cb);
+  }
+  back(){
+    const stack = this.state.navStack || [];
+    if (!stack.length) return;
+    this._popping = true;
+    this.setState({ view: stack[stack.length-1], navStack: stack.slice(0,-1) });
+    this._popping = false;
+  }
   go(view){ this.setState({view, book:1, booked:false}); }
   setHeroEl = (el)=>{ this.heroEl = el; };
   pickVideo(i){ if(this.state.sound) this.toggleSound(); this.setState({activeVid:i, videoMuted:false, heroDurText:''}, ()=>{ if(this.heroEl){ try{ this.heroEl.muted=false; this.heroEl.currentTime=0; this.heroEl.play(); }catch(e){} } }); }
@@ -3021,6 +2969,10 @@ class Component extends DCLogic {
       isSerene:th==='serene', isForest:th==='forest', isClarity:th==='clarity',
       styleCards,
       // views
+      // Thanh quay lại: chỉ hiện khi thật sự có màn phía sau để về.
+      canBack: (s.navStack||[]).length > 0,
+      backTitle: Component.TITLES[s.view] || '',
+      goBack: () => this.back(),
       isOnboard:s.view==='onboard', isJourney:s.view==='journey', isBook:s.view==='book',
       isDiscover:s.view==='discover', isCare:s.view==='care', isCareBook:s.view==='carebook', isCareCert:s.view==='carecert', isCareForm:s.view==='carebook'&&!s.careDone, isCareDone:s.view==='carebook'&&s.careDone, careConds, careProbs, careDocs, careContras, careSlots, careCondSel:s.careCond, careSlotSel:s.careSlot, careProbsSel:(s.careProbs&&s.careProbs.length?s.careProbs.join(' · '):'Chưa chọn'), careDocSel:s.careDoc, careContraSel:(s.careContra&&s.careContra.length?s.careContra.join(' · '):'Không có'), isVisits:s.view==='visits', isRecord:s.view==='record', isMe:s.view==='me', isPlace:s.view==='place',
       showTabs:s.view!=='onboard' && s.view!=='verify' && s.view!=='place' && s.view!=='recipe' && s.view!=='ktv' && s.view!=='session' && s.view!=='review' && s.view!=='policy' && s.view!=='rewards' && s.view!=='wallet' && s.view!=='referral' && s.view!=='family' && s.view!=='reminders' && s.view!=='chat' && s.view!=='report',

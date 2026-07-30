@@ -383,6 +383,14 @@
     <!-- Bộ chọn chế độ đã chuyển vào trong từng mục menu, không còn ở header:
          mỗi mục tự quyết định có cần lọc theo chế độ hay không (mục Tôi thì
          không, vì hồ sơ là của một người). -->
+    <!-- Thanh quay lại dùng chung cho mọi màn phụ, đặt trong header để nó không
+         cuộn theo nội dung. "<" trả về màn trước đó trong ngăn xếp. -->
+    <sc-if value="{{ canBack }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;align-items:center;gap:9px;padding:0 16px 10px">
+        <button sc-camel-on-click="{{ goBack }}" aria-label="Quay lại" style="flex:none;width:31px;height:31px;border-radius:50%;background:var(--line2);display:grid;place-items:center;color:var(--muted)"><svg sc-camel-view-box="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"></path></svg></button>
+        <span style="font-size:12.5px;font-weight:600;color:var(--muted)">{{ backTitle }}</span>
+      </div>
+    </sc-if>
   </header>
 
   <main class="body fu" key="{{ viewKey }}">
@@ -618,7 +626,6 @@
     <!-- ═══════ CHAT với khách ═══════ -->
     <sc-if value="{{ isChat }}" hint-placeholder-val="{{ false }}">
       <div class="card" style="padding:12px 14px;display:flex;align-items:center;gap:11px">
-        <button sc-camel-on-click="{{ goSession }}" aria-label="Quay lại" style="flex:none;width:32px;height:32px;border-radius:50%;background:var(--surface2);display:grid;place-items:center;color:var(--text2)"><svg sc-camel-view-box="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5l-7 7 7 7"></path></svg></button>
         <span style="flex:none;width:34px;height:34px;border-radius:50%;background:var(--goldTint);display:grid;place-items:center;font-weight:700;font-size:12px;color:var(--goldText)">MT</span>
         <span style="flex:1;min-width:0"><span style="display:block;font-size:13px;font-weight:600">Minh Trần</span><span style="display:block;font-size:10px;color:var(--ok)">● Người chăm sóc · đang hoạt động</span></span>
       </div>
@@ -1606,7 +1613,7 @@ class Component extends DCLogic {
   // Mỗi mục menu nhớ riêng chế độ đang xem: đổi sang "Làm tự do" ở Lịch làm thì
   // Khách hàng và Tài chính vẫn giữ lựa chọn cũ. Mục Tôi không có trong bảng này
   // vì hồ sơ là của một người, không phụ thuộc đang làm cho ai.
-  state = { theme:'serene', modes:{ home:'center', schedule:'center', clients:'center', wallet:'center' }, page:'home', avail:true, day:25, sess:'idle', sessNote:'', sessDone:['t1'],
+  state = { theme:'serene', modes:{ home:'center', schedule:'center', clients:'center', wallet:'center' }, page:'home', navStack:[], avail:true, day:25, sess:'idle', sessNote:'', sessDone:['t1'],
     // Lịch nhận khách của chế độ tự do. Mỗi khung giờ gồm: ngày trong tuần,
     // giờ bắt đầu/kết thúc, khu vực nhận, loại hình dịch vụ và ghi chú.
     slots: [
@@ -1667,6 +1674,28 @@ class Component extends DCLogic {
     return React.createElement('svg',{viewBox:'0 0 24 24',width:size||19,height:size||19,fill:'none',stroke:'currentColor',strokeWidth:1.75,strokeLinecap:'round',strokeLinejoin:'round',dangerouslySetInnerHTML:{__html:P[name]||P.home}});
   }
 
+  // ── Ngăn xếp điều hướng ──────────────────────────────────────────
+  // Giống app khách: năm mục ở thanh đáy là gốc, các màn còn lại xếp chồng lên
+  // và nút "<" trả về đúng màn trước đó.
+  static get ROOTS(){ return ['home','schedule','clients','wallet','me']; }
+  static get TITLES(){ return {
+    session:'Buổi làm việc', chat:'Nhắn tin', reviews:'Khách đánh giá'
+  }; }
+  setState(patch, cb){
+    const from = this.state.page, to = patch && patch.page;
+    if (to && to !== from && !this._popping) {
+      const stack = this.state.navStack || [];
+      patch = { ...patch, navStack: Component.ROOTS.includes(to) ? [] : [...stack, from] };
+    }
+    return super.setState(patch, cb);
+  }
+  back(){
+    const stack = this.state.navStack || [];
+    if (!stack.length) return;
+    this._popping = true;
+    this.setState({ page: stack[stack.length-1], navStack: stack.slice(0,-1) });
+    this._popping = false;
+  }
   go(p){ this.setState({page:p}); }
   goSched(tab){ this.setState({page:'schedule', schedTab:tab}); }
   // Đổi chế độ thì GIỮ NGUYÊN trang và tab đang xem, chỉ thay nội dung bên
@@ -2515,6 +2544,9 @@ theme:s.theme, themeDots,
       mFreeBg:free?'var(--primary)':'var(--bg)', mFreeBd:free?'var(--primary)':'var(--line)', mFreeFg:free?'var(--on-primary)':'var(--text)', mFreeSub:free?'var(--onPrimarySub)':'var(--text3)',
       homeCenter: s.page==='home' && !free,
       homeFree:   s.page==='home' && free,
+      canBack: (s.navStack||[]).length > 0,
+      backTitle: Component.TITLES[s.page] || '',
+      goBack: () => this.back(),
       isSchedule:s.page==='schedule', isClients:s.page==='clients', isWallet:s.page==='wallet', isMe:s.page==='me',
       nav, goSchedule:()=>this.goSched('list'), goRoute:()=>this.goSched('map'), goHome:()=>this.go('home'),
       // session
