@@ -489,6 +489,13 @@
 
       <!-- ═══ SCHEDULE BOARD ═══ -->
       <sc-if value="{{ isSchedule }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;gap:4px;padding:3px;border-radius:12px;background:var(--surface2);margin-bottom:16px;max-width:360px">
+          <sc-for list="{{ schTabs }}" as="t" hint-placeholder-count="2">
+            <button sc-camel-on-click="{{ t.pick }}" style="flex:1;padding:9px 8px;border-radius:9px;background:{{ t.bg }};color:{{ t.fg }};box-shadow:{{ t.sh }};font-size:12px;font-weight:600;white-space:nowrap">{{ t.t }}</button>
+          </sc-for>
+        </div>
+
+      <sc-if value="{{ schBoard }}" hint-placeholder-val="{{ true }}">
         <div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:14px">
           <sc-for list="{{ dayTabs }}" as="d" hint-placeholder-count="5">
             <button sc-camel-on-click="{{ d.pick }}" style="padding:8px 14px;border-radius:99px;font-size:12px;font-weight:600;background:{{ d.bg }};color:{{ d.fg }};border:1px solid {{ d.bd }}">{{ d.t }}</button>
@@ -528,6 +535,38 @@
           <span style="display:flex;align-items:center;gap:6px"><span style="width:11px;height:11px;border-radius:3px;background:var(--goldTint);border-left:3px solid var(--accent)"></span>Tại nhà khách</span>
           <span style="display:flex;align-items:center;gap:6px"><span style="width:11px;height:11px;border-radius:3px;background:var(--surface2);border-left:3px solid var(--text3)"></span>Nghỉ / bận</span>
         </div>
+      </sc-if>
+
+        <!-- ══ NGUỒN ĐẶT ══
+             Con số trung tâm cần để biết phí nền tảng có đáng hay không: bao
+             nhiêu buổi đến từ app ANWELL, bao nhiêu tự đến. -->
+        <sc-if value="{{ schSrc }}" hint-placeholder-val="{{ false }}">
+          <p style="font-size:12px;color:var(--text2);max-width:600px;margin-bottom:16px">Buổi trong tháng 7/2026 chia theo nơi khách đặt. Phần <b>từ app ANWELL</b> là khách nền tảng mang tới — đây là con số để bạn tự trả lời phí nền tảng có đáng hay không.</p>
+          <div class="g4" style="margin-bottom:16px">
+            <sc-for list="{{ srcKpis }}" as="k" hint-placeholder-count="4">
+              <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:15px">
+                <div style="font-size:10.5px;color:var(--text3);font-weight:600">{{ k.t }}</div>
+                <div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:25px;margin-top:5px;color:{{ k.c }}">{{ k.v }}</div>
+                <div style="font-size:10px;color:var(--text3);margin-top:2px">{{ k.sub }}</div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px">
+            <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:18px">Chia theo nguồn</div>
+            <div style="display:flex;flex-direction:column;gap:14px;margin-top:14px">
+              <sc-for list="{{ sources }}" as="o" hint-placeholder-count="4">
+                <div>
+                  <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap">
+                    <span style="font-size:12.5px;font-weight:600">{{ o.icon }} {{ o.t }}</span>
+                    <span style="font-size:12px;color:var(--text2)">{{ o.n }} buổi · {{ o.pct }} · {{ o.rev }}</span>
+                  </div>
+                  <div style="height:8px;border-radius:99px;background:var(--line2);margin-top:6px;overflow:hidden"><div style="height:100%;width:{{ o.pct }};background:{{ o.c }};border-radius:99px"></div></div>
+                  <p style="font-size:10.5px;line-height:1.55;color:var(--text3);margin-top:5px">{{ o.d }}</p>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
       </sc-if>
 
       <!-- ═══ YÊU CẦU TỪ KHÁCH ═══ -->
@@ -794,6 +833,13 @@
 
       <!-- ═══ FINANCE ═══ -->
       <sc-if value="{{ isFinance }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;gap:4px;padding:3px;border-radius:12px;background:var(--surface2);margin-bottom:16px;max-width:420px">
+          <sc-for list="{{ finTabs }}" as="t" hint-placeholder-count="2">
+            <button sc-camel-on-click="{{ t.pick }}" style="flex:1;padding:9px 8px;border-radius:9px;background:{{ t.bg }};color:{{ t.fg }};box-shadow:{{ t.sh }};font-size:12px;font-weight:600;white-space:nowrap">{{ t.t }}</button>
+          </sc-for>
+        </div>
+
+      <sc-if value="{{ finRev }}" hint-placeholder-val="{{ true }}">
         <div class="g4">
           <sc-for list="{{ finKpis }}" as="k" hint-placeholder-count="4">
             <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:15px">
@@ -836,6 +882,66 @@
             </div>
           </sc-for>
         </div>
+      </sc-if>
+
+        <!-- ══ ĐỐI SOÁT NỀN TẢNG ══
+             Trung tâm trả gì cho ANWELL và nhận lại gì. Để mờ chỗ này thì
+             trung tâm chỉ thấy khoản trừ, không thấy phần được. -->
+        <sc-if value="{{ finRecon }}" hint-placeholder-val="{{ false }}">
+          <p style="font-size:12px;color:var(--text2);max-width:620px;margin-bottom:16px">Kỳ 01–31/07/2026. Bảng này nói đủ hai chiều: bạn trả ANWELL bao nhiêu, và ANWELL mang lại cho bạn bao nhiêu.</p>
+          <div class="split">
+            <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px">
+              <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:18px">Bạn trả ANWELL</div>
+              <div style="display:flex;flex-direction:column;margin-top:12px">
+                <sc-for list="{{ reconOut }}" as="r" hint-placeholder-count="4">
+                  <div style="display:flex;justify-content:space-between;gap:10px;padding:11px 0;border-bottom:1px solid var(--line2)">
+                    <span style="min-width:0">
+                      <span style="display:block;font-size:12.5px;font-weight:{{ r.wt }};color:{{ r.fg }}">{{ r.k }}</span>
+                      <span style="display:block;font-size:10.5px;line-height:1.5;color:var(--text3);margin-top:2px">{{ r.d }}</span>
+                    </span>
+                    <span style="flex:none;font-size:13px;font-weight:700;color:{{ r.fg }}">{{ r.v }}</span>
+                  </div>
+                </sc-for>
+              </div>
+              <button sc-camel-on-click="{{ platformInvoice }}" style="width:100%;margin-top:14px;padding:12px;border-radius:11px;background:var(--surface2);color:var(--text2);font-size:12.5px;font-weight:600">Tải hoá đơn GTGT kỳ này</button>
+            </div>
+
+            <div style="background:var(--surface);border:1px solid var(--primary);border-radius:14px;padding:18px">
+              <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:18px;color:var(--primary)">ANWELL mang lại</div>
+              <div style="display:flex;flex-direction:column;margin-top:12px">
+                <sc-for list="{{ reconIn }}" as="r" hint-placeholder-count="4">
+                  <div style="display:flex;justify-content:space-between;gap:10px;padding:11px 0;border-bottom:1px solid var(--line2)">
+                    <span style="min-width:0">
+                      <span style="display:block;font-size:12.5px;font-weight:{{ r.wt }};color:{{ r.fg }}">{{ r.k }}</span>
+                      <span style="display:block;font-size:10.5px;line-height:1.5;color:var(--text3);margin-top:2px">{{ r.d }}</span>
+                    </span>
+                    <span style="flex:none;font-size:13px;font-weight:700;color:{{ r.fg }}">{{ r.v }}</span>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="margin-top:14px;padding:13px 15px;border-radius:11px;background:var(--tint)">
+                <div style="font-size:11px;font-weight:700;color:var(--primary)">Chênh lệch kỳ này</div>
+                <div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:26px;color:var(--primary);margin-top:3px">{{ reconNet }}</div>
+                <p style="font-size:10.5px;line-height:1.6;color:var(--text2);margin-top:5px">{{ reconNote }}</p>
+              </div>
+            </div>
+          </div>
+
+          <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:14px">
+            <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:18px">Chi phí thưởng ANP chia thế nào</div>
+            <p style="font-size:11.5px;line-height:1.7;color:var(--text2);margin-top:9px">Khách đổi điểm ANP ở cơ sở của bạn thì phần thưởng đó ai chịu? <b>Chia tỷ lệ</b>: ANWELL chịu phần lợi ích chung của mạng, bạn chịu phần phát sinh tại cơ sở mình. Tỷ lệ hiện tại {{ anpSplit }}.</p>
+            <div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap">
+              <sc-for list="{{ anpRows }}" as="a" hint-placeholder-count="3">
+                <div style="flex:1;min-width:150px;padding:13px;border-radius:11px;background:var(--surface2)">
+                  <div style="font-size:9.5px;font-weight:700;letter-spacing:.1em;color:var(--text3);text-transform:uppercase">{{ a.t }}</div>
+                  <div style="font-size:17px;font-weight:700;margin-top:4px;color:{{ a.c }}">{{ a.v }}</div>
+                  <div style="font-size:10px;color:var(--text3);margin-top:2px">{{ a.d }}</div>
+                </div>
+              </sc-for>
+            </div>
+            <p style="font-size:10.5px;line-height:1.6;color:var(--text3);margin-top:11px">Điểm riêng của An Nhiên không nằm trong bảng này — đó là chương trình của bạn, bạn tự chịu và tự đặt luật.</p>
+          </div>
+        </sc-if>
       </sc-if>
 
       <!-- ═══ QUALITY ═══ -->
@@ -2168,6 +2274,60 @@ class Component extends DCLogic {
           })()
         };
       })(),
+      // ── Nguồn đặt & đối soát nền tảng ───────────────────────────
+      ...(() => {
+        const schTab = this.tabOf('schedule', 'board');
+        const finTab = this.tabOf('finance', 'rev');
+        // Buổi tháng 7 chia theo nơi khách đặt. Tổng 1.184 buổi.
+        const SRC = [
+          { icon:'🌐', t:'App ANWELL',       n:486, rev:'212,8tr', c:'var(--primary)',
+            d:'Khách tìm thấy An Nhiên qua nền tảng. Đây là phần bạn trả phí để có.' },
+          { icon:'🔁', t:'Khách quen đặt lại', n:398, rev:'174,2tr', c:'var(--accent)',
+            d:'Đã từng đến, giờ tự đặt lại qua app hoặc gọi. Nền tảng giữ chân giúp, nhưng khách là của bạn.' },
+          { icon:'📞', t:'Gọi điện · lễ tân đặt hộ', n:212, rev:'92,8tr', c:'var(--gold)',
+            d:'Khách gọi thẳng, lễ tân nhập vào hệ thống. Không mất phí nền tảng.' },
+          { icon:'🚶', t:'Khách vãng lai',    n:88,  rev:'38,5tr',  c:'var(--text3)',
+            d:'Đi ngang ghé vào. Không mất phí nền tảng.' }
+        ];
+        const total = SRC.reduce((a,x) => a + x.n, 0);
+        const fromApp = SRC[0].n;
+        return {
+          schTabs: this.tabBar('schedule', [['board','Bảng ngày'], ['src','Nguồn đặt']]),
+          schBoard: schTab==='board', schSrc: schTab==='src',
+          srcKpis: [
+            { t:'Tổng buổi tháng 7', v: total.toLocaleString('vi-VN'), sub:'Cả bốn nguồn', c:'var(--text)' },
+            { t:'Từ app ANWELL', v: Math.round(fromApp/total*100) + '%', sub: fromApp + ' buổi', c:'var(--primary)' },
+            { t:'Doanh thu từ nền tảng', v:'212,8tr', sub:'Trước chiết khấu', c:'var(--primary)' },
+            { t:'Phí đã trả cho phần đó', v:'31,9tr', sub:'15% · xem tab Đối soát', c:'var(--accent)' }
+          ],
+          sources: SRC.map(o => ({ ...o, pct: Math.round(o.n/total*100) + '%' })),
+
+          finTabs: this.tabBar('finance', [['rev','Doanh thu'], ['recon','Đối soát nền tảng']]),
+          finRev: finTab==='rev', finRecon: finTab==='recon',
+          reconOut: [
+            { k:'Chiết khấu nền tảng 15%', v:'−31,9tr', d:'Chỉ tính trên 486 buổi khách đến từ app ANWELL, không tính khách bạn tự có', fg:'var(--text)', wt:'600' },
+            { k:'Chi phí thưởng ANP · phần của bạn', v:'−3,6tr', d:'42 lượt đổi tại cơ sở bạn · bạn chịu 60%, ANWELL chịu 40%', fg:'var(--text)', wt:'600' },
+            { k:'Tin nhắn ZNS đã gửi', v:'−0,8tr', d:'2.640 tin trong tháng', fg:'var(--text)', wt:'600' },
+            { k:'Tổng phải trả', v:'−36,3tr', d:'Đã trừ vào kỳ chuyển 05/08', fg:'var(--danger)', wt:'700' }
+          ],
+          reconIn: [
+            { k:'Doanh thu từ khách nền tảng', v:'212,8tr', d:'486 buổi · khách bạn chưa từng có', fg:'var(--text)', wt:'600' },
+            { k:'Khách mới giữ lại được', v:'118 khách', d:'Đến lần đầu qua app, giờ là khách quen của bạn', fg:'var(--text)', wt:'600' },
+            { k:'Ca lấp giờ trống', v:'92 buổi', d:'Khung 14–16h vốn để không', fg:'var(--text)', wt:'600' },
+            { k:'Giá trị mang lại', v:'212,8tr', d:'Chưa tính phần khách quen quay lại về sau', fg:'var(--primary)', wt:'700' }
+          ],
+          reconNet: '+176,5tr',
+          reconNote: 'Trả 36,3tr, nhận về 212,8tr doanh thu từ khách nền tảng. Con số này không tính phần 118 khách mới sẽ quay lại các tháng sau mà bạn không phải trả phí nữa.',
+          platformInvoice: () => {},
+          anpSplit: '40% ANWELL · 60% trung tâm',
+          anpRows: [
+            { t:'Khách đổi thưởng tại cơ sở bạn', v:'6,0tr', d:'42 lượt đổi trong tháng', c:'var(--text)' },
+            { t:'ANWELL chịu', v:'2,4tr', d:'40% · phần lợi ích chung của mạng', c:'var(--primary)' },
+            { t:'Bạn chịu', v:'3,6tr', d:'60% · phần phát sinh tại cơ sở bạn', c:'var(--accent)' }
+          ]
+        };
+      })(),
+
       // ── Chăm sóc & ưu đãi ───────────────────────────────────────
       // Ưu đãi bật lên là hiện ở "ƯU ĐÃI GẦN BẠN" bên app khách. Trước đây mục
       // đó có sẵn mà không ai đăng được gì vào.
