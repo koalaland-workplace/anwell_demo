@@ -1155,6 +1155,131 @@
         </div>
       </sc-if>
 
+      <!-- ══════════ SAU ĐĂNG KÝ ══════════
+           Chia nhỏ mỗi màn 1–2 câu thay vì một biểu mẫu dài — biểu mẫu dài làm
+           người ta bỏ giữa chừng. Mỗi bước có "Để sau" riêng, bỏ dở vẫn giữ
+           những gì đã điền. -->
+      <sc-if value="{{ isReg }}" hint-placeholder-val="{{ false }}">
+        <div class="body pad view">
+
+          <!-- ① BẢO MẬT TÀI KHOẢN -->
+          <sc-if value="{{ reg1 }}" hint-placeholder-val="{{ true }}">
+            <p style="font:700 10px ui-monospace,monospace;letter-spacing:.18em;color:var(--text3);text-transform:uppercase;margin-top:18px">Bảo mật · tuỳ chọn</p>
+            <h1 style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:24px;line-height:1.18;margin:8px 0 0">Giữ tài khoản <span style="font-style:italic;color:var(--accent)">an toàn</span></h1>
+            <p style="font-size:12px;color:var(--text3);line-height:1.55;margin:6px 0 0">Số điện thoại của bạn đã xác thực. Hai bước dưới đây <strong>không bắt buộc</strong> — bỏ qua thì vẫn đăng nhập bằng mã OTP như bình thường.</p>
+
+            <p class="secTitle">ĐẶT MẬT KHẨU · tuỳ chọn</p>
+            <input type="password" value="{{ regPwd }}" sc-camel-on-input="{{ onRegPwd }}" placeholder="Ít nhất 6 ký tự" aria-label="Mật khẩu" style="width:100%;padding:14px;border-radius:var(--r-sm);border:1px solid var(--card-border);background:var(--surface);color:var(--text);font-size:14px;font-family:inherit">
+            <p style="font-size:11px;line-height:1.55;color:var(--text3);margin-top:7px">Có mật khẩu thì lần sau vào nhanh, không phải chờ tin nhắn. Không đặt cũng không sao.</p>
+
+            <p class="secTitle">ĐĂNG NHẬP BẰNG KHUÔN MẶT</p>
+            <div style="display:flex;align-items:center;gap:12px;padding:15px;border-radius:var(--r-sm);background:var(--surface);border:1px solid var(--card-border);box-shadow:var(--sh)">
+              <span style="flex:none;font-size:20px">🙂</span>
+              <span style="flex:1;min-width:0">
+                <span style="display:block;font-size:13px;font-weight:600">Dùng Face ID của điện thoại</span>
+                <span style="display:block;font-size:10.5px;color:var(--text3);margin-top:2px">Một chạm là vào, không cần nhập gì</span>
+              </span>
+              <button sc-camel-on-click="{{ toggleFace }}" aria-label="Đăng nhập bằng khuôn mặt" style="flex:none;width:46px;height:27px;border-radius:99px;background:{{ faceTrack }};position:relative;transition:background .2s">
+                <span style="position:absolute;top:3px;left:{{ faceKnob }};width:21px;height:21px;border-radius:50%;background:var(--surface);box-shadow:0 2px 5px rgba(0,0,0,.24);transition:left .2s"></span>
+              </button>
+            </div>
+            <!-- Nói thẳng chỗ này: vừa đúng sự thật, vừa là điểm tin cậy -->
+            <p style="font-size:11px;line-height:1.6;color:var(--text2);margin-top:9px;padding:11px 13px;border-radius:11px;background:var(--surface2)">🔒 Điện thoại của bạn tự xác thực. <strong>ANWELL không nhận và không lưu ảnh khuôn mặt</strong> — chúng tôi chỉ biết máy đã xác nhận đúng chủ.</p>
+
+            <button sc-camel-on-click="{{ regNext }}" style="width:100%;margin-top:22px;padding:15px;border-radius:var(--r-sm);background:var(--primary);color:var(--on-primary);font-weight:600;font-size:15px">Tiếp tục</button>
+          </sc-if>
+
+          <!-- ② LỜI MỜI -->
+          <sc-if value="{{ reg2 }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:34px 0 6px;text-align:center">
+              <span style="font-size:34px">👋</span>
+              <h1 style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:25px;line-height:1.2;margin:14px 0 0">Cho chúng tôi biết thêm <span style="font-style:italic;color:var(--accent)">về bạn?</span></h1>
+              <p style="font-size:12.5px;color:var(--text2);line-height:1.6;margin:10px 0 0">Bốn câu ngắn, khoảng một phút. Biết rõ hơn thì chúng tôi gợi ý đúng kỹ thuật viên và dịch vụ hợp với bạn, thay vì đưa danh sách chung chung.</p>
+            </div>
+            <div style="flex:1"></div>
+            <button sc-camel-on-click="{{ regNext }}" style="width:100%;padding:15px;border-radius:var(--r-sm);background:var(--primary);color:var(--on-primary);font-weight:600;font-size:15px">Bắt đầu</button>
+            <button sc-camel-on-click="{{ regSkip }}" style="width:100%;margin-top:10px;padding:15px;border-radius:var(--r-sm);background:var(--surface);border:1px solid var(--card-border);color:var(--text2);font-weight:600;font-size:15px">Để sau</button>
+            <p style="text-align:center;font-size:11px;color:var(--text3);margin-top:12px">Bỏ qua cũng dùng được đầy đủ. Bổ sung lúc nào cũng được trong mục Tôi.</p>
+          </sc-if>
+
+          <!-- ③ NGÀY SINH · GIỚI TÍNH -->
+          <sc-if value="{{ reg3 }}" hint-placeholder-val="{{ false }}">
+            <p style="font:700 10px ui-monospace,monospace;letter-spacing:.18em;color:var(--text3);text-transform:uppercase;margin-top:18px">Câu 1/4</p>
+            <h1 style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:23px;line-height:1.2;margin:8px 0 0">Ngày sinh và giới tính</h1>
+
+            <p class="secTitle">NGÀY SINH</p>
+            <input type="date" value="{{ regDob }}" sc-camel-on-input="{{ onRegDob }}" aria-label="Ngày sinh" style="width:100%;padding:14px;border-radius:var(--r-sm);border:1px solid var(--card-border);background:var(--surface);color:var(--text);font-size:14px;font-family:inherit">
+            <p style="font-size:11px;line-height:1.55;color:var(--text3);margin-top:7px">Nhóm tuổi ảnh hưởng đến chỉ định trị liệu — người trên 65 có lưu ý riêng về lực và tư thế.</p>
+
+            <p class="secTitle">GIỚI TÍNH</p>
+            <div style="display:flex;flex-wrap:wrap;gap:7px">
+              <sc-for list="{{ genderOpts }}" as="g" hint-placeholder-count="3">
+                <button sc-camel-on-click="{{ g.pick }}" style="padding:10px 16px;border-radius:99px;background:{{ g.bg }};color:{{ g.fg }};border:1px solid {{ g.bd }};font-size:13px;font-weight:600">{{ g.t }}</button>
+              </sc-for>
+            </div>
+            <p style="font-size:11px;line-height:1.55;color:var(--text3);margin-top:7px">Nhiều khách muốn chọn kỹ thuật viên cùng giới, nhất là với dịch vụ toàn thân. Không bắt buộc nêu.</p>
+
+            <div style="flex:1"></div>
+            <button sc-camel-on-click="{{ regNext }}" style="width:100%;margin-top:22px;padding:15px;border-radius:var(--r-sm);background:var(--primary);color:var(--on-primary);font-weight:600;font-size:15px">Tiếp</button>
+            <button sc-camel-on-click="{{ regSkip }}" style="width:100%;margin-top:9px;padding:12px;color:var(--text3);font-size:13px;font-weight:600">Để sau</button>
+          </sc-if>
+
+          <!-- ④ ĐỊA CHỈ -->
+          <sc-if value="{{ reg4 }}" hint-placeholder-val="{{ false }}">
+            <p style="font:700 10px ui-monospace,monospace;letter-spacing:.18em;color:var(--text3);text-transform:uppercase;margin-top:18px">Câu 2/4</p>
+            <h1 style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:23px;line-height:1.2;margin:8px 0 0">Bạn ở đâu?</h1>
+
+            <p class="secTitle">ĐỊA CHỈ NHÀ</p>
+            <input type="text" value="{{ regAddr }}" sc-camel-on-input="{{ onRegAddr }}" placeholder="Số nhà, đường, phường, quận" aria-label="Địa chỉ nhà" style="width:100%;padding:14px;border-radius:var(--r-sm);border:1px solid var(--card-border);background:var(--surface);color:var(--text);font-size:14px;font-family:inherit">
+            <p style="font-size:11px;line-height:1.55;color:var(--text3);margin-top:7px">Dùng khi kỹ thuật viên đến tận nơi và khi xuất hoá đơn.</p>
+
+            <p class="secTitle">KHU VỰC HAY LUI TỚI</p>
+            <div style="display:flex;flex-wrap:wrap;gap:7px">
+              <sc-for list="{{ areaOpts }}" as="a" hint-placeholder-count="8">
+                <button sc-camel-on-click="{{ a.pick }}" style="padding:9px 13px;border-radius:99px;background:{{ a.bg }};color:{{ a.fg }};border:1px solid {{ a.bd }};font-size:12.5px;font-weight:600">{{ a.t }}</button>
+              </sc-for>
+            </div>
+            <p style="font-size:11px;line-height:1.55;color:var(--text3);margin-top:7px">Nơi bạn hay có mặt — gần công ty, gần nhà bố mẹ. Dùng để gợi ý cơ sở tiện đường, khác với địa chỉ nhà ở trên.</p>
+
+            <div style="flex:1"></div>
+            <button sc-camel-on-click="{{ regNext }}" style="width:100%;margin-top:22px;padding:15px;border-radius:var(--r-sm);background:var(--primary);color:var(--on-primary);font-weight:600;font-size:15px">Tiếp</button>
+            <button sc-camel-on-click="{{ regSkip }}" style="width:100%;margin-top:9px;padding:12px;color:var(--text3);font-size:13px;font-weight:600">Để sau</button>
+          </sc-if>
+
+          <!-- ⑤ QUAN TÂM DỊCH VỤ -->
+          <sc-if value="{{ reg5 }}" hint-placeholder-val="{{ false }}">
+            <p style="font:700 10px ui-monospace,monospace;letter-spacing:.18em;color:var(--text3);text-transform:uppercase;margin-top:18px">Câu 3/4</p>
+            <h1 style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:23px;line-height:1.2;margin:8px 0 0">Bạn quan tâm dịch vụ nào?</h1>
+            <p style="font-size:12px;color:var(--text3);line-height:1.55;margin:6px 0 0">Chọn nhiều được. Chúng tôi ưu tiên hiển thị những thứ bạn quan tâm khi mở app.</p>
+
+            <div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:16px">
+              <sc-for list="{{ interestOpts }}" as="c" hint-placeholder-count="7">
+                <button sc-camel-on-click="{{ c.pick }}" style="padding:10px 14px;border-radius:99px;background:{{ c.bg }};color:{{ c.fg }};border:1px solid {{ c.bd }};font-size:12.5px;font-weight:600">{{ c.t }}</button>
+              </sc-for>
+            </div>
+
+            <div style="flex:1"></div>
+            <button sc-camel-on-click="{{ regNext }}" style="width:100%;margin-top:22px;padding:15px;border-radius:var(--r-sm);background:var(--primary);color:var(--on-primary);font-weight:600;font-size:15px">Tiếp</button>
+            <button sc-camel-on-click="{{ regSkip }}" style="width:100%;margin-top:9px;padding:12px;color:var(--text3);font-size:13px;font-weight:600">Để sau</button>
+          </sc-if>
+
+          <!-- ⑥ SỨC KHOẺ — dẫn sang màn đã có, không hỏi lại -->
+          <sc-if value="{{ reg6 }}" hint-placeholder-val="{{ false }}">
+            <p style="font:700 10px ui-monospace,monospace;letter-spacing:.18em;color:var(--text3);text-transform:uppercase;margin-top:18px">Câu 4/4</p>
+            <h1 style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:23px;line-height:1.2;margin:8px 0 0">Có điều gì cần <span style="font-style:italic;color:var(--accent)">lưu tâm?</span></h1>
+            <p style="font-size:12.5px;color:var(--text2);line-height:1.6;margin:8px 0 0">Bệnh nền, thuốc đang dùng, dị ứng — kỹ thuật viên cần biết trước để buổi trị liệu an toàn. Có tình trạng nào thì hệ thống tự cảnh báo dịch vụ cần tránh.</p>
+
+            <div style="margin-top:16px;padding:15px;border-radius:var(--r-sm);background:var(--surface);border:1px solid var(--card-border);box-shadow:var(--sh)">
+              <p style="font-size:11.5px;line-height:1.6;color:var(--text2)">Ví dụ: khai <strong>huyết áp cao</strong> thì khi bạn chọn trị liệu đá nóng, app sẽ nhắc ngay — vì nhiệt cao làm giãn mạch, dễ tụt huyết áp đột ngột.</p>
+            </div>
+
+            <div style="flex:1"></div>
+            <button sc-camel-on-click="{{ regHealth }}" style="width:100%;margin-top:22px;padding:15px;border-radius:var(--r-sm);background:var(--primary);color:var(--on-primary);font-weight:600;font-size:15px">Khai hồ sơ sức khoẻ</button>
+            <button sc-camel-on-click="{{ regSkip }}" style="width:100%;margin-top:9px;padding:12px;color:var(--text3);font-size:13px;font-weight:600">Để sau</button>
+          </sc-if>
+        </div>
+      </sc-if>
+
       <sc-if value="{{ isReview }}" hint-placeholder-val="{{ false }}">
         <div class="body pad view">
           <div style="display:flex;align-items:center;gap:10px;padding:12px 0 4px">
@@ -1662,6 +1787,20 @@
             <h1 style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:23px;margin:12px 0 0;color:var(--text)">Minh Trần</h1>
             <p style="font-size:11px;color:var(--text3);margin:2px 0 0">Người chăm sóc · Thành viên từ 2024</p>
           </div>
+
+          <!-- Ai bấm "Để sau" lúc đăng ký thì đây là chỗ họ quay lại. Không chặn,
+               không nhắc nhiều lần — chỉ nói còn thiếu gì và vì sao nên bổ sung. -->
+          <sc-if value="{{ profTodo }}" hint-placeholder-val="{{ true }}">
+            <button sc-camel-on-click="{{ goProfile }}" style="width:100%;text-align:left;margin-top:16px;border-radius:var(--r);padding:14px 16px;background:var(--surface);border:1px solid var(--card-border)">
+              <div style="display:flex;justify-content:space-between;align-items:baseline">
+                <p style="font:700 9px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase">Hồ sơ của bạn</p>
+                <span style="font-size:12px;font-weight:700;color:var(--primary)">{{ profPct }}</span>
+              </div>
+              <div style="height:6px;border-radius:99px;background:var(--surface2);margin-top:9px;overflow:hidden"><div style="height:100%;width:{{ profPct }};background:var(--primary);border-radius:99px"></div></div>
+              <p style="font-size:11px;color:var(--text2);margin:9px 0 0">{{ profHint }} — hồ sơ đầy đủ thì gợi ý kỹ thuật viên và dịch vụ sát với bạn hơn.</p>
+              <p style="font-size:11px;font-weight:600;color:var(--primary);margin:6px 0 0">Bổ sung ngay →</p>
+            </button>
+          </sc-if>
 
           <button sc-camel-on-click="{{ goRewards }}" style="width:100%;text-align:left;margin-top:16px;border-radius:var(--r);padding:16px;background:var(--hero);color:var(--hero-text);box-shadow:0 16px 34px -14px rgba(12,63,54,.5)">
             <div style="display:flex;justify-content:space-between;align-items:flex-start">
@@ -2183,6 +2322,9 @@
 <script type="text/x-dc" data-dc-script="" data-props="{&quot;$preview&quot;:{&quot;width&quot;:760,&quot;height&quot;:980}}">
 class Component extends DCLogic {
   state = { theme:'serene', view:'onboard', ob:1, need:'ache',
+    // ── luồng sau đăng ký ──
+    regStep:1, regPwd:'', faceOn:false,
+    regDob:'', regGender:'', regAddr:'', regAreas:[], regInterests:[],
     // Nhắc buổi hẹn (ở Lịch hẹn) và nhắc bài tập (ở Tiến triển) — hai nhóm
     // khác bản chất nên tách, trước đây gộp chung một mục trong Tiện ích.
     apptRem:{ before1d:true, before2h:true, ktvOnWay:true },
@@ -2342,6 +2484,68 @@ class Component extends DCLogic {
         bg: on ? (n<=3?'#2E8567':n<=6?'#B9893B':'#B3261E') : 'var(--surface2)',
         fg: on ? '#fff' : 'var(--text3)' };
     });
+
+    // Danh mục loại hình dùng chung cho bộ lọc đặt lịch và mục quan tâm.
+    const SVCS = [
+      ['vaigay','Cổ vai gáy'], ['chan','Massage chân'], ['toanthan','Toàn thân'],
+      ['coxuong','Nhức mỏi cơ xương khớp'], ['phocap','Massage phổ thông'],
+      ['thugian','Thư giãn'], ['sacdep','Chăm sóc sắc đẹp']
+    ];
+
+    // ── luồng sau đăng ký ──────────────────────────────────────────
+    // Sáu bước nhỏ thay vì một biểu mẫu dài. "Để sau" ở bước nào cũng thoát
+    // được, và những gì đã điền vẫn giữ.
+    const GENDERS = ['Nữ','Nam','Khác · không muốn nêu'];
+    const AREAS   = ['Q.1','Q.3','Q.7','Q.10','Q.Bình Thạnh','Q.Phú Nhuận','Q.Gò Vấp','TP.Thủ Đức'];
+    const pill = (t, on, tap) => ({ t, pick:tap,
+      bg: on ? 'var(--primary)' : 'var(--surface)',
+      fg: on ? 'var(--on-primary)' : 'var(--text)',
+      bd: on ? 'var(--primary)' : 'var(--card-border)' });
+    const toggleIn = (field, v) => {
+      const cur = s[field];
+      this.setState({ [field]: cur.includes(v) ? cur.filter(x=>x!==v) : [...cur, v] });
+    };
+    const regVals = {
+      isReg: s.view === 'reg',
+      reg1: s.view==='reg' && s.regStep===1, reg2: s.view==='reg' && s.regStep===2,
+      reg3: s.view==='reg' && s.regStep===3, reg4: s.view==='reg' && s.regStep===4,
+      reg5: s.view==='reg' && s.regStep===5, reg6: s.view==='reg' && s.regStep===6,
+      regNext: () => s.regStep >= 6 ? this.setState({view:'book'}) : this.setState({regStep:s.regStep+1}),
+      regSkip: () => this.setState({ view:'book' }),
+      regHealth: () => this.setState({ view:'health' }),
+      regPwd: s.regPwd,
+      onRegPwd: (e)=>this.set({ regPwd:e.target.value }),
+      toggleFace: () => this.setState({ faceOn: !s.faceOn }),
+      faceTrack: s.faceOn ? 'var(--primary)' : 'var(--border)',
+      faceKnob:  s.faceOn ? '22px' : '3px',
+      regDob: s.regDob, onRegDob: (e)=>this.set({ regDob:e.target.value }),
+      genderOpts: GENDERS.map(g => pill(g, s.regGender===g, ()=>this.set({regGender:g}))),
+      regAddr: s.regAddr, onRegAddr: (e)=>this.set({ regAddr:e.target.value }),
+      areaOpts: AREAS.map(a => pill(a, s.regAreas.includes(a), ()=>toggleIn('regAreas', a))),
+      interestOpts: SVCS.map(([k,t]) => pill(t, s.regInterests.includes(k), ()=>toggleIn('regInterests', k))),
+      // Thanh tiến độ hồ sơ ở mục Tôi — nhắc nhẹ phần còn thiếu, không ép.
+      // Khách bấm "Để sau" thì đây là chỗ họ quay lại khi thấy cần.
+      ...(() => {
+        const fields = [
+          [!!s.regDob,                'ngày sinh'],
+          [!!s.regGender,             'giới tính'],
+          [!!s.regAddr.trim(),        'địa chỉ nhà'],
+          [s.regAreas.length > 0,     'khu vực hay lui tới'],
+          [s.regInterests.length > 0, 'dịch vụ quan tâm'],
+          [s.hSelf.conds.length > 0,  'hồ sơ sức khoẻ']
+        ];
+        const done = fields.filter(f => f[0]).length;
+        const missing = fields.filter(f => !f[0]).map(f => f[1]);
+        return {
+          profPct:  Math.round(done / fields.length * 100) + '%',
+          profTodo: done < fields.length,
+          profHint: missing.length
+            ? 'Còn thiếu ' + missing.slice(0, 2).join(', ') + (missing.length > 2 ? '…' : '')
+            : 'Hồ sơ đã đầy đủ',
+          goProfile: () => this.setState({ view:'reg', regStep:3 })
+        };
+      })()
+    };
 
     // ── nhắc lịch, tách hai nhóm ───────────────────────────────────
     const remToggle = (grp, k) => this.setState(grp === 'appt'
@@ -2517,11 +2721,6 @@ class Component extends DCLogic {
       bd: on ? 'var(--primary)' : 'var(--card-border)',
       fg: on ? 'var(--primary)' : 'var(--text)' });
 
-    const SVCS = [
-      ['vaigay','Cổ vai gáy'], ['chan','Massage chân'], ['toanthan','Toàn thân'],
-      ['coxuong','Nhức mỏi cơ xương khớp'], ['phocap','Massage phổ thông'],
-      ['thugian','Thư giãn'], ['sacdep','Chăm sóc sắc đẹp']
-    ];
     const RECS = [
       ['dotquy','Sau đột quỵ'], ['khop','Sau mổ khớp'], ['hausan','Hậu sản'],
       ['caotuoi','Người cao tuổi'], ['manTinh','Bệnh mạn tính']
@@ -2916,7 +3115,7 @@ class Component extends DCLogic {
         affFg: k.center ? 'var(--text3)' : 'var(--primary)',
         pick:()=>this.setState({ ktvSel:k, view:'ktv' }) })),
       meGoSpa:()=>this.setState({need:'spa',view:'book',book:1,booked:false}),
-      ...bookFilters, ...sessionVals, ...healthVals, ...remindVals,
+      ...bookFilters, ...sessionVals, ...healthVals, ...remindVals, ...regVals,
       // Có lịch chăm sóc người thân hay không — dữ liệu thật, không phải bộ chọn.
       hasCare: !!s.carePlan,
       // Cắt phần sau dấu · trước rồi mới lấy tên gọi, nếu không sẽ ra chữ đầu
@@ -2948,7 +3147,11 @@ class Component extends DCLogic {
       verifyLead:  s.pendingAction==='auth'
         ? 'Nhập số điện thoại để tạo tài khoản mới hoặc đăng nhập. Chưa có tài khoản thì hệ thống tự tạo giúp bạn.'
         : 'Để giữ lịch và liên hệ khi kỹ thuật viên đến, vui lòng cung cấp thông tin và xác thực số điện thoại.',
-      finishVerify:()=>{ const k=s.pendingAction; this.setState({ verified:true, view: k==='care'?'carebook':'book', booked: k==='book'?true:s.booked, careDone: k==='care'?true:s.careDone }); },
+      // Xác thực xong: nếu vào từ nút Đăng ký/Đăng nhập thì dẫn tiếp sang phần
+      // làm quen; còn nếu đang giữa chừng đặt lịch thì trả về đúng chỗ đang dở.
+      finishVerify:()=>{ const k=s.pendingAction; this.setState({ verified:true,
+        view: k==='auth' ? 'reg' : (k==='care' ? 'carebook' : 'book'), regStep:1,
+        booked: k==='book'?true:s.booked, careDone: k==='care'?true:s.careDone }); },
       areas, centers, days, slots, summary,
       // pain
       pain:s.pain, painCap:this.painCaption(s.pain), painDots,
