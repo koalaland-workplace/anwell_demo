@@ -795,6 +795,99 @@
            Phía đối ứng của các luồng KTV gửi lên: đổi giờ, huỷ ca, xin thêm
            việc (chờ duyệt); báo bận khẩn cấp (đã có hiệu lực, chỉ cần điều
            phối lại); ca đã phân chờ KTV xác nhận; và khung giờ rảnh KTV khai. -->
+      <!-- ═══ LIỆU TRÌNH & GÓI ═══
+           Trước đây app khách hiện "còn 14/20 buổi" và KTV hiện "buổi 7/20",
+           nhưng trung tâm không có chỗ nào tạo gói, bán gói hay trừ buổi. Đây
+           là chỗ đó. -->
+      <sc-if value="{{ isPackages }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;gap:4px;padding:3px;border-radius:12px;background:var(--surface2);margin-bottom:16px;max-width:520px">
+          <sc-for list="{{ pkgTabs }}" as="t" hint-placeholder-count="3">
+            <button sc-camel-on-click="{{ t.pick }}" style="flex:1;padding:9px 8px;border-radius:9px;background:{{ t.bg }};color:{{ t.fg }};box-shadow:{{ t.sh }};font-size:12px;font-weight:600;white-space:nowrap">{{ t.t }}<sc-if value="{{ t.hasN }}" hint-placeholder-val="{{ true }}"><span style="margin-left:5px;font-size:10px;font-weight:700;color:#fff;background:var(--dangerSolid);border-radius:99px;padding:1px 6px">{{ t.n }}</span></sc-if></button>
+          </sc-for>
+        </div>
+
+        <!-- ── Gói đang bán ── -->
+        <sc-if value="{{ pkgSell }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+            <p style="font-size:12px;color:var(--text2);max-width:560px">Gói là nhiều buổi bán trước với giá tốt hơn mua lẻ. Khách thấy gói đang dùng và số buổi còn lại ngay trong app; kỹ thuật viên thấy “buổi mấy trên mấy” khi vào ca.</p>
+            <button sc-camel-on-click="{{ addPkg }}" style="flex:none;padding:10px 16px;border-radius:10px;background:var(--primary);color:var(--on-primary);font-size:12.5px;font-weight:600;white-space:nowrap">+ Tạo gói</button>
+          </div>
+          <div class="g2s" style="display:grid;gap:12px">
+            <sc-for list="{{ pkgDefs }}" as="g" hint-placeholder-count="3">
+              <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px">
+                <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px">
+                  <div style="flex:1;min-width:0">
+                    <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:17px">{{ g.t }}</div>
+                    <div style="font-size:11.5px;color:var(--text3);margin-top:3px">{{ g.svc }}</div>
+                  </div>
+                  <span style="flex:none;font-size:9px;font-weight:700;color:{{ g.stFg }};background:{{ g.stBg }};padding:3px 9px;border-radius:99px">{{ g.st }}</span>
+                </div>
+                <div style="display:flex;gap:18px;margin-top:13px;padding-top:13px;border-top:1px solid var(--line2);flex-wrap:wrap">
+                  <span><span style="display:block;font-size:9.5px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;font-weight:700">Số buổi</span><span style="display:block;font-size:14px;font-weight:700;margin-top:3px">{{ g.n }}</span></span>
+                  <span><span style="display:block;font-size:9.5px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;font-weight:700">Giá gói</span><span style="display:block;font-size:14px;font-weight:700;margin-top:3px;color:var(--primary)">{{ g.price }}</span></span>
+                  <span><span style="display:block;font-size:9.5px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;font-weight:700">So với lẻ</span><span style="display:block;font-size:14px;font-weight:700;margin-top:3px;color:var(--ok)">{{ g.save }}</span></span>
+                  <span><span style="display:block;font-size:9.5px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;font-weight:700">Hạn dùng</span><span style="display:block;font-size:14px;font-weight:700;margin-top:3px">{{ g.exp }}</span></span>
+                </div>
+                <div style="display:flex;align-items:center;gap:10px;margin-top:12px;padding-top:12px;border-top:1px solid var(--line2)">
+                  <span style="flex:1;font-size:11px;color:var(--text3)">{{ g.sold }} khách đang dùng · đã bán {{ g.rev }}</span>
+                  <button sc-camel-on-click="{{ g.sell }}" style="flex:none;padding:8px 13px;border-radius:9px;background:var(--tint);color:var(--primary);font-size:11.5px;font-weight:700">Bán cho khách</button>
+                  <button sc-camel-on-click="{{ g.edit }}" style="flex:none;padding:8px 13px;border-radius:9px;background:var(--surface2);color:var(--text2);font-size:11.5px;font-weight:600">Sửa</button>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <!-- ── Khách đang dùng ── -->
+        <sc-if value="{{ pkgUsing }}" hint-placeholder-val="{{ false }}">
+          <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden">
+            <div style="display:grid;grid-template-columns:1.5fr 1.6fr 1fr .9fr;gap:10px;padding:12px 16px;border-bottom:1px solid var(--line);font-size:9.5px;font-weight:700;letter-spacing:.12em;color:var(--text3);text-transform:uppercase">
+              <span>Khách</span><span>Gói</span><span>Tiến độ</span><span class="hideSm">Hạn dùng</span>
+            </div>
+            <sc-for list="{{ pkgHolders }}" as="h" hint-placeholder-count="4">
+              <button sc-camel-on-click="{{ h.open }}" style="width:100%;text-align:left;display:grid;grid-template-columns:1.5fr 1.6fr 1fr .9fr;gap:10px;padding:13px 16px;border-bottom:1px solid var(--line2);align-items:center">
+                <span style="display:flex;align-items:center;gap:9px;min-width:0">
+                  <span style="flex:none;width:30px;height:30px;border-radius:50%;background:var(--tint);display:grid;place-items:center;font-size:10.5px;font-weight:700;color:var(--primary)">{{ h.i }}</span>
+                  <span style="font-size:12.5px;font-weight:600">{{ h.n }}</span>
+                </span>
+                <span style="font-size:11.5px;color:var(--text2);min-width:0">{{ h.pkg }}</span>
+                <span style="min-width:0">
+                  <span style="display:flex;align-items:baseline;justify-content:space-between;gap:6px"><span style="font-size:11.5px;font-weight:700">còn {{ h.left }}/{{ h.total }}</span><span style="font-size:10px;color:var(--text3)">{{ h.pct }}</span></span>
+                  <span style="display:block;height:5px;border-radius:99px;background:var(--line2);margin-top:4px;overflow:hidden"><span style="display:block;height:100%;width:{{ h.pct }};background:{{ h.barC }};border-radius:99px"></span></span>
+                </span>
+                <span class="hideSm" style="font-size:11px;color:{{ h.expFg }}">{{ h.exp }}</span>
+              </button>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <!-- ── Sắp hết buổi ── -->
+        <sc-if value="{{ pkgLow }}" hint-placeholder-val="{{ false }}">
+          <p style="font-size:12px;color:var(--text2);max-width:560px;margin-bottom:14px">Còn dưới ba buổi hoặc sắp hết hạn. Đây là lúc gọi khách gia hạn — để hết hẳn rồi mới gọi thì khách đã đi chỗ khác.</p>
+          <div style="display:flex;flex-direction:column;gap:11px">
+            <sc-for list="{{ pkgAlerts }}" as="a" hint-placeholder-count="3">
+              <div style="background:var(--surface);border:1px solid var(--line);border-left:3px solid {{ a.accent }};border-radius:14px;padding:15px">
+                <div style="display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap">
+                  <span style="flex:none;width:36px;height:36px;border-radius:50%;background:var(--tint);display:grid;place-items:center;font-size:11.5px;font-weight:700;color:var(--primary)">{{ a.i }}</span>
+                  <span style="flex:1;min-width:190px">
+                    <span style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+                      <span style="font-size:13px;font-weight:600">{{ a.n }}</span>
+                      <span style="font-size:9px;font-weight:700;color:{{ a.tFg }};background:{{ a.tBg }};padding:2px 8px;border-radius:99px">{{ a.tag }}</span>
+                    </span>
+                    <span style="display:block;font-size:11.5px;color:var(--text2);margin-top:5px">{{ a.pkg }} · {{ a.why }}</span>
+                    <span style="display:block;font-size:10.5px;color:var(--text3);margin-top:4px">Buổi gần nhất {{ a.last }} · KTV {{ a.ktv }}</span>
+                  </span>
+                  <span style="flex:none;display:flex;gap:8px">
+                    <button sc-camel-on-click="{{ a.renew }}" style="padding:9px 14px;border-radius:9px;background:var(--primary);color:var(--on-primary);font-size:11.5px;font-weight:600;white-space:nowrap">Mời gia hạn</button>
+                    <button sc-camel-on-click="{{ a.call }}" style="padding:9px 14px;border-radius:9px;background:var(--surface2);color:var(--text2);font-size:11.5px;font-weight:600">Gọi</button>
+                  </span>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+      </sc-if>
+
       <sc-if value="{{ isKtvReq }}" hint-placeholder-val="{{ false }}">
         <p style="font-size:12px;color:var(--text2);max-width:600px;margin-bottom:16px">Yêu cầu kỹ thuật viên gửi lên. Đổi giờ, huỷ ca và xin thêm việc cần trung tâm duyệt. Riêng báo bận khẩn cấp có hiệu lực ngay — trung tâm chỉ cần bố trí người thay.</p>
 
@@ -1072,7 +1165,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script="" data-props="{&quot;startPage&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;dash&quot;,&quot;schedule&quot;,&quot;staff&quot;,&quot;customers&quot;,&quot;services&quot;,&quot;finance&quot;,&quot;quality&quot;,&quot;inventory&quot;,&quot;settings&quot;],&quot;default&quot;:&quot;dash&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Demo&quot;}}">
 class Component extends DCLogic {
-  state = { theme:'serene', page:'dash', day:'T7', staffFilter:'Tất cả', withhold:true,
+  state = { theme:'serene', page:'dash', day:'T7', staffFilter:'Tất cả', withhold:true, tabs:{},
     // Yêu cầu khách gửi từ app.html
     reqs: [
       { id:'r1', who:'Nguyễn Thu Hà', kind:'Đổi giờ', svc:'Trị liệu cổ vai gáy · 60′', ktv:'Hải Yến',
@@ -1157,15 +1250,20 @@ class Component extends DCLogic {
 
   pages = [
     { id:'dash',      g:'Vận hành',  t:'Tổng quan hôm nay', ic:'grid' },
-    { id:'schedule',  g:'Vận hành',  t:'Điều phối lịch',    ic:'cal' },
+    { id:'schedule',  g:'Vận hành',  t:'Lịch hẹn',          ic:'cal' },
     { id:'requests',  g:'Vận hành',  t:'Yêu cầu từ khách',  ic:'cal', live:'reqs' },
     { id:'ktvreq',    g:'Vận hành',  t:'Yêu cầu từ KTV',    ic:'users', live:'ktvReqs' },
-    { id:'staff',     g:'Vận hành',  t:'Kỹ thuật viên',     ic:'users', count:2 },
-    { id:'customers', g:'Kinh doanh',t:'Khách hàng',        ic:'heart' },
+    { id:'customers', g:'Khách hàng',t:'Hồ sơ khách',       ic:'heart' },
+    { id:'packages',  g:'Khách hàng',t:'Liệu trình & gói',  ic:'box' },
+    { id:'care',      g:'Khách hàng',t:'Chăm sóc & ưu đãi', ic:'star' },
+    { id:'staff',     g:'Nhân sự',   t:'Kỹ thuật viên',     ic:'users', count:2 },
+    { id:'payroll',   g:'Nhân sự',   t:'Lương & hoa hồng',  ic:'wallet' },
     { id:'services',  g:'Kinh doanh',t:'Dịch vụ & bảng giá',ic:'tag' },
     { id:'finance',   g:'Kinh doanh',t:'Doanh thu & đối soát', ic:'wallet' },
+    // Vật tư trước đây nằm trong nhóm Chất lượng cùng Đánh giá — hai thứ không
+    // liên quan gì nhau. Đây là hàng hoá và chi phí, thuộc Kinh doanh.
+    { id:'inventory', g:'Kinh doanh',t:'Vật tư & thiết bị', ic:'box' },
     { id:'quality',   g:'Chất lượng',t:'Đánh giá & chất lượng', ic:'star' },
-    { id:'inventory', g:'Chất lượng',t:'Vật tư & thiết bị', ic:'box' },
     { id:'settings',  g:'Hệ thống',  t:'Cấu hình trung tâm',ic:'gear' }
   ];
 
@@ -1175,6 +1273,18 @@ class Component extends DCLogic {
   // Duyệt hay từ chối đều lấy yêu cầu ra khỏi hàng chờ; KTV nhận kết quả ở
   // khối "Tôi đề xuất" bên ứng dụng của họ.
   resolveKtvReq(id){ this.setState({ ktvReqs: this.state.ktvReqs.filter(x => x.id !== id) }); }
+  // Tab trong trang: mỗi trang nhớ riêng tab đang mở, đổi trang rồi quay lại
+  // vẫn ở đúng chỗ cũ.
+  setTab(page, k){ this.setState({ tabs: {...this.state.tabs, [page]: k} }); }
+  tabOf(page, dflt){ return this.state.tabs[page] || dflt; }
+  tabBar(page, defs){
+    const cur = this.tabOf(page, defs[0][0]);
+    return defs.map(([k,t,n]) => ({ t, n: n||'', hasN: !!n,
+      pick: () => this.setTab(page, k),
+      bg: cur===k ? 'var(--surface)' : 'transparent',
+      fg: cur===k ? 'var(--text)' : 'var(--text3)',
+      sh: cur===k ? '0 1px 3px rgba(0,0,0,.08)' : 'none' }));
+  }
   resolveIncident(id){ this.setState({ incidents: this.state.incidents.filter(x => x.id !== id) }); }
   resolveDispute(id){ this.setState({ disputes: this.state.disputes.filter(x => x.id !== id) }); }
 
@@ -1486,6 +1596,62 @@ class Component extends DCLogic {
       })(),
       isRequests:s.page==='requests', isKtvReq:s.page==='ktvreq', requests,
       ...ktvReqVals,
+      // ── Liệu trình & gói ─────────────────────────────────────────
+      // Số liệu ở đây là nguồn của hai màn đã có: app khách hiện "còn 14/20
+      // buổi", KTV hiện "buổi 7/20". Sửa ở đây thì phải sửa cả hai bên.
+      ...(() => {
+        const tab = this.tabOf('packages', 'sell');
+        const PKGS = [
+          { id:'p1', t:'Phục hồi sau đột quỵ', svc:'Phục hồi vận động · có bác sĩ giám sát',
+            n:'20 buổi', price:'12.000.000₫', unit:600, list:750, exp:'6 tháng',
+            sold:9, rev:'108tr', st:'Đang bán', stFg:'var(--ok)', stBg:'var(--okTint)' },
+          { id:'p2', t:'Massage trị liệu vai gáy', svc:'Trị liệu cổ vai gáy · 60 phút',
+            n:'8 buổi', price:'2.560.000₫', unit:320, list:380, exp:'3 tháng',
+            sold:34, rev:'87tr', st:'Đang bán', stFg:'var(--ok)', stBg:'var(--okTint)' },
+          { id:'p3', t:'Chăm sóc sau sinh', svc:'Phục hồi hậu sản · tại nhà',
+            n:'12 buổi', price:'5.400.000₫', unit:450, list:520, exp:'4 tháng',
+            sold:6, rev:'32tr', st:'Tạm ngưng', stFg:'var(--text2)', stBg:'var(--surface2)' }
+        ];
+        const money = (n) => n.toLocaleString('vi-VN') + 'k';
+        // Khách đang dùng gói. Hai dòng đầu là của Minh Trần — đúng bằng những
+        // gì app khách đang hiện trong Ví & gói.
+        const HOLD = [
+          { i:'TM', n:'Ông Trần Văn Minh', pkg:'Phục hồi sau đột quỵ · 20 buổi', left:14, total:20, exp:'30/09/2026', soon:false },
+          { i:'MT', n:'Minh Trần',         pkg:'Massage trị liệu vai gáy · 8 buổi', left:3,  total:8,  exp:'15/08/2026', soon:true },
+          { i:'NT', n:'Nguyễn Thu Hà',     pkg:'Massage trị liệu vai gáy · 8 buổi', left:6,  total:8,  exp:'02/10/2026', soon:false },
+          { i:'PL', n:'Bà Phạm T. Lan',    pkg:'Phục hồi sau đột quỵ · 20 buổi',   left:2,  total:20, exp:'12/08/2026', soon:true },
+          { i:'MA', n:'Chị Mai Anh',       pkg:'Chăm sóc sau sinh · 12 buổi',      left:8,  total:12, exp:'20/11/2026', soon:false }
+        ];
+        const low = HOLD.filter(h => h.left <= 3 || h.soon);
+        return {
+          isPackages: s.page === 'packages',
+          pkgTabs: this.tabBar('packages', [
+            ['sell','Gói đang bán'], ['using','Khách đang dùng'], ['low','Sắp hết buổi', String(low.length)]
+          ]),
+          pkgSell: tab==='sell', pkgUsing: tab==='using', pkgLow: tab==='low',
+          addPkg: () => {},
+          pkgDefs: PKGS.map(g => ({ ...g,
+            // Khoản tiết kiệm tính từ giá lẻ, không gõ tay — số nói dối thì
+            // khách so ra ngay.
+            save: '−' + Math.round((1 - g.unit / g.list) * 100) + '% so với ' + money(g.list) + '/buổi',
+            sell: () => {}, edit: () => {} })),
+          pkgHolders: HOLD.map(h => {
+            const pct = Math.round(h.left / h.total * 100);
+            return { ...h, pct: pct + '%',
+              barC: h.left <= 3 ? 'var(--dangerSolid)' : pct < 40 ? 'var(--gold)' : 'var(--primary)',
+              expFg: h.soon ? 'var(--dangerSolid)' : 'var(--text3)',
+              open: () => this.setState({ page:'customers' }) };
+          }),
+          pkgAlerts: low.map(h => ({ i:h.i, n:h.n, pkg:h.pkg,
+            why: h.left <= 3 ? ('chỉ còn ' + h.left + ' buổi') : ('hết hạn ' + h.exp),
+            tag: h.left <= 3 ? 'Sắp hết buổi' : 'Sắp hết hạn',
+            tFg: h.left <= 3 ? 'var(--danger)' : 'var(--goldText)',
+            tBg: h.left <= 3 ? 'var(--dangerTint)' : 'var(--goldTint)',
+            accent: h.left <= 3 ? 'var(--dangerSolid)' : 'var(--gold)',
+            last: '3 ngày trước', ktv: 'Hải Yến',
+            renew: () => this.setState({ page:'care' }), call: () => {} }))
+        };
+      })(),
       isCustomers:s.page==='customers', isServices:s.page==='services', isFinance:s.page==='finance',
       isQuality:s.page==='quality', isInventory:s.page==='inventory', isSettings:s.page==='settings',
       goSchedule:()=>this.go('schedule'), goStaff:()=>this.go('staff'), goSettings:()=>this.go('settings'),
