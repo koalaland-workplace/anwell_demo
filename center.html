@@ -1036,6 +1036,13 @@
 
       <!-- ═══ SERVICES ═══ -->
       <sc-if value="{{ isServices }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;gap:4px;padding:3px;border-radius:12px;background:var(--surface2);margin-bottom:16px;max-width:420px">
+          <sc-for list="{{ svcTabs }}" as="t" hint-placeholder-count="2">
+            <button sc-camel-on-click="{{ t.pick }}" style="flex:1;padding:9px 8px;border-radius:9px;background:{{ t.bg }};color:{{ t.fg }};box-shadow:{{ t.sh }};font-size:12px;font-weight:600;white-space:nowrap">{{ t.t }}</button>
+          </sc-for>
+        </div>
+
+      <sc-if value="{{ svcPrice }}" hint-placeholder-val="{{ true }}">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
           <p style="font-size:12px;color:var(--text2);max-width:520px">Dịch vụ và bảng giá hiển thị trên app khách hàng. Thay đổi được ANWELL rà soát trong 24 giờ.</p>
           <button sc-camel-on-click="{{ addService }}" style="flex:none;padding:9px 15px;border-radius:10px;background:var(--primary);color:var(--on-primary);font-size:12px;font-weight:600">+ Thêm dịch vụ</button>
@@ -1057,6 +1064,80 @@
             </div>
           </sc-for>
         </div>
+
+        <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:14px">
+          <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:18px">Giá thay đổi theo hai chiều</div>
+          <p style="font-size:11.5px;line-height:1.7;color:var(--text2);margin-top:8px">Giá niêm yết ở trên là giá gốc. Khách thấy giá cuối sau khi cộng hai điều chỉnh dưới đây — bảng giá phẳng một mức thì không khớp với việc bạn trả kỹ thuật viên Bậc 3 cao hơn Bậc 1 tới 120k mỗi buổi.</p>
+          <div class="split" style="margin-top:14px">
+            <div>
+              <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin-bottom:9px">Theo bậc kỹ thuật viên</p>
+              <div style="display:flex;flex-direction:column;gap:9px">
+                <sc-for list="{{ tierAdj }}" as="a" hint-placeholder-count="3">
+                  <div style="display:flex;align-items:center;gap:10px;padding:11px 13px;border-radius:11px;background:var(--surface2)">
+                    <span style="flex:none;font-size:9px;font-weight:700;color:#06140F;background:var(--gold);padding:2px 9px;border-radius:99px">{{ a.tier }}</span>
+                    <span style="flex:1;min-width:0;font-size:11px;color:var(--text3)">{{ a.d }}</span>
+                    <span style="flex:none;display:flex;align-items:center;gap:7px">
+                      <button sc-camel-on-click="{{ a.down }}" style="width:24px;height:24px;border-radius:7px;background:var(--surface);color:var(--text2);font-size:13px;font-weight:700">−</button>
+                      <span style="min-width:52px;text-align:center;font-size:12.5px;font-weight:700;color:{{ a.c }}">{{ a.v }}</span>
+                      <button sc-camel-on-click="{{ a.up }}" style="width:24px;height:24px;border-radius:7px;background:var(--surface);color:var(--text2);font-size:13px;font-weight:700">+</button>
+                    </span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+            <div>
+              <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin-bottom:9px">Theo khung giờ</p>
+              <div style="display:flex;flex-direction:column;gap:9px">
+                <sc-for list="{{ hourAdj }}" as="a" hint-placeholder-count="3">
+                  <div style="display:flex;align-items:center;gap:10px;padding:11px 13px;border-radius:11px;background:var(--surface2)">
+                    <span style="flex:1;min-width:0">
+                      <span style="display:block;font-size:12px;font-weight:600">{{ a.t }}</span>
+                      <span style="display:block;font-size:10.5px;color:var(--text3);margin-top:2px">{{ a.d }}</span>
+                    </span>
+                    <span style="flex:none;font-size:12.5px;font-weight:700;color:{{ a.c }}">{{ a.v }}</span>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="margin-top:12px;padding:13px;border-radius:11px;background:var(--tint)">
+                <div style="font-size:10.5px;font-weight:700;color:var(--primary)">Ví dụ giá khách thấy</div>
+                <p style="font-size:11.5px;line-height:1.65;color:var(--text2);margin-top:5px">{{ priceExample }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ══ VẬT TƯ MỖI BUỔI ══
+           Định mức tiêu hao. Có nó thì số tồn kho tự trừ theo buổi đã làm, và
+           ra được giá vốn mỗi buổi — bước đầu để sau này tính lợi nhuận thật. -->
+      <sc-if value="{{ svcCost }}" hint-placeholder-val="{{ false }}">
+        <p style="font-size:12px;color:var(--text2);max-width:620px;margin-bottom:16px">Mỗi buổi tiêu hao những gì. Khai ở đây thì kho <b>tự trừ theo số buổi đã làm</b> thay vì đếm tay, và mỗi dịch vụ ra được giá vốn — phần còn lại sau khi trừ vật tư và tiền trả kỹ thuật viên mới là lãi thật.</p>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <sc-for list="{{ svcCosts }}" as="c" hint-placeholder-count="3">
+            <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px">
+              <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap">
+                <span style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:17px">{{ c.t }}</span>
+                <span style="font-size:11.5px;color:var(--text3)">Giá bán {{ c.price }}</span>
+              </div>
+              <div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:11px">
+                <sc-for list="{{ c.items }}" as="i" hint-placeholder-count="3">
+                  <span style="padding:6px 11px;border-radius:99px;background:var(--surface2);font-size:11px;color:var(--text2)">{{ i.t }} <b>{{ i.q }}</b></span>
+                </sc-for>
+              </div>
+              <div style="display:flex;gap:16px;margin-top:13px;padding-top:12px;border-top:1px solid var(--line2);flex-wrap:wrap">
+                <span><span style="display:block;font-size:9.5px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;font-weight:700">Vật tư</span><span style="display:block;font-size:13px;font-weight:700;margin-top:3px">{{ c.mat }}</span></span>
+                <span><span style="display:block;font-size:9.5px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;font-weight:700">Trả kỹ thuật viên</span><span style="display:block;font-size:13px;font-weight:700;margin-top:3px">{{ c.labor }}</span></span>
+                <span><span style="display:block;font-size:9.5px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;font-weight:700">Còn lại</span><span style="display:block;font-size:13px;font-weight:700;margin-top:3px;color:{{ c.marginC }}">{{ c.margin }}</span></span>
+                <span style="flex:1;min-width:120px;text-align:right"><span style="display:block;font-size:9.5px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;font-weight:700">Tỷ lệ còn lại</span><span style="display:block;font-size:13px;font-weight:700;margin-top:3px;color:{{ c.marginC }}">{{ c.pct }}</span></span>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="background:var(--surface2);border-radius:12px;padding:14px 16px;margin-top:14px">
+          <p style="font-size:11.5px;line-height:1.65;color:var(--text2)">Tiền trả kỹ thuật viên tính theo <b>Bậc 2</b> với cách tính hiện hành ở trang Lương &amp; hoa hồng ({{ laborNote }}). Đổi ở đó thì cột này đổi theo.</p>
+          <p style="font-size:11.5px;line-height:1.65;color:var(--text2);margin-top:7px">Cột <b>Còn lại</b> chưa trừ tiền thuê nhà, điện nước và lương lễ tân. Nên gọi đúng tên là phần còn lại sau vật tư và công, không gọi là lợi nhuận.</p>
+        </div>
+      </sc-if>
       </sc-if>
 
       <!-- ═══ FINANCE ═══ -->
@@ -2057,6 +2138,7 @@ class Component extends DCLogic {
       { i:'LV', n:'Lý Văn Cường',    phone:'0938 210 774', svc:'Vật lý trị liệu 45′',     want:'tối T5 sau 19h', since:'2 ngày trước' }
     ],
     fbPhone:'', fbNewName:'', fbSvc:null, fbSlot:null, fbDone:false,
+    adjT2:70, adjT3:150,
     // Cách tính lương — sửa được, có chặn trên dưới để không đặt số vô lý.
     payUnit:280, payComm:8, payHome:70, payPkg:3,
     // Yêu cầu khách gửi từ app.html
@@ -2241,6 +2323,10 @@ class Component extends DCLogic {
       fbSubmit: () => ready ? this.setState({ fbDone:true, fbPhone:'', fbNewName:'', fbSvc:null, fbSlot:null }) : null,
       fbDone: s.fbDone
     };
+  }
+  stepAdj(k, dir){
+    const key = k === 't2' ? 'adjT2' : 'adjT3';
+    this.setState({ [key]: Math.max(0, Math.min(400, this.state[key] + dir * 10)) });
   }
   stepPay(k, dir){
     const LIM = { unit:[150,500,10], comm:[0,20,1], home:[0,200,10], pkg:[0,10,1] };
@@ -2696,6 +2782,56 @@ class Component extends DCLogic {
           })()
         };
       })(),
+      // ── Dịch vụ: giá theo bậc/khung giờ và vật tư mỗi buổi ──────
+      ...(() => {
+        const tab = this.tabOf('services', 'price');
+        // Giá phẳng một mức không khớp với việc trả Bậc 3 cao hơn Bậc 1 tới
+        // 120k mỗi buổi — chênh đó phải chảy vào giá bán, không thì bậc cao
+        // càng làm càng lỗ.
+        const TIERS = [
+          { k:'t1', tier:'Bậc 1', d:'Giá gốc, không cộng thêm', v:0,  c:'var(--text3)' },
+          { k:'t2', tier:'Bậc 2', d:'Kinh nghiệm 3 năm trở lên', v:s.adjT2, c:'var(--primary)' },
+          { k:'t3', tier:'Bậc 3', d:'Ca phức tạp, có bác sĩ duyệt', v:s.adjT3, c:'var(--accent)' }
+        ];
+        const HOURS = [
+          { t:'Khung thấp điểm 14–16h', d:'Lấp giờ trống buổi chiều', v:'−15%', c:'var(--ok)' },
+          { t:'Khung thường',            d:'8–14h và 16–19h', v:'giá gốc', c:'var(--text3)' },
+          { t:'Khung cao điểm 19–22h',   d:'Sau giờ làm, hay kín chỗ', v:'+10%', c:'var(--accent)' }
+        ];
+        // Định mức vật tư mỗi buổi → kho tự trừ, và ra giá vốn.
+        const COSTS = [
+          { t:'Trị liệu cổ vai gáy 60′', price:450,
+            items:[['Tinh dầu tràm','15ml'],['Khăn trị liệu','1 bộ'],['Ga giường dùng một lần','1']], mat:28 },
+          { t:'Vật lý trị liệu 45′', price:380,
+            items:[['Gel dẫn siêu âm','20ml'],['Khăn trị liệu','1 bộ'],['Điện cực dán','2 cặp']], mat:41 },
+          { t:'Massage thư giãn 90′', price:620,
+            items:[['Dầu nền hạnh nhân','30ml'],['Khăn trị liệu','2 bộ'],['Nến thơm','1/4 cây']], mat:52 }
+        // Tiền trả kỹ thuật viên tính từ chính tham số ở trang Lương, không gõ
+        // tay — sửa cách tính lương thì cột này đổi theo, khỏi lệch nhau.
+        ].map(c => ({ ...c, labor: s.payUnit + Math.round(c.price * s.payComm / 100) }));
+        const money = (n) => n.toLocaleString('vi-VN') + 'k';
+        return {
+          svcTabs: this.tabBar('services', [['price','Bảng giá'], ['cost','Vật tư mỗi buổi']]),
+          laborNote: s.payUnit + 'k lương ca + ' + s.payComm + '% hoa hồng',
+          svcPrice: tab==='price', svcCost: tab==='cost',
+          tierAdj: TIERS.map(a => ({ tier:a.tier, d:a.d, c:a.c,
+            v: a.v === 0 ? '—' : '+' + a.v + 'k',
+            up:   () => a.k === 't1' ? null : this.stepAdj(a.k, 1),
+            down: () => a.k === 't1' ? null : this.stepAdj(a.k, -1) })),
+          hourAdj: HOURS,
+          priceExample: 'Trị liệu cổ vai gáy 60′ với kỹ thuật viên Bậc 2 lúc 20h: 450k + '
+            + s.adjT2 + 'k + 10% = ' + Math.round((450 + s.adjT2) * 1.1) + 'k. Cùng dịch vụ đó lúc 15h với Bậc 1: '
+            + Math.round(450 * 0.85) + 'k.',
+          svcCosts: COSTS.map(c => {
+            const left = c.price - c.labor - c.mat;
+            return { t:c.t, price: money(c.price), mat: money(c.mat), labor: money(c.labor),
+              margin: money(left), pct: Math.round(left / c.price * 100) + '%',
+              marginC: left <= 0 ? 'var(--dangerSolid)' : left / c.price < 0.15 ? 'var(--accent)' : 'var(--primary)',
+              items: c.items.map(([t,q]) => ({ t, q })) };
+          })
+        };
+      })(),
+
       // ── Phòng & vật tư ──────────────────────────────────────────
       ...(() => {
         const tab = this.tabOf('facility', 'rooms');
