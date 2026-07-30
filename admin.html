@@ -278,6 +278,8 @@
   .main{flex:1;min-width:0;display:flex;flex-direction:column;overflow:hidden}
   .pad{padding:16px 16px 84px}.hd{padding:14px 16px}
   .g4{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .bdrow{display:grid;grid-template-columns:1.7fr 1fr;gap:9px}
+  .refrow{display:grid;grid-template-columns:1.6fr 1fr;gap:9px}
   .g2{display:grid;grid-template-columns:1fr;gap:12px}
   .split{display:grid;grid-template-columns:1fr;gap:12px}
   .hideSm{display:none}
@@ -285,6 +287,8 @@
     .rail{display:flex}.btm{display:none}
     .pad{padding:22px 28px 28px}.hd{padding:16px 28px}
     .g4{grid-template-columns:repeat(4,1fr);gap:14px}
+    .bdrow{grid-template-columns:1.9fr 1.1fr 1fr 1fr .9fr;gap:10px}
+    .refrow{grid-template-columns:1.6fr 1.2fr 1.1fr .8fr .8fr 1.1fr;gap:10px}
     .g2{grid-template-columns:1.5fr 1fr;gap:16px}
     .split{grid-template-columns:1fr 1fr;gap:16px}
     .hideSm{display:block}
@@ -550,6 +554,184 @@
       </sc-if>
 
       <!-- ═══ FREELANCE KTV ═══ -->
+      <!-- ═══ GIÁM ĐỐC KINH DOANH ═══
+           Người mang trung tâm về cho nền tảng. Hưởng % doanh số của chính
+           những trung tâm mình giới thiệu, sau khi ANWELL duyệt. Mọi tham số
+           do ADMIN đặt ở tab Chính sách. -->
+      <sc-if value="{{ isBd }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;gap:4px;padding:3px;border-radius:12px;background:var(--surface2);margin-bottom:16px;max-width:640px;overflow-x:auto">
+          <sc-for list="{{ bdTabs }}" as="t" hint-placeholder-count="4">
+            <button sc-camel-on-click="{{ t.pick }}" style="flex:1;padding:9px 8px;border-radius:9px;background:{{ t.bg }};color:{{ t.fg }};box-shadow:{{ t.sh }};font-size:12px;font-weight:600;white-space:nowrap">{{ t.t }}<sc-if value="{{ t.hasN }}" hint-placeholder-val="{{ true }}"><span style="margin-left:5px;font-size:10px;font-weight:700;color:#fff;background:var(--dangerSolid);border-radius:99px;padding:1px 6px">{{ t.n }}</span></sc-if></button>
+          </sc-for>
+        </div>
+
+        <!-- ── Danh sách GĐKD ── -->
+        <sc-if value="{{ bdList }}" hint-placeholder-val="{{ true }}">
+          <div class="g4" style="margin-bottom:16px">
+            <sc-for list="{{ bdKpis }}" as="k" hint-placeholder-count="4">
+              <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px">
+                <div style="font-size:10.5px;color:var(--text3);font-weight:600">{{ k.t }}</div>
+                <div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:24px;margin-top:4px;color:{{ k.c }}">{{ k.v }}</div>
+                <div style="font-size:10px;color:var(--text3);margin-top:2px">{{ k.sub }}</div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden">
+            <div class="bdrow" style="padding:12px 16px;border-bottom:1px solid var(--line);font-size:9.5px;font-weight:700;letter-spacing:.1em;color:var(--text3);text-transform:uppercase">
+              <span>Giám đốc Kinh doanh</span><span>Trung tâm</span><span>Doanh số mang về</span><span>Hoa hồng kỳ này</span><span>Trạng thái</span>
+            </div>
+            <sc-for list="{{ bdRows }}" as="b" hint-placeholder-count="4">
+              <div class="bdrow" style="padding:13px 16px;border-bottom:1px solid var(--line2);align-items:center">
+                <span style="display:flex;align-items:center;gap:10px;min-width:0">
+                  <span style="flex:none;width:32px;height:32px;border-radius:50%;background:var(--tint);display:grid;place-items:center;font-size:11px;font-weight:700;color:var(--primary)">{{ b.i }}</span>
+                  <span style="min-width:0"><span style="display:block;font-size:12.5px;font-weight:600">{{ b.n }}</span><span style="display:block;font-size:10px;color:var(--text3)">{{ b.area }} · từ {{ b.since }}</span></span>
+                </span>
+                <span style="font-size:11.5px;color:var(--text2)">{{ b.refsT }}</span>
+                <span style="font-size:12.5px;font-weight:600">{{ b.rev }}</span>
+                <span style="font-size:12.5px;font-weight:700;color:var(--accent)">{{ b.share }}</span>
+                <span style="flex:none;font-size:9px;font-weight:700;color:{{ b.stFg }};background:{{ b.stBg }};padding:3px 9px;border-radius:99px;justify-self:start">{{ b.st }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <!-- ── Trung tâm đã giới thiệu ── -->
+        <sc-if value="{{ bdRefs }}" hint-placeholder-val="{{ false }}">
+          <p style="font-size:12px;color:var(--text2);max-width:620px;margin-bottom:14px">Hoa hồng chỉ phát sinh <b>sau khi ANWELL duyệt</b> trung tâm. Hồ sơ chờ duyệt và bị từ chối không tính đồng nào — đó là cách giữ chất lượng đầu vào thay vì để chạy theo số lượng.</p>
+          <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden">
+            <div class="refrow" style="padding:12px 16px;border-bottom:1px solid var(--line);font-size:9.5px;font-weight:700;letter-spacing:.1em;color:var(--text3);text-transform:uppercase">
+              <span>Trung tâm</span><span>Người giới thiệu</span><span>Ngày duyệt</span><span>Doanh số</span><span>Hoa hồng</span><span>Trạng thái</span>
+            </div>
+            <sc-for list="{{ refRows }}" as="r" hint-placeholder-count="6">
+              <div class="refrow" style="padding:13px 16px;border-bottom:1px solid var(--line2);align-items:center">
+                <span style="min-width:0">
+                  <span style="display:block;font-size:12.5px;font-weight:600">{{ r.ctr }}</span>
+                  <span style="display:block;font-size:10px;color:var(--text3);margin-top:1px">Gửi {{ r.sent }}</span>
+                </span>
+                <span style="font-size:11.5px;color:var(--text2)">{{ r.by }}</span>
+                <span style="min-width:0">
+                  <span style="display:block;font-size:11.5px;color:var(--text2)">{{ r.okShown }}</span>
+                  <span style="display:block;font-size:10px;color:var(--text3)">{{ r.termNote }}</span>
+                </span>
+                <span style="font-size:12px;font-weight:600">{{ r.revShown }}</span>
+                <span style="font-size:12.5px;font-weight:700;color:var(--accent)">{{ r.shareShown }}</span>
+                <span style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+                  <span style="flex:none;font-size:9px;font-weight:700;color:{{ r.stFg }};background:{{ r.stBg }};padding:3px 9px;border-radius:99px">{{ r.stT }}</span>
+                  <sc-if value="{{ r.canApprove }}" hint-placeholder-val="{{ true }}">
+                    <button sc-camel-on-click="{{ r.approve }}" style="flex:none;padding:6px 11px;border-radius:8px;background:var(--primary);color:var(--on-primary);font-size:10.5px;font-weight:700">Duyệt</button>
+                  </sc-if>
+                </span>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <!-- ── Chính sách hoa hồng · ADMIN đặt ── -->
+        <sc-if value="{{ bdPolicy }}" hint-placeholder-val="{{ false }}">
+          <p style="font-size:12px;color:var(--text2);max-width:640px;margin-bottom:16px">Tham số do <b>ADMIN nền tảng</b> đặt, áp cho toàn bộ Giám đốc Kinh doanh. Riêng <b>chế độ hưởng</b> là quyết định lớn — về sau Hội đồng quản trị bỏ phiếu rồi chỉnh ở đúng chỗ này.</p>
+          <div class="split">
+            <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px">
+              <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:18px">Chế độ hưởng</div>
+              <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
+                <sc-for list="{{ bdModes }}" as="m" hint-placeholder-count="2">
+                  <button sc-camel-on-click="{{ m.pick }}" style="flex:1;min-width:130px;padding:11px;border-radius:11px;font-size:12.5px;font-weight:600;background:{{ m.bg }};color:{{ m.fg }};border:1.5px solid {{ m.bd }}">{{ m.t }}</button>
+                </sc-for>
+              </div>
+              <sc-if value="{{ isTerm }}" hint-placeholder-val="{{ true }}">
+                <div style="display:flex;align-items:center;gap:10px;margin-top:12px;padding:12px 14px;border-radius:11px;background:var(--surface2)">
+                  <span style="flex:1;font-size:12px;color:var(--text2)">Hưởng trong</span>
+                  <span style="flex:none;display:flex;align-items:center;gap:7px">
+                    <button sc-camel-on-click="{{ bdMonthsDown }}" style="width:26px;height:26px;border-radius:8px;background:var(--surface);color:var(--text2);font-size:14px;font-weight:700">−</button>
+                    <span style="min-width:70px;text-align:center;font-size:13px;font-weight:700;color:var(--primary)">{{ bdMonthsV }}</span>
+                    <button sc-camel-on-click="{{ bdMonthsUp }}" style="width:26px;height:26px;border-radius:8px;background:var(--surface);color:var(--text2);font-size:14px;font-weight:700">+</button>
+                  </span>
+                </div>
+              </sc-if>
+              <p style="font-size:11px;line-height:1.65;color:var(--text3);margin-top:10px">{{ modeNote }}</p>
+              <sc-if value="{{ isLife }}" hint-placeholder-val="{{ false }}">
+                <p style="font-size:11px;line-height:1.65;color:var(--accent);font-weight:600;margin-top:8px">⚠ Chế độ trọn đời dễ tuyển người nhưng chi phí tích luỹ không có điểm dừng — sau vài năm nền tảng vẫn trả cho người không còn chăm trung tâm đó.</p>
+              </sc-if>
+            </div>
+
+            <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px">
+              <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:18px">Tỷ lệ và thưởng</div>
+              <div style="display:flex;flex-direction:column;gap:10px;margin-top:12px">
+                <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:11px;background:var(--surface2)">
+                  <span style="flex:1;min-width:0"><span style="display:block;font-size:12px;font-weight:600">% doanh số</span><span style="display:block;font-size:10.5px;color:var(--text3);margin-top:2px">Trên doanh số trung tâm đã giới thiệu</span></span>
+                  <span style="flex:none;display:flex;align-items:center;gap:7px">
+                    <button sc-camel-on-click="{{ bdPctDown }}" style="width:26px;height:26px;border-radius:8px;background:var(--surface);color:var(--text2);font-size:14px;font-weight:700">−</button>
+                    <span style="min-width:52px;text-align:center;font-size:13px;font-weight:700;color:var(--primary)">{{ bdPctV }}</span>
+                    <button sc-camel-on-click="{{ bdPctUp }}" style="width:26px;height:26px;border-radius:8px;background:var(--surface);color:var(--text2);font-size:14px;font-weight:700">+</button>
+                  </span>
+                </div>
+                <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:11px;background:var(--surface2)">
+                  <span style="flex:1;min-width:0"><span style="display:block;font-size:12px;font-weight:600">Thưởng khi trung tâm được duyệt</span><span style="display:block;font-size:10.5px;color:var(--text3);margin-top:2px">Trả một lần, sau khi duyệt xong</span></span>
+                  <span style="flex:none;display:flex;align-items:center;gap:7px">
+                    <button sc-camel-on-click="{{ bdBonusDown }}" style="width:26px;height:26px;border-radius:8px;background:var(--surface);color:var(--text2);font-size:14px;font-weight:700">−</button>
+                    <span style="min-width:52px;text-align:center;font-size:13px;font-weight:700;color:var(--primary)">{{ bdBonusV }}</span>
+                    <button sc-camel-on-click="{{ bdBonusUp }}" style="width:26px;height:26px;border-radius:8px;background:var(--surface);color:var(--text2);font-size:14px;font-weight:700">+</button>
+                  </span>
+                </div>
+                <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:11px;background:var(--surface2)">
+                  <span style="flex:1;min-width:0"><span style="display:block;font-size:12px;font-weight:600">Thưởng mốc 5 trung tâm</span><span style="display:block;font-size:10.5px;color:var(--text3);margin-top:2px">Chỉ tính trung tâm còn hoạt động</span></span>
+                  <span style="flex:none;display:flex;align-items:center;gap:7px">
+                    <button sc-camel-on-click="{{ bdTierDown }}" style="width:26px;height:26px;border-radius:8px;background:var(--surface);color:var(--text2);font-size:14px;font-weight:700">−</button>
+                    <span style="min-width:52px;text-align:center;font-size:13px;font-weight:700;color:var(--primary)">{{ bdTierV }}</span>
+                    <button sc-camel-on-click="{{ bdTierUp }}" style="width:26px;height:26px;border-radius:8px;background:var(--surface);color:var(--text2);font-size:14px;font-weight:700">+</button>
+                  </span>
+                </div>
+              </div>
+              <p style="font-size:10.5px;line-height:1.65;color:var(--text3);margin-top:12px">Thưởng mốc chỉ tính trung tâm <b>còn hoạt động</b>, không tính số đã ký. Nếu tính theo số đã ký thì sẽ có người mang về trung tâm yếu rồi bỏ mặc.</p>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ── Xem trước màn GĐKD ── -->
+        <sc-if value="{{ bdView }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;align-items:center;gap:9px;padding:11px 14px;border-radius:12px;background:var(--goldTint);border:1px solid var(--gold);margin-bottom:16px">
+            <span style="flex:none;font-size:15px">👁</span>
+            <p style="flex:1;font-size:11.5px;line-height:1.6;color:var(--text2)">Đây là màn <b>Phan Minh Tuấn</b> nhìn thấy. Trong sản phẩm thật, màn này nằm ở <b>Cổng thông tin ANWELL</b> với tài khoản riêng — ở đây hiển thị để bạn xem trước.</p>
+          </div>
+
+          <div class="split">
+            <div>
+              <div style="border-radius:16px;padding:20px;background:var(--heroGrad);color:var(--onHero)">
+                <p style="font:700 9px ui-monospace,monospace;letter-spacing:.16em;text-transform:uppercase;opacity:.8">Link giới thiệu của bạn</p>
+                <p style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:24px;margin-top:8px;word-break:break-all">{{ myLink }}</p>
+                <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap">
+                  <button sc-camel-on-click="{{ copyLink }}" style="flex:1;min-width:110px;padding:11px;border-radius:10px;background:var(--gold);color:#06140F;font-size:12px;font-weight:700">Sao chép link</button>
+                  <button sc-camel-on-click="{{ shareLink }}" style="flex:1;min-width:110px;padding:11px;border-radius:10px;background:rgba(255,255,255,.14);color:var(--onHero);font-size:12px;font-weight:600">Chia sẻ</button>
+                </div>
+                <p style="font-size:10.5px;line-height:1.6;opacity:.82;margin-top:11px">Trung tâm đăng ký qua link này thì tự gắn tên bạn. Không cần nhập mã, không sợ mất công vì khách quên khai ai giới thiệu.</p>
+              </div>
+
+              <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:14px">
+                <div style="font-size:10.5px;color:var(--text3);font-weight:600">Hoa hồng kỳ này</div>
+                <div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:32px;margin-top:4px;color:var(--primary)">{{ myTotal }}</div>
+                <p style="font-size:10.5px;line-height:1.6;color:var(--text3);margin-top:6px">{{ modeNote }}</p>
+              </div>
+            </div>
+
+            <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px">
+              <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:18px">Trung tâm của tôi</div>
+              <div style="display:flex;flex-direction:column;gap:12px;margin-top:13px">
+                <sc-for list="{{ myRefs }}" as="r" hint-placeholder-count="2">
+                  <div style="padding:13px;border-radius:11px;background:var(--surface2);opacity:{{ r.dim }}">
+                    <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap">
+                      <span style="font-size:13px;font-weight:600">{{ r.ctr }}</span>
+                      <span style="font-size:13px;font-weight:700;color:var(--accent)">{{ r.share }}</span>
+                    </div>
+                    <div style="font-size:10.5px;color:var(--text3);margin-top:4px">Duyệt {{ r.ok }} · doanh số {{ r.rev }}</div>
+                    <div style="font-size:10.5px;color:var(--text2);margin-top:3px">{{ r.note }}</div>
+                  </div>
+                </sc-for>
+              </div>
+              <p style="font-size:10.5px;line-height:1.65;color:var(--text3);margin-top:13px">Bạn thấy doanh số tổng của trung tâm để biết hoa hồng từ đâu ra, nhưng <b>không thấy khách hàng, giá dịch vụ hay kỹ thuật viên</b> của họ — đó là việc riêng của trung tâm.</p>
+            </div>
+          </div>
+        </sc-if>
+      </sc-if>
+
       <sc-if value="{{ isKtv }}" hint-placeholder-val="{{ false }}">
         <div style="background:var(--goldTint);border:1px solid var(--gold);border-radius:12px;padding:12px 14px;display:flex;align-items:flex-start;gap:10px;margin-bottom:14px">
           <span style="font-size:15px">ℹ️</span>
@@ -815,7 +997,26 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script="" data-props="{&quot;startPage&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;dash&quot;,&quot;centers&quot;,&quot;approvals&quot;,&quot;ktv&quot;,&quot;loyalty&quot;,&quot;partners&quot;,&quot;policy&quot;,&quot;data&quot;],&quot;default&quot;:&quot;dash&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Demo&quot;}}">
 class Component extends DCLogic {
-  state = { theme:'serene', page:'dash', ctrFilter:'Tất cả', pFilter:'Tất cả',
+  state = { theme:'serene', page:'dash', ctrFilter:'Tất cả', pFilter:'Tất cả', tabs:{},
+    // ── Giám đốc Kinh doanh ──
+    // Chính sách hoa hồng do ADMIN đặt. Chế độ hưởng có thời hạn hay trọn đời
+    // cũng là một lựa chọn ở đây, không ghi cứng — sau này Hội đồng quản trị
+    // bỏ phiếu quyết định thì chỉnh ở đúng chỗ này.
+    bdMode:'term', bdMonths:24, bdPct:3, bdBonus:5000, bdTierBonus:20000,
+    bds:[
+      { i:'PT', n:'Phan Minh Tuấn', area:'TP.HCM · Q.1,3,7', since:'01/2025', refs:8, live:7, rev:2840000, st:'Đang hoạt động' },
+      { i:'NL', n:'Nguyễn Thuỳ Linh', area:'TP.HCM · Thủ Đức', since:'04/2025', refs:5, live:5, rev:1620000, st:'Đang hoạt động' },
+      { i:'HD', n:'Hoàng Đức Nam', area:'Hà Nội · Cầu Giấy', since:'09/2025', refs:3, live:2, rev:540000, st:'Đang hoạt động' },
+      { i:'VT', n:'Vũ Thanh Trà', area:'Đà Nẵng', since:'02/2026', refs:2, live:1, rev:180000, st:'Thử việc' }
+    ],
+    refs:[
+      { id:'r1', ctr:'An Nhiên Wellness', by:'Phan Minh Tuấn', sent:'12/03/2025', ok:'18/03/2025', st:'ok',  rev:486000, months:16 },
+      { id:'r2', ctr:'Padma Spa & Therapy', by:'Phan Minh Tuấn', sent:'02/06/2025', ok:'09/06/2025', st:'ok', rev:312000, months:13 },
+      { id:'r3', ctr:'Tịnh Viên Retreat', by:'Nguyễn Thuỳ Linh', sent:'20/08/2025', ok:'26/08/2025', st:'ok', rev:228000, months:11 },
+      { id:'r4', ctr:'Hoà Mộc Center', by:'Hoàng Đức Nam', sent:'22/07/2026', ok:'', st:'wait', rev:0, months:0 },
+      { id:'r5', ctr:'Sen Việt Spa', by:'Vũ Thanh Trà', sent:'24/07/2026', ok:'', st:'wait', rev:0, months:0 },
+      { id:'r6', ctr:'Mộc An Spa', by:'Hoàng Đức Nam', sent:'10/07/2026', ok:'', st:'no', rev:0, months:0 }
+    ],
     // Bảy hồ sơ chờ duyệt — khớp đúng con số hiển thị ở badge và chỉ số.
     // hours = số giờ đã chờ, dùng để tính "quá hạn 48h" thay vì ghi cứng.
     // k = khoá, n = giá trị, step = bước nhảy, min/max = giới hạn
@@ -886,6 +1087,7 @@ class Component extends DCLogic {
     { id:'centers',   g:'Đối tượng',   t:'Quản lý trung tâm',   ic:'building' },
     { id:'approvals', g:'Đối tượng',   t:'Phê duyệt hồ sơ',     ic:'check', live:'approvals' },
     { id:'ktv',       g:'Đối tượng',   t:'KTV tự do',           ic:'users' },
+    { id:'bd',        g:'Đối tượng',   t:'Giám đốc Kinh doanh', ic:'award', live:'bdPending' },
     { id:'loyalty',   g:'Khách hàng',  t:'Loyalty ANP',         ic:'award' },
     { id:'partners',  g:'Khách hàng',  t:'Đối tác liên kết',    ic:'link' },
     { id:'policy',    g:'Nền tảng',    t:'Chính sách & cấu hình', ic:'doc' },
@@ -893,6 +1095,24 @@ class Component extends DCLogic {
   ];
 
   go(id){ this.setState({page:id}); }
+  // Tab trong trang: mỗi trang nhớ riêng tab đang mở.
+  setTab(page, k){ this.setState({ tabs: {...this.state.tabs, [page]: k} }); }
+  tabOf(page, dflt){ return this.state.tabs[page] || dflt; }
+  tabBar(page, defs){
+    const cur = this.tabOf(page, defs[0][0]);
+    return defs.map(([k,t,n]) => ({ t, n: n||'', hasN: !!n,
+      pick: () => this.setTab(page, k),
+      bg: cur===k ? 'var(--surface)' : 'transparent',
+      fg: cur===k ? 'var(--text)' : 'var(--text3)',
+      sh: cur===k ? '0 1px 3px rgba(0,0,0,.08)' : 'none' }));
+  }
+  stepBd(k, dir){
+    const LIM = { pct:[0,20,1], bonus:[0,50000,1000], months:[6,60,6], tier:[0,50000,1000] };
+    const key = { pct:'bdPct', bonus:'bdBonus', months:'bdMonths', tier:'bdTierBonus' }[k];
+    const [min,max,step] = LIM[k];
+    this.setState({ [key]: Math.min(max, Math.max(min, this.state[key] + dir * step)) });
+  }
+  approveRef(id){ this.setState({ refs: this.state.refs.map(r => r.id===id ? {...r, st:'ok'} : r) }); }
   // Phê duyệt, yêu cầu bổ sung hay từ chối đều đưa hồ sơ ra khỏi hàng chờ;
   // badge và các chỉ số phía trên tự tính lại theo danh sách còn lại.
   toggleDual(){ this.setState({ dual: !this.state.dual }); }
@@ -906,6 +1126,10 @@ class Component extends DCLogic {
   renderVals(){
     const s = this.state, pg = this.pages.find(p=>p.id===s.page) || this.pages[0];
 
+    const navCount = (key) => key === 'bdPending'
+      ? s.refs.filter(r => r.st === 'wait').length
+      : s[key].length;
+
     const groups = [];
     this.pages.forEach(p=>{
       let g = groups.find(x=>x.g===p.g);
@@ -913,8 +1137,11 @@ class Component extends DCLogic {
       const on = s.page===p.id;
       g.items.push({ t:p.t, icon:this.ic(p.ic,18), go:()=>this.go(p.id),
         bg:on?'var(--railOn)':'transparent', fg:on?'var(--railFgOn)':'var(--railFg)', wt:on?'700':'500',
-        ic:on?'var(--gold)':'var(--railFg2)', hasCount: p.live ? s[p.live].length > 0 : !!p.count,
-        count: p.live ? s[p.live].length : p.count });
+        ic:on?'var(--gold)':'var(--railFg2)',
+        // Huy hiệu đọc thẳng từ state. Trỏ vào giá trị tính trong renderVals
+        // thì lúc dựng menu nó chưa tồn tại.
+        hasCount: p.live ? navCount(p.live) > 0 : !!p.count,
+        count: p.live ? navCount(p.live) : p.count });
     });
 
     const bIds = ['dash','centers','approvals','loyalty','data'];
@@ -1131,6 +1358,91 @@ class Component extends DCLogic {
       dualTrack: s.dual ? 'var(--okSolid)' : 'var(--line)',
       dualKnob: s.dual ? '22px' : '3px',
       isDash:s.page==='dash', isCenters:s.page==='centers', isApprovals:s.page==='approvals',
+      // ── Giám đốc Kinh doanh ─────────────────────────────────────
+      ...(() => {
+        const tab = this.tabOf('bd', 'list');
+        const tr  = (n) => (n/1000).toFixed(n >= 1000000 ? 2 : 0).replace('.', ',') + (n >= 1000000 ? ' tỷ' : 'tr');
+        const money = (n) => n >= 1000000 ? (n/1000000).toFixed(2).replace('.',',') + ' tỷ'
+                          : n >= 1000 ? (n/1000).toFixed(0) + 'tr' : n + 'k';
+        const term = s.bdMode === 'term';
+        // Hoa hồng chỉ tính cho trung tâm đã duyệt, và nếu chọn chế độ có thời
+        // hạn thì chỉ tính những tháng còn trong hạn.
+        const paid = s.refs.filter(r => r.st === 'ok').map(r => {
+          const inTerm = term ? Math.min(r.months, s.bdMonths) : r.months;
+          const share  = Math.round(r.rev * (inTerm / Math.max(1, r.months)) * s.bdPct / 100);
+          return { ...r, share, expired: term && r.months >= s.bdMonths };
+        });
+        const totalShare = paid.reduce((a,r) => a + r.share, 0);
+        const okCount = s.refs.filter(r => r.st === 'ok').length;
+        const waitCount = s.refs.filter(r => r.st === 'wait').length;
+        const stMap = {
+          ok:   ['Đã duyệt',  'var(--ok)',     'var(--okTint)'],
+          wait: ['Chờ duyệt', 'var(--goldText)','var(--goldTint)'],
+          no:   ['Từ chối',   'var(--danger)', 'var(--dangerTint)']
+        };
+        return {
+          isBd: s.page === 'bd',
+          bdTabs: this.tabBar('bd', [
+            ['list','Danh sách GĐKD'], ['refs','Trung tâm đã giới thiệu', String(waitCount)],
+            ['policy','Chính sách hoa hồng'], ['view','Xem trước màn GĐKD']
+          ]),
+          bdList: tab==='list', bdRefs: tab==='refs', bdPolicy: tab==='policy', bdView: tab==='view',
+
+          bdKpis: [
+            { t:'Giám đốc Kinh doanh', v:String(s.bds.length), sub:'3 chính thức · 1 thử việc', c:'var(--text)' },
+            { t:'Trung tâm đã giới thiệu', v:String(okCount) + '/' + String(s.refs.length), sub:'đã duyệt trên tổng gửi lên', c:'var(--primary)' },
+            { t:'Hoa hồng kỳ này', v: money(totalShare), sub:'theo chính sách đang áp', c:'var(--accent)' },
+            { t:'Chờ ANWELL duyệt', v:String(waitCount), sub:'hồ sơ trung tâm mới', c:'var(--danger)' }
+          ],
+          bdRows: s.bds.map(b => ({ ...b, rev: money(b.rev),
+            share: money(Math.round(b.rev * s.bdPct / 100)),
+            stFg: b.st === 'Thử việc' ? 'var(--goldText)' : 'var(--ok)',
+            stBg: b.st === 'Thử việc' ? 'var(--goldTint)' : 'var(--okTint)',
+            refsT: b.live + '/' + b.refs + ' còn hoạt động' })),
+
+          refRows: s.refs.map(r => ({ ...r,
+            okShown: r.ok || '—',
+            revShown: r.rev ? money(r.rev) : '—',
+            shareShown: r.st === 'ok' ? money(Math.round(r.rev * s.bdPct / 100)) : '—',
+            stT: stMap[r.st][0], stFg: stMap[r.st][1], stBg: stMap[r.st][2],
+            canApprove: r.st === 'wait',
+            approve: () => this.approveRef(r.id),
+            termNote: r.st !== 'ok' ? ''
+              : term ? ('Đã hưởng ' + Math.min(r.months, s.bdMonths) + '/' + s.bdMonths + ' tháng')
+                     : 'Hưởng trọn đời trung tâm' })),
+
+          // ── Chính sách: ADMIN đặt ──
+          bdModes: [['term','Có thời hạn'], ['life','Trọn đời trung tâm']].map(([k,t]) => ({
+            t, pick: () => this.setState({ bdMode:k }),
+            bg: s.bdMode===k ? 'var(--primary)' : 'var(--surface)',
+            fg: s.bdMode===k ? 'var(--on-primary)' : 'var(--text2)',
+            bd: s.bdMode===k ? 'var(--primary)' : 'var(--line)' })),
+          isTerm: term, isLife: !term,
+          bdMonthsV: s.bdMonths + ' tháng',
+          bdMonthsUp:   () => this.stepBd('months', 1),
+          bdMonthsDown: () => this.stepBd('months', -1),
+          bdPctV: s.bdPct + '%',
+          bdPctUp:   () => this.stepBd('pct', 1),
+          bdPctDown: () => this.stepBd('pct', -1),
+          bdBonusV: money(s.bdBonus),
+          bdBonusUp:   () => this.stepBd('bonus', 1),
+          bdBonusDown: () => this.stepBd('bonus', -1),
+          bdTierV: money(s.bdTierBonus),
+          bdTierUp:   () => this.stepBd('tier', 1),
+          bdTierDown: () => this.stepBd('tier', -1),
+          modeNote: term
+            ? ('Giám đốc Kinh doanh hưởng ' + s.bdPct + '% doanh số trung tâm mình giới thiệu trong ' + s.bdMonths + ' tháng kể từ ngày trung tâm được duyệt, sau đó dừng.')
+            : ('Giám đốc Kinh doanh hưởng ' + s.bdPct + '% doanh số trung tâm mình giới thiệu cho tới khi trung tâm rời nền tảng.'),
+
+          // ── Xem trước màn GĐKD ──
+          myLink: 'anwell.vn/gt/PMT-0416',
+          myRefs: paid.filter(r => r.by === 'Phan Minh Tuấn').map(r => ({
+            ctr: r.ctr, ok: r.ok, rev: money(r.rev), share: money(r.share),
+            note: r.termNote || '', dim: r.expired ? '.55' : '1' })),
+          myTotal: money(paid.filter(r => r.by === 'Phan Minh Tuấn').reduce((a,r) => a + r.share, 0)),
+          copyLink: () => {}, shareLink: () => {}
+        };
+      })(),
       isKtv:s.page==='ktv', isLoyalty:s.page==='loyalty', isPartners:s.page==='partners',
       isPolicy:s.page==='policy', isData:s.page==='data',
       kpis, alerts, regions, health,
