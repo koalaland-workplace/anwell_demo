@@ -1111,7 +1111,7 @@
            Định mức tiêu hao. Có nó thì số tồn kho tự trừ theo buổi đã làm, và
            ra được giá vốn mỗi buổi — bước đầu để sau này tính lợi nhuận thật. -->
       <sc-if value="{{ svcCost }}" hint-placeholder-val="{{ false }}">
-        <p style="font-size:12px;color:var(--text2);max-width:640px;margin-bottom:16px">Khách trả một số, trung tâm giữ lại một số khác. Đây là đường đi của tiền cho từng dịch vụ, trừ dần theo đúng thứ tự thực tế: <b>khách thanh toán → trừ ưu đãi → trừ thuế → trừ lương kỹ thuật viên → trừ vật tư</b>.</p>
+        <p style="font-size:12px;color:var(--text2);max-width:640px;margin-bottom:16px">Khách trả một số, trung tâm giữ lại một số khác. Đây là đường đi của tiền cho từng dịch vụ, trừ dần theo đúng thứ tự thực tế: <b>khách thanh toán → trừ ưu đãi → trừ thuế → chia lương kỹ thuật viên → trừ vật tư</b>. Lương là <b>tỷ lệ trên giá trị sau thuế</b>, không phải số cố định.</p>
 
         <div style="display:flex;flex-direction:column;gap:14px">
           <sc-for list="{{ svcCosts }}" as="c" hint-placeholder-count="3">
@@ -1140,19 +1140,19 @@
                   </div>
 
                   <sc-if value="{{ c.isAuto }}" hint-placeholder-val="{{ true }}">
-                    <p style="font-size:11px;line-height:1.6;color:var(--text3);margin-top:9px">Theo cách tính chung ở trang Lương &amp; hoa hồng: <b>{{ c.autoNote }}</b>. Đổi ở đó thì mọi dịch vụ dùng cách chung đổi theo.</p>
+                    <p style="font-size:11px;line-height:1.6;color:var(--text3);margin-top:9px">{{ c.autoNote }}. Tỷ lệ theo bậc đặt ở trang Lương &amp; hoa hồng — đổi ở đó thì mọi dịch vụ dùng bậc đó đổi theo.</p>
                   </sc-if>
 
                   <sc-if value="{{ c.isFixed }}" hint-placeholder-val="{{ false }}">
                     <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px;padding:11px 13px;border-radius:11px;background:var(--surface2)">
-                      <span style="font-size:11px;color:var(--text3)">Trả cố định mỗi buổi</span>
+                      <span style="font-size:11px;color:var(--text3)">Tỷ lệ riêng · chặn 30–45%</span>
                       <span style="flex:none;display:flex;align-items:center;gap:7px">
                         <button sc-camel-on-click="{{ c.down }}" style="width:26px;height:26px;border-radius:8px;background:var(--surface);color:var(--text2);font-size:14px;font-weight:700">−</button>
                         <span style="min-width:56px;text-align:center;font-size:13px;font-weight:700;color:var(--primary)">{{ c.fixedV }}</span>
                         <button sc-camel-on-click="{{ c.up }}" style="width:26px;height:26px;border-radius:8px;background:var(--surface);color:var(--text2);font-size:14px;font-weight:700">+</button>
                       </span>
                     </div>
-                    <p style="font-size:11px;line-height:1.6;color:var(--text3);margin-top:8px">Dùng khi dịch vụ dài hoặc nặng công hơn mức cách tính chung phản ánh — buổi 90 phút không thể trả bằng buổi 45 phút.</p>
+                    <p style="font-size:11px;line-height:1.6;color:var(--text3);margin-top:8px">Dùng khi dịch vụ nặng công hơn mức bậc phản ánh — buổi 90 phút không thể chia bằng buổi 45 phút. Dưới 30% thì không giữ được người giỏi, trên 45% thì trung tâm không đủ bù mặt bằng, nên nền tảng chặn cả hai đầu.</p>
                   </sc-if>
 
                   <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px">
@@ -1172,6 +1172,7 @@
 
         <div style="background:var(--surface2);border-radius:12px;padding:14px 16px;margin-top:14px">
           <p style="font-size:11.5px;line-height:1.65;color:var(--text2)">Thuế tính trên số khách trả <b>sau khi giảm giá</b>, không tính trên giá niêm yết — giảm giá rồi vẫn nộp thuế theo giá gốc là nộp thừa.</p>
+          <p style="font-size:11.5px;line-height:1.65;color:var(--text2);margin-top:7px">Chia theo tỷ lệ nên <b>giảm giá là hai bên cùng chịu</b>, không phải trung tâm gánh một mình.</p>
           <p style="font-size:11.5px;line-height:1.65;color:var(--text2);margin-top:7px">Dòng cuối gọi là <b>Trung tâm còn lại</b> chứ không gọi lợi nhuận: chưa trừ thuê nhà, điện nước, lương lễ tân và phí nền tảng.</p>
         </div>
       </sc-if>
@@ -1569,13 +1570,13 @@
           </div>
 
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:10px">
-            <p style="font-size:12px;color:var(--text2);max-width:520px">Kỳ tháng 7/2026 · chốt ngày 31/07, chuyển khoản 05/08. Cột <b>Thực trả</b> là số kỹ thuật viên nhìn thấy trong mục Tài chính của họ.</p>
+            <p style="font-size:12px;color:var(--text2);max-width:520px">Kỳ tháng 7/2026 · chốt ngày 31/07, chuyển khoản 05/08. Cột <b>Thực trả</b> là số kỹ thuật viên nhìn thấy trong mục Tài chính của họ. Phần chia tính trên <b>doanh thu sau thuế</b> của chính các buổi người đó làm.</p>
             <button sc-camel-on-click="{{ closePayroll }}" style="flex:none;padding:10px 16px;border-radius:10px;background:var(--primary);color:var(--on-primary);font-size:12.5px;font-weight:600;white-space:nowrap">{{ closeLabel }}</button>
           </div>
 
           <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden">
             <div class="hdrow payrow" style="padding:12px 16px;border-bottom:1px solid var(--line);font-size:9.5px;font-weight:700;letter-spacing:.1em;color:var(--text3);text-transform:uppercase">
-              <span>Kỹ thuật viên</span><span class="hideSm">Buổi</span><span class="hideSm">Lương ca</span><span class="hideSm">Hoa hồng</span><span class="hideSm">Phụ cấp</span><span>Thực trả</span>
+              <span>Kỹ thuật viên</span><span class="hideSm">Buổi</span><span class="hideSm">DT sau thuế</span><span class="hideSm">Được chia</span><span class="hideSm">Phụ cấp</span><span>Thực trả</span>
             </div>
             <sc-for list="{{ payroll }}" as="r" hint-placeholder-count="5">
               <button sc-camel-on-click="{{ r.open }}" class="payrow" style="width:100%;text-align:left;padding:13px 16px;border-bottom:1px solid var(--line2);align-items:center">
@@ -1632,7 +1633,7 @@
                   </div>
                 </sc-for>
               </div>
-              <p style="font-size:10.5px;line-height:1.6;color:var(--text3);margin-top:11px">Ca tại nhà cộng thêm phụ cấp {{ payHomeShown }}, nên giá bán ca tại nhà phải cao hơn tương ứng — nếu không thì phần phụ cấp ăn thẳng vào phần còn lại của trung tâm.</p>
+              <p style="font-size:10.5px;line-height:1.6;color:var(--text3);margin-top:11px">Ba tỷ lệ bậc đều bị nền tảng chặn cứng trong <b>30–45%</b> — đặt ngoài khoảng đó không được. Ca tại nhà cộng thêm phụ cấp {{ payHomeShown }}, nên giá bán ca tại nhà phải cao hơn tương ứng.</p>
               <p style="font-size:10.5px;line-height:1.6;color:var(--text3);margin-top:8px">Thuế thu nhập cá nhân chỉ khấu trừ với kỹ thuật viên đã uỷ quyền. Ai tự kê khai theo diện hộ kinh doanh thì trung tâm trả đủ, họ tự nộp — cấu hình ở mục Thuế &amp; hoá đơn.</p>
             </div>
           </div>
@@ -2220,10 +2221,12 @@ class Component extends DCLogic {
     ],
     fbPhone:'', fbNewName:'', fbSvc:null, fbSlot:null, fbDone:false,
     adjT2:70, adjT3:150, logKind:'all',
-    // null = dùng cách tính chung; số = trả cố định riêng cho dịch vụ đó
-    svcPay:{ s1:null, s2:null, s3:330 },
-    // Cách tính lương — sửa được, có chặn trên dưới để không đặt số vô lý.
-    payUnit:280, payComm:8, payHome:70, payPkg:3,
+    // null = theo bậc dịch vụ yêu cầu; số = tỷ lệ riêng, vẫn trong 30–45%
+    svcPay:{ s1:null, s2:null, s3:42 },
+    // Kỹ thuật viên được chia theo TỶ LỆ trên giá trị sau thuế, không phải
+    // lương ca cố định. Nền tảng chặn cứng 30–45%: dưới 30 thì không giữ được
+    // người, trên 45 thì trung tâm không đủ bù mặt bằng và vận hành.
+    payR1:30, payR2:35, payR3:45, payHome:70, payPkg:3,
     // Yêu cầu khách gửi từ app.html
     reqs: [
       { id:'r1', who:'Nguyễn Thu Hà', kind:'Đổi giờ', svc:'Trị liệu cổ vai gáy · 60′', ktv:'Hải Yến',
@@ -2407,14 +2410,17 @@ class Component extends DCLogic {
       fbDone: s.fbDone
     };
   }
-  setSvcPay(id, v){ this.setState({ svcPay: {...this.state.svcPay, [id]: v} }); }
+  setSvcPay(id, v){
+    const c = v == null ? null : Math.min(45, Math.max(30, v));
+    this.setState({ svcPay: {...this.state.svcPay, [id]: c} });
+  }
   stepAdj(k, dir){
     const key = k === 't2' ? 'adjT2' : 'adjT3';
     this.setState({ [key]: Math.max(0, Math.min(400, this.state[key] + dir * 10)) });
   }
   stepPay(k, dir){
-    const LIM = { unit:[150,500,10], comm:[0,20,1], home:[0,200,10], pkg:[0,10,1] };
-    const key = { unit:'payUnit', comm:'payComm', home:'payHome', pkg:'payPkg' }[k];
+    const LIM = { r1:[30,45,1], r2:[30,45,1], r3:[30,45,1], home:[0,200,10], pkg:[0,10,1] };
+    const key = { r1:'payR1', r2:'payR2', r3:'payR3', home:'payHome', pkg:'payPkg' }[k];
     const [min,max,step] = LIM[k];
     this.setState({ [key]: Math.min(max, Math.max(min, this.state[key] + dir * step)) });
   }
@@ -2807,16 +2813,24 @@ class Component extends DCLogic {
         const tr = (n) => (n / 1000).toFixed(2).replace('.', ',') + 'tr';
         // Lương ca = số buổi × đơn giá theo bậc. Hoa hồng = % doanh thu buổi.
         // Phụ cấp = ca tại nhà (đi lại, thời gian di chuyển).
+        // Lương = tỷ lệ theo bậc × doanh thu sau thuế của các buổi người đó
+        // làm, cộng phụ cấp ca tại nhà. Không còn lương ca cố định — chia theo
+        // tỷ lệ thì giảm giá là hai bên cùng chịu, không phải trung tâm gánh.
         const RAW = [
-          { i:'HY', n:'Trần Hải Yến',  tier:'Bậc 2', sessions:26, base:7280, comm:2870, bonus:1050, st:'Chờ chốt' },
-          { i:'NM', n:'Nguyễn Minh',   tier:'Bậc 3', sessions:19, base:6650, comm:3120, bonus:1400, st:'Chờ chốt' },
-          { i:'NA', n:'Lê Ngọc Anh',   tier:'Bậc 2', sessions:24, base:6720, comm:2480, bonus:0,    st:'Chờ chốt' },
-          { i:'PD', n:'Phạm P. Dung',  tier:'Bậc 2', sessions:21, base:5880, comm:2210, bonus:700,  st:'Chờ chốt' },
-          { i:'QA', n:'Đỗ Quỳnh Anh',  tier:'Bậc 1', sessions:28, base:6440, comm:1960, bonus:0,    st:'Chờ chốt' },
-          { i:'NB', n:'Nguyễn Bách',   tier:'Bậc 1', sessions:15, base:3450, comm:1050, bonus:350,  st:'Nghỉ đào tạo' }
+          { i:'HY', n:'Trần Hải Yến',  tier:2, sessions:96,  after:29000, home:15, st:'Chờ chốt' },
+          { i:'NM', n:'Nguyễn Minh',   tier:3, sessions:72,  after:22000, home:20, st:'Chờ chốt' },
+          { i:'NA', n:'Lê Ngọc Anh',   tier:2, sessions:88,  after:24500, home:0,  st:'Chờ chốt' },
+          { i:'PD', n:'Phạm P. Dung',  tier:2, sessions:80,  after:21000, home:10, st:'Chờ chốt' },
+          { i:'QA', n:'Đỗ Quỳnh Anh',  tier:1, sessions:104, after:26000, home:0,  st:'Chờ chốt' },
+          { i:'NB', n:'Nguyễn Bách',   tier:1, sessions:56,  after:13500, home:5,  st:'Nghỉ đào tạo' }
         ];
-        const RATE = { 'Bậc 1':230, 'Bậc 2':280, 'Bậc 3':350 };
-        const rows = RAW.map(r => ({ ...r, total: r.base + r.comm + r.bonus }));
+        const RATE = [s.payR1, s.payR2, s.payR3];
+        const rows = RAW.map(r => {
+          const rate = RATE[r.tier - 1];
+          const share = Math.round(r.after * rate / 100);
+          const bonus = r.home * s.payHome;
+          return { ...r, rate, share, bonus, total: share + bonus };
+        });
         const sum = (k) => rows.reduce((a,r) => a + r[k], 0);
         return {
           isPayroll: s.page === 'payroll',
@@ -2825,22 +2839,23 @@ class Component extends DCLogic {
           payNow: tab==='now', payHow: tab==='how',
           payKpis: [
             { t:'Tổng quỹ lương kỳ này', v: tr(sum('total')), sub:'Tháng 7/2026 · 6 kỹ thuật viên', c:'var(--text)' },
-            { t:'Lương ca', v: tr(sum('base')), sub:'Theo số buổi × đơn giá bậc', c:'var(--primary)' },
-            { t:'Hoa hồng', v: tr(sum('comm')), sub:'Theo doanh thu buổi', c:'var(--accent)' },
-            { t:'Phụ cấp ca tại nhà', v: tr(sum('bonus')), sub:'Đi lại và thời gian di chuyển', c:'var(--text2)' }
+            { t:'Chia theo tỷ lệ', v: tr(sum('share')), sub:'30–45% giá trị sau thuế tuỳ bậc', c:'var(--primary)' },
+            { t:'Phụ cấp ca tại nhà', v: tr(sum('bonus')), sub:'Đi lại và thời gian di chuyển', c:'var(--accent)' },
+            { t:'Doanh thu sau thuế kỳ này', v: tr(sum('after')), sub:'Phần chia lương tính trên số này', c:'var(--text2)' }
           ],
-          payroll: rows.map(r => ({ i:r.i, n:r.n, tier:r.tier,
-            rate: RATE[r.tier] + 'k/buổi',
+          payroll: rows.map(r => ({ i:r.i, n:r.n, tier:'Bậc ' + r.tier,
+            rate: r.rate + '% sau thuế',
             sessions: r.sessions + ' buổi',
-            base: tr(r.base), comm: tr(r.comm), bonus: r.bonus ? tr(r.bonus) : '—',
+            base: tr(r.after), comm: tr(r.share), bonus: r.bonus ? tr(r.bonus) : '—',
             net: tr(r.total), st: r.st,
             stFg: r.st === 'Chờ chốt' ? 'var(--text3)' : 'var(--accent)',
             open: () => this.setState({ page:'staff' }) })),
           closeLabel: 'Chốt kỳ & gửi bảng lương',
           closePayroll: () => {},
           payRules: [
-            { k:'unit',  t:'Đơn giá buổi · Bậc 2', v: s.payUnit + 'k',  d:'Bậc 1 thấp hơn 50k, Bậc 3 cao hơn 70k. Đây là phần trả cho công sức, không phụ thuộc khách trả bao nhiêu.' },
-            { k:'comm',  t:'Hoa hồng doanh thu',   v: s.payComm + '%',  d:'Tính trên doanh thu buổi kỹ thuật viên thực hiện. Đây là phần thưởng cho việc khách chọn đúng dịch vụ giá cao và quay lại.' },
+            { k:'r1', t:'Bậc 1 được chia', v: s.payR1 + '%', d:'Mới vào nghề hoặc chưa đủ ba năm. Tính trên giá trị sau thuế của buổi họ làm.' },
+            { k:'r2', t:'Bậc 2 được chia', v: s.payR2 + '%', d:'Kinh nghiệm ba năm trở lên, đã qua thẩm định ANWELL.' },
+            { k:'r3', t:'Bậc 3 được chia', v: s.payR3 + '%', d:'Ca phức tạp có bác sĩ duyệt. Người ít, khó thay, nên tỷ lệ cao nhất.' },
             { k:'home',  t:'Phụ cấp ca tại nhà',   v: s.payHome + 'k',  d:'Mỗi ca ngoài cơ sở. Bù thời gian di chuyển và chi phí đi lại — không có khoản này thì không ai nhận ca xa.' },
             { k:'pkg',   t:'Thưởng bán gói',       v: s.payPkg + '%',   d:'Khi khách mua gói do kỹ thuật viên tư vấn. Giữ thấp có chủ đích: cao quá thì kỹ thuật viên ép khách mua gói không cần.' }
           ].map(c => ({ ...c,
@@ -2850,18 +2865,18 @@ class Component extends DCLogic {
           // thì còn lại bao nhiêu. Đặt đơn giá quá tay là ra số âm màu đỏ ngay,
           // không phải chờ tới cuối kỳ mới biết.
           ...(() => {
-            const PRICE = 450;   // đúng bằng bảng giá và màn xác nhận đặt lịch bên khách
-            const comm = Math.round(PRICE * s.payComm / 100);
-            const ktvGets = s.payUnit + comm;
-            const left = PRICE - ktvGets;
+            const PRICE = 450, TAX = 8;   // đúng bằng bảng giá và màn đặt lịch bên khách
+            const tax = Math.round(PRICE * TAX / 100);
+            const after = PRICE - tax;
+            const ktvGets = Math.round(after * s.payR2 / 100);
+            const left = after - ktvGets;
             return { payExample: [
               { k:'Một buổi Trị liệu cổ vai gáy 60′ tại cơ sở', v: PRICE + 'k', fg:'var(--text3)', wt:'500' },
-              { k:'Lương ca · Bậc 2',                      v:'−' + s.payUnit + 'k', fg:'var(--text2)', wt:'500' },
-              { k:'Hoa hồng ' + s.payComm + '% doanh thu', v:'−' + comm + 'k',      fg:'var(--text2)', wt:'500' },
-              { k:'Kỹ thuật viên nhận',                    v: ktvGets + 'k',        fg:'var(--text)',  wt:'700' },
-              { k: left >= 0 ? 'Trung tâm còn lại' : '⚠ Trung tâm lỗ mỗi buổi',
-                v: (left >= 0 ? '' : '−') + Math.abs(left) + 'k',
-                fg: left >= 0 ? 'var(--primary)' : 'var(--dangerSolid)', wt:'700' }
+              { k:'− Thuế GTGT ' + TAX + '%',                   v:'−' + tax + 'k',     fg:'var(--text2)', wt:'500' },
+              { k:'= Giá trị sau thuế',                         v: after + 'k',        fg:'var(--text)',  wt:'700' },
+              { k:'− Kỹ thuật viên Bậc 2 · ' + s.payR2 + '%',   v:'−' + ktvGets + 'k', fg:'var(--text2)', wt:'500' },
+              { k:'= Trung tâm còn lại, trước vật tư',          v: left + 'k',
+                fg:'var(--primary)', wt:'700' }
             ] };
           })()
         };
@@ -2930,20 +2945,19 @@ class Component extends DCLogic {
         // cho dịch vụ đó; vat là thuế GTGT tính trên số khách trả SAU giảm.
         const VAT = 8;
         const COSTS = [
-          { id:'s1', t:'Trị liệu cổ vai gáy 60′', price:450, promo:15,
+          { id:'s1', t:'Trị liệu cổ vai gáy 60′', price:450, promo:15, tier:2,
             promoNote:'Đang áp ưu đãi giảm 15% khung 14–16h',
             items:[['Tinh dầu tràm','15ml'],['Khăn trị liệu','1 bộ'],['Ga giường dùng một lần','1']], mat:28 },
-          { id:'s2', t:'Vật lý trị liệu 45′', price:380, promo:0,
+          { id:'s2', t:'Vật lý trị liệu 45′', price:380, promo:0, tier:2,
             promoNote:'Không có ưu đãi đang áp',
             items:[['Gel dẫn siêu âm','20ml'],['Khăn trị liệu','1 bộ'],['Điện cực dán','2 cặp']], mat:41 },
-          { id:'s3', t:'Massage thư giãn 90′', price:620, promo:0,
+          { id:'s3', t:'Massage thư giãn 90′', price:620, promo:0, tier:1,
             promoNote:'Không có ưu đãi đang áp',
             items:[['Dầu nền hạnh nhân','30ml'],['Khăn trị liệu','2 bộ'],['Nến thơm','1/4 cây']], mat:52 }
         ];
         const money = (n) => n.toLocaleString('vi-VN') + 'k';
         return {
           svcTabs: this.tabBar('services', [['price','Bảng giá'], ['cost','Lương & giá vốn theo dịch vụ']]),
-          laborNote: s.payUnit + 'k lương ca + ' + s.payComm + '% hoa hồng',
           svcPrice: tab==='price', svcCost: tab==='cost',
           tierAdj: TIERS.map(a => ({ tier:a.tier, d:a.d, c:a.c,
             v: a.v === 0 ? '—' : '+' + a.v + 'k',
@@ -2957,10 +2971,13 @@ class Component extends DCLogic {
             const disc  = Math.round(c.price * c.promo / 100);
             const paid  = c.price - disc;
             const tax   = Math.round(paid * VAT / 100);
-            const auto  = s.payUnit + Math.round(paid * s.payComm / 100);
-            const fixed = s.svcPay[c.id];
-            const labor = fixed != null ? fixed : auto;
-            const left  = paid - tax - labor - c.mat;
+            const after  = paid - tax;
+            // Tỷ lệ mặc định theo bậc dịch vụ yêu cầu; đặt riêng vẫn bị chặn 30–45%.
+            const byTier = [s.payR1, s.payR2, s.payR3][c.tier - 1];
+            const own    = s.svcPay[c.id];
+            const rate   = own != null ? own : byTier;
+            const labor  = Math.round(after * rate / 100);
+            const left   = after - labor - c.mat;
             const pct   = Math.round(left / paid * 100);
             const line  = 'var(--line2)';
             const row = (k, v, opt) => ({ k, v,
@@ -2974,25 +2991,26 @@ class Component extends DCLogic {
                 ...(disc ? [row('− Ưu đãi ' + c.promo + '%', '−' + money(disc), 'neg')] : []),
                 row('= Khách trả thực', money(paid), 'sum'),
                 row('− Thuế GTGT ' + VAT + '%', '−' + money(tax), 'neg'),
-                row('− Lương kỹ thuật viên', '−' + money(labor), 'neg'),
+                row('= Giá trị sau thuế', money(after), 'sum'),
+                row('− Lương kỹ thuật viên · ' + rate + '%', '−' + money(labor), 'neg'),
                 row('− Vật tư mỗi buổi', '−' + money(c.mat), 'neg'),
                 row('= Trung tâm còn lại', money(left) + ' · ' + pct + '%', 'sum')
               ],
-              modes: [['auto','Theo cách tính chung'], ['fixed','Đặt riêng']].map(([k,t]) => {
-                const on = (k === 'fixed') === (fixed != null);
+              modes: [['auto','Theo bậc ' + c.tier], ['fixed','Đặt riêng']].map(([k,t]) => {
+                const on = (k === 'fixed') === (own != null);
                 return { t, bg: on ? 'var(--surface)' : 'transparent',
                   fg: on ? 'var(--text)' : 'var(--text3)',
-                  pick: () => this.setSvcPay(c.id, k === 'fixed' ? auto : null) };
+                  pick: () => this.setSvcPay(c.id, k === 'fixed' ? byTier : null) };
               }),
-              isAuto: fixed == null, isFixed: fixed != null,
-              autoNote: s.payUnit + 'k lương ca + ' + s.payComm + '% trên ' + money(paid),
-              fixedV: money(labor),
-              up:   () => this.setSvcPay(c.id, Math.min(900, labor + 10)),
-              down: () => this.setSvcPay(c.id, Math.max(0, labor - 10)),
+              isAuto: own == null, isFixed: own != null,
+              autoNote: 'Bậc ' + c.tier + ' được chia ' + byTier + '% trên giá trị sau thuế = ' + money(labor),
+              fixedV: rate + '%',
+              up:   () => this.setSvcPay(c.id, rate + 1),
+              down: () => this.setSvcPay(c.id, rate - 1),
               thin: pct < 12,
               thinNote: left <= 0
-                ? 'Dịch vụ này đang lỗ ' + money(-left) + ' mỗi buổi. Xem lại giá bán, mức ưu đãi hoặc lương.'
-                : 'Chỉ còn ' + pct + '% sau vật tư và công — chưa đủ bù thuê nhà và vận hành.'
+                ? 'Dịch vụ này đang lỗ ' + money(-left) + ' mỗi buổi. Xem lại giá bán hoặc mức ưu đãi.'
+                : 'Chỉ còn ' + pct + '% sau thuế, công và vật tư — chưa đủ bù thuê nhà và vận hành.'
             };
           })
         };
