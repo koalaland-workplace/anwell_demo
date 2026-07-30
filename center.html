@@ -1216,6 +1216,116 @@
         </div>
       </sc-if>
 
+      <!-- ═══ CHĂM SÓC & ƯU ĐÃI ═══
+           App khách màn đặt lịch có mục "ƯU ĐÃI GẦN BẠN" nhưng không ai đăng
+           được ưu đãi nào. Đây là chỗ đăng. -->
+      <sc-if value="{{ isCare }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;gap:4px;padding:3px;border-radius:12px;background:var(--surface2);margin-bottom:16px;max-width:480px">
+          <sc-for list="{{ careTabs }}" as="t" hint-placeholder-count="3">
+            <button sc-camel-on-click="{{ t.pick }}" style="flex:1;padding:9px 8px;border-radius:9px;background:{{ t.bg }};color:{{ t.fg }};box-shadow:{{ t.sh }};font-size:12px;font-weight:600;white-space:nowrap">{{ t.t }}</button>
+          </sc-for>
+        </div>
+
+        <!-- ── Chiến dịch ưu đãi ── -->
+        <sc-if value="{{ careCamp }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:10px">
+            <p style="font-size:12px;color:var(--text2);max-width:540px">Ưu đãi bật lên sẽ hiện ở mục <b>Ưu đãi gần bạn</b> trong app của khách khi họ đặt lịch. Chỉ hiện với khách ở khu vực bạn chọn.</p>
+            <button sc-camel-on-click="{{ addCamp }}" style="flex:none;padding:10px 16px;border-radius:10px;background:var(--primary);color:var(--on-primary);font-size:12.5px;font-weight:600;white-space:nowrap">+ Tạo ưu đãi</button>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:11px">
+            <sc-for list="{{ camps }}" as="c" hint-placeholder-count="3">
+              <div style="background:var(--surface);border:1px solid {{ c.bd }};border-radius:14px;padding:16px">
+                <div style="display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap">
+                  <span style="flex:none;width:38px;height:38px;border-radius:11px;background:{{ c.iBg }};display:grid;place-items:center;font-size:16px">{{ c.icon }}</span>
+                  <div style="flex:1;min-width:200px">
+                    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+                      <span style="font-size:13.5px;font-weight:700">{{ c.t }}</span>
+                      <span style="font-size:9px;font-weight:700;color:{{ c.stFg }};background:{{ c.stBg }};padding:2px 9px;border-radius:99px">{{ c.st }}</span>
+                    </div>
+                    <div style="font-size:11.5px;color:var(--text2);margin-top:5px">{{ c.d }}</div>
+                    <div style="font-size:10.5px;color:var(--text3);margin-top:4px">{{ c.who }} · {{ c.when }}</div>
+                  </div>
+                  <div style="flex:none;text-align:right;min-width:96px">
+                    <div style="font-size:9.5px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;font-weight:700">Đã dùng</div>
+                    <div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:22px;color:var(--primary)">{{ c.used }}</div>
+                    <div style="font-size:10px;color:var(--text3)">{{ c.rev }}</div>
+                  </div>
+                  <button sc-camel-on-click="{{ c.toggle }}" aria-label="Bật tắt ưu đãi" style="flex:none;width:46px;height:27px;border-radius:99px;background:{{ c.track }};position:relative;align-self:center;transition:background .2s">
+                    <span style="position:absolute;top:3px;left:{{ c.knob }};width:21px;height:21px;border-radius:50%;background:var(--surface);box-shadow:0 2px 5px rgba(0,0,0,.24);transition:left .2s"></span>
+                  </button>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="background:var(--surface2);border-radius:12px;padding:14px 16px;margin-top:14px">
+            <p style="font-size:11.5px;line-height:1.65;color:var(--text2)">Ưu đãi của bạn <b>không đụng tới điểm ANP</b>. Giảm giá là chuyện của bạn với khách; ANP là chương trình của nền tảng, tính trên số tiền khách thực trả sau giảm.</p>
+          </div>
+        </sc-if>
+
+        <!-- ── Tin nhắn ── -->
+        <sc-if value="{{ careMsg }}" hint-placeholder-val="{{ false }}">
+          <div class="split">
+            <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px">
+              <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:18px">Soạn tin</div>
+              <p style="font-size:11px;color:var(--text3);margin-top:3px">Gửi qua Zalo ZNS trước, khách không nhận được thì mới rơi xuống SMS. ZNS rẻ hơn và khách đọc nhiều hơn.</p>
+
+              <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:16px 0 8px">Gửi cho ai</p>
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <sc-for list="{{ msgGroups }}" as="g" hint-placeholder-count="4">
+                  <button sc-camel-on-click="{{ g.pick }}" style="width:100%;text-align:left;display:flex;align-items:center;gap:11px;padding:12px 13px;border-radius:11px;background:{{ g.bg }};border:1.5px solid {{ g.bd }}">
+                    <span style="flex:1;min-width:0">
+                      <span style="display:block;font-size:12.5px;font-weight:600;color:{{ g.fg }}">{{ g.t }}</span>
+                      <span style="display:block;font-size:10.5px;color:var(--text3);margin-top:2px">{{ g.d }}</span>
+                    </span>
+                    <span style="flex:none;font-size:13px;font-weight:700;color:{{ g.fg }}">{{ g.n }}</span>
+                  </button>
+                </sc-for>
+              </div>
+
+              <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:16px 0 8px">Nội dung</p>
+              <textarea value="{{ msgText }}" sc-camel-on-input="{{ onMsgText }}" placeholder="Chào {tên khách}, ..." style="width:100%;min-height:110px;padding:12px 14px;border-radius:11px;border:1px solid var(--line);background:var(--surface);color:var(--text);font-size:12.5px;font-family:inherit;resize:none"></textarea>
+              <p style="font-size:10.5px;color:var(--text3);margin-top:6px">{{ msgLen }} · {{ msgCost }}</p>
+              <button sc-camel-on-click="{{ sendMsg }}" style="width:100%;margin-top:12px;padding:14px;border-radius:12px;background:{{ msgBg }};color:{{ msgFg }};font-weight:700;font-size:14px">{{ msgLabel }}</button>
+            </div>
+
+            <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px">
+              <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:18px">Mẫu có sẵn</div>
+              <div style="display:flex;flex-direction:column;gap:9px;margin-top:12px">
+                <sc-for list="{{ msgTemplates }}" as="m" hint-placeholder-count="4">
+                  <button sc-camel-on-click="{{ m.use }}" style="width:100%;text-align:left;padding:12px 13px;border-radius:11px;background:var(--surface2);border:1px solid var(--line)">
+                    <span style="display:block;font-size:12px;font-weight:600">{{ m.t }}</span>
+                    <span style="display:block;font-size:10.5px;line-height:1.55;color:var(--text3);margin-top:3px">{{ m.p }}</span>
+                  </button>
+                </sc-for>
+              </div>
+              <p style="font-size:10.5px;line-height:1.6;color:var(--text3);margin-top:12px">Khách tắt nhận tin quảng cáo trong app thì hệ thống tự bỏ họ khỏi danh sách gửi — bạn không cần lọc tay, và cũng không gửi được cho họ dù muốn.</p>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ── Tự động ── -->
+        <sc-if value="{{ careAuto }}" hint-placeholder-val="{{ false }}">
+          <p style="font-size:12px;color:var(--text2);max-width:560px;margin-bottom:14px">Ba luật chạy nền, không cần ai bấm. Đây là phần thay cho việc lễ tân ngồi nhớ gọi ai.</p>
+          <div style="display:flex;flex-direction:column;gap:11px">
+            <sc-for list="{{ autoRules }}" as="r" hint-placeholder-count="3">
+              <div style="background:var(--surface);border:1px solid {{ r.bd }};border-radius:14px;padding:16px">
+                <div style="display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap">
+                  <span style="flex:none;width:38px;height:38px;border-radius:11px;background:{{ r.iBg }};display:grid;place-items:center;font-size:16px">{{ r.icon }}</span>
+                  <div style="flex:1;min-width:200px">
+                    <div style="font-size:13.5px;font-weight:700">{{ r.t }}</div>
+                    <div style="font-size:11.5px;line-height:1.6;color:var(--text2);margin-top:5px">{{ r.d }}</div>
+                    <div style="font-size:10.5px;color:var(--text3);margin-top:5px">Tháng này đã chạy {{ r.ran }} lần · {{ r.result }}</div>
+                  </div>
+                  <button sc-camel-on-click="{{ r.toggle }}" aria-label="Bật tắt luật tự động" style="flex:none;width:46px;height:27px;border-radius:99px;background:{{ r.track }};position:relative;align-self:center;transition:background .2s">
+                    <span style="position:absolute;top:3px;left:{{ r.knob }};width:21px;height:21px;border-radius:50%;background:var(--surface);box-shadow:0 2px 5px rgba(0,0,0,.24);transition:left .2s"></span>
+                  </button>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+      </sc-if>
+
       <sc-if value="{{ isKtvReq }}" hint-placeholder-val="{{ false }}">
         <p style="font-size:12px;color:var(--text2);max-width:600px;margin-bottom:16px">Yêu cầu kỹ thuật viên gửi lên. Đổi giờ, huỷ ca và xin thêm việc cần trung tâm duyệt. Riêng báo bận khẩn cấp có hiệu lực ngay — trung tâm chỉ cần bố trí người thay.</p>
 
@@ -1495,6 +1605,7 @@
 class Component extends DCLogic {
   state = { theme:'serene', page:'dash', day:'T7', staffFilter:'Tất cả', withhold:true, tabs:{}, cusId:null,
     regForm:{}, regSvcs:[], regVenue:['center'], regDocsOn:[], regVowsOn:[],
+    campOn:['c1','c3'], msgGroup:'lapse', msgText:'', autoOn:['a1','a2','a3'],
     // Cách tính lương — sửa được, có chặn trên dưới để không đặt số vô lý.
     payUnit:280, payComm:8, payHome:70, payPkg:3,
     // Yêu cầu khách gửi từ app.html
@@ -2057,6 +2168,85 @@ class Component extends DCLogic {
           })()
         };
       })(),
+      // ── Chăm sóc & ưu đãi ───────────────────────────────────────
+      // Ưu đãi bật lên là hiện ở "ƯU ĐÃI GẦN BẠN" bên app khách. Trước đây mục
+      // đó có sẵn mà không ai đăng được gì vào.
+      ...(() => {
+        const tab = this.tabOf('care', 'camp');
+        const sw = (on) => ({ track: on ? 'var(--primary)' : 'var(--line)', knob: on ? '22px' : '3px' });
+        const CAMPS = [
+          { id:'c1', icon:'🎁', iBg:'var(--goldTint)', t:'Giảm 20% buổi đầu cho khách mới',
+            d:'Áp cho mọi dịch vụ dưới 60 phút · tối đa 100k',
+            who:'Khách chưa từng đặt ở An Nhiên', when:'01/07 – 31/08', used:'38 lượt', rev:'+14,2tr doanh thu' },
+          { id:'c2', icon:'📦', iBg:'var(--tint)', t:'Mua gói 8 buổi tặng 1 buổi',
+            d:'Massage trị liệu vai gáy · gói 8 buổi',
+            who:'Khách đã đến từ 3 lần trở lên', when:'15/07 – 15/09', used:'11 lượt', rev:'+28,2tr doanh thu' },
+          { id:'c3', icon:'🌙', iBg:'var(--surface2)', t:'Giảm 15% khung 14–16h',
+            d:'Lấp giờ trống buổi chiều · trừ cuối tuần',
+            who:'Mọi khách trong bán kính 5 km', when:'Chạy liên tục', used:'62 lượt', rev:'+19,6tr doanh thu' }
+        ];
+        const GROUPS = [
+          ['all',   'Toàn bộ khách hoạt động', 'Đã đến trong 6 tháng gần đây', '842'],
+          ['lapse', 'Khách lâu không quay lại', 'Quá 60 ngày chưa đặt buổi nào', '96'],
+          ['pkg',   'Gói sắp hết buổi',        'Còn dưới 3 buổi hoặc sắp hết hạn', '23'],
+          ['bday',  'Sinh nhật tháng này',     'Dịp tự nhiên để nhắn, không cần cớ', '31']
+        ];
+        const TPL = [
+          ['Nhắc buổi hẹn',    'Chào {tên khách}, An Nhiên nhắc buổi {dịch vụ} lúc {giờ} ngày {ngày}. Nhắn lại nếu cần đổi giờ.'],
+          ['Mời quay lại',     'Chào {tên khách}, đã một thời gian anh/chị chưa ghé An Nhiên. Tháng này có ưu đãi 15% khung chiều, mời anh/chị sắp xếp một buổi.'],
+          ['Gói sắp hết buổi', 'Chào {tên khách}, gói {tên gói} của anh/chị còn {số buổi} buổi và hết hạn {ngày}. Gia hạn trước hạn được giữ giá cũ.'],
+          ['Chúc mừng sinh nhật', 'An Nhiên chúc mừng sinh nhật {tên khách}. Tặng anh/chị một buổi massage đầu 20 phút, dùng trong tháng này.']
+        ];
+        const AUTO = [
+          { id:'a1', icon:'⏰', iBg:'var(--tint)', t:'Nhắc trước buổi hẹn',
+            d:'Gửi ZNS trước 24 giờ và nhắc lại trước 2 giờ. Khách bấm xác nhận hoặc đổi giờ ngay trong tin.',
+            ran:'412', result:'giảm khách quên buổi từ 9% xuống 3%' },
+          { id:'a2', icon:'👋', iBg:'var(--goldTint)', t:'Khách lâu không quay lại',
+            d:'Quá 60 ngày chưa đặt buổi thì gửi một tin mời quay lại kèm ưu đãi đang chạy. Chỉ gửi một lần, không nhắc đi nhắc lại.',
+            ran:'96', result:'21 khách quay lại' },
+          { id:'a3', icon:'📦', iBg:'var(--surface2)', t:'Gói sắp hết buổi',
+            d:'Còn 3 buổi hoặc còn 2 tuần tới hạn thì nhắc gia hạn. Gọi trước khi hết hẳn — hết rồi mới gọi thì khách đã đi chỗ khác.',
+            ran:'23', result:'14 khách gia hạn' }
+        ];
+        const grp = GROUPS.find(g => g[0] === s.msgGroup) || GROUPS[0];
+        const n = parseInt(grp[3], 10);
+        const canSend = s.msgText.trim().length >= 20;
+        return {
+          isCare: s.page === 'care',
+          careTabs: this.tabBar('care', [['camp','Chiến dịch'], ['msg','ZNS / SMS'], ['auto','Tự động']]),
+          careCamp: tab==='camp', careMsg: tab==='msg', careAuto: tab==='auto',
+          addCamp: () => {},
+          camps: CAMPS.map(c => {
+            const on = s.campOn.includes(c.id);
+            return { ...c, ...sw(on),
+              st: on ? 'Đang chạy' : 'Tạm dừng',
+              stFg: on ? 'var(--ok)' : 'var(--text2)',
+              stBg: on ? 'var(--okTint)' : 'var(--surface2)',
+              bd: on ? 'var(--primary)' : 'var(--line)',
+              toggle: () => this.setState({ campOn: on ? s.campOn.filter(x=>x!==c.id) : [...s.campOn, c.id] }) };
+          }),
+          msgGroups: GROUPS.map(([k,t,d,cnt]) => ({ t, d, n: cnt,
+            pick: () => this.setState({ msgGroup:k }),
+            bg: s.msgGroup===k ? 'var(--tint)' : 'var(--surface)',
+            bd: s.msgGroup===k ? 'var(--primary)' : 'var(--line)',
+            fg: s.msgGroup===k ? 'var(--primary)' : 'var(--text)' })),
+          msgText: s.msgText, onMsgText: (e) => this.setState({ msgText: e.target.value }),
+          msgLen: s.msgText.length + ' ký tự',
+          // Nói giá ngay khi soạn, không để tới cuối tháng mới thấy hoá đơn.
+          msgCost: n + ' người · khoảng ' + (n * 0.3).toFixed(0) + 'k tiền ZNS',
+          msgLabel: canSend ? ('Gửi cho ' + n + ' khách') : 'Viết nội dung để gửi',
+          msgBg: canSend ? 'var(--primary)' : 'var(--surface2)',
+          msgFg: canSend ? 'var(--on-primary)' : 'var(--text3)',
+          sendMsg: () => canSend ? this.setState({ msgText:'' }) : null,
+          msgTemplates: TPL.map(([t,p]) => ({ t, p, use: () => this.setState({ msgText: p }) })),
+          autoRules: AUTO.map(r => {
+            const on = s.autoOn.includes(r.id);
+            return { ...r, ...sw(on), bd: on ? 'var(--primary)' : 'var(--line)',
+              toggle: () => this.setState({ autoOn: on ? s.autoOn.filter(x=>x!==r.id) : [...s.autoOn, r.id] }) };
+          })
+        };
+      })(),
+
       // ── Đăng ký kỹ thuật viên ───────────────────────────────────
       // Bảy mục cơ bản, cộng sáu mục nữa mà mỗi mục đều có một chỗ khác trong
       // sản phẩm đang cần: ảnh để khách chọn, giới tính vì khách hay muốn KTV
