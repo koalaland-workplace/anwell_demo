@@ -585,6 +585,20 @@
         </span>
       </div>
 
+      <!-- ══ AI ĐANG THEO DÕI BUỔI ══
+           Bên khách có nút "Chia sẻ buổi cho người thân". KTV nên biết mình
+           đang được ai xem — vừa là chuyện riêng tư, vừa là điều nên nhớ khi
+           trao đổi trong lúc làm. -->
+      <sc-if value="{{ hasWatchers }}" hint-placeholder-val="{{ true }}">
+        <div class="card" style="padding:12px 14px;margin-top:12px;display:flex;align-items:center;gap:10px;background:var(--surface2)">
+          <span style="flex:none;font-size:14px">👁</span>
+          <span style="flex:1;min-width:0">
+            <span style="display:block;font-size:11.5px;font-weight:600">{{ watcherLine }}</span>
+            <span style="display:block;font-size:10px;color:var(--text3);margin-top:2px">Họ thấy trạng thái buổi và ghi chú của bạn, không thấy thu nhập hay thông tin cá nhân của bạn.</span>
+          </span>
+        </div>
+      </sc-if>
+
       <!-- ══ THẺ CHUẨN BỊ TRƯỚC CA ══
            Gộp một chỗ những gì KTV cần biết trước khi gõ cửa: điều phải tránh
            theo hồ sơ sức khoẻ khách khai, buổi trước đã làm gì, gia đình dặn
@@ -626,6 +640,21 @@
           <p style="font:700 9px ui-monospace,monospace;letter-spacing:.14em;color:var(--accent);text-transform:uppercase">Lưu ý từ gia đình</p>
           <p style="font-size:12px;line-height:1.6;color:var(--text2);margin-top:7px">{{ sessFamNote }}</p>
         </div>
+
+        <!-- Khép vòng với phần "Ghi lại cho kỹ thuật viên sau" ở cuối ca trước.
+             Khách không thấy khối này. -->
+        <sc-if value="{{ hasPrevNote }}" hint-placeholder-val="{{ true }}">
+          <div class="card" style="padding:14px;margin-top:12px;background:var(--surface2)">
+            <p style="font:700 9px ui-monospace,monospace;letter-spacing:.14em;color:var(--muted);text-transform:uppercase">🔒 Kỹ thuật viên ca trước ghi</p>
+            <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+              <sc-for list="{{ prevTags }}" as="g" hint-placeholder-count="2">
+                <span style="padding:4px 9px;border-radius:99px;background:var(--surface);border:1px solid var(--line);font-size:10.5px;font-weight:600;color:var(--text2)">{{ g.t }}</span>
+              </sc-for>
+            </div>
+            <p style="font-size:11.5px;line-height:1.6;color:var(--text2);margin-top:9px">{{ prevNote }}</p>
+            <p style="font-size:10px;color:var(--text3);margin-top:6px">{{ prevWho }} · khách không xem được phần này</p>
+          </div>
+        </sc-if>
 
         <!-- ══ MÃ XÁC MINH ══
              Bên app khách hiện bốn số và dặn "hỏi mã này trước khi mở cửa".
@@ -726,7 +755,63 @@
 
         <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.18em;color:var(--text3);text-transform:uppercase;margin:18px 0 8px">Ghi chú buổi làm việc</p>
         <textarea value="{{ sessNote }}" sc-camel-on-input="{{ onSessNote }}" placeholder="Phản ứng của người được chăm sóc, tiến triển, dặn dò cho lần sau..." style="width:100%;min-height:92px;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--text);font-size:13px;font-family:inherit;resize:none"></textarea>
-        <button sc-camel-on-click="{{ endSession }}" style="width:100%;margin-top:13px;padding:16px;border-radius:12px;background:var(--dangerSolid);color:#fff;font-weight:700;font-size:15px;text-align:center">Check-out · Kết thúc buổi</button>
+        <!-- ══ CHIA SẺ VỊ TRÍ TRỰC TIẾP ══
+             Khác SOS. SOS là lúc đã muộn; chia sẻ vị trí là phòng ngừa, bật từ
+             đầu ca và chạy nền. Chỉ có ý nghĩa với ca ngoài cơ sở. -->
+        <sc-if value="{{ isHomeVisit }}" hint-placeholder-val="{{ true }}">
+          <div class="card" style="padding:13px 14px;margin-top:16px;display:flex;align-items:center;gap:11px">
+            <span style="flex:none;font-size:15px">📡</span>
+            <span style="flex:1;min-width:0">
+              <span style="display:block;font-size:12.5px;font-weight:600">Chia sẻ vị trí trực tiếp</span>
+              <span style="display:block;font-size:10.5px;color:var(--text3);margin-top:2px">{{ liveText }}</span>
+            </span>
+            <button sc-camel-on-click="{{ toggleLive }}" aria-label="Chia sẻ vị trí trực tiếp" style="flex:none;width:46px;height:27px;border-radius:99px;background:{{ liveTrack }};position:relative;transition:background .2s">
+              <span style="position:absolute;top:3px;left:{{ liveKnob }};width:21px;height:21px;border-radius:50%;background:var(--surface);box-shadow:0 2px 5px rgba(0,0,0,.24);transition:left .2s"></span>
+            </button>
+          </div>
+          <sc-if value="{{ liveOn }}" hint-placeholder-val="{{ true }}">
+            <p style="font-size:10.5px;line-height:1.6;color:var(--text3);margin:8px 2px 0;padding-left:9px;border-left:2px solid var(--line2)">Điều phối viên An Nhiên và số khẩn cấp bạn khai trong mục Tôi thấy được vị trí bạn cho tới khi check-out. Khách <strong>không</strong> thấy. Tự tắt khi kết thúc buổi.</p>
+          </sc-if>
+        </sc-if>
+
+        <button sc-camel-on-click="{{ endSession }}" style="width:100%;margin-top:16px;padding:16px;border-radius:12px;background:var(--dangerSolid);color:#fff;font-weight:700;font-size:15px;text-align:center">Check-out · Kết thúc buổi</button>
+
+        <!-- ══ BÁO SỰ CỐ ══ Tách hẳn khỏi SOS. Gộp chung thì KTV sẽ ngại bấm
+             SOS vì sợ làm to chuyện, đúng lúc cần bấm nhất. -->
+        <sc-if value="{{ incClosed }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;gap:8px;margin-top:11px">
+            <button sc-camel-on-click="{{ openInc }}" style="flex:1;padding:13px;border-radius:12px;background:var(--surface);border:1px solid var(--line);color:var(--text2);font-size:12.5px;font-weight:600">Ca không như dự kiến</button>
+            <button sc-camel-on-click="{{ sos }}" style="flex:none;padding:13px 18px;border-radius:12px;background:var(--dangerTint);color:var(--danger);font-size:12.5px;font-weight:700">SOS</button>
+          </div>
+          <p style="font-size:10px;line-height:1.55;color:var(--text3);margin:8px 2px 0">SOS là khi bạn thấy không an toàn — gọi ngay, không hỏi lại. Bên trái là khi ca gặp trục trặc nhưng bạn vẫn ổn.</p>
+        </sc-if>
+
+        <sc-if value="{{ incOpen }}" hint-placeholder-val="{{ false }}">
+          <div class="card" style="padding:15px;margin-top:11px">
+            <div style="display:flex;align-items:center;justify-content:space-between">
+              <p style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:17px">Ca không như dự kiến</p>
+              <button sc-camel-on-click="{{ closeInc }}" style="font-size:11.5px;font-weight:600;color:var(--muted)">Đóng</button>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px;margin-top:12px">
+              <sc-for list="{{ incKinds }}" as="k" hint-placeholder-count="4">
+                <button sc-camel-on-click="{{ k.pick }}" style="width:100%;text-align:left;padding:12px 13px;border-radius:11px;background:{{ k.bg }};border:1.5px solid {{ k.bd }}">
+                  <span style="display:block;font-size:12.5px;font-weight:600;color:{{ k.fg }}">{{ k.t }}</span>
+                  <span style="display:block;font-size:10.5px;color:var(--text3);margin-top:3px">{{ k.d }}</span>
+                </button>
+              </sc-for>
+            </div>
+            <textarea value="{{ incNote }}" sc-camel-on-input="{{ onIncNote }}" placeholder="Kể ngắn gọn chuyện gì xảy ra..." style="width:100%;min-height:72px;margin-top:12px;padding:11px 13px;border-radius:11px;border:1px solid var(--line);background:var(--surface);color:var(--text);font-size:12.5px;font-family:inherit;resize:none"></textarea>
+            <button sc-camel-on-click="{{ sendInc }}" style="width:100%;margin-top:11px;padding:14px;border-radius:12px;background:{{ incBg }};color:{{ incFg }};font-weight:700;font-size:14px">{{ incLabel }}</button>
+            <p style="font-size:10.5px;line-height:1.55;color:var(--text3);margin:9px 2px 0">Gửi cho điều phối viên An Nhiên. Ca vẫn tính công cho bạn tới lúc trung tâm quyết, bạn không mất tiền vì chờ.</p>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ incSent }}" hint-placeholder-val="{{ false }}">
+          <div class="card" style="padding:14px;margin-top:11px;border:1px solid var(--gold)">
+            <p style="font-size:12.5px;font-weight:600">Đã báo: {{ incSentKind }}</p>
+            <p style="font-size:11px;color:var(--text3);line-height:1.55;margin-top:4px">Điều phối viên An Nhiên đang xem. Ca tạm giữ nguyên trạng thái, công vẫn tính.</p>
+          </div>
+        </sc-if>
       </sc-if>
 
       <sc-if value="{{ sessDone }}" hint-placeholder-val="{{ false }}">
@@ -785,7 +870,39 @@
             <p style="font-size:11px;color:var(--text3);line-height:1.55;margin-top:4px">{{ tcResolvedNote }}</p>
           </div>
         </sc-if>
-        <button sc-camel-on-click="{{ goHome }}" style="width:100%;margin-top:14px;padding:15px;border-radius:12px;background:var(--primary);color:var(--on-primary);font-weight:600;font-size:14.5px;text-align:center">Về danh sách ca</button>
+        <!-- ══ GIAO BÀI TẬP VỀ NHÀ ══
+             Mục Tiến triển bên khách có phần nhắc bài tập, nhưng trước đây
+             không ai đổ bài vào đó. Đây là đầu giao. -->
+        <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.18em;color:var(--text3);text-transform:uppercase;margin:18px 0 8px">Bài tập giao về nhà</p>
+        <div style="display:flex;flex-wrap:wrap;gap:7px">
+          <sc-for list="{{ exOpts }}" as="e" hint-placeholder-count="4">
+            <button sc-camel-on-click="{{ e.pick }}" style="padding:9px 13px;border-radius:99px;font-size:11.5px;font-weight:600;background:{{ e.bg }};color:{{ e.fg }};border:1px solid {{ e.bd }}">{{ e.t }}</button>
+          </sc-for>
+        </div>
+        <div style="display:flex;gap:4px;padding:3px;border-radius:99px;background:var(--line2);margin-top:10px">
+          <sc-for list="{{ exFreqs }}" as="f" hint-placeholder-count="3">
+            <button sc-camel-on-click="{{ f.pick }}" style="flex:1;padding:8px;border-radius:99px;font-size:11.5px;font-weight:600;background:{{ f.bg }};color:{{ f.fg }}">{{ f.t }}</button>
+          </sc-for>
+        </div>
+        <button sc-camel-on-click="{{ sendEx }}" style="width:100%;margin-top:10px;padding:13px;border-radius:12px;background:{{ exBg }};color:{{ exFg }};font-weight:700;font-size:13.5px">{{ exLabel }}</button>
+        <sc-if value="{{ exSent }}" hint-placeholder-val="{{ false }}">
+          <p style="font-size:10.5px;line-height:1.6;color:var(--ok);font-weight:600;margin:8px 2px 0">✓ Đã gửi vào mục Tiến triển của khách. Ứng dụng tự nhắc theo tần suất bạn chọn, và báo lại cho bạn khách có làm hay không.</p>
+        </sc-if>
+
+        <!-- ══ GHI LẠI CHO KTV SAU ══
+             Không phải chấm sao. Khách không thấy phần này, nên KTV dám ghi
+             thật; và số sao thì vô nghĩa, còn lý do thì dùng được. -->
+        <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.18em;color:var(--text3);text-transform:uppercase;margin:20px 0 8px">Ghi lại cho kỹ thuật viên sau</p>
+        <div style="display:flex;flex-wrap:wrap;gap:7px">
+          <sc-for list="{{ tagOpts }}" as="g" hint-placeholder-count="4">
+            <button sc-camel-on-click="{{ g.pick }}" style="padding:9px 12px;border-radius:99px;font-size:11.5px;font-weight:600;background:{{ g.bg }};color:{{ g.fg }};border:1px solid {{ g.bd }}">{{ g.t }}</button>
+          </sc-for>
+        </div>
+        <textarea value="{{ ktvNote }}" sc-camel-on-input="{{ onKtvNote }}" placeholder="Điều người làm ca sau nên biết trước khi tới..." style="width:100%;min-height:64px;margin-top:10px;padding:11px 13px;border-radius:11px;border:1px solid var(--line);background:var(--surface);color:var(--text);font-size:12.5px;font-family:inherit;resize:none"></textarea>
+        <p style="font-size:10.5px;line-height:1.6;color:var(--text3);margin:8px 2px 0">🔒 <strong>Khách không xem được phần này.</strong> Nó hiện ở thẻ chuẩn bị của người nhận ca sau, và ở bảng của trung tâm. Ghi đúng việc đã xảy ra, đừng ghi cảm nhận về con người.</p>
+        <button sc-camel-on-click="{{ saveKtvNote }}" style="width:100%;margin-top:10px;padding:13px;border-radius:12px;background:{{ noteBg }};color:{{ noteFg }};font-weight:700;font-size:13.5px">{{ noteLabel }}</button>
+
+        <button sc-camel-on-click="{{ goHome }}" style="width:100%;margin-top:18px;padding:15px;border-radius:12px;background:var(--primary);color:var(--on-primary);font-weight:600;font-size:14.5px;text-align:center">Về danh sách ca</button>
       </sc-if>
     </sc-if>
 
@@ -1817,6 +1934,12 @@ class Component extends DCLogic {
     // hai bên nói cùng một thứ tiếng — khách khai 'loangxuong' thì KTV đọc ra
     // đúng cảnh báo đó, không phải một danh mục riêng dễ lệch.
     sessCode:'4729', codeInput:'', codeErr:false, leaveOpen:false,
+    // Chia sẻ vị trí trực tiếp và báo sự cố — hai thứ khác nhau, và cả hai đều
+    // khác SOS.
+    liveOn:true, incOpen:false, incKind:null, incNote:'', incSent:false,
+    // Sau ca: bài tập giao về nhà, và ghi chú để lại cho người nhận ca sau.
+    exSel:[], exFreq:'daily', exSent:false, tagSel:[], ktvNote:'', noteSaved:false,
+    watchers:['Minh Trần','Thu Hương'],
     // Đề xuất đổi/thêm dịch vụ giữa ca. applied là thứ khách đã đồng ý từ trước
     // trong cùng buổi này.
     adjOpen:false, adjTab:'swap', adjSel:null, adjReason:'', adjSent:false,
@@ -2335,7 +2458,11 @@ class Component extends DCLogic {
       sessMeds: cl.meds || 'Không khai',
       sessAllergy: cl.allergy || 'Không khai',
       sessLast: cl.last,
-      sessFamNote: cl.famNote
+      sessFamNote: cl.famNote,
+      hasPrevNote: true,
+      prevTags: [{t:'Hay đổi giờ phút chót'},{t:'Nhà có bậc thang hẹp'}],
+      prevNote: 'Gia đình hai lần dời giờ sát ca, nên gọi xác nhận trước một tiếng. Cầu thang lên phòng hẹp, không mang được ghế trị liệu lớn.',
+      prevWho: 'KTV Lê Thị Ngân · buổi 5 · 15/07'
     };
 
     // ── đề xuất đổi/thêm dịch vụ ─────────────────────────────────────
@@ -2414,6 +2541,86 @@ class Component extends DCLogic {
       cancelAdj: () => this.setState({ adjSent:false, adjSel:null, adjReason:'' }),
       adjSentTitle: s.sentTitle || '', adjSentReason: s.sentReason || '',
       adjSentDiffLabel: s.sentDiffLabel || '', adjSentDiff: s.sentDiff || ''
+    };
+
+    // ── công cụ trong ca ─────────────────────────────────────────────
+    const INC_KINDS = [
+      ['vang',   'Khách không có nhà',        'Đã tới nơi, gọi và gõ cửa nhưng không ai ra'],
+      ['huy',    'Khách huỷ khi tôi đã tới',  'Khách đổi ý tại chỗ hoặc không đủ sức khoẻ làm'],
+      ['ngoai',  'Khách đòi ngoài phạm vi',   'Yêu cầu việc không thuộc dịch vụ đã đặt'],
+      ['moitruong','Nơi làm không phù hợp',   'Không đủ chỗ, không sạch, có vật nuôi dữ, thiếu người nhà hỗ trợ'],
+      ['khac',   'Việc khác',                 'Trục trặc không nằm trong bốn mục trên']
+    ];
+    const incOkToSend = !!s.incKind && s.incNote.trim().length >= 10;
+    const toolVals = {
+      // C12 · ai đang theo dõi
+      hasWatchers: s.watchers.length > 0,
+      watcherLine: s.watchers.length === 1
+        ? (s.watchers[0] + ' đang theo dõi buổi này')
+        : (s.watchers.slice(0,-1).join(', ') + ' và ' + s.watchers[s.watchers.length-1] + ' đang theo dõi buổi này'),
+      // C11 · chia sẻ vị trí trực tiếp — chỉ có nghĩa với ca ngoài cơ sở
+      isHomeVisit: true,
+      liveOn: s.liveOn,
+      liveTrack: s.liveOn ? 'var(--primary)' : 'var(--line)',
+      liveKnob:  s.liveOn ? '22px' : '3px',
+      liveText:  s.liveOn ? 'Đang bật · trung tâm thấy vị trí bạn' : 'Đang tắt · không ai thấy vị trí bạn',
+      toggleLive: () => this.setState({ liveOn: !s.liveOn }),
+      // C8 · báo sự cố
+      incOpen: s.incOpen && !s.incSent,
+      incClosed: !s.incOpen && !s.incSent,
+      incSent: s.incSent,
+      openInc:  () => this.setState({ incOpen:true, incKind:null, incNote:'' }),
+      closeInc: () => this.setState({ incOpen:false }),
+      incKinds: INC_KINDS.map(([k,t,d]) => ({
+        t, d, pick:()=>this.setState({ incKind:k }),
+        bg: s.incKind===k ? 'var(--tint)' : 'var(--surface)',
+        bd: s.incKind===k ? 'var(--primary)' : 'var(--line)',
+        fg: s.incKind===k ? 'var(--primary)' : 'var(--text)' })),
+      incNote: s.incNote, onIncNote:(e)=>this.setState({ incNote:e.target.value }),
+      incLabel: !s.incKind ? 'Chọn loại sự cố'
+        : s.incNote.trim().length < 10 ? 'Kể ngắn chuyện gì xảy ra'
+        : 'Gửi cho điều phối viên',
+      incBg: incOkToSend ? 'var(--primary)' : 'var(--line2)',
+      incFg: incOkToSend ? 'var(--on-primary)' : 'var(--muted)',
+      sendInc: () => incOkToSend ? this.setState({ incOpen:false, incSent:true,
+        incSentKindText: (INC_KINDS.find(x=>x[0]===s.incKind)||[,''])[1] }) : null,
+      incSentKind: s.incSentKindText || ''
+    };
+
+    // ── sau ca: bài tập và ghi chú nội bộ ───────────────────────────
+    const EXS = ['Thăng bằng có tay vịn','Vận động khớp vai','Đi bộ trong nhà',
+                 'Giãn cơ cổ gáy','Tập thở sâu','Nâng chân nằm ngửa'];
+    const FREQS = [['daily','Hằng ngày'],['alt','Cách ngày'],['week','2–3 lần/tuần']];
+    // Nhãn ghi việc đã xảy ra, không phải nhận xét về con người — nên toàn
+    // động từ và sự kiện, không có "khó tính" hay "dễ chịu".
+    const TAGS = ['Đúng hẹn','Người nhà hỗ trợ tốt','Hay đổi giờ phút chót',
+                  'Cần gọi xác nhận trước','Nhà có bậc thang hẹp','Có vật nuôi'];
+    const pillOf = (t, on, tap) => ({ t, pick:tap,
+      bg: on ? 'var(--primary)' : 'var(--surface)',
+      fg: on ? 'var(--on-primary)' : 'var(--text)',
+      bd: on ? 'var(--primary)' : 'var(--line)' });
+    const flip = (field, v) => { const cur = s[field];
+      this.setState({ [field]: cur.includes(v) ? cur.filter(x=>x!==v) : [...cur, v] }); };
+    const noteOk = s.tagSel.length > 0 || s.ktvNote.trim().length >= 10;
+    const afterVals = {
+      exOpts: EXS.map(e => pillOf(e, s.exSel.includes(e), ()=>flip('exSel', e))),
+      exFreqs: FREQS.map(([k,t]) => ({ t, pick:()=>this.setState({ exFreq:k }),
+        bg: s.exFreq===k ? 'var(--surface)' : 'transparent',
+        fg: s.exFreq===k ? 'var(--text)' : 'var(--muted)' })),
+      exLabel: s.exSel.length === 0 ? 'Chọn ít nhất một bài'
+        : s.exSent ? ('Đã giao ' + s.exSel.length + ' bài · cập nhật lại')
+        : ('Giao ' + s.exSel.length + ' bài cho khách'),
+      exBg: s.exSel.length ? 'var(--primary)' : 'var(--line2)',
+      exFg: s.exSel.length ? 'var(--on-primary)' : 'var(--muted)',
+      exSent: s.exSent,
+      sendEx: () => s.exSel.length ? this.setState({ exSent:true }) : null,
+
+      tagOpts: TAGS.map(t => pillOf(t, s.tagSel.includes(t), ()=>flip('tagSel', t))),
+      ktvNote: s.ktvNote, onKtvNote:(e)=>this.setState({ ktvNote:e.target.value, noteSaved:false }),
+      noteLabel: s.noteSaved ? '✓ Đã lưu' : noteOk ? 'Lưu ghi chú' : 'Chọn nhãn hoặc viết ghi chú',
+      noteBg: s.noteSaved ? 'var(--okTint)' : noteOk ? 'var(--primary)' : 'var(--line2)',
+      noteFg: s.noteSaved ? 'var(--ok)' : noteOk ? 'var(--on-primary)' : 'var(--muted)',
+      saveKtvNote: () => noteOk ? this.setState({ noteSaved:true }) : null
     };
 
     // ── buổi làm việc (KTV thao tác — app khách chỉ hiển thị) ──
@@ -2915,7 +3122,7 @@ theme:s.theme, themeDots,
       codeBd: s.codeErr ? 'var(--dangerSolid)' : (s.codeInput.length===4 ? 'var(--primary)' : 'var(--line)'),
       checkinBg: s.codeInput.length===4 ? 'var(--primary)' : 'var(--line2)',
       checkinFg: s.codeInput.length===4 ? 'var(--on-primary)' : 'var(--muted)',
-      ...prepVals, ...adjVals,
+      ...prepVals, ...adjVals, ...toolVals, ...afterVals,
       // Đối chiếu giờ khi khách báo sai lệch.
       tcWait: s.timeCheck==='wait', tcOk: s.timeCheck==='ok',
       tcDispute: s.timeCheck==='dispute',
