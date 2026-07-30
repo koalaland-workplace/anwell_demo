@@ -278,13 +278,16 @@
   .app{display:flex;height:100vh;overflow:hidden;background:var(--bg)}
   .rail{display:none}
   .btm{display:grid}
-  .main{flex:1;min-width:0;display:flex;flex-direction:column;overflow:hidden}
+  .main{flex:1;min-width:0;display:flex;flex-direction:column;overflow:hidden;position:relative}
   .pad{padding:16px 16px 84px}
   .hd{padding:14px 16px}
   .g2{display:grid;grid-template-columns:1fr;gap:12px}
   .g4{display:grid;grid-template-columns:1fr 1fr;gap:10px}
   .split{display:grid;grid-template-columns:1fr;gap:12px}
   .hideSm{display:none}
+  .hdrow{display:none}
+  .payrow{display:grid;grid-template-columns:1.7fr .9fr;gap:10px}
+  .pkgrow{display:grid;grid-template-columns:1.4fr 1fr;gap:10px}
   @media(min-width:820px){
     .rail{display:flex}
     .btm{display:none}
@@ -294,6 +297,9 @@
     .g2{grid-template-columns:1.6fr 1fr;gap:16px}
     .split{grid-template-columns:1fr 1fr;gap:16px}
     .hideSm{display:block}
+    .hdrow{display:flex}
+    .payrow{grid-template-columns:1.4fr .7fr .8fr .8fr .8fr .9fr;gap:8px}
+    .pkgrow{grid-template-columns:1.5fr 1.6fr 1fr .9fr;gap:10px}
   }
 
   /* ── 3 phong cách ANWELL ── */
@@ -381,6 +387,9 @@
         <svg width="13" height="13" sc-camel-view-box="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2"></rect><path d="M3 9h18M8 2v4M16 2v4"></path></svg>
         Thứ Bảy · 25/07/2026
       </span>
+      <button sc-camel-on-click="{{ openMenu }}" class="btm" aria-label="Mở toàn bộ mục" style="flex:none;grid-template-columns:1fr;width:34px;height:34px;border-radius:10px;background:var(--surface2);place-items:center;color:var(--text2)">
+        <svg width="17" height="17" sc-camel-view-box="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+      </button>
       <span style="flex:1;min-width:0;display:flex;align-items:center;gap:10px">
         <span class="btm" style="flex:1;min-width:0;grid-template-columns:1fr">
           <span style="display:block;font:700 8px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase">{{ pgGroup }}</span>
@@ -628,7 +637,7 @@
         </div>
 
         <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden">
-          <div class="hideSm" style="display:flex;padding:11px 16px;background:var(--bg);border-bottom:1px solid var(--line);font-size:10.5px;font-weight:700;color:var(--text3)">
+          <div class="hideSm hdrow" style="padding:11px 16px;background:var(--bg);border-bottom:1px solid var(--line);font-size:10.5px;font-weight:700;color:var(--text3)">
             <span style="flex:2.2">KỸ THUẬT VIÊN</span><span style="flex:1">BẬC</span><span style="flex:1">CHUYÊN MÔN</span><span style="flex:.8;text-align:center">BUỔI/TUẦN</span><span style="flex:.8;text-align:center">ĐIỂM CHẤT LƯỢNG</span><span style="flex:.9;text-align:right">TRẠNG THÁI</span>
           </div>
           <sc-for list="{{ staff }}" as="s" hint-placeholder-count="6">
@@ -1076,16 +1085,16 @@
         <!-- ── Khách đang dùng ── -->
         <sc-if value="{{ pkgUsing }}" hint-placeholder-val="{{ false }}">
           <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden">
-            <div style="display:grid;grid-template-columns:1.5fr 1.6fr 1fr .9fr;gap:10px;padding:12px 16px;border-bottom:1px solid var(--line);font-size:9.5px;font-weight:700;letter-spacing:.12em;color:var(--text3);text-transform:uppercase">
-              <span>Khách</span><span>Gói</span><span>Tiến độ</span><span class="hideSm">Hạn dùng</span>
+            <div class="hdrow pkgrow" style="padding:12px 16px;border-bottom:1px solid var(--line);font-size:9.5px;font-weight:700;letter-spacing:.12em;color:var(--text3);text-transform:uppercase">
+              <span>Khách</span><span class="hideSm">Gói</span><span>Tiến độ</span><span class="hideSm">Hạn dùng</span>
             </div>
             <sc-for list="{{ pkgHolders }}" as="h" hint-placeholder-count="4">
-              <button sc-camel-on-click="{{ h.open }}" style="width:100%;text-align:left;display:grid;grid-template-columns:1.5fr 1.6fr 1fr .9fr;gap:10px;padding:13px 16px;border-bottom:1px solid var(--line2);align-items:center">
+              <button sc-camel-on-click="{{ h.open }}" class="pkgrow" style="width:100%;text-align:left;padding:13px 16px;border-bottom:1px solid var(--line2);align-items:center">
                 <span style="display:flex;align-items:center;gap:9px;min-width:0">
                   <span style="flex:none;width:30px;height:30px;border-radius:50%;background:var(--tint);display:grid;place-items:center;font-size:10.5px;font-weight:700;color:var(--primary)">{{ h.i }}</span>
                   <span style="font-size:12.5px;font-weight:600">{{ h.n }}</span>
                 </span>
-                <span style="font-size:11.5px;color:var(--text2);min-width:0">{{ h.pkg }}</span>
+                <span class="hideSm" style="font-size:11.5px;color:var(--text2);min-width:0">{{ h.pkg }}</span>
                 <span style="min-width:0">
                   <span style="display:flex;align-items:baseline;justify-content:space-between;gap:6px"><span style="font-size:11.5px;font-weight:700">còn {{ h.left }}/{{ h.total }}</span><span style="font-size:10px;color:var(--text3)">{{ h.pct }}</span></span>
                   <span style="display:block;height:5px;border-radius:99px;background:var(--line2);margin-top:4px;overflow:hidden"><span style="display:block;height:100%;width:{{ h.pct }};background:{{ h.barC }};border-radius:99px"></span></span>
@@ -1150,17 +1159,17 @@
           </div>
 
           <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden">
-            <div style="display:grid;grid-template-columns:1.4fr .7fr .8fr .8fr .8fr .9fr;gap:8px;padding:12px 16px;border-bottom:1px solid var(--line);font-size:9.5px;font-weight:700;letter-spacing:.1em;color:var(--text3);text-transform:uppercase">
-              <span>Kỹ thuật viên</span><span>Buổi</span><span>Lương ca</span><span class="hideSm">Hoa hồng</span><span class="hideSm">Phụ cấp</span><span>Thực trả</span>
+            <div class="hdrow payrow" style="padding:12px 16px;border-bottom:1px solid var(--line);font-size:9.5px;font-weight:700;letter-spacing:.1em;color:var(--text3);text-transform:uppercase">
+              <span>Kỹ thuật viên</span><span class="hideSm">Buổi</span><span class="hideSm">Lương ca</span><span class="hideSm">Hoa hồng</span><span class="hideSm">Phụ cấp</span><span>Thực trả</span>
             </div>
             <sc-for list="{{ payroll }}" as="r" hint-placeholder-count="5">
-              <button sc-camel-on-click="{{ r.open }}" style="width:100%;text-align:left;display:grid;grid-template-columns:1.4fr .7fr .8fr .8fr .8fr .9fr;gap:8px;padding:13px 16px;border-bottom:1px solid var(--line2);align-items:center">
+              <button sc-camel-on-click="{{ r.open }}" class="payrow" style="width:100%;text-align:left;padding:13px 16px;border-bottom:1px solid var(--line2);align-items:center">
                 <span style="display:flex;align-items:center;gap:9px;min-width:0">
                   <span style="flex:none;width:30px;height:30px;border-radius:50%;background:var(--tint);display:grid;place-items:center;font-size:10.5px;font-weight:700;color:var(--primary)">{{ r.i }}</span>
                   <span style="min-width:0"><span style="display:block;font-size:12.5px;font-weight:600">{{ r.n }}</span><span style="display:block;font-size:10px;color:var(--text3)">{{ r.tier }} · {{ r.rate }}</span></span>
                 </span>
-                <span style="font-size:12px;color:var(--text2)">{{ r.sessions }}</span>
-                <span style="font-size:12px;color:var(--text2)">{{ r.base }}</span>
+                <span class="hideSm" style="font-size:12px;color:var(--text2)">{{ r.sessions }}</span>
+                <span class="hideSm" style="font-size:12px;color:var(--text2)">{{ r.base }}</span>
                 <span class="hideSm" style="font-size:12px;color:var(--text2)">{{ r.comm }}</span>
                 <span class="hideSm" style="font-size:12px;color:var(--text2)">{{ r.bonus }}</span>
                 <span style="min-width:0">
@@ -1695,6 +1704,30 @@
 
     </main>
 
+    <!-- Trên điện thoại, thanh dưới chỉ chứa năm mục hay dùng. Sáu mục còn
+         lại trước đây không có đường nào vào — kể cả Yêu cầu từ KTV, nơi chứa
+         báo sự cố và phân xử giờ. Đây là đường đó. -->
+    <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute;inset:0;z-index:40;background:rgba(6,20,15,.45);display:flex;flex-direction:column;justify-content:flex-end">
+        <button sc-camel-on-click="{{ closeMenu }}" aria-label="Đóng" style="flex:1;width:100%"></button>
+        <div style="flex:none;max-height:78%;overflow-y:auto;background:var(--surface);border-radius:20px 20px 0 0;padding:8px 14px 20px">
+          <div style="width:38px;height:4px;border-radius:99px;background:var(--muted);margin:6px auto 12px"></div>
+          <sc-for list="{{ menuGroups }}" as="g" hint-placeholder-count="6">
+            <div style="margin-bottom:12px">
+              <p style="font:700 8.5px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:0 4px 6px">{{ g.g }}</p>
+              <sc-for list="{{ g.items }}" as="it" hint-placeholder-count="3">
+                <button sc-camel-on-click="{{ it.go }}" style="width:100%;display:flex;align-items:center;gap:11px;padding:11px 12px;border-radius:11px;background:{{ it.bg }};text-align:left">
+                  <span style="flex:none;display:grid;place-items:center;color:{{ it.ic }}">{{ it.icon }}</span>
+                  <span style="flex:1;min-width:0;font-size:13px;font-weight:{{ it.wt }};color:{{ it.fg }}">{{ it.t }}</span>
+                  <sc-if value="{{ it.hasCount }}" hint-placeholder-val="{{ false }}"><span style="flex:none;font-size:10px;font-weight:700;color:#fff;background:var(--dangerSolid);border-radius:99px;padding:1px 7px">{{ it.count }}</span></sc-if>
+                </button>
+              </sc-for>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
     <nav class="btm" style="flex:none;grid-template-columns:repeat(5,1fr);align-items:center;background:var(--tabbar);border-top:1px solid var(--line);padding:7px 4px 10px;backdrop-filter:blur(12px)">
       <sc-for list="{{ bottomNav }}" as="b" hint-placeholder-count="5">
         <button sc-camel-on-click="{{ b.go }}" style="display:flex;flex-direction:column;align-items:center;gap:4px;padding:2px 0">
@@ -1709,7 +1742,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script="" data-props="{&quot;startPage&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;dash&quot;,&quot;schedule&quot;,&quot;staff&quot;,&quot;customers&quot;,&quot;services&quot;,&quot;finance&quot;,&quot;quality&quot;,&quot;inventory&quot;,&quot;settings&quot;],&quot;default&quot;:&quot;dash&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Demo&quot;}}">
 class Component extends DCLogic {
-  state = { theme:'serene', page:'dash', day:'T7', staffFilter:'Tất cả', withhold:true, tabs:{}, cusId:null,
+  state = { theme:'serene', page:'dash', day:'T7', staffFilter:'Tất cả', withhold:true, tabs:{}, cusId:null, menuOpen:false,
     regForm:{}, regSvcs:[], regVenue:['center'], regDocsOn:[], regVowsOn:[],
     campOn:['c1','c3'], msgGroup:'lapse', msgText:'', autoOn:['a1','a2','a3'],
     // Cách tính lương — sửa được, có chặn trên dưới để không đặt số vô lý.
@@ -1815,7 +1848,7 @@ class Component extends DCLogic {
     { id:'settings',  g:'Hệ thống',  t:'Cấu hình trung tâm',ic:'gear' }
   ];
 
-  go(id){ this.setState({page:id}); }
+  go(id){ this.setState({ page:id, menuOpen:false, cusId:null }); }
   resolveReq(id){ this.setState({ reqs: this.state.reqs.filter(x => x.id !== id) }); }
   closeReview(id){ this.setState({ reviews: this.state.reviews.map(r => r.id===id ? {...r, done:true} : r) }); }
   // Duyệt hay từ chối đều lấy yêu cầu ra khỏi hàng chờ; KTV nhận kết quả ở
@@ -2106,6 +2139,9 @@ class Component extends DCLogic {
     return {
       theme:s.theme, themeDots,
       page:s.page, pgGroup:pg.g, pgTitle:pg.t, navGroups:groups, bottomNav,
+      menuOpen: s.menuOpen, menuGroups: groups,
+      openMenu: () => this.setState({ menuOpen:true }),
+      closeMenu: () => this.setState({ menuOpen:false }),
       isDash:s.page==='dash', isSchedule:s.page==='schedule', isStaff:s.page==='staff',
       // ── sự cố tại ca ────────────────────────────────────────────
       // Mỗi loại sự cố có câu hỏi tiền bạc riêng, nên nhãn nút phải khác nhau.
