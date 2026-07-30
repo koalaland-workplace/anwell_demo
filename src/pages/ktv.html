@@ -947,7 +947,15 @@
         </div>
 
         <div class="card" style="padding:12px 14px;margin-top:12px;background:var(--surface2)">
-          <p style="font-size:10.5px;line-height:1.6;color:var(--text2)">🔒 Hồ sơ khách thuộc <strong>An Nhiên Wellness</strong>. Bạn xem được nội dung chuyên môn để làm đúng liệu trình; số điện thoại, địa chỉ và giá dịch vụ do trung tâm giữ.</p>
+          <p style="font-size:10.5px;line-height:1.6;color:var(--text2)">🔒 Hồ sơ khách thuộc <strong>An Nhiên Wellness</strong>. Bạn xem được nội dung chuyên môn để làm đúng liệu trình; số điện thoại và giá dịch vụ do trung tâm giữ. Địa chỉ khách tại nhà chỉ mở vào ngày có ca.</p>
+          <button sc-camel-on-click="{{ toggleLeave }}" style="font-size:10.5px;font-weight:600;color:var(--primary);margin-top:7px">{{ leaveLabel }}</button>
+          <sc-if value="{{ leaveOpen }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:9px;padding-top:9px;border-top:1px solid var(--line)">
+              <p style="font-size:10.5px;line-height:1.65;color:var(--text2)">Khi bạn thôi làm ở An Nhiên, <strong>toàn bộ {{ ccCount }} khách này rời khỏi danh sách của bạn</strong>: mất quyền xem hồ sơ, mất lịch sử buổi, mất đường liên hệ. Khách vẫn ở lại trung tâm và được phân cho kỹ thuật viên khác.</p>
+              <p style="font-size:10.5px;line-height:1.65;color:var(--text2);margin-top:7px">Khách <strong>bạn tự tìm</strong> ở chế độ Làm tự do thì vẫn là của bạn, không ảnh hưởng gì.</p>
+              <p style="font-size:10px;font-style:italic;line-height:1.6;color:var(--text3);margin-top:7px">Nói trước để bạn tính đường dài, chứ không để tới lúc nghỉ mới biết. Đây cũng là điều trung tâm cần chắc trước khi giao khách cho bạn.</p>
+            </div>
+          </sc-if>
         </div>
 
         <div style="display:flex;flex-direction:column;gap:10px;margin-top:14px">
@@ -956,7 +964,7 @@
               <div style="display:flex;align-items:flex-start;gap:11px">
                 <span style="flex:none;width:36px;height:36px;border-radius:50%;background:var(--tint);display:grid;place-items:center;font-weight:700;font-size:12px;color:var(--primary)">{{ c.i }}</span>
                 <span style="flex:1;min-width:0">
-                  <span style="display:block;font-size:13px;font-weight:700">{{ c.n }}</span>
+                  <span style="display:flex;align-items:center;gap:6px"><span style="font-size:13px;font-weight:700">{{ c.n }}</span><span style="flex:none;font-size:9px;font-weight:600;color:var(--text3);background:var(--line2);padding:2px 7px;border-radius:99px;white-space:nowrap">{{ c.venue }}</span></span>
                   <span style="display:block;font-size:11px;color:var(--text3);margin-top:2px">{{ c.svc }} · {{ c.room }}</span>
                 </span>
                 <span style="flex:none;font-size:9px;font-weight:700;color:{{ c.tFg }};background:{{ c.tBg }};padding:3px 8px;border-radius:99px;white-space:nowrap">{{ c.course }}</span>
@@ -976,7 +984,23 @@
                 <p style="font-size:10.5px;line-height:1.6;color:var(--danger);background:var(--dangerTint);border-radius:9px;padding:8px 10px;margin-top:8px">⚠️ {{ c.alert }}</p>
               </sc-if>
 
-              <div style="display:flex;align-items:center;gap:8px;margin-top:12px;padding-top:11px;border-top:1px solid var(--line2)">
+              <sc-if value="{{ c.atHome }}" hint-placeholder-val="{{ true }}">
+                <div style="display:flex;align-items:center;gap:7px;margin-top:9px;padding:8px 10px;border-radius:9px;background:var(--surface2)">
+                  <svg width="13" height="13" sc-camel-view-box="0 0 24 24" fill="none" stroke="var(--text3)" stroke-width="1.9" style="flex:none"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0116 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                  <span style="flex:1;font-size:10.5px;color:{{ c.addrFg }}">{{ c.addrText }}</span>
+                </div>
+              </sc-if>
+
+              <!-- Số điện thoại khách của trung tâm bị che. Gọi được nhưng qua
+                   tổng đài ANWELL: KTV liên hệ được khi cần, mà số khách không
+                   rơi vào sổ điện thoại riêng. -->
+              <div style="display:flex;align-items:center;gap:7px;margin-top:8px;padding:8px 10px;border-radius:9px;background:var(--surface2)">
+                <svg width="13" height="13" sc-camel-view-box="0 0 24 24" fill="none" stroke="var(--text3)" stroke-width="1.9" style="flex:none"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"></path></svg>
+                <span style="flex:1;font-size:10.5px;color:var(--text3);letter-spacing:.04em">{{ c.phoneMasked }} · số được che</span>
+                <button sc-camel-on-click="{{ callVia }}" style="flex:none;padding:5px 10px;border-radius:8px;background:var(--surface);border:1px solid var(--line);color:var(--primary);font-size:10px;font-weight:700">Gọi qua tổng đài</button>
+              </div>
+
+              <div style="display:flex;align-items:center;gap:8px;margin-top:11px;padding-top:11px;border-top:1px solid var(--line2)">
                 <span style="flex:1;font-size:10px;color:var(--text3)">Buổi gần nhất: {{ c.last }}</span>
                 <button sc-camel-on-click="{{ goSession }}" style="flex:none;padding:8px 13px;border-radius:9px;background:var(--surface2);color:var(--text2);font-size:11px;font-weight:600">Ghi chú buổi</button>
                 <button sc-camel-on-click="{{ goChat }}" style="flex:none;padding:8px 13px;border-radius:9px;background:var(--surface2);color:var(--text2);font-size:11px;font-weight:600">Nhắn qua TT</button>
@@ -996,16 +1020,25 @@
         </div>
         <div style="display:flex;flex-direction:column;gap:9px">
           <sc-for list="{{ clients }}" as="c" hint-placeholder-count="4">
-            <div class="card" style="padding:13px;display:flex;align-items:center;gap:11px">
-              <span style="flex:none;width:36px;height:36px;border-radius:50%;background:var(--tint);display:grid;place-items:center;font-weight:700;font-size:12px;color:var(--primary)">{{ c.i }}</span>
-              <span style="flex:1;min-width:0">
-                <span style="display:block;font-size:12.5px;font-weight:600">{{ c.n }}</span>
-                <span style="display:block;font-size:10.5px;color:var(--text3);margin-top:1px">{{ c.note }}</span>
-              </span>
-              <span style="flex:none;text-align:right">
-                <span style="display:block;font-size:9px;font-weight:700;color:{{ c.tFg }};background:{{ c.tBg }};padding:3px 8px;border-radius:99px;white-space:nowrap">{{ c.tag }}</span>
-                <span style="display:block;font-size:9.5px;color:var(--text3);margin-top:4px">{{ c.last }}</span>
-              </span>
+            <div class="card" style="padding:13px">
+              <div style="display:flex;align-items:center;gap:11px">
+                <span style="flex:none;width:36px;height:36px;border-radius:50%;background:var(--tint);display:grid;place-items:center;font-weight:700;font-size:12px;color:var(--primary)">{{ c.i }}</span>
+                <span style="flex:1;min-width:0">
+                  <span style="display:block;font-size:12.5px;font-weight:600">{{ c.n }}</span>
+                  <span style="display:block;font-size:10.5px;color:var(--text3);margin-top:1px">{{ c.note }}</span>
+                </span>
+                <span style="flex:none;text-align:right">
+                  <span style="display:block;font-size:9px;font-weight:700;color:{{ c.tFg }};background:{{ c.tBg }};padding:3px 8px;border-radius:99px;white-space:nowrap">{{ c.tag }}</span>
+                  <span style="display:block;font-size:9.5px;color:var(--text3);margin-top:4px">{{ c.last }}</span>
+                </span>
+              </div>
+              <!-- Khách bạn tự tìm thì số hiện thật và gọi thẳng — đối lập rõ
+                   với khách của trung tâm ở tab bên cạnh. -->
+              <div style="display:flex;align-items:center;gap:7px;margin-top:10px;padding-top:10px;border-top:1px solid var(--line2)">
+                <span style="flex:1;font-size:11px;font-weight:600;color:var(--text2);letter-spacing:.02em">{{ c.phone }}</span>
+                <button sc-camel-on-click="{{ callDirect }}" style="flex:none;padding:6px 11px;border-radius:8px;background:var(--tint);color:var(--primary);font-size:10.5px;font-weight:700">Gọi</button>
+                <button sc-camel-on-click="{{ goChat }}" style="flex:none;padding:6px 11px;border-radius:8px;background:var(--surface2);color:var(--text2);font-size:10.5px;font-weight:600">Nhắn</button>
+              </div>
             </div>
           </sc-for>
         </div>
@@ -1769,7 +1802,7 @@ class Component extends DCLogic {
     // Khách của ca đang mở. Mã tình trạng sức khoẻ dùng chung với app khách để
     // hai bên nói cùng một thứ tiếng — khách khai 'loangxuong' thì KTV đọc ra
     // đúng cảnh báo đó, không phải một danh mục riêng dễ lệch.
-    sessCode:'4729', codeInput:'', codeErr:false,
+    sessCode:'4729', codeInput:'', codeErr:false, leaveOpen:false,
     // Đề xuất đổi/thêm dịch vụ giữa ca. applied là thứ khách đã đồng ý từ trước
     // trong cùng buổi này.
     adjOpen:false, adjTab:'swap', adjSel:null, adjReason:'', adjSent:false,
@@ -2186,10 +2219,10 @@ class Component extends DCLogic {
     });
 
     const clients = [
-      { i:'TM', n:'Ông Trần V. Minh', note:'Sau đột quỵ · buổi 7/20', tag:'Định kỳ', tFg:'var(--ok)', tBg:'var(--okTint)', last:'Hôm nay' },
-      { i:'NT', n:'Ngô Thanh', note:'Vai gáy · chưa đặt lại', tag:'Nên nhắc', tFg:'var(--goldText)', tBg:'var(--goldTint)', last:'12 ngày' },
-      { i:'MA', n:'Chị Mai Anh', note:'Hậu sản · buổi 4/8', tag:'Định kỳ', tFg:'var(--ok)', tBg:'var(--okTint)', last:'3 ngày' },
-      { i:'LQ', n:'Lê Quang Tuấn', note:'Massage · khách mới', tag:'Chăm mới', tFg:'var(--primary)', tBg:'var(--tint)', last:'1 tuần' }
+      { i:'TM', n:'Ông Trần V. Minh', phone:'0903 415 812', note:'Sau đột quỵ · buổi 7/20', tag:'Định kỳ', tFg:'var(--ok)', tBg:'var(--okTint)', last:'Hôm nay' },
+      { i:'NT', n:'Ngô Thanh', phone:'0912 668 340', note:'Vai gáy · chưa đặt lại', tag:'Nên nhắc', tFg:'var(--goldText)', tBg:'var(--goldTint)', last:'12 ngày' },
+      { i:'MA', n:'Chị Mai Anh', phone:'0977 204 155', note:'Hậu sản · buổi 4/8', tag:'Định kỳ', tFg:'var(--ok)', tBg:'var(--okTint)', last:'3 ngày' },
+      { i:'LQ', n:'Lê Quang Tuấn', phone:'0938 771 026', note:'Massage · khách mới', tag:'Chăm mới', tFg:'var(--primary)', tBg:'var(--tint)', last:'1 tuần' }
     ];
 
     const stops = [
@@ -2246,7 +2279,9 @@ class Component extends DCLogic {
         : React.createElement('span',{style:{width:5,height:5,borderRadius:'50%',background:'var(--text3)',display:'block'}}) }));
 
     const meLinks = [
-      { icon:'🏢', t:'Liên kết trung tâm', d:'An Nhiên Wellness · từ 03/2024', tap:()=>{} },
+      // Bấm vào đây là sang đúng chỗ nói rõ chuyện gì xảy ra với khách khi
+      // thôi liên kết — thay vì để KTV tự đoán.
+      { icon:'🏢', t:'Liên kết trung tâm', d:'An Nhiên Wellness · từ 03/2024 · 5 khách được giao', tap:()=>this.setState({ page:'clients', modes:{...s.modes, clients:'center'}, leaveOpen:true }) },
       { icon:'💰', t:'Giá dịch vụ riêng', d:'Áp dụng cho ca tự do', tap:()=>{} },
       { icon:'🗓', t:'Khung giờ nhận khách', d:availSummaryText, tap:()=>this.go('avail') },
       { icon:'📍', t:'Khu vực phục vụ', d:areaSummary, tap:()=>this.goSched('avail') },
@@ -2544,14 +2579,19 @@ class Component extends DCLogic {
     // ── Khách · chế độ tại trung tâm ───────────────────────────────
     // Chỉ nội dung chuyên môn. Không số điện thoại, không địa chỉ, không giá —
     // đó là tài sản của trung tâm (ràng buộc của mô hình hai lớp).
+    // Hai nhóm khác nhau trong cùng chế độ này: khách tới cơ sở, và khách tại
+    // nhà do trung tâm phân công. Nhóm sau cần địa chỉ để đi, nhưng chỉ vào
+    // ngày có ca — không phải lúc nào cũng xem được.
     const ccRaw = [
-      { i:'NT', n:'Nguyễn Thu H.', svc:'Trị liệu cổ vai gáy', room:'Phòng 3', done:3, total:10, last:'Hôm nay 08:00',
+      { i:'NT', n:'Nguyễn Thu H.', phone:'0903415812', at:'center', svc:'Trị liệu cổ vai gáy', room:'Phòng 3', done:3, total:10, last:'Hôm nay 08:00',
         note:'Cứng cơ thang trên bên phải, giảm rõ sau buổi 2. Giữ lực vừa, tránh ấn sâu vùng C5.', alert:'' },
-      { i:'PL', n:'Bà Phạm T. Lan', svc:'Phục hồi tại nhà', room:'Q.3 · tại nhà', done:12, total:24, last:'Hôm nay 17:00',
+      { i:'PL', n:'Bà Phạm T. Lan', phone:'0918224760', at:'home', addr:'48/2 Trần Quốc Thảo, P.Võ Thị Sáu, Q.3', today:true, svc:'Phục hồi tại nhà', room:'Q.3 · tại nhà', done:12, total:24, last:'Hôm nay 17:00',
         note:'Đi lại có khung tập, tiến bộ chậm nhưng đều. Gia đình hỗ trợ tốt giữa các buổi.', alert:'Huyết áp cao — đo trước khi bắt đầu' },
-      { i:'LQ', n:'Lê Quang T.', svc:'Massage trị liệu', room:'Phòng 1', done:6, total:8, last:'Hôm nay 09:30',
+      { i:'LQ', n:'Lê Quang T.', phone:'0938771026', at:'center', svc:'Massage trị liệu', room:'Phòng 1', done:6, total:8, last:'Hôm nay 09:30',
         note:'Căng cơ do ngồi lâu. Đã hướng dẫn bài giãn tại nhà, khách làm đều.', alert:'' },
-      { i:'VD', n:'Vũ Đức A.', svc:'Vật lý trị liệu', room:'Phòng 2', done:1, total:12, last:'Hôm nay 13:00',
+      { i:'HM', n:'Ông Hoàng M.', phone:'0977204155', at:'home', addr:'', today:false, svc:'Phục hồi tại nhà', room:'Q.7 · tại nhà', done:4, total:16, last:'T4 tuần trước',
+        note:'Sau mổ khớp háng. Tập ngồi–đứng có tay đỡ, chưa đi được quãng dài.', alert:'' },
+      { i:'VD', n:'Vũ Đức A.', phone:'0906138449', at:'center', svc:'Vật lý trị liệu', room:'Phòng 2', done:1, total:12, last:'Hôm nay 13:00',
         note:'Khách mới, buổi đầu đánh giá tầm vận động vai. Cần theo dõi phản ứng 2 buổi tới.', alert:'Sau mổ vai 8 tuần — không vận động quá tầm' }
     ];
     const clientVals = {
@@ -2561,8 +2601,22 @@ class Component extends DCLogic {
         course: 'buổi ' + c.done + '/' + c.total,
         pct: Math.round(c.done / c.total * 100) + '%',
         tFg: c.done >= c.total ? 'var(--ok)' : 'var(--primary)',
-        tBg: c.done >= c.total ? 'var(--okTint)' : 'var(--tint)'
+        tBg: c.done >= c.total ? 'var(--okTint)' : 'var(--tint)',
+        venue: c.at === 'home' ? '🏠 Tại nhà' : '🏢 Tại cơ sở',
+        // Địa chỉ khách tại nhà chỉ mở vào ngày có ca. Ngoài ngày đó thì KTV
+        // không cần biết, và không nên biết.
+        atHome: c.at === 'home',
+        addrShown: c.today,
+        addrText: c.today ? c.addr : 'Địa chỉ mở vào ngày có ca',
+        addrFg: c.today ? 'var(--text2)' : 'var(--text3)',
+        // Giữ bốn số đầu và hai số cuối — đủ để KTV nhận ra đúng người khi
+        // trung tâm nhắc, mà không đủ để gọi thẳng.
+        phoneMasked: c.phone.slice(0,4) + ' ••• ••' + c.phone.slice(-2)
       })),
+      leaveOpen: s.leaveOpen,
+      leaveLabel: s.leaveOpen ? 'Thu gọn' : 'Nếu tôi rời An Nhiên thì sao? →',
+      toggleLeave: () => this.setState({ leaveOpen: !s.leaveOpen }),
+      callVia: () => {}, callDirect: () => {},
       ccCount: ccRaw.length,
       ccCourse: ccRaw.filter(c => c.done < c.total).length
     };
