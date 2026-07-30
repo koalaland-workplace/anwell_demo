@@ -64,30 +64,55 @@ Nguyên tắc nền tảng, trích từ giao diện quản trị:
 Mô hình này được ANWELL cho phép nhưng **có ràng buộc** — trung tâm giữ quan hệ
 thương mại với khách của mình, KTV chỉ thấy nội dung chuyên môn cần để làm việc.
 
-### Ràng buộc cụ thể: KTV thấy gì về khách của trung tâm
+### Ràng buộc cụ thể: ba nhóm khách, ba mức quyền
 
-| KTV **thấy** | KTV **không thấy** |
-|---|---|
-| Tên khách dạng rút gọn | Số điện thoại, địa chỉ nhà |
-| Liệu trình và tiến triển | Giá dịch vụ, khách trả bao nhiêu |
-| Ghi chú chuyên môn các buổi trước | Hồ sơ đầy đủ, lịch sử với KTV khác |
-| Lưu ý sức khoẻ, dặn dò từ gia đình | Nút đặt lại lịch, nhắn trực tiếp |
+Không phải hai nhóm mà ba, và chúng khác nhau ở **quyền** chứ không chỉ ở nhãn:
+
+| | Khách tại trung tâm | Khách tại nhà · TT phân công | Khách riêng của KTV |
+|---|---|---|---|
+| Hồ sơ sức khoẻ | Xem trong ca | Xem trong ca | Xem đầy đủ |
+| Số điện thoại | Che, gọi qua tổng đài | Che, gọi qua tổng đài | Hiện, gọi thẳng |
+| Địa chỉ | Không cần | **Chỉ mở vào ngày có ca** | Xem đầy đủ |
+| Nhắn tin | Qua trung tâm | Qua trung tâm | Trực tiếp |
+| Đổi/huỷ lịch | TT duyệt | TT duyệt | KTV tự quyết |
+| Giá | TT đặt | TT đặt | KTV đặt |
+| Tiền về | Qua trung tâm | Qua trung tâm | Khách trả thẳng, nền tảng thu phí |
+| **Khi KTV rời TT** | Mất quyền xem | Mất quyền xem | Giữ nguyên |
+
+Số điện thoại hiển thị dạng `0903 ••• ••12` — đủ để KTV nhận ra đúng người khi
+trung tâm nhắc, không đủ để gọi thẳng. Cuộc gọi đi qua tổng đài ANWELL che số.
 
 Lý do: KTV **cần** thông tin chuyên môn để làm việc an toàn và đúng liệu trình —
 giấu đi thì buổi trị liệu kém chất lượng. Nhưng thông tin thương mại và liên hệ
 là tài sản của trung tâm.
 
+Dòng cuối bảng được **nói thẳng trong app** ở màn Khách hàng, không để KTV tự
+đoán: thôi liên kết là mất toàn bộ khách được giao, khách tự tìm thì giữ nguyên.
+Nói trước để KTV tính đường dài, và để trung tâm yên tâm giao khách.
+
 ## 4. Bốn giao diện đã dựng
 
-### 4.1 Khách hàng — 20 màn hình
+### 4.1 Khách hàng — 5 mục ở thanh đáy
 
-Khám phá cơ sở · trang chi tiết cơ sở · đặt lịch · chọn KTV tại nhà · buổi làm
-việc · đánh giá · Hành trình An · hạng thưởng · ví · nhóm gia đình · gói chăm
-sóc · đặt gói · nhắn tin với KTV · giới thiệu bạn · nhắc lịch · báo cáo tiến
-triển · thực đơn gợi ý · chính sách · xác minh · giới thiệu lần đầu.
+| Mục | Nội dung |
+|---|---|
+| **Đặt lịch** | Mở app là vào thẳng đây. Hình thức · đặt cho ai · loại hình · phục hồi · phương pháp · khu vực · khung giờ · ưu đãi |
+| **Lịch hẹn** | Lịch sắp tới, quản lý lịch (đổi/hoãn/huỷ), nhắn tin với KTV, nhắc buổi hẹn |
+| **Khám phá** | Chỉ icon, ở giữa. Cơ sở, kỹ thuật viên, nội dung dưỡng sinh |
+| **Tiến triển** | Lịch chăm sóc người thân nổi lên đầu nếu có, bài tập tại nhà, báo cáo, nhóm gia đình, nhắc bài tập |
+| **Tôi** | Thanh tiến độ hồ sơ, hạng thành viên, hồ sơ sức khoẻ, ví & gói, phong cách giao diện |
+
+Các màn phụ: buổi làm việc (ba giai đoạn) · đánh giá · giới thiệu bạn · chính
+sách · chứng nhận KTV · thực đơn gợi ý · xác minh · làm quen sau đăng ký.
+
+Mọi màn phụ đều có nút `<` trả về **màn trước đó**, không phải một tab cố định.
 
 Ba phong cách hiển thị (An Nhiên · Rừng Thẫm · Nhịp Sen) để khách tự chọn, song
 ngữ Việt/Anh.
+
+**Hồ sơ sức khoẻ** là thứ đáng chú ý nhất: khách khai tình trạng một lần, hệ
+thống tự cảnh báo dịch vụ cần tránh ngay lúc đặt lịch, và KTV đọc lại đúng cảnh
+báo đó ở thẻ chuẩn bị trước ca.
 
 ### 4.2 Kỹ thuật viên — 5 mục, hai chế độ
 
@@ -114,6 +139,30 @@ Mục **Tôi** giống nhau tuyệt đối ở hai chế độ, chứa cả hai 
 tâm chấm và khách chấm), hồ sơ, chứng chỉ, thông tin liên hệ, cấu hình hiển thị
 và khai báo thuế cá nhân.
 
+#### Màn Buổi làm việc — nơi KTV ở suốt ca
+
+Ba giai đoạn, và phần lớn công cụ nằm ở đây chứ không rải ra menu:
+
+| Giai đoạn | Có gì |
+|---|---|
+| **Chờ** | Thẻ chuẩn bị: điều cần tránh theo hồ sơ khách × dịch vụ của ca, buổi trước làm gì, gia đình dặn gì, ghi chú KTV ca trước để lại. Ai đang theo dõi buổi. **Ô nhập mã xác minh** — gõ đúng bốn số khách đọc mới check-in được |
+| **Đang chạy** | Tick nội dung đã làm · đề xuất đổi/thêm dịch vụ · chia sẻ vị trí trực tiếp · ghi chú · **Báo sự cố** và **SOS** (hai nút tách hẳn nhau) |
+| **Xong** | Trạng thái khách xác nhận giờ, đường xử lý khi khách báo sai lệch · giao bài tập về nhà · ghi lại cho KTV ca sau |
+
+Ba chỗ tách bạc rõ ràng, và đây là chủ ý thiết kế chứ không phải ngẫu nhiên:
+
+- **SOS ≠ Báo sự cố.** SOS là "tôi thấy không an toàn" — gọi ngay, không hỏi
+  lại. Báo sự cố là "ca gặp trục trặc nhưng tôi vẫn ổn". Gộp chung thì KTV ngại
+  bấm SOS vì sợ làm to chuyện, đúng lúc cần bấm nhất.
+- **Chia sẻ vị trí ≠ SOS.** Bật từ đầu ca, chạy nền, điều phối viên thấy. SOS là
+  lúc đã muộn; đây là phòng ngừa.
+- **Ghi chú về khách ≠ chấm sao.** Khách không xem được, nên KTV dám ghi thật.
+  Nhãn chỉ ghi việc đã xảy ra ("Hay đổi giờ phút chót", "Nhà có bậc thang hẹp"),
+  không có "khó tính" hay "dễ chịu" — số sao thì vô nghĩa, lý do mới dùng được.
+  Nó hiện lại ở thẻ chuẩn bị của người nhận ca sau, kèm tên và ngày.
+
+Mọi màn phụ đều có nút `<` trả về màn trước đó, giống app khách.
+
 ### 4.3 Trung tâm — 11 trang
 
 **Vận hành:** Tổng quan hôm nay · Điều phối lịch · Yêu cầu từ khách · Yêu cầu từ
@@ -124,6 +173,17 @@ KTV · Kỹ thuật viên
 
 Hai trang xử lý yêu cầu là phía đối ứng của những gì khách và KTV gửi lên. Trang
 Cấu hình có khai báo thuế doanh nghiệp và tuỳ chọn khấu trừ hộ KTV.
+
+Trang **Yêu cầu từ KTV** gộp ba loại việc khác bản chất, huy hiệu ở menu đếm cả
+ba nên trung tâm không tưởng nhầm là đã xong:
+
+1. **Duyệt lịch** — đổi giờ, huỷ ca, xin thêm việc. Câu hỏi là cho hay không cho.
+2. **Sự cố tại ca** — việc đã xảy ra rồi. Câu hỏi là *ai chịu phí*. Nên nhãn nút
+   viết thẳng hệ quả tiền bạc: "Tính công KTV · thu 50% phí khách" thay vì
+   "Duyệt". Nút chung chung khiến điều phối viên bấm mà không biết vừa quyết gì.
+3. **Phân xử giờ** — khách khai một đằng, ứng dụng ghi một nẻo. Bản ghi định vị
+   check-in/check-out đặt lên trước và ghi rõ *bên thứ ba · không ai sửa được*,
+   nên đây không phải chuyện tin ai hơn ai. Có đường thứ ba là chia đôi.
 
 ### 4.4 Quản trị nền tảng — 8 trang
 
