@@ -546,6 +546,34 @@
         </div>
       </sc-if>
 
+        <!-- ══ THEO PHÒNG ══ -->
+        <sc-if value="{{ schRoom }}" hint-placeholder-val="{{ false }}">
+          <p style="font-size:12px;color:var(--text2);max-width:600px;margin-bottom:14px">Cùng lịch hôm nay, xoay theo chiều phòng. Kỹ thuật viên rảnh mà phòng kín thì vẫn không nhận thêm khách được — chỉ nhìn ở đây mới thấy.</p>
+          <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden">
+            <div style="display:flex;align-items:center;gap:0;padding:10px 14px;border-bottom:1px solid var(--line);background:var(--bg)">
+              <span style="flex:none;width:112px;font-size:10.5px;font-weight:700;color:var(--text3)">PHÒNG</span>
+              <span style="flex:1;display:flex">
+                <sc-for list="{{ hours }}" as="h" hint-placeholder-count="8">
+                  <span style="flex:1;font-size:10px;color:var(--text3);text-align:left">{{ h }}</span>
+                </sc-for>
+              </span>
+            </div>
+            <sc-for list="{{ roomBoard }}" as="row" hint-placeholder-count="6">
+              <div style="display:flex;align-items:center;gap:0;padding:11px 14px;border-bottom:1px solid var(--line2)">
+                <span style="flex:none;width:112px;min-width:0">
+                  <span style="display:block;font-size:12px;font-weight:600">{{ row.n }}</span>
+                  <span style="display:block;font-size:9.5px;color:var(--text3)">{{ row.tier }}</span>
+                </span>
+                <span style="flex:1;position:relative;height:34px;background:repeating-linear-gradient(90deg,var(--bg),var(--bg) calc(12.5% - 1px),#E9EDE8 calc(12.5% - 1px),#E9EDE8 12.5%);border-radius:7px">
+                  <sc-for list="{{ row.blocks }}" as="b" hint-placeholder-count="3">
+                    <span style="position:absolute;top:3px;bottom:3px;left:{{ b.l }};width:{{ b.w }};background:{{ b.bg }};border-left:3px solid {{ b.bd }};border-radius:6px;display:flex;align-items:center;padding:0 7px;font-size:9.5px;font-weight:600;color:{{ b.fg }};overflow:hidden;white-space:nowrap">{{ b.t }}</span>
+                  </sc-for>
+                </span>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+
         <!-- ══ NGUỒN ĐẶT ══
              Con số trung tâm cần để biết phí nền tảng có đáng hay không: bao
              nhiêu buổi đến từ app ANWELL, bao nhiêu tự đến. -->
@@ -768,6 +796,7 @@
             <button sc-camel-on-click="{{ t.pick }}" style="flex:1;padding:9px 8px;border-radius:9px;background:{{ t.bg }};color:{{ t.fg }};box-shadow:{{ t.sh }};font-size:12px;font-weight:600;white-space:nowrap">{{ t.t }}<sc-if value="{{ t.hasN }}" hint-placeholder-val="{{ true }}"><span style="margin-left:5px;font-size:10px;font-weight:700;color:#fff;background:var(--dangerSolid);border-radius:99px;padding:1px 6px">{{ t.n }}</span></sc-if></button>
           </sc-for>
         </div>
+      </sc-if>
 
       <sc-if value="{{ isRequests }}" hint-placeholder-val="{{ false }}">
         <p style="font-size:12px;color:var(--text2);max-width:560px;margin-bottom:14px">Yêu cầu đổi giờ, tạm hoãn và huỷ lịch khách gửi từ ứng dụng. Huỷ trước 12 giờ được hoàn 100% theo chính sách nền tảng.</p>
@@ -1206,9 +1235,83 @@
       </sc-if>
 
       <!-- ═══ INVENTORY ═══ -->
-      <sc-if value="{{ isInventory }}" hint-placeholder-val="{{ false }}">
+      <!-- ═══ PHÒNG & VẬT TƯ ═══
+           Ba thứ vật chất, ba tab. Phòng là nguồn lực chặn lịch, thiết bị là
+           tài sản có lịch kiểm định, vật tư là hàng tiêu hao. Trước đây giường
+           trị liệu và tinh dầu nằm chung một danh sách. -->
+      <sc-if value="{{ isFacility }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;gap:4px;padding:3px;border-radius:12px;background:var(--surface2);margin-bottom:16px;max-width:480px">
+          <sc-for list="{{ facTabs }}" as="t" hint-placeholder-count="3">
+            <button sc-camel-on-click="{{ t.pick }}" style="flex:1;padding:9px 8px;border-radius:9px;background:{{ t.bg }};color:{{ t.fg }};box-shadow:{{ t.sh }};font-size:12px;font-weight:600;white-space:nowrap">{{ t.t }}<sc-if value="{{ t.hasN }}" hint-placeholder-val="{{ true }}"><span style="margin-left:5px;font-size:10px;font-weight:700;color:#fff;background:var(--dangerSolid);border-radius:99px;padding:1px 6px">{{ t.n }}</span></sc-if></button>
+          </sc-for>
+        </div>
+
+        <!-- ── Phòng ── -->
+        <sc-if value="{{ facRooms }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px">
+            <p style="font-size:12px;color:var(--text2);max-width:560px">Phòng là nguồn lực thứ hai chặn lịch, cạnh kỹ thuật viên. Mỗi phòng khai làm được dịch vụ nào — xếp ca vào phòng không đủ thiết bị thì hệ thống chặn.</p>
+            <button sc-camel-on-click="{{ addRoom }}" style="flex:none;padding:10px 16px;border-radius:10px;background:var(--primary);color:var(--on-primary);font-size:12.5px;font-weight:600;white-space:nowrap">+ Thêm phòng</button>
+          </div>
+          <div class="g2s" style="display:grid;gap:12px">
+            <sc-for list="{{ rooms }}" as="r" hint-placeholder-count="6">
+              <div style="background:var(--surface);border:1px solid {{ r.bd }};border-radius:14px;padding:16px">
+                <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px;flex-wrap:wrap">
+                  <div style="flex:1;min-width:0">
+                    <div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:18px">{{ r.t }}</div>
+                    <div style="font-size:11px;color:var(--text3);margin-top:2px">{{ r.d }}</div>
+                  </div>
+                  <span style="flex:none;font-size:9px;font-weight:700;color:{{ r.stFg }};background:{{ r.stBg }};padding:3px 9px;border-radius:99px">{{ r.st }}</span>
+                </div>
+                <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:11px">
+                  <sc-for list="{{ r.svcs }}" as="v" hint-placeholder-count="2">
+                    <span style="padding:4px 10px;border-radius:99px;background:var(--surface2);font-size:10.5px;font-weight:600;color:var(--text2)">{{ v.t }}</span>
+                  </sc-for>
+                </div>
+                <div style="display:flex;align-items:center;gap:10px;margin-top:12px;padding-top:12px;border-top:1px solid var(--line2)">
+                  <span style="flex:1;min-width:0">
+                    <span style="display:block;font-size:10px;color:var(--text3)">Công suất hôm nay</span>
+                    <span style="display:block;height:6px;border-radius:99px;background:var(--line2);margin-top:4px;overflow:hidden"><span style="display:block;height:100%;width:{{ r.use }};background:{{ r.useC }};border-radius:99px"></span></span>
+                  </span>
+                  <span style="flex:none;font-size:12.5px;font-weight:700;color:{{ r.useC }}">{{ r.use }}</span>
+                  <button sc-camel-on-click="{{ r.edit }}" style="flex:none;padding:7px 12px;border-radius:9px;background:var(--surface2);color:var(--text2);font-size:11px;font-weight:600">Sửa</button>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <!-- ── Thiết bị & bảo trì ── -->
+        <sc-if value="{{ facGear }}" hint-placeholder-val="{{ false }}">
+          <p style="font-size:12px;color:var(--text2);max-width:600px;margin-bottom:14px">Tài sản có lịch kiểm định và bảo trì. Quá hạn kiểm định thì <b>dịch vụ dùng thiết bị đó tự ngừng nhận đặt</b> — giống cách chứng chỉ hết hạn chặn kỹ thuật viên.</p>
+          <div style="display:flex;flex-direction:column;gap:11px">
+            <sc-for list="{{ gears }}" as="g" hint-placeholder-count="4">
+              <div style="background:var(--surface);border:1px solid var(--line);border-left:3px solid {{ g.accent }};border-radius:14px;padding:15px">
+                <div style="display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap">
+                  <span style="flex:none;width:38px;height:38px;border-radius:11px;background:var(--surface2);display:grid;place-items:center;font-size:16px">{{ g.icon }}</span>
+                  <div style="flex:1;min-width:190px">
+                    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+                      <span style="font-size:13px;font-weight:600">{{ g.t }}</span>
+                      <span style="font-size:9px;font-weight:700;color:{{ g.stFg }};background:{{ g.stBg }};padding:2px 8px;border-radius:99px">{{ g.st }}</span>
+                    </div>
+                    <div style="font-size:11.5px;color:var(--text2);margin-top:4px">{{ g.d }}</div>
+                    <div style="font-size:10.5px;color:var(--text3);margin-top:4px">{{ g.where }} · kiểm định tới {{ g.exp }}</div>
+                    <sc-if value="{{ g.hasWarn }}" hint-placeholder-val="{{ false }}">
+                      <div style="font-size:10.5px;color:var(--danger);font-weight:600;margin-top:5px">⚠ {{ g.warn }}</div>
+                    </sc-if>
+                  </div>
+                  <button sc-camel-on-click="{{ g.book }}" style="flex:none;padding:9px 14px;border-radius:9px;background:var(--surface2);color:var(--text2);font-size:11.5px;font-weight:600;white-space:nowrap">Đặt lịch bảo trì</button>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <!-- ── Kho vật tư ── -->
+        <sc-if value="{{ facStock }}" hint-placeholder-val="{{ false }}">
+          <p style="font-size:12px;color:var(--text2);max-width:600px;margin-bottom:14px">Hàng tiêu hao. Số tồn <b>tự trừ theo buổi đã làm</b> dựa trên định mức khai ở Dịch vụ &amp; bảng giá — không phải gõ tay.</p>
+      <sc-if value="{{ isInventory }}" hint-placeholder-val="{{ true }}">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
-          <p style="font-size:12px;color:var(--text2);max-width:520px">Vật tư tiêu hao và thiết bị của cơ sở. Đặt bổ sung qua đối tác cung ứng của ANWELL.</p>
+          <p style="font-size:12px;color:var(--text2);max-width:520px">Đặt bổ sung qua đối tác cung ứng của ANWELL.</p>
           <button sc-camel-on-click="{{ orderStock }}" style="flex:none;padding:9px 15px;border-radius:10px;background:var(--primary);color:var(--on-primary);font-size:12px;font-weight:600">+ Đặt vật tư</button>
         </div>
         <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden">
@@ -1223,6 +1326,9 @@
             </div>
           </sc-for>
         </div>
+      </sc-if>
+
+        </sc-if>
       </sc-if>
 
       <!-- ═══ YÊU CẦU TỪ KTV ═══
@@ -1811,8 +1917,6 @@
         </div>
       </sc-if>
 
-      </sc-if>
-
       <!-- ═══ SETTINGS ═══ -->
       <sc-if value="{{ isSettings }}" hint-placeholder-val="{{ false }}">
         <div class="split">
@@ -2055,10 +2159,10 @@ class Component extends DCLogic {
     { id:'staff',     g:'Nhân sự',   t:'Kỹ thuật viên',     ic:'users', count:2 },
     { id:'payroll',   g:'Nhân sự',   t:'Lương & hoa hồng',  ic:'wallet' },
     { id:'services',  g:'Kinh doanh',t:'Dịch vụ & bảng giá',ic:'tag' },
-    // Tách hẳn tài sản khỏi hàng tiêu hao: giường trị liệu quản theo lịch bảo
-    // trì, tinh dầu quản theo tồn kho. Trước đây hai thứ nằm chung một danh sách.
-    { id:'rooms',     g:'Kinh doanh',t:'Phòng & thiết bị',  ic:'grid' },
-    { id:'inventory', g:'Kinh doanh',t:'Kho vật tư',        ic:'box', live:'lowStock' },
+    // Ba thứ vật chất gom một mục ba tab. Vẫn tách hẳn tài sản khỏi hàng tiêu
+    // hao — giường quản theo lịch bảo trì, tinh dầu quản theo tồn kho — nhưng
+    // tách bằng tab thì menu không phình thêm một dòng.
+    { id:'facility',  g:'Kinh doanh',t:'Phòng & vật tư',    ic:'box', live:'lowStock' },
     { id:'finance',   g:'Kinh doanh',t:'Doanh thu & đối soát', ic:'wallet' },
     { id:'settings',  g:'Hệ thống',  t:'Cấu hình trung tâm',ic:'gear' }
   ];
@@ -2592,6 +2696,62 @@ class Component extends DCLogic {
           })()
         };
       })(),
+      // ── Phòng & vật tư ──────────────────────────────────────────
+      ...(() => {
+        const tab = this.tabOf('facility', 'rooms');
+        const ROOMS = [
+          { t:'Phòng 1', d:'Giường đôi · phòng lớn', use:82, st:'Hoạt động',
+            svcs:['Massage thư giãn','Dưỡng sinh Đông y','Trị liệu cổ vai gáy'] },
+          { t:'Phòng 2', d:'Có máy vật lý trị liệu', use:74, st:'Hoạt động',
+            svcs:['Vật lý trị liệu','Phục hồi vận động'] },
+          { t:'Phòng 3', d:'Phòng trị liệu tiêu chuẩn', use:91, st:'Hoạt động',
+            svcs:['Trị liệu cổ vai gáy','Massage trị liệu'] },
+          { t:'Phòng 4', d:'Phòng đôi · cho cặp', use:38, st:'Hoạt động',
+            svcs:['Massage thư giãn','Trị liệu cổ vai gáy'] },
+          { t:'Phòng 5', d:'Có bồn ngâm chân', use:66, st:'Hoạt động',
+            svcs:['Dưỡng sinh Đông y','Massage chân'] },
+          { t:'Phòng 6', d:'Đang sửa trần · dự kiến xong 02/08', use:0, st:'Tạm ngưng',
+            svcs:['Massage thư giãn'] }
+        ];
+        const GEARS = [
+          { icon:'🛏', t:'Giường trị liệu điện', d:'8 giường · nâng hạ điện', where:'Phòng 1–5',
+            exp:'03/2027', st:'Đạt', ok:true, warn:'' },
+          { icon:'🩺', t:'Máy đo sinh hiệu', d:'3 máy · huyết áp, SpO₂, nhịp tim', where:'Phòng 2, 3 và quầy',
+            exp:'11/2026', st:'Đạt', ok:true, warn:'' },
+          { icon:'⚡', t:'Máy vật lý trị liệu sóng ngắn', d:'1 máy · dùng cho phục hồi vận động', where:'Phòng 2',
+            exp:'20/08/2026', st:'Sắp hết hạn', ok:false,
+            warn:'Còn 20 ngày. Quá hạn là Vật lý trị liệu tự ngừng nhận đặt.' },
+          { icon:'♨️', t:'Nồi hấp đá nóng', d:'2 nồi · làm nóng đá trị liệu', where:'Kho sau',
+            exp:'06/2027', st:'Đạt', ok:true, warn:'' }
+        ];
+        return {
+          isFacility: s.page === 'facility',
+          facTabs: this.tabBar('facility', [
+            ['rooms','Phòng'], ['gear','Thiết bị & bảo trì', '1'], ['stock','Kho vật tư', '2']
+          ]),
+          facRooms: tab==='rooms', facGear: tab==='gear', facStock: tab==='stock',
+          isInventory: s.page === 'facility' && tab === 'stock',
+          addRoom: () => {},
+          rooms: ROOMS.map(r => {
+            const off = r.st !== 'Hoạt động';
+            return { t:r.t, d:r.d, st:r.st,
+              stFg: off ? 'var(--danger)' : 'var(--ok)',
+              stBg: off ? 'var(--dangerTint)' : 'var(--okTint)',
+              bd: off ? 'var(--dangerSolid)' : 'var(--line)',
+              svcs: r.svcs.map(t => ({ t })),
+              use: r.use + '%',
+              useC: r.use >= 85 ? 'var(--accent)' : r.use === 0 ? 'var(--text3)' : 'var(--primary)',
+              edit: () => {} };
+          }),
+          gears: GEARS.map(g => ({ ...g, hasWarn: !!g.warn,
+            st: g.st,
+            stFg: g.ok ? 'var(--ok)' : 'var(--danger)',
+            stBg: g.ok ? 'var(--okTint)' : 'var(--dangerTint)',
+            accent: g.ok ? 'var(--line)' : 'var(--dangerSolid)',
+            book: () => {} }))
+        };
+      })(),
+
       // ── Quầy lễ tân ─────────────────────────────────────────────
       // Mốc giờ cố định 15:20 để bản demo luôn có ca đang chạy — không dùng
       // giờ máy, vì mở lúc nửa đêm sẽ thấy trang trống trơn.
@@ -2691,8 +2851,18 @@ class Component extends DCLogic {
         const total = SRC.reduce((a,x) => a + x.n, 0);
         const fromApp = SRC[0].n;
         return {
-          schTabs: this.tabBar('schedule', [['board','Bảng ngày'], ['src','Nguồn đặt']]),
-          schBoard: schTab==='board', schSrc: schTab==='src',
+          schTabs: this.tabBar('schedule', [['board','Theo kỹ thuật viên'], ['room','Theo phòng'], ['src','Nguồn đặt']]),
+          schBoard: schTab==='board', schRoom: schTab==='room', schSrc: schTab==='src',
+          // Cùng dữ liệu ca, xoay theo chiều phòng. Xếp hai ca cùng giờ vào một
+          // phòng là lỗi chỉ nhìn thấy ở chiều này.
+          roomBoard: [
+            { n:'Phòng 1', tier:'Phòng lớn',  blocks:[blk(8.5,1.5,'center','Thư giãn 90′'), blk(11,1,'center','Vai gáy'), blk(14.5,1.5,'center','Thư giãn 90′'), blk(19,1.5,'center','Thư giãn')] },
+            { n:'Phòng 2', tier:'Máy VLTL',   blocks:[blk(9,1.5,'center','VLTL'), blk(13,1,'center','VLTL'), blk(15,1,'center','VLTL')] },
+            { n:'Phòng 3', tier:'Tiêu chuẩn', blocks:[blk(8,1,'center','Vai gáy'), blk(10,1,'center','Vai gáy'), blk(14,1,'off','Khách vắng'), blk(16.5,1,'center','Vai gáy')] },
+            { n:'Phòng 4', tier:'Phòng đôi',  blocks:[blk(17,1,'center','Vai gáy · vừa đặt')] },
+            { n:'Phòng 5', tier:'Bồn ngâm',   blocks:[blk(10,1.5,'center','Đông y'), blk(15,1.5,'center','Đông y 90′')] },
+            { n:'Phòng 6', tier:'Đang sửa',   blocks:[blk(8,11,'off','Tạm ngưng tới 02/08')] }
+          ],
           srcKpis: [
             { t:'Tổng buổi tháng 7', v: total.toLocaleString('vi-VN'), sub:'Cả bốn nguồn', c:'var(--text)' },
             { t:'Từ app ANWELL', v: Math.round(fromApp/total*100) + '%', sub: fromApp + ' buổi', c:'var(--primary)' },
@@ -2944,7 +3114,7 @@ class Component extends DCLogic {
       })(),
       isServices:s.page==='services', isFinance:s.page==='finance',
 
-      isQuality:s.page==='quality', isInventory:s.page==='inventory', isSettings:s.page==='settings',
+      isQuality:s.page==='quality', isSettings:s.page==='settings',
       goSchedule:()=>this.go('schedule'), goStaff:()=>this.go('staff'), goSettings:()=>this.go('settings'),
       kpis, hourBars, todos, upcoming, topStaff,
       dayTabs, hours, board,
