@@ -821,6 +821,91 @@
           </div>
         </sc-if>
 
+        <!-- ══ SỰ CỐ TẠI CA ══
+             Khác yêu cầu duyệt lịch: việc đã xảy ra rồi. Trung tâm không quyết
+             "cho hay không cho" mà quyết ai chịu phí và làm gì tiếp. -->
+        <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.16em;color:var(--dangerSolid);text-transform:uppercase;margin:24px 0 10px">Sự cố tại ca · KTV báo lên</p>
+        <sc-if value="{{ hasIncidents }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;flex-direction:column;gap:11px">
+            <sc-for list="{{ incidents }}" as="n" hint-placeholder-count="2">
+              <div style="background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--dangerSolid);border-radius:14px;padding:15px">
+                <div style="display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap">
+                  <span style="flex:none;width:38px;height:38px;border-radius:50%;background:var(--dangerTint);display:grid;place-items:center;font-size:12px;font-weight:700;color:var(--dangerSolid)">{{ n.i }}</span>
+                  <span style="flex:1;min-width:200px">
+                    <span style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+                      <span style="font-size:13px;font-weight:600">{{ n.ktv }}</span>
+                      <span style="font-size:9px;font-weight:700;color:var(--dangerSolid);background:var(--dangerTint);padding:2px 8px;border-radius:99px">{{ n.title }}</span>
+                    </span>
+                    <span style="display:block;font-size:11.5px;color:var(--text2);margin-top:6px">Khách {{ n.client }} · {{ n.when }}</span>
+                    <span style="display:block;font-size:10.5px;color:var(--text3);margin-top:5px;padding-left:9px;border-left:2px solid var(--line2)">“{{ n.note }}”</span>
+                    <sc-if value="{{ n.hasGeo }}" hint-placeholder-val="{{ true }}">
+                      <span style="display:block;font-size:10.5px;color:var(--ok);font-weight:600;margin-top:6px">📍 {{ n.geo }}</span>
+                    </sc-if>
+                  </span>
+                </div>
+                <p style="font-size:11px;color:var(--text2);line-height:1.6;margin-top:12px;padding-top:12px;border-top:1px solid var(--line2)"><strong>Cần quyết:</strong> {{ n.question }}</p>
+                <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+                  <button sc-camel-on-click="{{ n.side1 }}" style="flex:1;min-width:150px;padding:10px;border-radius:9px;background:var(--primary);color:var(--on-primary);font-size:12px;font-weight:600">{{ n.label1 }}</button>
+                  <button sc-camel-on-click="{{ n.side2 }}" style="flex:1;min-width:150px;padding:10px;border-radius:9px;background:var(--surface2);color:var(--text);font-size:12px;font-weight:600">{{ n.label2 }}</button>
+                  <button sc-camel-on-click="{{ n.call }}" style="flex:none;padding:10px 14px;border-radius:9px;background:var(--surface);border:1px solid var(--line);color:var(--text2);font-size:12px;font-weight:600">Gọi khách</button>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+        <sc-if value="{{ noIncidents }}" hint-placeholder-val="{{ false }}">
+          <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px;text-align:center">
+            <p style="font-size:12px;color:var(--text3)">Không có sự cố nào chờ xử lý.</p>
+          </div>
+        </sc-if>
+
+        <!-- ══ PHÂN XỬ GIỜ ══
+             Khách khai một đằng, ứng dụng ghi một nẻo. Bản ghi định vị là bên
+             thứ ba nên đây không phải chuyện tin ai hơn ai. -->
+        <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:24px 0 10px">Phân xử giờ · phí đang tạm giữ</p>
+        <sc-if value="{{ hasDisputes }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;flex-direction:column;gap:11px">
+            <sc-for list="{{ disputes }}" as="d" hint-placeholder-count="1">
+              <div style="background:var(--surface);border:1px solid var(--gold);border-radius:14px;padding:15px">
+                <div style="display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap">
+                  <span style="flex:none;width:38px;height:38px;border-radius:50%;background:var(--goldTint);display:grid;place-items:center;font-size:12px;font-weight:700;color:var(--goldText)">{{ d.i }}</span>
+                  <span style="flex:1;min-width:200px">
+                    <span style="font-size:13px;font-weight:600">{{ d.ktv }} ↔ {{ d.client }}</span>
+                    <span style="display:block;font-size:11.5px;color:var(--text2);margin-top:5px">{{ d.svc }} · {{ d.when }}</span>
+                  </span>
+                  <span style="flex:none;font-size:9.5px;font-weight:700;color:var(--goldText);background:var(--goldTint);padding:3px 9px;border-radius:99px">Tạm giữ {{ d.money }}</span>
+                </div>
+
+                <div style="display:flex;gap:9px;margin-top:13px;flex-wrap:wrap">
+                  <div style="flex:1;min-width:130px;padding:11px;border-radius:11px;background:var(--okTint);border:1px solid var(--ok)">
+                    <p style="font-size:9.5px;font-weight:700;letter-spacing:.1em;color:var(--ok);text-transform:uppercase">📍 Định vị ghi</p>
+                    <p style="font-size:14px;font-weight:700;margin-top:4px">{{ d.sys }}</p>
+                    <p style="font-size:10px;color:var(--text3);margin-top:3px">Bên thứ ba · không ai sửa được</p>
+                  </div>
+                  <div style="flex:1;min-width:130px;padding:11px;border-radius:11px;background:var(--surface2)">
+                    <p style="font-size:9.5px;font-weight:700;letter-spacing:.1em;color:var(--text3);text-transform:uppercase">Khách khai</p>
+                    <p style="font-size:14px;font-weight:700;margin-top:4px">{{ d.cus }}</p>
+                    <p style="font-size:10px;color:var(--text3);margin-top:3px">Lệch {{ d.gap }}</p>
+                  </div>
+                </div>
+                <p style="font-size:10.5px;color:var(--text3);line-height:1.6;margin-top:10px;padding-left:9px;border-left:2px solid var(--line2)">Khách nói: “{{ d.cusNote }}”</p>
+
+                <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
+                  <button sc-camel-on-click="{{ d.byGeo }}" style="flex:1;min-width:150px;padding:10px;border-radius:9px;background:var(--primary);color:var(--on-primary);font-size:12px;font-weight:600">Theo bản ghi định vị</button>
+                  <button sc-camel-on-click="{{ d.byClient }}" style="flex:1;min-width:150px;padding:10px;border-radius:9px;background:var(--surface2);color:var(--text);font-size:12px;font-weight:600">Theo khách khai</button>
+                  <button sc-camel-on-click="{{ d.split }}" style="flex:none;padding:10px 14px;border-radius:9px;background:var(--surface);border:1px solid var(--line);color:var(--text2);font-size:12px;font-weight:600">Chia đôi</button>
+                </div>
+                <p style="font-size:10.5px;color:var(--text3);line-height:1.55;margin-top:9px">Quyết định gửi cho cả hai bên kèm lý do, và ghi vào hồ sơ ca. Chia đôi là khi cả hai đều có phần đúng — ví dụ KTV tới đúng giờ nhưng khách cần thời gian chuẩn bị.</p>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+        <sc-if value="{{ noDisputes }}" hint-placeholder-val="{{ false }}">
+          <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px;text-align:center">
+            <p style="font-size:12px;color:var(--text3)">Không có tranh chấp giờ nào.</p>
+          </div>
+        </sc-if>
+
         <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:24px 0 10px">Báo bận khẩn cấp · đã có hiệu lực</p>
         <div style="display:flex;flex-direction:column;gap:11px">
           <sc-for list="{{ sickAlerts }}" as="a" hint-placeholder-count="1">
@@ -1020,6 +1105,25 @@ class Component extends DCLogic {
       { id:'k3', i:'PD', ktv:'Phương Dung', tier:'Bậc 2', kind:'want',
         detail:'Phục hồi vận động · Dưỡng sinh Đông y — Chiều 12–17 · Cuối tuần',
         reason:'', ago:'hôm qua', sla:'không gấp', urgent:false }
+    ],
+    // Sự cố tại ca do KTV báo lên từ ktv.html. Khác yêu cầu duyệt lịch: việc
+    // đã xảy ra rồi, trung tâm chỉ quyết ai chịu phí và làm gì tiếp.
+    incidents: [
+      { id:'i1', i:'HY', ktv:'Trần Hải Yến', client:'Bà Phạm T. Lan', kind:'vang',
+        when:'Hôm nay 17:05 · Q.3 · tại nhà',
+        note:'Đã tới 17:05, gọi 3 lần và gõ cửa 10 phút, không ai ra.',
+        geo:'Định vị xác nhận KTV ở đúng địa chỉ từ 17:03 đến 17:19' },
+      { id:'i2', i:'NM', ktv:'Nguyễn Minh', client:'Đỗ Minh K.', kind:'ngoai',
+        when:'Hôm qua 19:40 · Phòng 1',
+        note:'Khách đề nghị làm thêm vùng không thuộc dịch vụ đã đặt. Tôi đã từ chối và giải thích, khách không hài lòng.',
+        geo:'' }
+    ],
+    // Tranh chấp giờ khi KTV không đồng ý với giờ khách khai và nhờ phân xử.
+    disputes: [
+      { id:'d1', i:'HY', ktv:'Trần Hải Yến', client:'Ông Trần Văn Minh',
+        svc:'Phục hồi vận động 60′ · tại nhà', when:'Hôm nay',
+        sys:'15:00 – 15:58', cus:'15:10 – 15:50', gap:'18 phút', money:'70k',
+        cusNote:'Chị Yến đến muộn hơn giờ hẹn và về sớm, tôi có ghi lại giờ trên đồng hồ nhà.' }
     ] };
 
   ic(name, size){
@@ -1057,9 +1161,15 @@ class Component extends DCLogic {
   // Duyệt hay từ chối đều lấy yêu cầu ra khỏi hàng chờ; KTV nhận kết quả ở
   // khối "Tôi đề xuất" bên ứng dụng của họ.
   resolveKtvReq(id){ this.setState({ ktvReqs: this.state.ktvReqs.filter(x => x.id !== id) }); }
+  resolveIncident(id){ this.setState({ incidents: this.state.incidents.filter(x => x.id !== id) }); }
+  resolveDispute(id){ this.setState({ disputes: this.state.disputes.filter(x => x.id !== id) }); }
 
   renderVals(){
     const s = this.state, pg = this.pages.find(p=>p.id===s.page) || this.pages[0];
+
+    const navCount = (key) => key === 'ktvReqs'
+      ? s.ktvReqs.length + s.incidents.length + s.disputes.length
+      : s[key].length;
 
     const groups = [];
     this.pages.forEach(p=>{
@@ -1068,8 +1178,11 @@ class Component extends DCLogic {
       const on = s.page===p.id;
       g.items.push({ t:p.t, icon:this.ic(p.ic,18), go:()=>this.go(p.id),
         bg:on?'var(--tint)':'transparent', fg:on?'var(--primary)':'var(--text)', wt:on?'700':'500',
-        ic:on?'var(--primary)':'var(--text3)', hasCount: p.live ? s[p.live].length > 0 : !!p.count,
-        count: p.live ? s[p.live].length : p.count });
+        ic:on?'var(--primary)':'var(--text3)',
+        // Trang Yêu cầu từ KTV gộp ba loại việc nên huy hiệu phải đếm cả ba,
+        // không thì trung tâm tưởng đã xong trong khi còn sự cố treo.
+        hasCount: p.live ? navCount(p.live) > 0 : !!p.count,
+        count: p.live ? navCount(p.live) : p.count });
     });
 
     const bIds = ['dash','schedule','staff','customers','finance'];
@@ -1315,6 +1428,48 @@ class Component extends DCLogic {
       theme:s.theme, themeDots,
       page:s.page, pgGroup:pg.g, pgTitle:pg.t, navGroups:groups, bottomNav,
       isDash:s.page==='dash', isSchedule:s.page==='schedule', isStaff:s.page==='staff',
+      // ── sự cố tại ca ────────────────────────────────────────────
+      // Mỗi loại sự cố có câu hỏi tiền bạc riêng, nên nhãn nút phải khác nhau.
+      // Nút chung chung kiểu "Duyệt / Từ chối" sẽ khiến điều phối viên bấm mà
+      // không biết mình vừa quyết cái gì.
+      ...(() => {
+        const KIND = {
+          vang:  { title:'Khách không có nhà',
+                   q:'KTV đã tới đúng nơi đúng giờ nhưng không làm được. Có tính công cho KTV và thu phí khách không?',
+                   l1:'Tính công KTV · thu 50% phí khách', l2:'Tính công KTV · miễn phí khách' },
+          huy:   { title:'Khách huỷ tại chỗ',
+                   q:'Khách đổi ý khi KTV đã có mặt. Ai chịu phần công đã bỏ ra?',
+                   l1:'Tính công KTV · thu 50% phí khách', l2:'Tính công KTV · miễn phí khách' },
+          ngoai: { title:'Khách đòi ngoài phạm vi',
+                   q:'KTV từ chối yêu cầu ngoài dịch vụ đã đặt. Xử lý thế nào với khách?',
+                   l1:'Ủng hộ KTV · nhắc khách về phạm vi', l2:'Xem lại · gọi KTV hỏi thêm' },
+          moitruong: { title:'Nơi làm không phù hợp',
+                   q:'Điều kiện tại chỗ không đủ để làm an toàn. Có huỷ ca và hoàn phí không?',
+                   l1:'Huỷ ca · hoàn phí khách · tính công KTV', l2:'Đổi sang buổi tại cơ sở' },
+          khac:  { title:'Việc khác',
+                   q:'Đọc mô tả của KTV rồi quyết.',
+                   l1:'Ủng hộ KTV', l2:'Xem lại · gọi KTV hỏi thêm' }
+        };
+        return {
+          incidents: s.incidents.map(n => {
+            const k = KIND[n.kind] || KIND.khac;
+            return { i:n.i, ktv:n.ktv, client:n.client, when:n.when, note:n.note,
+              title:k.title, question:k.q, label1:k.l1, label2:k.l2,
+              geo:n.geo, hasGeo: !!n.geo,
+              side1:()=>this.resolveIncident(n.id), side2:()=>this.resolveIncident(n.id), call:()=>{} };
+          }),
+          hasIncidents: s.incidents.length > 0,
+          noIncidents:  s.incidents.length === 0,
+          disputes: s.disputes.map(d => ({
+            i:d.i, ktv:d.ktv, client:d.client, svc:d.svc, when:d.when,
+            sys:d.sys, cus:d.cus, gap:d.gap, money:d.money, cusNote:d.cusNote,
+            byGeo:   ()=>this.resolveDispute(d.id),
+            byClient:()=>this.resolveDispute(d.id),
+            split:   ()=>this.resolveDispute(d.id) })),
+          hasDisputes: s.disputes.length > 0,
+          noDisputes:  s.disputes.length === 0
+        };
+      })(),
       isRequests:s.page==='requests', isKtvReq:s.page==='ktvreq', requests,
       ...ktvReqVals,
       isCustomers:s.page==='customers', isServices:s.page==='services', isFinance:s.page==='finance',
