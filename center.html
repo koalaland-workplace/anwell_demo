@@ -579,6 +579,196 @@
       </sc-if>
 
       <!-- ═══ YÊU CẦU TỪ KHÁCH ═══ -->
+      <!-- ═══ QUẦY LỄ TÂN ═══
+           Ba việc hằng ngày trước đây không có nhà: đặt lịch hộ khách gọi
+           điện, đánh dấu khách đã đến, và xem ca đang chạy ngay lúc này. -->
+      <sc-if value="{{ isFront }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;gap:4px;padding:3px;border-radius:12px;background:var(--surface2);margin-bottom:16px;max-width:620px;overflow-x:auto">
+          <sc-for list="{{ frTabs }}" as="t" hint-placeholder-count="4">
+            <button sc-camel-on-click="{{ t.pick }}" style="flex:1;padding:9px 8px;border-radius:9px;background:{{ t.bg }};color:{{ t.fg }};box-shadow:{{ t.sh }};font-size:12px;font-weight:600;white-space:nowrap">{{ t.t }}<sc-if value="{{ t.hasN }}" hint-placeholder-val="{{ true }}"><span style="margin-left:5px;font-size:10px;font-weight:700;color:#fff;background:var(--dangerSolid);border-radius:99px;padding:1px 6px">{{ t.n }}</span></sc-if></button>
+          </sc-for>
+        </div>
+
+        <!-- ── Đang diễn ra ── -->
+        <sc-if value="{{ frNow }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px">
+            <p style="font-size:12px;color:var(--text2);max-width:520px">Ảnh chụp lúc <b>{{ nowClock }}</b>. Tổng quan cho số cả ngày, đây là thứ đang chạy ngay bây giờ.</p>
+            <span style="flex:none;font-size:11.5px;font-weight:700;color:var(--primary);background:var(--tint);padding:6px 13px;border-radius:99px">{{ freeRooms }}</span>
+          </div>
+          <div class="g2s" style="display:grid;gap:12px">
+            <sc-for list="{{ liveRooms }}" as="r" hint-placeholder-count="4">
+              <div style="background:var(--surface);border:1px solid {{ r.bd }};border-left:3px solid {{ r.accent }};border-radius:14px;padding:15px">
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap">
+                  <span style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:18px">{{ r.room }}</span>
+                  <span style="font-size:9px;font-weight:700;color:{{ r.stFg }};background:{{ r.stBg }};padding:3px 9px;border-radius:99px">{{ r.st }}</span>
+                </div>
+                <sc-if value="{{ r.busy }}" hint-placeholder-val="{{ true }}">
+                  <div style="margin-top:11px">
+                    <div style="font-size:12.5px;font-weight:600">{{ r.svc }}</div>
+                    <div style="font-size:11px;color:var(--text2);margin-top:3px">{{ r.client }} · KTV {{ r.ktv }}</div>
+                    <div style="display:flex;align-items:baseline;justify-content:space-between;margin-top:9px">
+                      <span style="font-size:10.5px;color:var(--text3)">{{ r.from }} – {{ r.to }}</span>
+                      <span style="font-size:11.5px;font-weight:700;color:{{ r.leftFg }}">{{ r.left }}</span>
+                    </div>
+                    <div style="height:6px;border-radius:99px;background:var(--line2);margin-top:5px;overflow:hidden"><div style="height:100%;width:{{ r.pct }};background:{{ r.accent }};border-radius:99px"></div></div>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ r.free }}" hint-placeholder-val="{{ false }}">
+                  <div style="margin-top:11px">
+                    <div style="font-size:11.5px;color:var(--text3)">{{ r.nextNote }}</div>
+                    <button sc-camel-on-click="{{ r.book }}" style="width:100%;margin-top:10px;padding:10px;border-radius:9px;background:var(--tint);color:var(--primary);font-size:11.5px;font-weight:700">Xếp khách vào phòng này</button>
+                  </div>
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <!-- ── Khách đến hôm nay ── -->
+        <sc-if value="{{ frArrive }}" hint-placeholder-val="{{ false }}">
+          <p style="font-size:12px;color:var(--text2);max-width:600px;margin-bottom:14px">Khách tới cơ sở thì lễ tân bấm <b>Đã đến</b>. Quá 15 phút chưa tới thì hệ thống tự đẩy lên đầu để gọi. Đây là chỗ ghi nhận vắng mặt — con số đó chạy vào báo cáo và vào hồ sơ khách.</p>
+          <div class="g4" style="margin-bottom:16px">
+            <sc-for list="{{ arrKpis }}" as="k" hint-placeholder-count="4">
+              <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px">
+                <div style="font-size:10.5px;color:var(--text3);font-weight:600">{{ k.t }}</div>
+                <div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:24px;margin-top:4px;color:{{ k.c }}">{{ k.v }}</div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <sc-for list="{{ arrivals }}" as="a" hint-placeholder-count="5">
+              <div style="background:var(--surface);border:1px solid {{ a.bd }};border-radius:14px;padding:14px">
+                <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+                  <span style="flex:none;width:52px;text-align:center">
+                    <span style="display:block;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:17px;color:{{ a.timeFg }}">{{ a.time }}</span>
+                    <span style="display:block;font-size:9px;color:var(--text3)">{{ a.dur }}′</span>
+                  </span>
+                  <span style="flex:1;min-width:170px;border-left:1px solid var(--line2);padding-left:12px">
+                    <span style="display:flex;align-items:center;gap:7px;flex-wrap:wrap">
+                      <span style="font-size:13px;font-weight:600">{{ a.n }}</span>
+                      <span style="font-size:9px;font-weight:700;color:{{ a.stFg }};background:{{ a.stBg }};padding:2px 8px;border-radius:99px">{{ a.stT }}</span>
+                    </span>
+                    <span style="display:block;font-size:11px;color:var(--text3);margin-top:3px">{{ a.svc }} · KTV {{ a.ktv }} · {{ a.room }}</span>
+                    <sc-if value="{{ a.hasNote }}" hint-placeholder-val="{{ false }}">
+                      <span style="display:block;font-size:10.5px;color:{{ a.noteFg }};margin-top:4px">{{ a.note }}</span>
+                    </sc-if>
+                  </span>
+                  <span style="flex:none;display:flex;gap:7px;flex-wrap:wrap">
+                    <sc-if value="{{ a.canMark }}" hint-placeholder-val="{{ true }}">
+                      <button sc-camel-on-click="{{ a.arrive }}" style="padding:9px 14px;border-radius:9px;background:var(--primary);color:var(--on-primary);font-size:11.5px;font-weight:600;white-space:nowrap">Đã đến</button>
+                      <button sc-camel-on-click="{{ a.noshow }}" style="padding:9px 13px;border-radius:9px;background:var(--surface2);color:var(--text2);font-size:11.5px;font-weight:600;white-space:nowrap">Vắng mặt</button>
+                    </sc-if>
+                    <sc-if value="{{ a.done }}" hint-placeholder-val="{{ false }}">
+                      <button sc-camel-on-click="{{ a.undo }}" style="padding:9px 13px;border-radius:9px;background:var(--surface2);color:var(--text3);font-size:11px;font-weight:600">Hoàn tác</button>
+                    </sc-if>
+                  </span>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <!-- ── Đặt lịch hộ ── -->
+        <sc-if value="{{ frBook }}" hint-placeholder-val="{{ false }}">
+          <div class="split">
+            <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px">
+              <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:18px">Khách gọi điện đặt lịch</div>
+              <p style="font-size:11px;color:var(--text3);margin-top:3px">Gõ số điện thoại, nếu là khách cũ thì hồ sơ tự hiện lên.</p>
+
+              <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:16px 0 7px">Số điện thoại</p>
+              <input value="{{ fbPhone }}" sc-camel-on-input="{{ onFbPhone }}" inputmode="numeric" placeholder="0903 415 812" style="width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--text);font-size:13px;font-family:inherit">
+              <sc-if value="{{ fbFound }}" hint-placeholder-val="{{ false }}">
+                <div style="margin-top:9px;padding:11px 13px;border-radius:10px;background:var(--tint);border:1px solid var(--primary)">
+                  <div style="font-size:12.5px;font-weight:700;color:var(--primary)">{{ fbName }} · khách cũ</div>
+                  <div style="font-size:10.5px;color:var(--text2);margin-top:3px">{{ fbHint }}</div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ fbNew }}" hint-placeholder-val="{{ false }}">
+                <div style="margin-top:9px;padding:11px 13px;border-radius:10px;background:var(--surface2)">
+                  <div style="font-size:12.5px;font-weight:600">Số này chưa có trong hệ thống</div>
+                  <div style="font-size:10.5px;color:var(--text3);margin-top:3px">Đặt xong sẽ tạo hồ sơ mới. Nhớ hỏi tên khách.</div>
+                  <input value="{{ fbNewName }}" sc-camel-on-input="{{ onFbName }}" placeholder="Tên khách" style="width:100%;margin-top:9px;padding:10px 12px;border-radius:9px;border:1px solid var(--line);background:var(--surface);color:var(--text);font-size:12.5px;font-family:inherit">
+                </div>
+              </sc-if>
+
+              <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:16px 0 7px">Dịch vụ</p>
+              <div style="display:flex;flex-wrap:wrap;gap:7px">
+                <sc-for list="{{ fbSvcs }}" as="v" hint-placeholder-count="4">
+                  <button sc-camel-on-click="{{ v.pick }}" style="padding:8px 13px;border-radius:99px;font-size:11.5px;font-weight:600;background:{{ v.bg }};color:{{ v.fg }};border:1px solid {{ v.bd }}">{{ v.t }}<span style="opacity:.7"> · {{ v.p }}</span></button>
+                </sc-for>
+              </div>
+
+              <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:16px 0 7px">Giờ còn trống hôm nay</p>
+              <div style="display:flex;flex-wrap:wrap;gap:7px">
+                <sc-for list="{{ fbSlots }}" as="t" hint-placeholder-count="6">
+                  <button sc-camel-on-click="{{ t.pick }}" style="padding:9px 13px;border-radius:10px;font-size:12px;font-weight:600;background:{{ t.bg }};color:{{ t.fg }};border:1px solid {{ t.bd }};opacity:{{ t.dim }}">
+                    {{ t.t }}<span style="display:block;font-size:9px;font-weight:500;opacity:.75">{{ t.who }}</span>
+                  </button>
+                </sc-for>
+              </div>
+
+              <button sc-camel-on-click="{{ fbSubmit }}" style="width:100%;margin-top:16px;padding:14px;border-radius:12px;background:{{ fbBg }};color:{{ fbFg }};font-weight:700;font-size:14px">{{ fbLabel }}</button>
+              <sc-if value="{{ fbDone }}" hint-placeholder-val="{{ false }}">
+                <p style="font-size:11.5px;font-weight:600;color:var(--ok);margin-top:10px">✓ Đã đặt. Khách nhận tin ZNS xác nhận, và buổi này vào lịch của kỹ thuật viên ngay.</p>
+              </sc-if>
+            </div>
+
+            <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px">
+              <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:18px">Vì sao cần màn này</div>
+              <p style="font-size:11.5px;line-height:1.7;color:var(--text2);margin-top:9px">Tab <b>Nguồn đặt</b> ghi 212 buổi tháng 7 đến từ khách gọi điện, lễ tân đặt hộ. Trước đây không có màn nào để làm việc đó — con số kia không có chỗ nào sinh ra.</p>
+              <p style="font-size:11.5px;line-height:1.7;color:var(--text2);margin-top:8px">Buổi đặt ở đây <b>không tính phí nền tảng</b>, vì khách là của trung tâm, không phải nền tảng mang tới. Đối soát tự tách hai loại.</p>
+              <div style="margin-top:13px;padding:13px;border-radius:11px;background:var(--surface2)">
+                <div style="font-size:11px;font-weight:700;color:var(--text2)">Khách gọi mà hết chỗ?</div>
+                <p style="font-size:10.5px;line-height:1.6;color:var(--text3);margin-top:4px">Đẩy vào Danh sách chờ ở tab bên cạnh. Có ai huỷ là gọi lại ngay, không mất khách.</p>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ── Danh sách chờ ── -->
+        <sc-if value="{{ frWait }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px">
+            <p style="font-size:12px;color:var(--text2);max-width:540px">Khách muốn khung giờ đã kín. Có ai huỷ hoặc vắng mặt là chỗ đó hiện lên đây để gọi ngay — chỗ trống sát giờ gần như không bán được nếu không có danh sách này.</p>
+            <button sc-camel-on-click="{{ addWait }}" style="flex:none;padding:10px 16px;border-radius:10px;background:var(--primary);color:var(--on-primary);font-size:12.5px;font-weight:600;white-space:nowrap">+ Thêm vào danh sách chờ</button>
+          </div>
+          <sc-if value="{{ hasFreed }}" hint-placeholder-val="{{ true }}">
+            <div style="background:var(--okTint);border:1px solid var(--okSolid);border-radius:14px;padding:15px;margin-bottom:14px">
+              <div style="font-size:12.5px;font-weight:700;color:var(--okSolid)">🔔 Vừa có chỗ trống</div>
+              <p style="font-size:11.5px;color:var(--text2);margin-top:5px">{{ freedNote }}</p>
+              <div style="display:flex;gap:8px;margin-top:11px;flex-wrap:wrap">
+                <sc-for list="{{ freedMatch }}" as="m" hint-placeholder-count="2">
+                  <button sc-camel-on-click="{{ m.call }}" style="padding:9px 14px;border-radius:9px;background:var(--surface);border:1px solid var(--okSolid);color:var(--text);font-size:11.5px;font-weight:600">Gọi {{ m.n }} · {{ m.want }}</button>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <sc-for list="{{ waitlist }}" as="w" hint-placeholder-count="4">
+              <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+                <span style="flex:none;width:34px;height:34px;border-radius:50%;background:var(--tint);display:grid;place-items:center;font-size:11px;font-weight:700;color:var(--primary)">{{ w.i }}</span>
+                <span style="flex:1;min-width:180px">
+                  <span style="display:block;font-size:12.5px;font-weight:600">{{ w.n }}</span>
+                  <span style="display:block;font-size:11px;color:var(--text2);margin-top:2px">{{ w.svc }} · muốn {{ w.want }}</span>
+                  <span style="display:block;font-size:10px;color:var(--text3);margin-top:2px">Vào danh sách {{ w.since }} · {{ w.phone }}</span>
+                </span>
+                <span style="flex:none;display:flex;gap:7px">
+                  <button sc-camel-on-click="{{ w.call }}" style="padding:8px 13px;border-radius:9px;background:var(--surface2);color:var(--text2);font-size:11.5px;font-weight:600">Gọi</button>
+                  <button sc-camel-on-click="{{ w.drop }}" style="padding:8px 13px;border-radius:9px;background:var(--surface2);color:var(--text3);font-size:11.5px;font-weight:600">Bỏ</button>
+                </span>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+      </sc-if>
+
+      <!-- ═══ CẦN DUYỆT ═══ hai hàng chờ gộp một mục ═══ -->
+      <sc-if value="{{ isApprove }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;gap:4px;padding:3px;border-radius:12px;background:var(--surface2);margin-bottom:16px;max-width:420px">
+          <sc-for list="{{ apvTabs }}" as="t" hint-placeholder-count="2">
+            <button sc-camel-on-click="{{ t.pick }}" style="flex:1;padding:9px 8px;border-radius:9px;background:{{ t.bg }};color:{{ t.fg }};box-shadow:{{ t.sh }};font-size:12px;font-weight:600;white-space:nowrap">{{ t.t }}<sc-if value="{{ t.hasN }}" hint-placeholder-val="{{ true }}"><span style="margin-left:5px;font-size:10px;font-weight:700;color:#fff;background:var(--dangerSolid);border-radius:99px;padding:1px 6px">{{ t.n }}</span></sc-if></button>
+          </sc-for>
+        </div>
+
       <sc-if value="{{ isRequests }}" hint-placeholder-val="{{ false }}">
         <p style="font-size:12px;color:var(--text2);max-width:560px;margin-bottom:14px">Yêu cầu đổi giờ, tạm hoãn và huỷ lịch khách gửi từ ứng dụng. Huỷ trước 12 giờ được hoàn 100% theo chính sách nền tảng.</p>
         <div style="display:flex;flex-direction:column;gap:11px">
@@ -1621,6 +1811,8 @@
         </div>
       </sc-if>
 
+      </sc-if>
+
       <!-- ═══ SETTINGS ═══ -->
       <sc-if value="{{ isSettings }}" hint-placeholder-val="{{ false }}">
         <div class="split">
@@ -1745,6 +1937,22 @@ class Component extends DCLogic {
   state = { theme:'serene', page:'dash', day:'T7', staffFilter:'Tất cả', withhold:true, tabs:{}, cusId:null, menuOpen:false,
     regForm:{}, regSvcs:[], regVenue:['center'], regDocsOn:[], regVowsOn:[],
     campOn:['c1','c3'], msgGroup:'lapse', msgText:'', autoOn:['a1','a2','a3'],
+    // Quầy lễ tân
+    arrivals:[
+      { id:'v1', mins: 8*60,      dur:60, n:'Nguyễn Thu Hà',  svc:'Trị liệu cổ vai gáy', ktv:'Hải Yến',    room:'Phòng 3', st:'in' },
+      { id:'v2', mins: 9*60+30,   dur:90, n:'Lê Quang Tuấn',  svc:'Massage trị liệu',    ktv:'Ngọc Anh',   room:'Phòng 1', st:'in' },
+      { id:'v3', mins:13*60,      dur:45, n:'Vũ Đức Anh',     svc:'Vật lý trị liệu',     ktv:'Quỳnh Anh',  room:'Phòng 2', st:'in' },
+      { id:'v4', mins:14*60,      dur:60, n:'Trần Thu Hương', svc:'Trị liệu cổ vai gáy', ktv:'Hải Yến',    room:'Phòng 3', st:'no' },
+      { id:'v5', mins:15*60,      dur:45, n:'Phạm Thị Lan',   svc:'Vật lý trị liệu',     ktv:'Quỳnh Anh',  room:'Phòng 2', st:'wait' },
+      { id:'v6', mins:16*60+30,   dur:60, n:'Đỗ Minh Khoa',   svc:'Trị liệu cổ vai gáy', ktv:'Hải Yến',    room:'Phòng 3', st:'wait' },
+      { id:'v7', mins:19*60,      dur:90, n:'Bùi Thanh Hà',   svc:'Massage thư giãn',    ktv:'Ngọc Anh',   room:'Phòng 1', st:'wait' }
+    ],
+    waitlist:[
+      { i:'HN', n:'Hoàng Ngọc Mai', phone:'0912 447 208', svc:'Trị liệu cổ vai gáy 60′', want:'chiều nay 14–17h', since:'hôm nay 09:12' },
+      { i:'TT', n:'Trịnh Thu Trang', phone:'0905 663 190', svc:'Massage thư giãn 90′',    want:'cuối tuần buổi sáng', since:'hôm qua' },
+      { i:'LV', n:'Lý Văn Cường',    phone:'0938 210 774', svc:'Vật lý trị liệu 45′',     want:'tối T5 sau 19h', since:'2 ngày trước' }
+    ],
+    fbPhone:'', fbNewName:'', fbSvc:null, fbSlot:null, fbDone:false,
     // Cách tính lương — sửa được, có chặn trên dưới để không đặt số vô lý.
     payUnit:280, payComm:8, payHome:70, payPkg:3,
     // Yêu cầu khách gửi từ app.html
@@ -1830,21 +2038,28 @@ class Component extends DCLogic {
   }
 
   pages = [
-    { id:'dash',      g:'Vận hành',  t:'Tổng quan hôm nay', ic:'grid' },
-    { id:'schedule',  g:'Vận hành',  t:'Lịch hẹn',          ic:'cal' },
-    { id:'requests',  g:'Vận hành',  t:'Yêu cầu từ khách',  ic:'cal', live:'reqs' },
-    { id:'ktvreq',    g:'Vận hành',  t:'Yêu cầu từ KTV',    ic:'users', live:'ktvReqs' },
+    // Nhóm đầu tên là "Hôm nay" chứ không phải "Vận hành": bốn mục này là thứ
+    // người ta mở mỗi sáng. Mục nào chẳng là vận hành, tên đó không phân biệt gì.
+    { id:'dash',      g:'Hôm nay',   t:'Tổng quan',         ic:'grid' },
+    { id:'front',     g:'Hôm nay',   t:'Quầy lễ tân',       ic:'heart', live:'arrivals' },
+    { id:'schedule',  g:'Hôm nay',   t:'Lịch hẹn',          ic:'cal' },
+    // Hai hàng chờ duyệt gộp một mục hai tab: cùng bản chất "việc chờ tôi
+    // quyết", và tách ra thì nửa nhóm đầu dành cho hàng chờ.
+    { id:'approve',   g:'Hôm nay',   t:'Cần duyệt',         ic:'check', live:'approve' },
     { id:'customers', g:'Khách hàng',t:'Hồ sơ khách',       ic:'heart' },
     { id:'packages',  g:'Khách hàng',t:'Liệu trình & gói',  ic:'box' },
     { id:'care',      g:'Khách hàng',t:'Chăm sóc & ưu đãi', ic:'star' },
+    // Đánh giá là tiếng nói của khách nên về nhóm Khách hàng. Nhóm "Chất lượng"
+    // cũ chỉ có đúng một mục — một dòng tiêu đề cho một mục là phí chỗ.
+    { id:'quality',   g:'Khách hàng',t:'Đánh giá & phản hồi', ic:'star' },
     { id:'staff',     g:'Nhân sự',   t:'Kỹ thuật viên',     ic:'users', count:2 },
     { id:'payroll',   g:'Nhân sự',   t:'Lương & hoa hồng',  ic:'wallet' },
     { id:'services',  g:'Kinh doanh',t:'Dịch vụ & bảng giá',ic:'tag' },
+    // Tách hẳn tài sản khỏi hàng tiêu hao: giường trị liệu quản theo lịch bảo
+    // trì, tinh dầu quản theo tồn kho. Trước đây hai thứ nằm chung một danh sách.
+    { id:'rooms',     g:'Kinh doanh',t:'Phòng & thiết bị',  ic:'grid' },
+    { id:'inventory', g:'Kinh doanh',t:'Kho vật tư',        ic:'box', live:'lowStock' },
     { id:'finance',   g:'Kinh doanh',t:'Doanh thu & đối soát', ic:'wallet' },
-    // Vật tư trước đây nằm trong nhóm Chất lượng cùng Đánh giá — hai thứ không
-    // liên quan gì nhau. Đây là hàng hoá và chi phí, thuộc Kinh doanh.
-    { id:'inventory', g:'Kinh doanh',t:'Vật tư & thiết bị', ic:'box' },
-    { id:'quality',   g:'Chất lượng',t:'Đánh giá & chất lượng', ic:'star' },
     { id:'settings',  g:'Hệ thống',  t:'Cấu hình trung tâm',ic:'gear' }
   ];
 
@@ -1866,6 +2081,63 @@ class Component extends DCLogic {
       fg: cur===k ? 'var(--text)' : 'var(--text3)',
       sh: cur===k ? '0 1px 3px rgba(0,0,0,.08)' : 'none' }));
   }
+  setArr(id, st){
+    this.setState({ arrivals: this.state.arrivals.map(a => a.id === id ? {...a, st} : a) });
+  }
+  // Đặt lịch hộ: tách riêng cho gọn, và vì nó cần biết giờ hiện tại.
+  frontBookVals(NOW, hhmm){
+    const s = this.state;
+    const SVCS = [
+      { t:'Trị liệu cổ vai gáy 60′', p:'450k', mins:60 },
+      { t:'Vật lý trị liệu 45′',     p:'380k', mins:45 },
+      { t:'Massage thư giãn 90′',    p:'620k', mins:90 },
+      { t:'Dưỡng sinh Đông y 90′',   p:'680k', mins:90 }
+    ];
+    // Giờ đã qua thì khoá lại, không cho đặt vào quá khứ.
+    const SLOTS = [
+      { m:14*60,    who:'Phòng 3 · Hải Yến',    free:false },
+      { m:15*60+30, who:'Phòng 4 · Ngọc Anh',   free:true },
+      { m:16*60,    who:'Phòng 2 · Quỳnh Anh',  free:true },
+      { m:17*60,    who:'Phòng 4 · Hải Yến',    free:true },
+      { m:18*60,    who:'Phòng 6 · Phương Dung',free:true },
+      { m:19*60+30, who:'Phòng 5 · Ngọc Anh',   free:true }
+    ];
+    const digits = s.fbPhone.replace(/\D/g,'');
+    const KNOWN = { '0903415812':['Minh Trần','22 buổi · gói vai gáy còn 3 buổi · hồ sơ có ghi huyết áp cao'],
+                    '0918224760':['Nguyễn Thu Hà','47 buổi · khách thân thiết · thích KTV Hải Yến'] };
+    const hit = KNOWN[digits];
+    const nameOk = hit ? true : (digits.length >= 10 && s.fbNewName.trim().length > 1);
+    const ready = digits.length >= 10 && nameOk && !!s.fbSvc && !!s.fbSlot;
+    return {
+      fbPhone: s.fbPhone, onFbPhone: (e)=>this.setState({ fbPhone:e.target.value, fbDone:false }),
+      fbFound: !!hit, fbNew: digits.length >= 10 && !hit,
+      fbName: hit ? hit[0] : '', fbHint: hit ? hit[1] : '',
+      fbNewName: s.fbNewName, onFbName: (e)=>this.setState({ fbNewName:e.target.value }),
+      fbSvcs: SVCS.map(v => ({ t:v.t, p:v.p,
+        pick: () => this.setState({ fbSvc:v.t, fbDone:false }),
+        bg: s.fbSvc===v.t ? 'var(--primary)' : 'var(--surface)',
+        fg: s.fbSvc===v.t ? 'var(--on-primary)' : 'var(--text)',
+        bd: s.fbSvc===v.t ? 'var(--primary)' : 'var(--line)' })),
+      fbSlots: SLOTS.map(t => {
+        const past = t.m <= NOW, off = past || !t.free, on = s.fbSlot === t.m;
+        return { t: hhmm(t.m), who: past ? 'đã qua giờ' : t.free ? t.who : 'đã kín',
+          pick: () => off ? null : this.setState({ fbSlot:t.m, fbDone:false }),
+          dim: off ? '.45' : '1',
+          bg: on ? 'var(--primary)' : 'var(--surface)',
+          fg: on ? 'var(--on-primary)' : 'var(--text)',
+          bd: on ? 'var(--primary)' : 'var(--line)' };
+      }),
+      fbLabel: digits.length < 10 ? 'Nhập số điện thoại'
+        : !nameOk ? 'Nhập tên khách mới'
+        : !s.fbSvc ? 'Chọn dịch vụ'
+        : !s.fbSlot ? 'Chọn giờ'
+        : 'Đặt lịch & gửi xác nhận',
+      fbBg: ready ? 'var(--primary)' : 'var(--surface2)',
+      fbFg: ready ? 'var(--on-primary)' : 'var(--text3)',
+      fbSubmit: () => ready ? this.setState({ fbDone:true, fbPhone:'', fbNewName:'', fbSvc:null, fbSlot:null }) : null,
+      fbDone: s.fbDone
+    };
+  }
   stepPay(k, dir){
     const LIM = { unit:[150,500,10], comm:[0,20,1], home:[0,200,10], pkg:[0,10,1] };
     const key = { unit:'payUnit', comm:'payComm', home:'payHome', pkg:'payPkg' }[k];
@@ -1878,9 +2150,11 @@ class Component extends DCLogic {
   renderVals(){
     const s = this.state, pg = this.pages.find(p=>p.id===s.page) || this.pages[0];
 
-    const navCount = (key) => key === 'ktvReqs'
-      ? s.ktvReqs.length + s.incidents.length + s.disputes.length
-      : s[key].length;
+    const navCount = (key) =>
+      key === 'approve'  ? s.reqs.length + s.ktvReqs.length + s.incidents.length + s.disputes.length
+    : key === 'arrivals' ? s.arrivals.filter(a => a.st === 'wait').length
+    : key === 'lowStock' ? 2
+    : s[key].length;
 
     const groups = [];
     this.pages.forEach(p=>{
@@ -1896,8 +2170,8 @@ class Component extends DCLogic {
         count: p.live ? navCount(p.live) : p.count });
     });
 
-    const bIds = ['dash','schedule','staff','customers','finance'];
-    const bLabels = { dash:'Tổng quan', schedule:'Lịch', staff:'KTV', customers:'Khách', finance:'Thu chi' };
+    const bIds = ['dash','front','schedule','approve','customers'];
+    const bLabels = { dash:'Tổng quan', front:'Lễ tân', schedule:'Lịch', approve:'Cần duyệt', customers:'Khách' };
     const bottomNav = bIds.map(id=>{
       const p = this.pages.find(x=>x.id===id), on = s.page===id;
       return { t:bLabels[id], icon:this.ic(p.ic,19), go:()=>this.go(id),
@@ -2185,7 +2459,15 @@ class Component extends DCLogic {
           noDisputes:  s.disputes.length === 0
         };
       })(),
-      isRequests:s.page==='requests', isKtvReq:s.page==='ktvreq', requests,
+      // Cần duyệt: một mục, hai tab.
+      isApprove: s.page === 'approve',
+      isRequests: s.page === 'approve' && this.tabOf('approve','cus') === 'cus',
+      isKtvReq:   s.page === 'approve' && this.tabOf('approve','cus') === 'ktv',
+      apvTabs: this.tabBar('approve', [
+        ['cus','Từ khách', String(s.reqs.length)],
+        ['ktv','Từ kỹ thuật viên', String(s.ktvReqs.length + s.incidents.length + s.disputes.length)]
+      ]),
+      requests,
       ...ktvReqVals,
       // ── Liệu trình & gói ─────────────────────────────────────────
       // Số liệu ở đây là nguồn của hai màn đã có: app khách hiện "còn 14/20
@@ -2196,8 +2478,8 @@ class Component extends DCLogic {
           { id:'p1', t:'Phục hồi sau đột quỵ', svc:'Phục hồi vận động · có bác sĩ giám sát',
             n:'20 buổi', price:'12.000.000₫', unit:600, list:750, exp:'6 tháng',
             sold:9, rev:'108tr', st:'Đang bán', stFg:'var(--ok)', stBg:'var(--okTint)' },
-          { id:'p2', t:'Massage trị liệu vai gáy', svc:'Trị liệu cổ vai gáy · 60 phút',
-            n:'8 buổi', price:'2.560.000₫', unit:320, list:380, exp:'3 tháng',
+          { id:'p2', t:'Gói Trị liệu cổ vai gáy', svc:'Trị liệu cổ vai gáy · 60 phút',
+            n:'8 buổi', price:'3.040.000₫', unit:380, list:450, exp:'3 tháng',
             sold:34, rev:'87tr', st:'Đang bán', stFg:'var(--ok)', stBg:'var(--okTint)' },
           { id:'p3', t:'Chăm sóc sau sinh', svc:'Phục hồi hậu sản · tại nhà',
             n:'12 buổi', price:'5.400.000₫', unit:450, list:520, exp:'4 tháng',
@@ -2208,8 +2490,8 @@ class Component extends DCLogic {
         // gì app khách đang hiện trong Ví & gói.
         const HOLD = [
           { i:'TM', n:'Ông Trần Văn Minh', pkg:'Phục hồi sau đột quỵ · 20 buổi', left:14, total:20, exp:'30/09/2026', soon:false },
-          { i:'MT', n:'Minh Trần',         pkg:'Massage trị liệu vai gáy · 8 buổi', left:3,  total:8,  exp:'15/08/2026', soon:true },
-          { i:'NT', n:'Nguyễn Thu Hà',     pkg:'Massage trị liệu vai gáy · 8 buổi', left:6,  total:8,  exp:'02/10/2026', soon:false },
+          { i:'MT', n:'Minh Trần',         pkg:'Gói Trị liệu cổ vai gáy · 8 buổi', left:3,  total:8,  exp:'15/08/2026', soon:true },
+          { i:'NT', n:'Nguyễn Thu Hà',     pkg:'Gói Trị liệu cổ vai gáy · 8 buổi', left:6,  total:8,  exp:'02/10/2026', soon:false },
           { i:'PL', n:'Bà Phạm T. Lan',    pkg:'Phục hồi sau đột quỵ · 20 buổi',   left:2,  total:20, exp:'12/08/2026', soon:true },
           { i:'MA', n:'Chị Mai Anh',       pkg:'Chăm sóc sau sinh · 12 buổi',      left:8,  total:12, exp:'20/11/2026', soon:false }
         ];
@@ -2294,7 +2576,7 @@ class Component extends DCLogic {
           // thì còn lại bao nhiêu. Đặt đơn giá quá tay là ra số âm màu đỏ ngay,
           // không phải chờ tới cuối kỳ mới biết.
           ...(() => {
-            const PRICE = 380;
+            const PRICE = 450;   // đúng bằng bảng giá và màn xác nhận đặt lịch bên khách
             const comm = Math.round(PRICE * s.payComm / 100);
             const ktvGets = s.payUnit + comm;
             const left = PRICE - ktvGets;
@@ -2310,6 +2592,87 @@ class Component extends DCLogic {
           })()
         };
       })(),
+      // ── Quầy lễ tân ─────────────────────────────────────────────
+      // Mốc giờ cố định 15:20 để bản demo luôn có ca đang chạy — không dùng
+      // giờ máy, vì mở lúc nửa đêm sẽ thấy trang trống trơn.
+      ...(() => {
+        const NOW = 15 * 60 + 20;
+        const tab = this.tabOf('front', 'now');
+        const hhmm = (m) => String(Math.floor(m/60)).padStart(2,'0') + ':' + String(m%60).padStart(2,'0');
+        const ROOMS = [
+          { room:'Phòng 1', from:14*60+30, to:16*60,    svc:'Massage thư giãn toàn thân 90′', client:'Đỗ Minh K.',   ktv:'Ngọc Anh' },
+          { room:'Phòng 2', from:15*60,    to:15*60+45, svc:'Vật lý trị liệu 45′',            client:'Vũ Đức A.',     ktv:'Quỳnh Anh' },
+          { room:'Phòng 3', from:14*60,    to:15*60,    svc:'Trị liệu cổ vai gáy 60′',        client:'Trần Thu H.',   ktv:'Hải Yến' },
+          { room:'Phòng 4', from:0, to:0, next:'Trống tới 17:00' },
+          { room:'Phòng 5', from:15*60+10, to:16*60+40, svc:'Dưỡng sinh Đông y 90′',          client:'Lê Quang T.',   ktv:'Phương Dung' },
+          { room:'Phòng 6', from:0, to:0, next:'Trống cả buổi chiều' }
+        ];
+        const live = ROOMS.map(r => {
+          const busy = r.to > NOW && r.from <= NOW;
+          const leftMin = busy ? r.to - NOW : 0;
+          const pct = busy ? Math.round((NOW - r.from) / (r.to - r.from) * 100) : 0;
+          return { room:r.room, busy, free: !busy, svc:r.svc, client:r.client, ktv:r.ktv,
+            from: r.from ? hhmm(r.from) : '', to: r.to ? hhmm(r.to) : '',
+            left: leftMin > 0 ? ('còn ' + leftMin + ' phút') : '',
+            leftFg: leftMin <= 10 ? 'var(--accent)' : 'var(--text2)',
+            pct: pct + '%',
+            st: busy ? 'Đang dùng' : 'Trống',
+            stFg: busy ? 'var(--primary)' : 'var(--ok)',
+            stBg: busy ? 'var(--tint)' : 'var(--okTint)',
+            bd: busy ? 'var(--line)' : 'var(--okSolid)',
+            accent: busy ? 'var(--primary)' : 'var(--okSolid)',
+            nextNote: r.next || '',
+            book: () => this.setTab('front','book') };
+        });
+        const nFree = live.filter(r => r.free).length;
+
+        // Khách đến hôm nay. 'wait' là chưa tới, 'in' đã đến, 'no' vắng mặt.
+        const ARR = s.arrivals;
+        const kpi = (st) => ARR.filter(a => a.st === st).length;
+        const late = (a) => a.st === 'wait' && a.mins < NOW - 15;
+        return {
+          isFront: s.page === 'front',
+          nowClock: hhmm(NOW),
+          frTabs: this.tabBar('front', [
+            ['now','Đang diễn ra'], ['arrive','Khách đến hôm nay', String(kpi('wait'))],
+            ['book','Đặt lịch hộ'], ['wait','Danh sách chờ', String(s.waitlist.length)]
+          ]),
+          frNow: tab==='now', frArrive: tab==='arrive', frBook: tab==='book', frWait: tab==='wait',
+          liveRooms: live,
+          freeRooms: nFree > 0 ? (nFree + ' phòng đang trống') : 'Kín phòng',
+          arrKpis: [
+            { t:'Buổi tại cơ sở hôm nay', v:String(ARR.length), c:'var(--text)' },
+            { t:'Đã đến', v:String(kpi('in')), c:'var(--primary)' },
+            { t:'Chưa tới', v:String(kpi('wait')), c:'var(--accent)' },
+            { t:'Vắng mặt', v:String(kpi('no')), c:'var(--danger)' }
+          ],
+          arrivals: ARR.map(a => {
+            const isLate = late(a);
+            return { ...a, time: hhmm(a.mins),
+              timeFg: a.st === 'no' ? 'var(--danger)' : isLate ? 'var(--accent)' : 'var(--text)',
+              stT: a.st === 'in' ? 'Đã đến' : a.st === 'no' ? 'Vắng mặt' : isLate ? 'Trễ' : 'Chờ',
+              stFg: a.st === 'in' ? 'var(--ok)' : a.st === 'no' ? 'var(--danger)' : isLate ? 'var(--goldText)' : 'var(--text2)',
+              stBg: a.st === 'in' ? 'var(--okTint)' : a.st === 'no' ? 'var(--dangerTint)' : isLate ? 'var(--goldTint)' : 'var(--surface2)',
+              bd: a.st === 'no' ? 'var(--dangerSolid)' : isLate ? 'var(--gold)' : 'var(--line)',
+              hasNote: isLate || a.st === 'no',
+              note: a.st === 'no' ? 'Đã đánh dấu vắng · ghi vào hồ sơ khách và báo cáo tháng'
+                  : 'Quá giờ hẹn ' + (NOW - a.mins) + ' phút — nên gọi trước khi đánh dấu vắng',
+              noteFg: a.st === 'no' ? 'var(--danger)' : 'var(--goldText)',
+              canMark: a.st === 'wait', done: a.st !== 'wait',
+              arrive: () => this.setArr(a.id, 'in'),
+              noshow: () => this.setArr(a.id, 'no'),
+              undo:   () => this.setArr(a.id, 'wait') };
+          }),
+          ...this.frontBookVals(NOW, hhmm),
+          waitlist: s.waitlist.map(w => ({ ...w, call: () => {},
+            drop: () => this.setState({ waitlist: s.waitlist.filter(x => x.i !== w.i) }) })),
+          addWait: () => {},
+          hasFreed: kpi('no') > 0,
+          freedNote: 'Khách vắng mặt lúc 14:00 · Phòng 3 · Trị liệu cổ vai gáy 60′ — khung này giờ trống.',
+          freedMatch: s.waitlist.slice(0,2).map(w => ({ n:w.n, want:w.want, call: () => {} }))
+        };
+      })(),
+
       // ── Nguồn đặt & đối soát nền tảng ───────────────────────────
       ...(() => {
         const schTab = this.tabOf('schedule', 'board');
@@ -2375,7 +2738,7 @@ class Component extends DCLogic {
             d:'Áp cho mọi dịch vụ dưới 60 phút · tối đa 100k',
             who:'Khách chưa từng đặt ở An Nhiên', when:'01/07 – 31/08', used:'38 lượt', rev:'+14,2tr doanh thu' },
           { id:'c2', icon:'📦', iBg:'var(--tint)', t:'Mua gói 8 buổi tặng 1 buổi',
-            d:'Massage trị liệu vai gáy · gói 8 buổi',
+            d:'Gói Trị liệu cổ vai gáy · 8 buổi',
             who:'Khách đã đến từ 3 lần trở lên', when:'15/07 – 15/09', used:'11 lượt', rev:'+28,2tr doanh thu' },
           { id:'c3', icon:'🌙', iBg:'var(--surface2)', t:'Giảm 15% khung 14–16h',
             d:'Lấp giờ trống buổi chiều · trừ cuối tuần',
@@ -2547,20 +2910,20 @@ class Component extends DCLogic {
         const DETAIL = {
           MT: { since:'03/2024', phone:'0903415812', visits:22, anpPts:'1.240 điểm ANP', ownPts:'860 điểm An Nhiên',
             hUpd:'20/07/2026', conds:[{t:'Huyết áp cao'}], meds:'Amlodipin 5mg mỗi sáng', allergy:'Dầu tràm',
-            pkgs:[{name:'Massage trị liệu vai gáy · 8 buổi', left:3, total:8, pct:'38%', note:'Còn hiệu lực đến 15/08/2026'}],
+            pkgs:[{name:'Gói Trị liệu cổ vai gáy · 8 buổi', left:3, total:8, pct:'38%', note:'Còn hiệu lực đến 15/08/2026'}],
             history:[
-              { d:'20/07', svc:'Trị liệu cổ vai gáy 60′', ktv:'Hải Yến', where:'Phòng 3', dur:'58 phút', price:'380k', pay:'Trừ gói', payFg:'var(--primary)', note:'Cứng cơ thang trên bên phải, giảm rõ. Đã hướng dẫn bài giãn tại nhà.' },
-              { d:'13/07', svc:'Trị liệu cổ vai gáy 60′', ktv:'Hải Yến', where:'Phòng 3', dur:'60 phút', price:'380k', pay:'Trừ gói', payFg:'var(--primary)', note:'' },
+              { d:'20/07', svc:'Trị liệu cổ vai gáy 60′', ktv:'Hải Yến', where:'Phòng 3', dur:'58 phút', price:'450k', pay:'Trừ gói', payFg:'var(--primary)', note:'Cứng cơ thang trên bên phải, giảm rõ. Đã hướng dẫn bài giãn tại nhà.' },
+              { d:'13/07', svc:'Trị liệu cổ vai gáy 60′', ktv:'Hải Yến', where:'Phòng 3', dur:'60 phút', price:'450k', pay:'Trừ gói', payFg:'var(--primary)', note:'' },
               { d:'06/07', svc:'Massage thư giãn 90′',    ktv:'Ngọc Anh', where:'Phòng 1', dur:'92 phút', price:'520k', pay:'Tiền mặt', payFg:'var(--text3)', note:'' },
-              { d:'28/06', svc:'Trị liệu cổ vai gáy 60′', ktv:'Hải Yến', where:'Phòng 3', dur:'57 phút', price:'380k', pay:'Trừ gói', payFg:'var(--primary)', note:'Buổi đầu của gói 8 buổi.' },
+              { d:'28/06', svc:'Trị liệu cổ vai gáy 60′', ktv:'Hải Yến', where:'Phòng 3', dur:'57 phút', price:'450k', pay:'Trừ gói', payFg:'var(--primary)', note:'Buổi đầu của gói 8 buổi.' },
               { d:'21/06', svc:'Vật lý trị liệu 45′',     ktv:'Quỳnh Anh', where:'Phòng 2', dur:'45 phút', price:'380k', pay:'Chuyển khoản', payFg:'var(--text3)', note:'' }
             ] },
           NH: { since:'11/2023', phone:'0918224760', visits:47, anpPts:'3.180 điểm ANP', ownPts:'2.140 điểm An Nhiên',
             hUpd:'23/07/2026', conds:[{t:'Thoát vị đĩa đệm'}], meds:'Không khai', allergy:'Không khai',
-            pkgs:[{name:'Massage trị liệu vai gáy · 8 buổi', left:6, total:8, pct:'75%', note:'Còn hiệu lực đến 02/10/2026'}],
+            pkgs:[{name:'Gói Trị liệu cổ vai gáy · 8 buổi', left:6, total:8, pct:'75%', note:'Còn hiệu lực đến 02/10/2026'}],
             history:[
-              { d:'23/07', svc:'Trị liệu cổ vai gáy 60′', ktv:'Hải Yến', where:'Phòng 3', dur:'60 phút', price:'380k', pay:'Trừ gói', payFg:'var(--primary)', note:'Giảm rõ sau buổi 2. Giữ lực vừa, tránh ấn sâu vùng C5.' },
-              { d:'16/07', svc:'Trị liệu cổ vai gáy 60′', ktv:'Hải Yến', where:'Phòng 3', dur:'62 phút', price:'380k', pay:'Trừ gói', payFg:'var(--primary)', note:'' },
+              { d:'23/07', svc:'Trị liệu cổ vai gáy 60′', ktv:'Hải Yến', where:'Phòng 3', dur:'60 phút', price:'450k', pay:'Trừ gói', payFg:'var(--primary)', note:'Giảm rõ sau buổi 2. Giữ lực vừa, tránh ấn sâu vùng C5.' },
+              { d:'16/07', svc:'Trị liệu cổ vai gáy 60′', ktv:'Hải Yến', where:'Phòng 3', dur:'62 phút', price:'450k', pay:'Trừ gói', payFg:'var(--primary)', note:'' },
               { d:'09/07', svc:'Vật lý trị liệu 45′',     ktv:'Ngọc Anh', where:'Phòng 2', dur:'45 phút', price:'380k', pay:'Chuyển khoản', payFg:'var(--text3)', note:'' }
             ] }
         };
