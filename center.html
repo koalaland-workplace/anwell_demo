@@ -1116,7 +1116,23 @@
            Tách hẳn khỏi bảng giá: giá là chuyện với khách, lương khoán là
            chuyện với kỹ thuật viên. Hai thứ đổi độc lập nhau. -->
       <sc-if value="{{ svcPay2 }}" hint-placeholder-val="{{ false }}">
-        <p style="font-size:12px;color:var(--text2);max-width:640px;margin-bottom:16px">Lương khoán tính trên <b>giá niêm yết sau thuế</b> của dịch vụ, chưa trừ ưu đãi. Bốn tiêu chí quyết định con số: <b>bậc kỹ thuật viên</b>, <b>khung giờ làm</b>, <b>ca tại nhà hay tại cơ sở</b>, và <b>phần trăm tư vấn bán gói</b>.</p>
+        <p style="font-size:12px;color:var(--text2);max-width:640px;margin-bottom:14px">Lương khoán tính trên <b>giá niêm yết sau thuế</b> của dịch vụ, chưa trừ ưu đãi. Bốn tiêu chí quyết định con số: <b>bậc kỹ thuật viên</b>, <b>khung giờ làm</b>, <b>ca tại nhà hay tại cơ sở</b>, và <b>phần trăm tư vấn bán gói</b>.</p>
+
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:12px 14px;border-radius:12px;background:var(--surface2);margin-bottom:16px">
+          <span style="flex:none;font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.1em">Xem thử với vai trò</span>
+          <span style="flex:1;display:flex;gap:6px;flex-wrap:wrap">
+            <sc-for list="{{ rolePick }}" as="r" hint-placeholder-count="5">
+              <button sc-camel-on-click="{{ r.pick }}" style="padding:6px 12px;border-radius:99px;font-size:11px;font-weight:600;background:{{ r.bg }};color:{{ r.fg }};border:1px solid {{ r.bd }}">{{ r.t }}</button>
+            </sc-for>
+          </span>
+        </div>
+
+        <sc-if value="{{ cantEditPay }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;align-items:flex-start;gap:10px;padding:13px 15px;border-radius:12px;background:var(--goldTint);border:1px solid var(--gold);margin-bottom:16px">
+            <span style="flex:none;font-size:15px">🔒</span>
+            <p style="flex:1;font-size:11.5px;line-height:1.65;color:var(--text2)">{{ lockNote }}</p>
+          </div>
+        </sc-if>
 
         <div class="split">
           <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px">
@@ -1127,11 +1143,16 @@
                 <div style="display:flex;align-items:center;gap:10px;padding:11px 13px;border-radius:11px;background:var(--surface2)">
                   <span style="flex:none;font-size:9px;font-weight:700;color:#06140F;background:var(--gold);padding:3px 10px;border-radius:99px">{{ r.tier }}</span>
                   <span style="flex:1"></span>
-                  <span style="flex:none;display:flex;align-items:center;gap:7px">
-                    <button sc-camel-on-click="{{ r.down }}" style="width:26px;height:26px;border-radius:8px;background:var(--surface);color:var(--text2);font-size:14px;font-weight:700">−</button>
-                    <span style="min-width:46px;text-align:center;font-size:13px;font-weight:700;color:var(--primary)">{{ r.v }}</span>
-                    <button sc-camel-on-click="{{ r.up }}" style="width:26px;height:26px;border-radius:8px;background:var(--surface);color:var(--text2);font-size:14px;font-weight:700">+</button>
-                  </span>
+                  <sc-if value="{{ canEditPay }}" hint-placeholder-val="{{ true }}">
+                    <span style="flex:none;display:flex;align-items:center;gap:7px">
+                      <button sc-camel-on-click="{{ r.down }}" style="width:26px;height:26px;border-radius:8px;background:var(--surface);color:var(--text2);font-size:14px;font-weight:700">−</button>
+                      <span style="min-width:46px;text-align:center;font-size:13px;font-weight:700;color:var(--primary)">{{ r.v }}</span>
+                      <button sc-camel-on-click="{{ r.up }}" style="width:26px;height:26px;border-radius:8px;background:var(--surface);color:var(--text2);font-size:14px;font-weight:700">+</button>
+                    </span>
+                  </sc-if>
+                  <sc-if value="{{ cantEditPay }}" hint-placeholder-val="{{ false }}">
+                    <span style="flex:none;min-width:46px;text-align:right;font-size:13px;font-weight:700;color:var(--primary)">{{ r.v }}</span>
+                  </sc-if>
                 </div>
               </sc-for>
             </div>
@@ -1157,22 +1178,32 @@
               <p style="font-size:11px;color:var(--text3);margin-top:3px">Khi khách mua gói do kỹ thuật viên tư vấn.</p>
               <div style="display:flex;align-items:center;gap:10px;margin-top:12px;padding:12px 14px;border-radius:11px;background:var(--surface2)">
                 <span style="flex:1;font-size:12px;color:var(--text2)">Tính trên giá trị gói</span>
-                <span style="flex:none;display:flex;align-items:center;gap:7px">
-                  <button sc-camel-on-click="{{ pkgCommDown }}" style="width:26px;height:26px;border-radius:8px;background:var(--surface);color:var(--text2);font-size:14px;font-weight:700">−</button>
-                  <span style="min-width:46px;text-align:center;font-size:13px;font-weight:700;color:var(--primary)">{{ pkgComm }}</span>
-                  <button sc-camel-on-click="{{ pkgCommUp }}" style="width:26px;height:26px;border-radius:8px;background:var(--surface);color:var(--text2);font-size:14px;font-weight:700">+</button>
-                </span>
+                <sc-if value="{{ canEditPay }}" hint-placeholder-val="{{ true }}">
+                  <span style="flex:none;display:flex;align-items:center;gap:7px">
+                    <button sc-camel-on-click="{{ pkgCommDown }}" style="width:26px;height:26px;border-radius:8px;background:var(--surface);color:var(--text2);font-size:14px;font-weight:700">−</button>
+                    <span style="min-width:46px;text-align:center;font-size:13px;font-weight:700;color:var(--primary)">{{ pkgComm }}</span>
+                    <button sc-camel-on-click="{{ pkgCommUp }}" style="width:26px;height:26px;border-radius:8px;background:var(--surface);color:var(--text2);font-size:14px;font-weight:700">+</button>
+                  </span>
+                </sc-if>
+                <sc-if value="{{ cantEditPay }}" hint-placeholder-val="{{ false }}">
+                  <span style="flex:none;font-size:13px;font-weight:700;color:var(--primary)">{{ pkgComm }}</span>
+                </sc-if>
               </div>
               <p style="font-size:10.5px;line-height:1.6;color:var(--text3);margin-top:9px">Giữ thấp có chủ đích: cao quá thì kỹ thuật viên ép khách mua gói không cần, khách bỏ đi và trung tâm mất nhiều hơn khoản hoa hồng tiết kiệm được.</p>
 
               <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:18px;margin-top:20px">4 · Phụ cấp ca tại nhà</div>
               <div style="display:flex;align-items:center;gap:10px;margin-top:10px;padding:12px 14px;border-radius:11px;background:var(--surface2)">
                 <span style="flex:1;font-size:12px;color:var(--text2)">Mỗi ca ngoài cơ sở</span>
-                <span style="flex:none;display:flex;align-items:center;gap:7px">
-                  <button sc-camel-on-click="{{ homeDown }}" style="width:26px;height:26px;border-radius:8px;background:var(--surface);color:var(--text2);font-size:14px;font-weight:700">−</button>
-                  <span style="min-width:56px;text-align:center;font-size:13px;font-weight:700;color:var(--primary)">{{ homeAllow }}</span>
-                  <button sc-camel-on-click="{{ homeUp }}" style="width:26px;height:26px;border-radius:8px;background:var(--surface);color:var(--text2);font-size:14px;font-weight:700">+</button>
-                </span>
+                <sc-if value="{{ canEditPay }}" hint-placeholder-val="{{ true }}">
+                  <span style="flex:none;display:flex;align-items:center;gap:7px">
+                    <button sc-camel-on-click="{{ homeDown }}" style="width:26px;height:26px;border-radius:8px;background:var(--surface);color:var(--text2);font-size:14px;font-weight:700">−</button>
+                    <span style="min-width:56px;text-align:center;font-size:13px;font-weight:700;color:var(--primary)">{{ homeAllow }}</span>
+                    <button sc-camel-on-click="{{ homeUp }}" style="width:26px;height:26px;border-radius:8px;background:var(--surface);color:var(--text2);font-size:14px;font-weight:700">+</button>
+                  </span>
+                </sc-if>
+                <sc-if value="{{ cantEditPay }}" hint-placeholder-val="{{ false }}">
+                  <span style="flex:none;font-size:13px;font-weight:700;color:var(--primary)">{{ homeAllow }}</span>
+                </sc-if>
               </div>
               <p style="font-size:10.5px;line-height:1.6;color:var(--text3);margin-top:9px">Bù thời gian di chuyển và chi phí đi lại. Không có khoản này thì không ai nhận ca xa, và giá bán ca tại nhà phải cao hơn tương ứng.</p>
             </div>
@@ -1232,11 +1263,16 @@
 
                 <div>
                   <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin-bottom:8px">Lương kỹ thuật viên cho dịch vụ này</p>
-                  <div style="display:flex;gap:4px;padding:3px;border-radius:10px;background:var(--surface2)">
-                    <sc-for list="{{ c.modes }}" as="m" hint-placeholder-count="2">
-                      <button sc-camel-on-click="{{ m.pick }}" style="flex:1;padding:8px 6px;border-radius:8px;background:{{ m.bg }};color:{{ m.fg }};font-size:11px;font-weight:600">{{ m.t }}</button>
-                    </sc-for>
-                  </div>
+                  <sc-if value="{{ c.canEdit }}" hint-placeholder-val="{{ true }}">
+                    <div style="display:flex;gap:4px;padding:3px;border-radius:10px;background:var(--surface2)">
+                      <sc-for list="{{ c.modes }}" as="m" hint-placeholder-count="2">
+                        <button sc-camel-on-click="{{ m.pick }}" style="flex:1;padding:8px 6px;border-radius:8px;background:{{ m.bg }};color:{{ m.fg }};font-size:11px;font-weight:600">{{ m.t }}</button>
+                      </sc-for>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ c.cantEdit }}" hint-placeholder-val="{{ false }}">
+                    <p style="font-size:11px;color:var(--text3)">🔒 Chỉ Giám đốc đổi được cách trả cho dịch vụ này.</p>
+                  </sc-if>
 
                   <sc-if value="{{ c.isAuto }}" hint-placeholder-val="{{ true }}">
                     <p style="font-size:11px;line-height:1.6;color:var(--text3);margin-top:9px">{{ c.autoNote }}. Tỷ lệ theo bậc đặt ở trang Lương &amp; hoa hồng — đổi ở đó thì mọi dịch vụ dùng bậc đó đổi theo.</p>
@@ -1756,25 +1792,25 @@
         </sc-if>
 
         <sc-if value="{{ payHow }}" hint-placeholder-val="{{ false }}">
-          <p style="font-size:12px;color:var(--text2);max-width:600px;margin-bottom:16px">Cách tính áp cho mọi kỹ thuật viên của trung tâm. Đổi ở đây thì kỳ sau mới áp dụng, kỳ đang mở giữ nguyên để khỏi tính lại giữa chừng.</p>
+          <p style="font-size:12px;color:var(--text2);max-width:600px;margin-bottom:16px">Cách tính đang áp cho mọi kỹ thuật viên của trung tâm. Trang này <b>chỉ hiển thị</b> — quy định đặt ở <b>Dịch vụ &amp; bảng giá → Lương khoán KTV</b>, vì lương khoán gắn với từng dịch vụ chứ không phải với kỳ chi trả.</p>
           <div class="split">
             <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px">
-              <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:18px">Cấu phần lương</div>
-              <div style="display:flex;flex-direction:column;gap:14px;margin-top:14px">
-                <sc-for list="{{ payRules }}" as="c" hint-placeholder-count="4">
-                  <div>
-                    <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
-                      <span style="font-size:12.5px;font-weight:600">{{ c.t }}</span>
-                      <span style="display:flex;align-items:center;gap:7px">
-                        <button sc-camel-on-click="{{ c.down }}" style="width:26px;height:26px;border-radius:8px;background:var(--surface2);color:var(--text2);font-size:14px;font-weight:700">−</button>
-                        <span style="min-width:58px;text-align:center;font-size:13px;font-weight:700;color:var(--primary)">{{ c.v }}</span>
-                        <button sc-camel-on-click="{{ c.up }}" style="width:26px;height:26px;border-radius:8px;background:var(--surface2);color:var(--text2);font-size:14px;font-weight:700">+</button>
-                      </span>
-                    </div>
-                    <p style="font-size:10.5px;line-height:1.55;color:var(--text3);margin-top:4px">{{ c.d }}</p>
+              <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px;flex-wrap:wrap">
+                <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:18px">Cấu phần lương đang áp</div>
+                <button sc-camel-on-click="{{ goPayRules }}" style="flex:none;padding:8px 14px;border-radius:9px;background:var(--tint);color:var(--primary);font-size:11.5px;font-weight:700;white-space:nowrap">Sửa quy định →</button>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:12px;margin-top:14px">
+                <sc-for list="{{ payRules }}" as="c" hint-placeholder-count="5">
+                  <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:11px 13px;border-radius:11px;background:var(--surface2)">
+                    <span style="flex:1;min-width:0">
+                      <span style="display:block;font-size:12.5px;font-weight:600">{{ c.t }}</span>
+                      <span style="display:block;font-size:10.5px;line-height:1.55;color:var(--text3);margin-top:3px">{{ c.d }}</span>
+                    </span>
+                    <span style="flex:none;font-size:14px;font-weight:700;color:var(--primary)">{{ c.v }}</span>
                   </div>
                 </sc-for>
               </div>
+              <p style="font-size:10.5px;line-height:1.6;color:var(--text3);margin-top:12px">Đổi quy định thì <b>kỳ sau mới áp dụng</b>. Kỳ đang mở giữ nguyên để khỏi tính lại giữa chừng.</p>
             </div>
             <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px">
               <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:18px">Thử một ca</div>
@@ -2421,6 +2457,9 @@ class Component extends DCLogic {
     ],
     fbPhone:'', fbNewName:'', fbSvc:null, fbSlot:null, fbDone:false,
     adjT2:70, adjT3:150, logKind:'all',
+    // Đang xem portal với vai trò nào. Quyền sửa lương khoán lấy đúng từ ô
+    // 'Đặt giá dịch vụ và lương khoán' trong ma trận ở Cấu hình.
+    asRole:'gd',
     // Vai trò do trung tâm tự đặt, không cố định. Năm cái dưới đây chỉ là mẫu
     // gợi ý theo trách nhiệm công việc chứ không theo chức danh.
     roles:[
@@ -3079,9 +3118,10 @@ class Component extends DCLogic {
             { k:'r3', t:'Bậc 3 được chia', v: s.payR3 + '%', d:'Ca phức tạp có bác sĩ duyệt. Người ít, khó thay, nên tỷ lệ cao nhất.' },
             { k:'home',  t:'Phụ cấp ca tại nhà',   v: s.payHome + 'k',  d:'Mỗi ca ngoài cơ sở. Bù thời gian di chuyển và chi phí đi lại — không có khoản này thì không ai nhận ca xa.' },
             { k:'pkg',   t:'Thưởng bán gói',       v: s.payPkg + '%',   d:'Khi khách mua gói do kỹ thuật viên tư vấn. Giữ thấp có chủ đích: cao quá thì kỹ thuật viên ép khách mua gói không cần.' }
-          ].map(c => ({ ...c,
-            up:   () => this.stepPay(c.k, 1),
-            down: () => this.stepPay(c.k, -1) })),
+          ],
+          // Trang này chỉ đọc — quy định đặt ở Dịch vụ & bảng giá. Một chỉ số
+          // sửa được ở hai nơi là chắc chắn sẽ có lúc lệch nhau.
+          goPayRules: () => this.setState({ page:'services', tabs:{...s.tabs, services:'pay'} }),
           // Dòng cuối là thứ chủ trung tâm cần nhất: sau khi trả kỹ thuật viên
           // thì còn lại bao nhiêu. Đặt đơn giá quá tay là ra số âm màu đỏ ngay,
           // không phải chờ tới cuối kỳ mới biết.
@@ -3232,6 +3272,15 @@ class Component extends DCLogic {
             + s.adjT2 + 'k + 10% = ' + Math.round((450 + s.adjT2) * 1.1) + 'k. Cùng dịch vụ đó lúc 15h với Bậc 1: '
             + Math.round(450 * 0.85) + 'k.',
           // ── Quy định lương khoán ──
+          // Chỉ vai trò có ô g9 mới sửa được; còn lại chỉ xem.
+          rolePick: s.roles.map(r => ({ t:r.t,
+            pick: () => this.setState({ asRole:r.k }),
+            bg: s.asRole===r.k ? 'var(--primary)' : 'var(--surface)',
+            fg: s.asRole===r.k ? 'var(--on-primary)' : 'var(--text2)',
+            bd: s.asRole===r.k ? 'var(--primary)' : 'var(--line)' })),
+          canEditPay: (s.perms[s.asRole] || []).includes('g9'),
+          cantEditPay: !(s.perms[s.asRole] || []).includes('g9'),
+          lockNote: 'Vai trò ' + ((s.roles.find(r => r.k === s.asRole) || {}).t || '') + ' chỉ xem được. Quyền sửa nằm ở ô “Đặt giá dịch vụ và lương khoán” trong ma trận tại Cấu hình → Vai trò & quyền.',
           slotBonus: SLOT_BONUS.map(x => ({ k:x.k, d:x.d,
             v: x.v ? '+' + x.v + '% lương khoán' : 'không phụ trội',
             c: x.v ? 'var(--accent)' : 'var(--text3)' })),
@@ -3298,6 +3347,8 @@ class Component extends DCLogic {
                   pick: () => this.setSvcPay(c.id, k === 'fixed' ? byTier : null) };
               }),
               isAuto: own == null, isFixed: own != null,
+              canEdit: (s.perms[s.asRole] || []).includes('g9'),
+              cantEdit: !(s.perms[s.asRole] || []).includes('g9'),
               autoNote: 'Bậc ' + c.tier + ' được chia ' + byTier + '% trên ' + money(payBase) + ' = ' + money(labor),
               baseNote: 'Cơ sở tính lương ' + money(payBase) + ' = giá niêm yết ' + money(c.price) + ' trừ thuế ' + VAT + '%, chưa trừ ưu đãi.',
               fixedV: rate + '%',
