@@ -723,10 +723,54 @@
           </div>
           <p style="font-size:12px;line-height:1.6;color:var(--text2);margin-top:11px">{{ sessNoteShown }}</p>
         </div>
-        <div class="card" style="padding:14px;margin-top:12px;display:flex;align-items:center;gap:11px">
-          <span style="flex:none;width:34px;height:34px;border-radius:9px;background:var(--tint);display:grid;place-items:center;font-size:15px">📤</span>
-          <span style="flex:1;min-width:0"><span style="display:block;font-size:12.5px;font-weight:600">Đã gửi cho gia đình</span><span style="display:block;font-size:10.5px;color:var(--text3);margin-top:1px">Chờ khách xác nhận thời gian &amp; đánh giá</span></span>
-        </div>
+        <!-- ══ KHÁCH XÁC NHẬN GIỜ ══
+             Ba trạng thái. Khi khách báo sai lệch thì không phải lời khai chống
+             lời khai: ứng dụng có bản ghi định vị lúc check-in và check-out,
+             đó là căn cứ trung tâm đối chiếu. -->
+        <sc-if value="{{ tcWait }}" hint-placeholder-val="{{ true }}">
+          <div class="card" style="padding:14px;margin-top:12px;display:flex;align-items:center;gap:11px">
+            <span style="flex:none;width:34px;height:34px;border-radius:9px;background:var(--tint);display:grid;place-items:center;font-size:15px">📤</span>
+            <span style="flex:1;min-width:0"><span style="display:block;font-size:12.5px;font-weight:600">Đã gửi cho gia đình</span><span style="display:block;font-size:10.5px;color:var(--text3);margin-top:1px">Chờ khách xác nhận thời gian &amp; đánh giá</span></span>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ tcOk }}" hint-placeholder-val="{{ false }}">
+          <div class="card" style="padding:14px;margin-top:12px;display:flex;align-items:center;gap:11px;border:1px solid var(--okSolid)">
+            <span style="flex:none;width:34px;height:34px;border-radius:9px;background:var(--okTint);display:grid;place-items:center;font-size:15px">✓</span>
+            <span style="flex:1;min-width:0"><span style="display:block;font-size:12.5px;font-weight:600">Khách đã xác nhận giờ</span><span style="display:block;font-size:10.5px;color:var(--text3);margin-top:1px">Thời gian tính phí đã khoá · 58 phút vào Tài chính của bạn</span></span>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ tcDispute }}" hint-placeholder-val="{{ false }}">
+          <div style="border-radius:16px;padding:15px;margin-top:12px;background:var(--dangerTint);border:1px solid var(--dangerSolid)">
+            <p style="font:700 9px ui-monospace,monospace;letter-spacing:.14em;color:var(--dangerSolid);text-transform:uppercase">⚠ Khách báo sai lệch giờ</p>
+            <div style="display:flex;gap:10px;margin-top:11px">
+              <div style="flex:1;padding:11px;border-radius:11px;background:var(--surface)">
+                <p style="font-size:9.5px;font-weight:700;letter-spacing:.1em;color:var(--text3);text-transform:uppercase">Ứng dụng ghi</p>
+                <p style="font-size:14px;font-weight:700;margin-top:4px">{{ dispSys }}</p>
+                <p style="font-size:10px;color:var(--text3);margin-top:3px">Định vị tại nhà khách</p>
+              </div>
+              <div style="flex:1;padding:11px;border-radius:11px;background:var(--surface)">
+                <p style="font-size:9.5px;font-weight:700;letter-spacing:.1em;color:var(--text3);text-transform:uppercase">Khách khai</p>
+                <p style="font-size:14px;font-weight:700;margin-top:4px">{{ dispClient }}</p>
+                <p style="font-size:10px;color:var(--text3);margin-top:3px">Lệch {{ dispGap }}</p>
+              </div>
+            </div>
+            <p style="font-size:11.5px;line-height:1.6;color:var(--text2);margin-top:11px">“{{ dispNote }}”</p>
+            <div style="display:flex;gap:8px;margin-top:12px">
+              <button sc-camel-on-click="{{ acceptDisp }}" style="flex:1;padding:12px;border-radius:11px;background:var(--primary);color:var(--on-primary);font-size:12.5px;font-weight:600">Đồng ý theo khách</button>
+              <button sc-camel-on-click="{{ escalateDisp }}" style="flex:1;padding:12px;border-radius:11px;background:var(--surface);color:var(--text);border:1px solid var(--line);font-size:12.5px;font-weight:600">Nhờ trung tâm xem</button>
+            </div>
+            <p style="font-size:10.5px;line-height:1.55;color:var(--text3);margin-top:9px">Đồng ý theo khách thì thu nhập ca này tính theo giờ khách khai. Nhờ trung tâm xem thì bản ghi định vị được gửi kèm, trả lời trong 24 giờ, phí tạm giữ.</p>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ tcResolved }}" hint-placeholder-val="{{ false }}">
+          <div class="card" style="padding:14px;margin-top:12px">
+            <p style="font-size:12.5px;font-weight:600">{{ tcResolvedTitle }}</p>
+            <p style="font-size:11px;color:var(--text3);line-height:1.55;margin-top:4px">{{ tcResolvedNote }}</p>
+          </div>
+        </sc-if>
         <button sc-camel-on-click="{{ goHome }}" style="width:100%;margin-top:14px;padding:15px;border-radius:12px;background:var(--primary);color:var(--on-primary);font-weight:600;font-size:14.5px;text-align:center">Về danh sách ca</button>
       </sc-if>
     </sc-if>
@@ -1729,6 +1773,10 @@ class Component extends DCLogic {
     // Đề xuất đổi/thêm dịch vụ giữa ca. applied là thứ khách đã đồng ý từ trước
     // trong cùng buổi này.
     adjOpen:false, adjTab:'swap', adjSel:null, adjReason:'', adjSent:false,
+    // Khách xác nhận giờ: wait → ok | dispute → accepted | escalated.
+    // Để mặc định là 'dispute' để bản demo mở ra là thấy ngay đường xử lý —
+    // đây chính là chỗ trước đây không có đường nào.
+    timeCheck:'dispute',
     applied:[{ t:'Chườm thảo dược 15′', p:'120k' }],
     client: { svc:'coxuong', conds:['loangxuong','huyetap'],
       meds:'Amlodipin 5mg mỗi sáng', allergy:'Dầu tràm',
@@ -2624,7 +2672,15 @@ class Component extends DCLogic {
 
     // Nhắc lịch nổi bật: ưu tiên việc chặn dòng công việc nhất.
     const nextPending = s.pending.length;
-    const alertVals = nextPending > 0 ? {
+    // Khách báo sai lệch giờ là việc chặn tiền về ví, nên đặt trên cả ca chờ
+    // xác nhận: mỗi ngày để trôi là một ngày phí bị treo.
+    const alertVals = s.timeCheck === 'dispute' ? {
+      hasAlert:true, alertIcon:'⚠',
+      alertTitle:'Khách báo sai lệch giờ · ca 15:00',
+      alertText:'Ông Trần Văn Minh · phí đang tạm giữ tới khi xử lý xong',
+      alertBg:'var(--dangerTint)', alertBd:'var(--dangerSolid)', alertFg:'var(--dangerSolid)',
+      alertGo: () => this.setState({ page:'session', sess:'done' })
+    } : nextPending > 0 ? {
       hasAlert:true, alertIcon:'📋',
       alertTitle: nextPending + ' ca chờ bạn xác nhận',
       alertText: 'An Nhiên đã phân ca, chưa có phản hồi từ bạn',
@@ -2792,6 +2848,20 @@ theme:s.theme, themeDots,
       checkinBg: s.codeInput.length===4 ? 'var(--primary)' : 'var(--line2)',
       checkinFg: s.codeInput.length===4 ? 'var(--on-primary)' : 'var(--muted)',
       ...prepVals, ...adjVals,
+      // Đối chiếu giờ khi khách báo sai lệch.
+      tcWait: s.timeCheck==='wait', tcOk: s.timeCheck==='ok',
+      tcDispute: s.timeCheck==='dispute',
+      tcResolved: s.timeCheck==='accepted' || s.timeCheck==='escalated',
+      dispSys:'15:00 – 15:58', dispClient:'15:10 – 15:50', dispGap:'18 phút',
+      dispNote:'Chị Yến đến muộn hơn giờ hẹn và về sớm, tôi có ghi lại giờ trên đồng hồ nhà.',
+      acceptDisp:   () => this.setState({ timeCheck:'accepted' }),
+      escalateDisp: () => this.setState({ timeCheck:'escalated' }),
+      tcResolvedTitle: s.timeCheck==='accepted'
+        ? 'Đã đồng ý theo giờ khách khai'
+        : 'Đã chuyển trung tâm phân xử',
+      tcResolvedNote: s.timeCheck==='accepted'
+        ? 'Ca này tính 40 phút thay vì 58. Thu nhập cập nhật trong mục Tài chính.'
+        : 'Bản ghi định vị check-in 15:00 và check-out 15:58 đã gửi kèm. Trung tâm trả lời trong 24 giờ, phí tạm giữ tới lúc đó.',
       sessLabel: s.sess==='idle' ? 'Chưa bắt đầu' : s.sess==='running' ? 'Đang diễn ra' : 'Đã kết thúc',
       sessTimer: s.sess==='idle' ? '00:00' : s.sess==='running' ? '15:00' : '58:00',
       sessHint: s.sess==='idle' ? 'Bấm check-in khi đã tới nơi' : s.sess==='running' ? 'Ghi nội dung đã làm bên dưới' : 'Đã gửi báo cáo cho gia đình',

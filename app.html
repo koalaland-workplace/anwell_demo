@@ -921,10 +921,6 @@
       <!-- ══════════ SESSION (KTV bắt đầu / kết thúc) ══════════ -->
       <sc-if value="{{ isSession }}" hint-placeholder-val="{{ false }}">
         <div class="body pad view">
-          <div style="display:flex;align-items:center;gap:10px;padding:12px 0 4px">
-            <button sc-camel-on-click="{{ goVisits }}" style="width:36px;height:36px;border-radius:50%;border:1px solid var(--border);display:grid;place-items:center;color:var(--text2)"><svg sc-camel-view-box="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5l-7 7 7 7"></path></svg></button>
-            <span class="lo" style="color:var(--text)">Buổi làm việc</span>
-          </div>
 
           <div style="margin-top:12px;background:var(--surface);border-radius:var(--r);border:1px solid var(--card-border);box-shadow:var(--sh);padding:15px;display:flex;gap:12px;align-items:center">
             <div style="width:48px;height:48px;border-radius:50%;background:var(--surface2);display:grid;place-items:center;flex:none;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:19px;color:var(--primary)">H</div>
@@ -1052,7 +1048,33 @@
             <sc-if value="{{ timeNotConfirmed }}" hint-placeholder-val="{{ true }}">
               <div style="display:flex;gap:9px;margin-top:12px">
                 <button sc-camel-on-click="{{ confirmTime }}" style="flex:1;padding:12px;border-radius:var(--r-sm);background:var(--primary);color:var(--on-primary);font-weight:600;font-size:13px">Xác nhận đúng</button>
-                <button sc-camel-on-click="{{ reportIssue }}" style="flex:none;padding:12px 14px;border-radius:var(--r-sm);background:var(--surface2);color:var(--text2);font-weight:600;font-size:13px">Báo sai lệch</button>
+                <button sc-camel-on-click="{{ openDispute }}" style="flex:none;padding:12px 14px;border-radius:var(--r-sm);background:var(--surface2);color:var(--text2);font-weight:600;font-size:13px">Báo sai lệch</button>
+              </div>
+            </sc-if>
+
+            <!-- Báo sai lệch giờ: khai giờ theo mình rồi gửi. Không phải lời
+                 khai chống lời khai — ứng dụng có bản ghi định vị riêng, nên
+                 trung tâm đối chiếu được. -->
+            <sc-if value="{{ disputeOpen }}" hint-placeholder-val="{{ false }}">
+              <div style="margin-top:13px;padding-top:13px;border-top:1px solid var(--card-border)">
+                <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase">Theo bạn, buổi diễn ra</p>
+                <div style="display:flex;gap:9px;margin-top:8px">
+                  <span style="flex:1"><span style="display:block;font-size:10px;color:var(--text3);margin-bottom:4px">Bắt đầu</span><input value="{{ dispFrom }}" sc-camel-on-input="{{ onDispFrom }}" placeholder="15:10" aria-label="Giờ bắt đầu theo bạn" style="width:100%;padding:11px;border-radius:var(--r-sm);border:1px solid var(--card-border);background:var(--surface);color:var(--text);font-size:14px;text-align:center;font-family:inherit"></span>
+                  <span style="flex:1"><span style="display:block;font-size:10px;color:var(--text3);margin-bottom:4px">Kết thúc</span><input value="{{ dispTo }}" sc-camel-on-input="{{ onDispTo }}" placeholder="15:50" aria-label="Giờ kết thúc theo bạn" style="width:100%;padding:11px;border-radius:var(--r-sm);border:1px solid var(--card-border);background:var(--surface);color:var(--text);font-size:14px;text-align:center;font-family:inherit"></span>
+                </div>
+                <textarea value="{{ dispNote }}" sc-camel-on-input="{{ onDispNote }}" placeholder="Mô tả ngắn điều bạn thấy khác..." style="width:100%;min-height:64px;margin-top:9px;padding:11px 13px;border-radius:var(--r-sm);border:1px solid var(--card-border);background:var(--surface);color:var(--text);font-size:12.5px;font-family:inherit;resize:none"></textarea>
+                <div style="display:flex;gap:9px;margin-top:10px">
+                  <button sc-camel-on-click="{{ sendDispute }}" style="flex:1;padding:12px;border-radius:var(--r-sm);background:{{ dispBg }};color:{{ dispFg }};font-weight:600;font-size:13px">{{ dispLabel }}</button>
+                  <button sc-camel-on-click="{{ closeDispute }}" style="flex:none;padding:12px 14px;border-radius:var(--r-sm);background:var(--surface2);color:var(--text2);font-weight:600;font-size:13px">Bỏ</button>
+                </div>
+                <p style="font-size:10.5px;line-height:1.55;color:var(--text3);margin:9px 2px 0">Trung tâm đối chiếu với bản ghi định vị lúc kỹ thuật viên check-in và check-out, rồi trả lời trong 24 giờ. Phí tạm giữ, chưa trừ.</p>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ disputeSent }}" hint-placeholder-val="{{ false }}">
+              <div style="margin-top:12px;padding:12px 13px;border-radius:var(--r-sm);background:var(--surface2)">
+                <p style="font-size:12px;font-weight:600;color:var(--text)">Đã gửi phản hồi · trung tâm đang xem</p>
+                <p style="font-size:11px;color:var(--text2);margin-top:4px">Bạn khai buổi diễn ra {{ dispShown }}. Phí đang tạm giữ, chưa trừ vào ví.</p>
               </div>
             </sc-if>
             <sc-if value="{{ timeConfirmed }}" hint-placeholder-val="{{ false }}">
@@ -1302,10 +1324,6 @@
 
       <sc-if value="{{ isReview }}" hint-placeholder-val="{{ false }}">
         <div class="body pad view">
-          <div style="display:flex;align-items:center;gap:10px;padding:12px 0 4px">
-            <button sc-camel-on-click="{{ goSession }}" style="width:36px;height:36px;border-radius:50%;border:1px solid var(--border);display:grid;place-items:center;color:var(--text2)"><svg sc-camel-view-box="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5l-7 7 7 7"></path></svg></button>
-            <span class="lo" style="color:var(--text)">Đánh giá buổi làm việc</span>
-          </div>
 
           <sc-if value="{{ notReviewed }}" hint-placeholder-val="{{ true }}">
             <div style="text-align:center;margin-top:14px">
@@ -1691,10 +1709,6 @@
 
       <sc-if value="{{ isCareBook }}" hint-placeholder-val="{{ true }}">
         <div class="body pad view">
-          <div style="display:flex;align-items:center;gap:10px;padding:12px 0 4px">
-            <button sc-camel-on-click="{{ goCare }}" style="width:36px;height:36px;border-radius:50%;border:1px solid var(--border);display:grid;place-items:center;color:var(--text2)"><svg sc-camel-view-box="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5l-7 7 7 7"></path></svg></button>
-            <span class="lo" style="color:var(--text)">Đặt buổi đánh giá</span>
-          </div>
 
           <sc-if value="{{ isCareForm }}" hint-placeholder-val="{{ true }}">
             <h1 style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:25px;line-height:1.15;margin:16px 0 0">Người thân của bạn <span style="font-style:italic;color:var(--accent)">đang ở tình trạng nào?</span></h1>
@@ -1767,10 +1781,6 @@
 
       <sc-if value="{{ isCareCert }}" hint-placeholder-val="{{ true }}">
         <div class="body pad view">
-          <div style="display:flex;align-items:center;gap:10px;padding:12px 0 4px">
-            <button sc-camel-on-click="{{ goCare }}" style="width:36px;height:36px;border-radius:50%;border:1px solid var(--border);display:grid;place-items:center;color:var(--text2)"><svg sc-camel-view-box="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5l-7 7 7 7"></path></svg></button>
-            <span class="lo" style="color:var(--text)">Chứng nhận ANWELL</span>
-          </div>
 
           <div style="margin-top:16px;border-radius:20px;padding:2px;background:linear-gradient(150deg,var(--accent),var(--accent-soft) 55%,var(--accent))">
             <div style="border-radius:18px;background:var(--hero);color:var(--hero-text);padding:26px 20px;text-align:center">
@@ -1924,10 +1934,6 @@
       <!-- ══════════ GIỚI THIỆU BẠN ══════════ -->
       <sc-if value="{{ isReferral }}" hint-placeholder-val="{{ false }}">
         <div class="body pad view">
-          <div style="display:flex;align-items:center;gap:10px;padding:12px 0 4px">
-            <button sc-camel-on-click="{{ goMe }}" style="width:36px;height:36px;border-radius:50%;border:1px solid var(--border);display:grid;place-items:center;color:var(--text2)"><svg sc-camel-view-box="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5l-7 7 7 7"></path></svg></button>
-            <span class="lo" style="color:var(--text)">Giới thiệu bạn</span>
-          </div>
           <div style="text-align:center;margin-top:16px"><span style="font-size:40px">🎁</span>
             <h1 style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:23px;color:var(--text);margin:8px 0 0">Tặng bạn — nhận quà</h1>
             <p style="font-size:12.5px;color:var(--text2);line-height:1.6;margin:6px auto 0;max-width:260px">Bạn của bạn được giảm <b>150k</b> buổi đầu, bạn nhận <b>200 điểm An</b> khi họ hoàn tất buổi đầu tiên.</p>
@@ -1950,10 +1956,6 @@
       <!-- ══════════ NHÓM GIA ĐÌNH ══════════ -->
       <sc-if value="{{ isFamily }}" hint-placeholder-val="{{ false }}">
         <div class="body pad view">
-          <div style="display:flex;align-items:center;gap:10px;padding:12px 0 4px">
-            <button sc-camel-on-click="{{ goMe }}" style="width:36px;height:36px;border-radius:50%;border:1px solid var(--border);display:grid;place-items:center;color:var(--text2)"><svg sc-camel-view-box="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5l-7 7 7 7"></path></svg></button>
-            <span class="lo" style="color:var(--text)">Nhóm gia đình</span>
-          </div>
           <p style="font-size:12px;color:var(--text3);line-height:1.6;margin:12px 0 0">Thêm người thân vào một tài khoản — cả nhà cùng theo dõi lịch, tiến triển và chi phí.</p>
           <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.2em;color:var(--text3);text-transform:uppercase;margin:20px 0 10px">Thành viên</p>
           <div style="display:flex;flex-direction:column;gap:10px">
@@ -1968,10 +1970,6 @@
       <!-- ══════════ NHẮC LỊCH ══════════ -->
       <sc-if value="{{ isReminders }}" hint-placeholder-val="{{ false }}">
         <div class="body pad view">
-          <div style="display:flex;align-items:center;gap:10px;padding:12px 0 4px">
-            <button sc-camel-on-click="{{ goMe }}" style="width:36px;height:36px;border-radius:50%;border:1px solid var(--border);display:grid;place-items:center;color:var(--text2)"><svg sc-camel-view-box="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5l-7 7 7 7"></path></svg></button>
-            <span class="lo" style="color:var(--text)">Nhắc lịch</span>
-          </div>
           <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.2em;color:var(--text3);text-transform:uppercase;margin:18px 0 10px">Lời nhắc sắp tới</p>
           <div style="display:flex;flex-direction:column;gap:10px">
             <sc-for list="{{ reminders }}" as="r" hint-placeholder-count="3">
@@ -2010,10 +2008,6 @@
       <!-- ══════════ BÁO CÁO TIẾN TRIỂN ══════════ -->
       <sc-if value="{{ isReport }}" hint-placeholder-val="{{ false }}">
         <div class="body pad view">
-          <div style="display:flex;align-items:center;gap:10px;padding:12px 0 4px">
-            <button sc-camel-on-click="{{ goMe }}" style="width:36px;height:36px;border-radius:50%;border:1px solid var(--border);display:grid;place-items:center;color:var(--text2)"><svg sc-camel-view-box="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5l-7 7 7 7"></path></svg></button>
-            <span class="lo" style="color:var(--text)">Báo cáo tiến triển</span>
-          </div>
           <p style="font-size:12px;color:var(--text3);margin:12px 0 0">Tháng 7/2026 · Ông Trần Văn Minh</p>
           <div style="margin-top:12px;background:var(--surface);border-radius:var(--r);border:1px solid var(--card-border);box-shadow:var(--sh);padding:16px">
             <div style="display:flex;justify-content:space-between;align-items:center"><p style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:16px;color:var(--text)">Mức cần hỗ trợ</p><span style="font-size:11px;font-weight:700;color:#177245;background:#e7f0e8;padding:4px 8px;border-radius:99px">↓ 4 mức</span></div>
@@ -2286,7 +2280,7 @@ class Component extends DCLogic {
     province:'TP. Hồ Chí Minh', ward:'Tất cả phường/xã',
     band:'Chiều · 12–17',
     // Đặt null nếu khách không chăm sóc ai — khối trên trang Hành trình sẽ ẩn.
-    carePlan: { name:'Ông Trần Văn Minh · 72t', plan:'Phục hồi sau đột quỵ · buổi 6/20', next:'T5 · 09:00' }, venue:'center', locMode:'home', addr:'', recipient:'', careSvc:'Phục hồi vận động', bookNote:'', timeConfirmed:false, rating:0, ratingImprove:0, feedback:'', reviewed:false, manageOpen:false, manageStep:'idle', pausePick:'2 tuần', cancelReason:'', remind:{visit:true,exercise:true,promo:false}, verified:false, verifyStep:'info', vName:'', vPhone:'', vOtp:'', pendingAction:null, book:1, careCond:'Sau đột quỵ', careProbs:[], careDoc:'Có giấy ra viện kèm hướng dẫn tập', careContra:[], careSlot:'Sáng (8–11h)', careDone:false, pain:3, booked:false, lang:'vi', goal:'Đau vai gáy', area:'Vai gáy', day:24, slot:'09:00', center:null, prev:'book', sound:false, activeVid:0, videoMuted:true, foodIdx:0, musicMode:'list', musicSel:['t1','t3'], curTrack:null };
+    carePlan: { name:'Ông Trần Văn Minh · 72t', plan:'Phục hồi sau đột quỵ · buổi 6/20', next:'T5 · 09:00' }, venue:'center', locMode:'home', addr:'', recipient:'', careSvc:'Phục hồi vận động', bookNote:'', timeConfirmed:false, disputeOpen:false, disputeSent:false, dispFrom:'', dispTo:'', dispNote:'', rating:0, ratingImprove:0, feedback:'', reviewed:false, manageOpen:false, manageStep:'idle', pausePick:'2 tuần', cancelReason:'', remind:{visit:true,exercise:true,promo:false}, verified:false, verifyStep:'info', vName:'', vPhone:'', vOtp:'', pendingAction:null, book:1, careCond:'Sau đột quỵ', careProbs:[], careDoc:'Có giấy ra viện kèm hướng dẫn tập', careContra:[], careSlot:'Sáng (8–11h)', careDone:false, pain:3, booked:false, lang:'vi', goal:'Đau vai gáy', area:'Vai gáy', day:24, slot:'09:00', center:null, prev:'book', sound:false, activeVid:0, videoMuted:true, foodIdx:0, musicMode:'list', musicSel:['t1','t3'], curTrack:null };
 
   musicTracks = [
     { id:'t1', title:'Tụng niệm Hanshan', mood:'Thiền · có lời', vocal:true, src:'https://archive.org/download/9hourstibetanhealingsoundssingingbowlsnaturalsoundsgoldformeditationrelaxation/Buddhist%20Chants%20%26%20Peace%20Music%20-%20Hanshan%20Temple.mp3' },
@@ -2308,11 +2302,11 @@ class Component extends DCLogic {
   // Ba màn của luồng vào app cũng là gốc — chúng có nút riêng, không cần "<".
   static get ROOTS(){ return ['book','visits','discover','journey','me','onboard','verify','reg']; }
   static get TITLES(){ return {
-    care:'Chăm sóc người thân', carebook:'Đăng ký chăm sóc', carecert:'Chứng nhận KTV',
+    care:'Chăm sóc người thân', carebook:'Đặt buổi đánh giá', carecert:'Chứng nhận ANWELL',
     chat:'Nhắn tin', family:'Nhóm gia đình', health:'Hồ sơ sức khoẻ', ktv:'Kỹ thuật viên',
     place:'Cơ sở', policy:'Chính sách & quyền riêng tư', recipe:'Món ăn dưỡng sinh',
-    record:'Bài tập tại nhà', referral:'Giới thiệu bạn bè', reminders:'Nhắc lịch',
-    report:'Báo cáo tiến triển', review:'Đánh giá buổi', rewards:'Hạng thành viên',
+    record:'Bài tập tại nhà', referral:'Giới thiệu bạn', reminders:'Nhắc lịch',
+    report:'Báo cáo tiến triển', review:'Đánh giá buổi làm việc', rewards:'Hạng thành viên',
     session:'Buổi làm việc', wallet:'Ví & gói của tôi'
   }; }
   // Chặn ngay ở setState thay vì ở từng nút: trong file này có gần năm mươi chỗ
@@ -3046,7 +3040,26 @@ class Component extends DCLogic {
       isSession:s.view==='session',
       goSession:()=>this.setState({view:'session'}),
       sessNoteShown: 'Đã tập vận động khớp vai và tập đi 40m có hỗ trợ. Bố hợp tác tốt, ít mỏi hơn buổi trước. Lần sau tăng thêm bài thăng bằng.',
-      timeNotConfirmed:!s.timeConfirmed, timeConfirmed:s.timeConfirmed, confirmTime:()=>this.set({timeConfirmed:true}),
+      timeNotConfirmed: !s.timeConfirmed && !s.disputeSent, timeConfirmed:s.timeConfirmed, confirmTime:()=>this.set({timeConfirmed:true}),
+      // Báo sai lệch giờ giấc — trước đây nút này không nối vào đâu.
+      ...(() => {
+        const ok = /^\d{1,2}:\d{2}$/.test(s.dispFrom.trim()) && /^\d{1,2}:\d{2}$/.test(s.dispTo.trim());
+        return {
+          disputeOpen: s.disputeOpen && !s.disputeSent,
+          disputeSent: s.disputeSent,
+          openDispute: () => this.set({ disputeOpen:true }),
+          closeDispute: () => this.set({ disputeOpen:false, dispFrom:'', dispTo:'', dispNote:'' }),
+          dispFrom: s.dispFrom, dispTo: s.dispTo, dispNote: s.dispNote,
+          onDispFrom: (e)=>this.set({ dispFrom:e.target.value }),
+          onDispTo:   (e)=>this.set({ dispTo:e.target.value }),
+          onDispNote: (e)=>this.set({ dispNote:e.target.value }),
+          dispLabel: ok ? 'Gửi phản hồi' : 'Điền giờ theo dạng 15:10',
+          dispBg: ok ? 'var(--primary)' : 'var(--surface2)',
+          dispFg: ok ? 'var(--on-primary)' : 'var(--text3)',
+          sendDispute: () => ok ? this.set({ disputeSent:true, disputeOpen:false }) : null,
+          dispShown: s.dispFrom.trim() + '–' + s.dispTo.trim()
+        };
+      })(),
       // review (family)
       isReview:s.view==='review', notReviewed:!s.reviewed, reviewed:s.reviewed,
       goReview:()=>this.setState({view:'review'}),
