@@ -634,6 +634,82 @@
             <button sc-camel-on-click="{{ t.toggle }}" style="padding:9px 13px;border-radius:99px;font-size:12px;font-weight:600;background:{{ t.bg }};color:{{ t.fg }};border:1px solid {{ t.bd }}">{{ t.t }}</button>
           </sc-for>
         </div>
+        <!-- ══ ĐỔI HOẶC THÊM DỊCH VỤ ══
+             Bên khách đã có màn "KTV đề xuất · chờ bạn đồng ý" nhưng không ai
+             gửi được đề xuất đó. Đây là đầu gửi. Hai chốt chặn: quỹ thời gian
+             còn lại trước ca kế tiếp, và chống chỉ định theo hồ sơ khách. -->
+        <sc-if value="{{ hasApplied }}" hint-placeholder-val="{{ true }}">
+          <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.18em;color:var(--text3);text-transform:uppercase;margin:18px 0 8px">Đã áp dụng trong buổi này</p>
+          <sc-for list="{{ applied }}" as="a" hint-placeholder-count="1">
+            <div class="card" style="padding:11px 13px;margin-bottom:7px;display:flex;justify-content:space-between;align-items:center">
+              <span style="font-size:12.5px;font-weight:600">{{ a.t }}</span>
+              <span style="font-size:12.5px;font-weight:700;color:var(--primary)">{{ a.p }}</span>
+            </div>
+          </sc-for>
+        </sc-if>
+
+        <sc-if value="{{ adjSent }}" hint-placeholder-val="{{ false }}">
+          <div class="card" style="padding:14px;margin-top:14px;border:1px solid var(--accent)">
+            <p style="font:700 9px ui-monospace,monospace;letter-spacing:.14em;color:var(--accent);text-transform:uppercase">⏳ Chờ khách đồng ý</p>
+            <p style="font-size:13px;font-weight:600;margin-top:7px">{{ adjSentTitle }}</p>
+            <p style="font-size:11.5px;line-height:1.6;color:var(--text2);margin-top:5px">{{ adjSentReason }}</p>
+            <div style="display:flex;justify-content:space-between;font-size:12.5px;font-weight:700;margin-top:10px;padding-top:10px;border-top:1px solid var(--line2)">
+              <span style="color:var(--text2)">{{ adjSentDiffLabel }}</span><span>{{ adjSentDiff }}</span>
+            </div>
+            <p style="font-size:10.5px;color:var(--text3);line-height:1.55;margin-top:9px">Khách đang xem đề xuất ngay trên app của họ. Buổi chỉ đổi khi khách bấm đồng ý — bạn không tự đổi được.</p>
+            <button sc-camel-on-click="{{ cancelAdj }}" style="width:100%;margin-top:11px;padding:11px;border-radius:10px;background:var(--surface2);color:var(--text2);font-size:12.5px;font-weight:600">Thu hồi đề xuất</button>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ adjClosed }}" hint-placeholder-val="{{ true }}">
+          <button sc-camel-on-click="{{ openAdj }}" style="width:100%;margin-top:14px;padding:13px;border-radius:12px;background:var(--surface2);color:var(--primary);font-weight:600;font-size:13px;border:1px dashed var(--primary)">+ Đề xuất đổi hoặc thêm dịch vụ</button>
+        </sc-if>
+
+        <sc-if value="{{ adjOpen }}" hint-placeholder-val="{{ false }}">
+          <div class="card" style="padding:15px;margin-top:14px">
+            <div style="display:flex;align-items:center;justify-content:space-between">
+              <p style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:17px">Đề xuất cho khách</p>
+              <button sc-camel-on-click="{{ closeAdj }}" style="font-size:11.5px;font-weight:600;color:var(--muted)">Đóng</button>
+            </div>
+            <p style="font-size:11px;line-height:1.55;color:var(--text3);margin-top:5px">Đang dùng: {{ curSvcName }} · {{ curSvcPrice }}. Bạn còn {{ freeMin }} phút trước ca kế tiếp.</p>
+
+            <div style="display:flex;gap:4px;padding:3px;border-radius:99px;background:var(--line2);margin-top:12px">
+              <sc-for list="{{ adjTabs }}" as="t" hint-placeholder-count="2">
+                <button sc-camel-on-click="{{ t.pick }}" style="flex:1;padding:8px;border-radius:99px;font-size:12px;font-weight:600;background:{{ t.bg }};color:{{ t.fg }}">{{ t.t }}</button>
+              </sc-for>
+            </div>
+
+            <div style="display:flex;flex-direction:column;gap:8px;margin-top:12px">
+              <sc-for list="{{ adjOptions }}" as="o" hint-placeholder-count="3">
+                <button sc-camel-on-click="{{ o.pick }}" style="width:100%;text-align:left;padding:12px 13px;border-radius:11px;background:{{ o.bg }};border:1.5px solid {{ o.bd }};opacity:{{ o.dim }}">
+                  <span style="display:flex;align-items:baseline;justify-content:space-between;gap:10px">
+                    <span style="font-size:12.5px;font-weight:600;color:{{ o.fg }}">{{ o.t }}</span>
+                    <span style="flex:none;font-size:12.5px;font-weight:700;color:{{ o.priceFg }}">{{ o.p }}</span>
+                  </span>
+                  <span style="display:block;font-size:10.5px;color:var(--text3);margin-top:3px">{{ o.d }}</span>
+                  <sc-if value="{{ o.blocked }}" hint-placeholder-val="{{ false }}">
+                    <span style="display:block;font-size:10.5px;line-height:1.55;color:var(--dangerSolid);margin-top:6px;font-weight:600">⚠ {{ o.why }}</span>
+                  </sc-if>
+                </button>
+              </sc-for>
+            </div>
+
+            <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.18em;color:var(--text3);text-transform:uppercase;margin:15px 0 7px">Vì sao bạn đề xuất</p>
+            <textarea value="{{ adjReason }}" sc-camel-on-input="{{ onAdjReason }}" placeholder="Nói rõ bạn thấy gì khi khám sơ bộ. Khách đọc đúng câu này trước khi đồng ý." style="width:100%;min-height:76px;padding:11px 13px;border-radius:11px;border:1px solid var(--line);background:var(--surface);color:var(--text);font-size:12.5px;font-family:inherit;resize:none"></textarea>
+
+            <sc-if value="{{ adjPicked }}" hint-placeholder-val="{{ true }}">
+              <div style="margin-top:12px;padding:12px 13px;border-radius:11px;background:var(--surface2)">
+                <div style="display:flex;justify-content:space-between;font-size:11.5px;color:var(--text2)"><span>{{ sumFromName }}</span><span>{{ sumFromPrice }}</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:11.5px;color:var(--text2);margin-top:4px"><span>{{ sumToName }}</span><span>{{ sumToPrice }}</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:13px;font-weight:700;margin-top:8px;padding-top:8px;border-top:1px solid var(--line)"><span>{{ sumDiffLabel }}</span><span style="color:{{ sumDiffFg }}">{{ sumDiff }}</span></div>
+              </div>
+            </sc-if>
+
+            <button sc-camel-on-click="{{ sendAdj }}" style="width:100%;margin-top:13px;padding:14px;border-radius:12px;background:{{ sendAdjBg }};color:{{ sendAdjFg }};font-weight:700;font-size:14px">{{ sendAdjLabel }}</button>
+            <p style="font-size:10.5px;font-style:italic;color:var(--text3);line-height:1.55;margin:9px 2px 0">Bạn không thu tiền trực tiếp. Khách đồng ý thì phần chênh trừ hoặc hoàn qua ví ANWELL, và ghi vào Tài chính của bạn.</p>
+          </div>
+        </sc-if>
+
         <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.18em;color:var(--text3);text-transform:uppercase;margin:18px 0 8px">Ghi chú buổi làm việc</p>
         <textarea value="{{ sessNote }}" sc-camel-on-input="{{ onSessNote }}" placeholder="Phản ứng của người được chăm sóc, tiến triển, dặn dò cho lần sau..." style="width:100%;min-height:92px;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--text);font-size:13px;font-family:inherit;resize:none"></textarea>
         <button sc-camel-on-click="{{ endSession }}" style="width:100%;margin-top:13px;padding:16px;border-radius:12px;background:var(--dangerSolid);color:#fff;font-weight:700;font-size:15px;text-align:center">Check-out · Kết thúc buổi</button>
@@ -1650,6 +1726,10 @@ class Component extends DCLogic {
     // hai bên nói cùng một thứ tiếng — khách khai 'loangxuong' thì KTV đọc ra
     // đúng cảnh báo đó, không phải một danh mục riêng dễ lệch.
     sessCode:'4729', codeInput:'', codeErr:false,
+    // Đề xuất đổi/thêm dịch vụ giữa ca. applied là thứ khách đã đồng ý từ trước
+    // trong cùng buổi này.
+    adjOpen:false, adjTab:'swap', adjSel:null, adjReason:'', adjSent:false,
+    applied:[{ t:'Chườm thảo dược 15′', p:'120k' }],
     client: { svc:'coxuong', conds:['loangxuong','huyetap'],
       meds:'Amlodipin 5mg mỗi sáng', allergy:'Dầu tràm',
       famNote:'Bố hay chóng mặt buổi sáng, cần đi nhẹ cầu thang. Ưu tiên bài thăng bằng có hỗ trợ.',
@@ -2161,6 +2241,84 @@ class Component extends DCLogic {
       sessFamNote: cl.famNote
     };
 
+    // ── đề xuất đổi/thêm dịch vụ ─────────────────────────────────────
+    // Hai chốt chặn khác nhau, và phải nói rõ chặn vì lý do nào:
+    //  · thời gian — quá quỹ phút còn lại trước ca kế tiếp
+    //  · chống chỉ định — xung đột với hồ sơ sức khoẻ khách đã khai
+    const CUR = { name:'Phục hồi vận động 60′', price:'450k', n:450, mins:60 };
+    const FREE_MIN = 25;
+    const SWAP = [
+      { t:'Vật lý trị liệu 45′',    p:'380k', n:380, mins:45, avoid:[],                        d:'Tác động nhóm cơ sâu, phù hợp khi khớp vai còn hạn chế' },
+      { t:'Trị liệu đá nóng 60′',   p:'520k', n:520, mins:60, avoid:['huyetap','timmach'],     d:'Giãn cơ sâu bằng nhiệt' },
+      { t:'Nắn chỉnh cột sống 45′', p:'450k', n:450, mins:45, avoid:['loangxuong','thoatvi'],  d:'Chỉnh trục cột sống, giảm chèn ép' }
+    ];
+    const ADD = [
+      { t:'Massage chân 30′',            p:'220k', n:220, mins:30, avoid:['tieuduong'], d:'Thêm vào cuối buổi' },
+      { t:'Tập thăng bằng có hỗ trợ 20′',p:'160k', n:160, mins:20, avoid:[],            d:'Bài gia đình đang muốn tăng thêm' },
+      { t:'Massage đầu 20′',             p:'160k', n:160, mins:20, avoid:[],            d:'Giảm căng thẳng, dễ ngủ' }
+    ];
+    const isSwap = s.adjTab === 'swap';
+    const pool = isSwap ? SWAP : ADD;
+    // Đổi thì chỉ tính phần chênh thời lượng; thêm thì tính trọn thời lượng.
+    const needMins = (o) => isSwap ? Math.max(0, o.mins - CUR.mins) : o.mins;
+    const sel = s.adjSel;
+    const diffN = sel ? (isSwap ? sel.n - CUR.n : sel.n) : 0;
+    const money = (n) => Math.abs(n) + 'k';
+    const adjOptions = pool.map(o => {
+      const clash = o.avoid.find(k => cl.conds.includes(k));
+      const overTime = needMins(o) > FREE_MIN;
+      const blocked = !!clash || overTime;
+      const on = sel && sel.t === o.t;
+      return { t:o.t, p:o.p, d:o.d, blocked,
+        why: clash ? ('Chống chỉ định — khách khai ' + CONDS[clash][0].toLowerCase() + '. ' + CONDS[clash][2])
+           : overTime ? ('Cần thêm ' + needMins(o) + ' phút, bạn chỉ còn ' + FREE_MIN + ' phút trước ca kế tiếp')
+           : '',
+        dim: blocked ? '.5' : '1',
+        bg: on ? 'var(--tint)' : 'var(--surface)',
+        bd: on ? 'var(--primary)' : 'var(--line)',
+        fg: on ? 'var(--primary)' : 'var(--text)',
+        priceFg: blocked ? 'var(--text3)' : 'var(--primary)',
+        pick: () => blocked ? null : this.setState({ adjSel:o }) };
+    });
+    const canSend = !!sel && s.adjReason.trim().length >= 10;
+    const adjVals = {
+      applied: s.applied, hasApplied: s.applied.length > 0,
+      adjOpen: s.adjOpen, adjSent: s.adjSent,
+      adjClosed: !s.adjOpen && !s.adjSent,
+      openAdj:  () => this.setState({ adjOpen:true, adjSel:null, adjReason:'' }),
+      closeAdj: () => this.setState({ adjOpen:false, adjSel:null }),
+      curSvcName: CUR.name, curSvcPrice: CUR.price, freeMin: FREE_MIN,
+      adjTabs: [['swap','Đổi dịch vụ'],['add','Thêm dịch vụ']].map(([k,t]) => ({
+        t, pick:()=>this.setState({ adjTab:k, adjSel:null }),
+        bg: s.adjTab===k ? 'var(--surface)' : 'transparent',
+        fg: s.adjTab===k ? 'var(--text)' : 'var(--muted)' })),
+      adjOptions,
+      adjReason: s.adjReason, onAdjReason:(e)=>this.setState({ adjReason:e.target.value }),
+      adjPicked: !!sel,
+      sumFromName: isSwap ? CUR.name : 'Buổi hiện tại',
+      sumFromPrice: CUR.price,
+      sumToName: sel ? (isSwap ? sel.t : ('Thêm: ' + sel.t)) : '',
+      sumToPrice: sel ? sel.p : '',
+      sumDiffLabel: diffN >= 0 ? 'Khách trả thêm' : 'Hoàn lại ví khách',
+      sumDiff: sel ? money(diffN) : '',
+      sumDiffFg: diffN >= 0 ? 'var(--text)' : 'var(--ok)',
+      // Bắt buộc viết lý do: khách đọc đúng câu này trước khi bấm đồng ý, nên
+      // gửi đề xuất trống là đẩy khách vào chỗ phải quyết mà không có căn cứ.
+      sendAdjLabel: !sel ? 'Chọn một dịch vụ'
+        : s.adjReason.trim().length < 10 ? 'Viết lý do để gửi được'
+        : 'Gửi đề xuất cho khách',
+      sendAdjBg: canSend ? 'var(--primary)' : 'var(--line2)',
+      sendAdjFg: canSend ? 'var(--on-primary)' : 'var(--muted)',
+      sendAdj: () => canSend ? this.setState({ adjOpen:false, adjSent:true,
+        sentTitle: (isSwap ? 'Đổi sang ' : 'Thêm ') + sel.t,
+        sentReason: s.adjReason.trim(),
+        sentDiffLabel: diffN >= 0 ? 'Khách trả thêm' : 'Hoàn lại ví khách',
+        sentDiff: money(diffN) }) : null,
+      cancelAdj: () => this.setState({ adjSent:false, adjSel:null, adjReason:'' }),
+      adjSentTitle: s.sentTitle || '', adjSentReason: s.sentReason || '',
+      adjSentDiffLabel: s.sentDiffLabel || '', adjSentDiff: s.sentDiff || ''
+    };
+
     // ── buổi làm việc (KTV thao tác — app khách chỉ hiển thị) ──
     const sessTaskDefs = [
       { id:'t1', t:'Vận động khớp vai' }, { id:'t2', t:'Tập đi có hỗ trợ' },
@@ -2633,7 +2791,7 @@ theme:s.theme, themeDots,
       codeBd: s.codeErr ? 'var(--dangerSolid)' : (s.codeInput.length===4 ? 'var(--primary)' : 'var(--line)'),
       checkinBg: s.codeInput.length===4 ? 'var(--primary)' : 'var(--line2)',
       checkinFg: s.codeInput.length===4 ? 'var(--on-primary)' : 'var(--muted)',
-      ...prepVals,
+      ...prepVals, ...adjVals,
       sessLabel: s.sess==='idle' ? 'Chưa bắt đầu' : s.sess==='running' ? 'Đang diễn ra' : 'Đã kết thúc',
       sessTimer: s.sess==='idle' ? '00:00' : s.sess==='running' ? '15:00' : '58:00',
       sessHint: s.sess==='idle' ? 'Bấm check-in khi đã tới nơi' : s.sess==='running' ? 'Ghi nội dung đã làm bên dưới' : 'Đã gửi báo cáo cho gia đình',
