@@ -571,13 +571,59 @@
         </span>
       </div>
 
-      <div class="card" style="padding:14px;margin-top:12px">
-        <p style="font:700 9px ui-monospace,monospace;letter-spacing:.14em;color:var(--accent);text-transform:uppercase">Lưu ý từ gia đình</p>
-        <p style="font-size:12px;line-height:1.6;color:var(--text2);margin-top:7px">Bố hay chóng mặt buổi sáng, cần đi nhẹ cầu thang. Ưu tiên bài thăng bằng có hỗ trợ.</p>
-      </div>
-
+      <!-- ══ THẺ CHUẨN BỊ TRƯỚC CA ══
+           Gộp một chỗ những gì KTV cần biết trước khi gõ cửa: điều phải tránh
+           theo hồ sơ sức khoẻ khách khai, buổi trước đã làm gì, gia đình dặn
+           gì. Trước đây ba thứ này nằm ở ba màn khác nhau. -->
       <sc-if value="{{ sessIdle }}" hint-placeholder-val="{{ true }}">
-        <button sc-camel-on-click="{{ startSession }}" style="width:100%;margin-top:14px;padding:16px;border-radius:12px;background:var(--primary);color:var(--on-primary);font-weight:700;font-size:15px;text-align:center">Check-in · Bắt đầu buổi</button>
+
+        <sc-if value="{{ hasAvoid }}" hint-placeholder-val="{{ true }}">
+          <div style="border-radius:16px;padding:14px;margin-top:12px;background:var(--dangerTint);border:1px solid var(--dangerSolid)">
+            <p style="font:700 9px ui-monospace,monospace;letter-spacing:.14em;color:var(--dangerSolid);text-transform:uppercase">⚠ Cần tránh trong ca này</p>
+            <sc-for list="{{ avoids }}" as="a" hint-placeholder-count="2">
+              <div style="margin-top:9px;padding-top:9px;border-top:1px solid var(--line2)">
+                <p style="font-size:12.5px;font-weight:700;color:var(--text)">{{ a.what }}</p>
+                <p style="font-size:11px;line-height:1.55;color:var(--text2);margin-top:3px">{{ a.why }}</p>
+                <p style="font-size:10px;color:var(--text3);margin-top:4px">Vì khách khai: {{ a.cond }}</p>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <div class="card" style="padding:14px;margin-top:12px">
+          <p style="font:700 9px ui-monospace,monospace;letter-spacing:.14em;color:var(--accent);text-transform:uppercase">Hồ sơ sức khoẻ khách khai</p>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+            <sc-for list="{{ condChips }}" as="c" hint-placeholder-count="2">
+              <span style="padding:5px 10px;border-radius:99px;background:var(--line2);font-size:11px;font-weight:600;color:var(--text2)">{{ c.t }}</span>
+            </sc-for>
+          </div>
+          <div style="display:flex;gap:14px;margin-top:11px">
+            <span style="flex:1"><span style="display:block;font-size:9.5px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;font-weight:700">Thuốc</span><span style="display:block;font-size:11.5px;color:var(--text2);margin-top:3px">{{ sessMeds }}</span></span>
+            <span style="flex:1"><span style="display:block;font-size:9.5px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;font-weight:700">Dị ứng</span><span style="display:block;font-size:11.5px;color:var(--text2);margin-top:3px">{{ sessAllergy }}</span></span>
+          </div>
+        </div>
+
+        <div class="card" style="padding:14px;margin-top:12px">
+          <p style="font:700 9px ui-monospace,monospace;letter-spacing:.14em;color:var(--accent);text-transform:uppercase">Buổi trước bạn đã làm</p>
+          <p style="font-size:12px;line-height:1.6;color:var(--text2);margin-top:7px">{{ sessLast }}</p>
+        </div>
+
+        <div class="card" style="padding:14px;margin-top:12px">
+          <p style="font:700 9px ui-monospace,monospace;letter-spacing:.14em;color:var(--accent);text-transform:uppercase">Lưu ý từ gia đình</p>
+          <p style="font-size:12px;line-height:1.6;color:var(--text2);margin-top:7px">{{ sessFamNote }}</p>
+        </div>
+
+        <!-- ══ MÃ XÁC MINH ══
+             Bên app khách hiện bốn số và dặn "hỏi mã này trước khi mở cửa".
+             Đây là đầu kia của việc đó: không gõ đúng mã thì không check-in được. -->
+        <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.18em;color:var(--text3);text-transform:uppercase;margin:18px 0 8px">Mã xác minh của khách</p>
+        <input value="{{ codeInput }}" sc-camel-on-input="{{ onCode }}" inputmode="numeric" maxlength="4" placeholder="• • • •" aria-label="Mã xác minh bốn số" style="width:100%;padding:15px;border-radius:12px;border:1.5px solid {{ codeBd }};background:var(--surface);color:var(--text);font-size:22px;font-weight:700;letter-spacing:.5em;text-align:center;font-family:inherit">
+        <sc-if value="{{ codeErr }}" hint-placeholder-val="{{ false }}">
+          <p style="font-size:11px;color:var(--dangerSolid);font-weight:600;margin:7px 2px 0">Mã không đúng. Đề nghị khách mở lại app ANWELL, mã nằm ngay màn buổi hẹn.</p>
+        </sc-if>
+        <p style="font-size:10.5px;line-height:1.55;color:var(--text3);margin:7px 2px 0">Khách đọc bốn số trên app của họ. Gõ đúng mới check-in được — đây là cách khách biết chắc người đến là bạn.</p>
+
+        <button sc-camel-on-click="{{ startSession }}" style="width:100%;margin-top:13px;padding:16px;border-radius:12px;background:{{ checkinBg }};color:{{ checkinFg }};font-weight:700;font-size:15px;text-align:center">Check-in · Bắt đầu buổi</button>
         <p style="font-size:10.5px;font-style:italic;color:var(--text3);line-height:1.55;margin:11px 2px 0">Vị trí của bạn được ghi nhận khi check-in để gia đình theo dõi minh bạch.</p>
       </sc-if>
 
@@ -1600,6 +1646,14 @@ class Component extends DCLogic {
   // Khách hàng và Tài chính vẫn giữ lựa chọn cũ. Mục Tôi không có trong bảng này
   // vì hồ sơ là của một người, không phụ thuộc đang làm cho ai.
   state = { theme:'serene', modes:{ home:'center', schedule:'center', clients:'center', wallet:'center' }, page:'home', navStack:[], avail:true, day:25, sess:'idle', sessNote:'', sessDone:['t1'],
+    // Khách của ca đang mở. Mã tình trạng sức khoẻ dùng chung với app khách để
+    // hai bên nói cùng một thứ tiếng — khách khai 'loangxuong' thì KTV đọc ra
+    // đúng cảnh báo đó, không phải một danh mục riêng dễ lệch.
+    sessCode:'4729', codeInput:'', codeErr:false,
+    client: { svc:'coxuong', conds:['loangxuong','huyetap'],
+      meds:'Amlodipin 5mg mỗi sáng', allergy:'Dầu tràm',
+      famNote:'Bố hay chóng mặt buổi sáng, cần đi nhẹ cầu thang. Ưu tiên bài thăng bằng có hỗ trợ.',
+      last:'Buổi 6 · 22/07 — tập vận động khớp vai, đi bộ 40 m có người dìu. Khách than mỏi bắp chân phải về đêm.' },
     // Lịch nhận khách của chế độ tự do. Mỗi khung giờ gồm: ngày trong tuần,
     // giờ bắt đầu/kết thúc, khu vực nhận, loại hình dịch vụ và ghi chú.
     slots: [
@@ -2078,6 +2132,35 @@ class Component extends DCLogic {
     ];
 
 
+    // ── thẻ chuẩn bị trước ca ────────────────────────────────────────
+    // Bảng tình trạng và bảng chống chỉ định giữ nguyên mã như app khách
+    // (huyetap, loangxuong, ...). Khách khai một lần, KTV đọc ra đúng cảnh báo
+    // ứng với dịch vụ của ca này chứ không phải cả danh sách bệnh.
+    const CONDS = {
+      huyetap:    ['Huyết áp cao',        'Trị liệu nhiệt và đá nóng',        'Nhiệt cao làm giãn mạch, dễ tụt huyết áp đột ngột. Đo huyết áp trước buổi, ưu tiên xoa bóp nhẹ.'],
+      timmach:    ['Bệnh tim mạch',       'Xông hơi, bồn sục nóng',           'Tăng gánh nặng cho tim. Cần ý kiến bác sĩ trước khi trị liệu nhiệt.'],
+      tieuduong:  ['Tiểu đường',          'Ngâm chân nước nóng',              'Giảm cảm giác ở chân nên dễ bỏng mà không biết. Tự kiểm tra nhiệt độ nước bằng tay bạn.'],
+      loangxuong: ['Loãng xương',         'Nắn chỉnh, bấm huyệt mạnh',        'Xương giòn, lực mạnh có thể gây rạn. Chỉ xoa bóp mô mềm.'],
+      thoatvi:    ['Thoát vị đĩa đệm',    'Vặn xoắn cột sống',                'Có thể làm khối thoát vị chèn ép nặng hơn.'],
+      mangthai:   ['Đang mang thai',      'Bấm huyệt bụng, lưng dưới, cổ chân','Một số huyệt kích thích co bóp tử cung. Cần chứng chỉ chăm sóc thai sản.'],
+      moigan:     ['Mới phẫu thuật <6 tuần','Tác động lên vùng mổ',           'Vết mổ chưa lành hẳn. Tránh hoàn toàn vùng đó tới khi bác sĩ cho phép.'],
+      ungthu:     ['Đang điều trị ung thư','Massage sâu, giác hơi',           'Cần chỉ định của bác sĩ điều trị. Chỉ làm nhẹ nhàng thư giãn.']
+    };
+    const RISK = { thugian:['timmach'], toanthan:['loangxuong','ungthu','mangthai'],
+      coxuong:['loangxuong','thoatvi','moigan'], chan:['tieuduong'], sacdep:['mangthai'],
+      vaigay:['thoatvi'], phocap:['loangxuong','ungthu'] };
+    const cl = s.client;
+    const avoids = (RISK[cl.svc] || []).filter(k => cl.conds.includes(k))
+      .map(k => ({ what: CONDS[k][1], why: CONDS[k][2], cond: CONDS[k][0] }));
+    const prepVals = {
+      avoids, hasAvoid: avoids.length > 0,
+      condChips: cl.conds.map(k => ({ t: CONDS[k] ? CONDS[k][0] : k })),
+      sessMeds: cl.meds || 'Không khai',
+      sessAllergy: cl.allergy || 'Không khai',
+      sessLast: cl.last,
+      sessFamNote: cl.famNote
+    };
+
     // ── buổi làm việc (KTV thao tác — app khách chỉ hiển thị) ──
     const sessTaskDefs = [
       { id:'t1', t:'Vận động khớp vai' }, { id:'t2', t:'Tập đi có hỗ trợ' },
@@ -2538,7 +2621,19 @@ theme:s.theme, themeDots,
       // session
       isSession:s.page==='session', goSession:()=>this.go('session'),
       sessIdle:s.sess==='idle', sessRunning:s.sess==='running', sessDone:s.sess==='done',
-      startSession:()=>this.setState({sess:'running'}), endSession:()=>this.setState({sess:'done'}),
+      // Chỉ cho check-in khi đã gõ đúng mã khách đọc. Gõ sai thì báo ngay chứ
+      // không chờ tới lúc bấm nút.
+      startSession:()=>{
+        if (s.codeInput.replace(/\D/g,'') === s.sessCode) this.setState({sess:'running', codeErr:false});
+        else this.setState({codeErr:true});
+      },
+      endSession:()=>this.setState({sess:'done'}),
+      codeInput: s.codeInput, codeErr: s.codeErr,
+      onCode:(e)=>this.setState({ codeInput:e.target.value.replace(/\D/g,'').slice(0,4), codeErr:false }),
+      codeBd: s.codeErr ? 'var(--dangerSolid)' : (s.codeInput.length===4 ? 'var(--primary)' : 'var(--line)'),
+      checkinBg: s.codeInput.length===4 ? 'var(--primary)' : 'var(--line2)',
+      checkinFg: s.codeInput.length===4 ? 'var(--on-primary)' : 'var(--muted)',
+      ...prepVals,
       sessLabel: s.sess==='idle' ? 'Chưa bắt đầu' : s.sess==='running' ? 'Đang diễn ra' : 'Đã kết thúc',
       sessTimer: s.sess==='idle' ? '00:00' : s.sess==='running' ? '15:00' : '58:00',
       sessHint: s.sess==='idle' ? 'Bấm check-in khi đã tới nơi' : s.sess==='running' ? 'Ghi nội dung đã làm bên dưới' : 'Đã gửi báo cáo cho gia đình',
