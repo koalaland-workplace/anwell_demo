@@ -287,6 +287,9 @@
   .hideSm{display:none}
   .hdrow{display:none}
   .payrow{display:grid;grid-template-columns:1.7fr .9fr;gap:10px}
+  .paytbl{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:10px}
+  .svctbl{display:grid;grid-template-columns:1.7fr .9fr .9fr;gap:9px}
+  .rolerow{display:grid;grid-template-columns:1.9fr repeat(5,1fr);gap:8px}
   .pkgrow{display:grid;grid-template-columns:1.4fr 1fr;gap:10px}
   @media(min-width:820px){
     .rail{display:flex}
@@ -299,6 +302,8 @@
     .hideSm{display:block}
     .hdrow{display:flex}
     .payrow{grid-template-columns:1.4fr .7fr .8fr .8fr .8fr .9fr;gap:8px}
+    .paytbl{grid-template-columns:1.7fr .9fr 1fr 1fr 1fr;gap:10px}
+    .svctbl{grid-template-columns:2fr .9fr .8fr .8fr .9fr .8fr .8fr 1fr;gap:9px}
     .pkgrow{grid-template-columns:1.5fr 1.6fr 1fr .9fr;gap:10px}
   }
 
@@ -1107,6 +1112,100 @@
         </div>
       </sc-if>
 
+      <!-- ══ QUY ĐỊNH LƯƠNG KHOÁN ══
+           Tách hẳn khỏi bảng giá: giá là chuyện với khách, lương khoán là
+           chuyện với kỹ thuật viên. Hai thứ đổi độc lập nhau. -->
+      <sc-if value="{{ svcPay2 }}" hint-placeholder-val="{{ false }}">
+        <p style="font-size:12px;color:var(--text2);max-width:640px;margin-bottom:16px">Lương khoán tính trên <b>giá niêm yết sau thuế</b> của dịch vụ, chưa trừ ưu đãi. Bốn tiêu chí quyết định con số: <b>bậc kỹ thuật viên</b>, <b>khung giờ làm</b>, <b>ca tại nhà hay tại cơ sở</b>, và <b>phần trăm tư vấn bán gói</b>.</p>
+
+        <div class="split">
+          <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px">
+            <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:18px">1 · Tỷ lệ theo bậc</div>
+            <p style="font-size:11px;color:var(--text3);margin-top:3px">Nền tảng chặn cứng 30–45%. Bậc do ANWELL cấp, trung tâm không tự phong.</p>
+            <div style="display:flex;flex-direction:column;gap:9px;margin-top:12px">
+              <sc-for list="{{ payRates }}" as="r" hint-placeholder-count="3">
+                <div style="display:flex;align-items:center;gap:10px;padding:11px 13px;border-radius:11px;background:var(--surface2)">
+                  <span style="flex:none;font-size:9px;font-weight:700;color:#06140F;background:var(--gold);padding:3px 10px;border-radius:99px">{{ r.tier }}</span>
+                  <span style="flex:1"></span>
+                  <span style="flex:none;display:flex;align-items:center;gap:7px">
+                    <button sc-camel-on-click="{{ r.down }}" style="width:26px;height:26px;border-radius:8px;background:var(--surface);color:var(--text2);font-size:14px;font-weight:700">−</button>
+                    <span style="min-width:46px;text-align:center;font-size:13px;font-weight:700;color:var(--primary)">{{ r.v }}</span>
+                    <button sc-camel-on-click="{{ r.up }}" style="width:26px;height:26px;border-radius:8px;background:var(--surface);color:var(--text2);font-size:14px;font-weight:700">+</button>
+                  </span>
+                </div>
+              </sc-for>
+            </div>
+
+            <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:18px;margin-top:20px">2 · Phụ trội theo khung giờ</div>
+            <p style="font-size:11px;color:var(--text3);margin-top:3px">Cộng vào <b>lương khoán</b>, không cộng vào giá bán. Ca tối ít người nhận nên phải trả thêm.</p>
+            <div style="display:flex;flex-direction:column;gap:9px;margin-top:12px">
+              <sc-for list="{{ slotBonus }}" as="b" hint-placeholder-count="3">
+                <div style="display:flex;align-items:center;gap:10px;padding:11px 13px;border-radius:11px;background:var(--surface2)">
+                  <span style="flex:1;min-width:0">
+                    <span style="display:block;font-size:12px;font-weight:600">{{ b.k }}</span>
+                    <span style="display:block;font-size:10.5px;color:var(--text3);margin-top:2px">{{ b.d }}</span>
+                  </span>
+                  <span style="flex:none;font-size:12.5px;font-weight:700;color:{{ b.c }}">{{ b.v }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+
+          <div>
+            <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px">
+              <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:18px">3 · Phần trăm tư vấn bán gói</div>
+              <p style="font-size:11px;color:var(--text3);margin-top:3px">Khi khách mua gói do kỹ thuật viên tư vấn.</p>
+              <div style="display:flex;align-items:center;gap:10px;margin-top:12px;padding:12px 14px;border-radius:11px;background:var(--surface2)">
+                <span style="flex:1;font-size:12px;color:var(--text2)">Tính trên giá trị gói</span>
+                <span style="flex:none;display:flex;align-items:center;gap:7px">
+                  <button sc-camel-on-click="{{ pkgCommDown }}" style="width:26px;height:26px;border-radius:8px;background:var(--surface);color:var(--text2);font-size:14px;font-weight:700">−</button>
+                  <span style="min-width:46px;text-align:center;font-size:13px;font-weight:700;color:var(--primary)">{{ pkgComm }}</span>
+                  <button sc-camel-on-click="{{ pkgCommUp }}" style="width:26px;height:26px;border-radius:8px;background:var(--surface);color:var(--text2);font-size:14px;font-weight:700">+</button>
+                </span>
+              </div>
+              <p style="font-size:10.5px;line-height:1.6;color:var(--text3);margin-top:9px">Giữ thấp có chủ đích: cao quá thì kỹ thuật viên ép khách mua gói không cần, khách bỏ đi và trung tâm mất nhiều hơn khoản hoa hồng tiết kiệm được.</p>
+
+              <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:18px;margin-top:20px">4 · Phụ cấp ca tại nhà</div>
+              <div style="display:flex;align-items:center;gap:10px;margin-top:10px;padding:12px 14px;border-radius:11px;background:var(--surface2)">
+                <span style="flex:1;font-size:12px;color:var(--text2)">Mỗi ca ngoài cơ sở</span>
+                <span style="flex:none;display:flex;align-items:center;gap:7px">
+                  <button sc-camel-on-click="{{ homeDown }}" style="width:26px;height:26px;border-radius:8px;background:var(--surface);color:var(--text2);font-size:14px;font-weight:700">−</button>
+                  <span style="min-width:56px;text-align:center;font-size:13px;font-weight:700;color:var(--primary)">{{ homeAllow }}</span>
+                  <button sc-camel-on-click="{{ homeUp }}" style="width:26px;height:26px;border-radius:8px;background:var(--surface);color:var(--text2);font-size:14px;font-weight:700">+</button>
+                </span>
+              </div>
+              <p style="font-size:10.5px;line-height:1.6;color:var(--text3);margin-top:9px">Bù thời gian di chuyển và chi phí đi lại. Không có khoản này thì không ai nhận ca xa, và giá bán ca tại nhà phải cao hơn tương ứng.</p>
+            </div>
+          </div>
+        </div>
+
+        <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:22px 0 10px">Bảng tra · lương khoán mỗi buổi</p>
+        <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden">
+          <div class="hdrow paytbl" style="padding:12px 16px;border-bottom:1px solid var(--line);font-size:9.5px;font-weight:700;letter-spacing:.1em;color:var(--text3);text-transform:uppercase">
+            <span>Dịch vụ</span><span>Cơ sở tính</span><span>Bậc 1</span><span>Bậc 2</span><span>Bậc 3</span>
+          </div>
+          <sc-for list="{{ payTable }}" as="r" hint-placeholder-count="3">
+            <div class="paytbl" style="padding:13px 16px;border-bottom:1px solid var(--line2);align-items:center">
+              <span style="min-width:0">
+                <span style="display:block;font-size:12.5px;font-weight:600">{{ r.t }}</span>
+                <span style="display:block;font-size:10px;color:var(--text3);margin-top:2px">Giá niêm yết {{ r.price }}</span>
+              </span>
+              <span style="font-size:12px;font-weight:600;color:var(--text2)">{{ r.base }}</span>
+              <sc-for list="{{ r.cells }}" as="c" hint-placeholder-count="3">
+                <span style="min-width:0">
+                  <span style="display:block;font-size:12.5px;font-weight:700;color:{{ c.c }}">{{ c.v }}</span>
+                  <span style="display:block;font-size:9.5px;color:var(--text3)">{{ c.r }} · tối {{ c.night }}</span>
+                </span>
+              </sc-for>
+            </div>
+          </sc-for>
+        </div>
+        <div style="background:var(--surface2);border-radius:12px;padding:14px 16px;margin-top:14px">
+          <p style="font-size:11.5px;line-height:1.65;color:var(--text2)">Cột <b>tối</b> là số sau khi cộng phụ trội khung 19–22h. Ca tại nhà cộng thêm {{ homeAllow }} nữa.</p>
+          <p style="font-size:11.5px;line-height:1.65;color:var(--text2);margin-top:7px">Quy định này áp cho <b>mọi dịch vụ và mọi gói</b>. Muốn một dịch vụ trả khác thì đặt riêng ở tab Định mức vật tư — vẫn bị chặn trong 30–45%.</p>
+        </div>
+      </sc-if>
+
       <!-- ══ VẬT TƯ MỖI BUỔI ══
            Định mức tiêu hao. Có nó thì số tồn kho tự trừ theo buổi đã làm, và
            ra được giá vốn mỗi buổi — bước đầu để sau này tính lợi nhuận thật. -->
@@ -1232,6 +1331,60 @@
           </sc-for>
         </div>
       </sc-if>
+
+        <!-- ══ KẾT QUẢ THEO DỊCH VỤ ══
+             Tổng hợp cả tháng: mỗi dòng một dịch vụ hoặc gói, trừ dần tới phần
+             trung tâm thật sự giữ lại. -->
+        <sc-if value="{{ finBySvc }}" hint-placeholder-val="{{ false }}">
+          <p style="font-size:12px;color:var(--text2);max-width:640px;margin-bottom:16px">Tháng 7/2026. Mỗi dòng là một dịch vụ lẻ hoặc một gói, trừ dần theo đúng thứ tự: <b>tổng thu → ưu đãi → thuế → lương khoán → hoa hồng tư vấn gói → vật tư</b>.</p>
+
+          <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:16px">
+            <div class="hdrow svctbl" style="padding:12px 16px;border-bottom:1px solid var(--line);font-size:9.5px;font-weight:700;letter-spacing:.1em;color:var(--text3);text-transform:uppercase">
+              <span>Dịch vụ / gói</span><span>Tổng thu</span><span>Ưu đãi</span><span>Thuế</span><span>Lương</span><span>Hoa hồng</span><span>Vật tư</span><span>Còn lại</span>
+            </div>
+            <sc-for list="{{ bySvc }}" as="r" hint-placeholder-count="5">
+              <div class="svctbl" style="padding:13px 16px;border-bottom:1px solid var(--line2);align-items:center">
+                <span style="min-width:0">
+                  <span style="display:flex;align-items:center;gap:7px;flex-wrap:wrap">
+                    <span style="font-size:12.5px;font-weight:600">{{ r.t }}</span>
+                    <span style="flex:none;font-size:9px;font-weight:700;color:{{ r.kFg }};background:{{ r.kBg }};padding:2px 8px;border-radius:99px">{{ r.kind }}</span>
+                  </span>
+                  <span style="display:block;font-size:10px;color:var(--text3);margin-top:2px">{{ r.n }}</span>
+                </span>
+                <span style="font-size:12px;font-weight:600">{{ r.gross }}</span>
+                <span class="hideSm" style="font-size:11.5px;color:var(--text2)">{{ r.disc }}</span>
+                <span class="hideSm" style="font-size:11.5px;color:var(--text2)">{{ r.tax }}</span>
+                <span class="hideSm" style="font-size:11.5px;color:var(--text2)">{{ r.labor }}</span>
+                <span class="hideSm" style="font-size:11.5px;color:var(--text2)">{{ r.comm }}</span>
+                <span class="hideSm" style="font-size:11.5px;color:var(--text2)">{{ r.mat }}</span>
+                <span style="min-width:0">
+                  <span style="display:block;font-size:12.5px;font-weight:700;color:{{ r.pctC }}">{{ r.left }}</span>
+                  <span style="display:block;font-size:9.5px;color:{{ r.pctC }}">{{ r.pct }}</span>
+                </span>
+              </div>
+            </sc-for>
+          </div>
+
+          <div class="split">
+            <div style="background:var(--surface);border:1px solid var(--primary);border-radius:14px;padding:18px">
+              <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:18px;color:var(--primary)">Tổng hợp toàn trung tâm</div>
+              <div style="display:flex;flex-direction:column;margin-top:12px">
+                <sc-for list="{{ bySvcTotal }}" as="r" hint-placeholder-count="8">
+                  <div style="display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid var(--line2)">
+                    <span style="font-size:12.5px;font-weight:{{ r.wt }};color:{{ r.fg }}">{{ r.k }}</span>
+                    <span style="flex:none;font-size:13px;font-weight:{{ r.wt }};color:{{ r.fg }}">{{ r.v }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+            <div style="background:var(--surface2);border-radius:14px;padding:18px">
+              <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:18px">Đọc bảng này thế nào</div>
+              <p style="font-size:11.5px;line-height:1.7;color:var(--text2);margin-top:9px">Cột <b>Còn lại</b> dưới 20% là đỏ. Nguyên nhân thường là một trong ba: ưu đãi quá sâu, lương khoán đặt cao hơn mức dịch vụ chịu được, hoặc giá bán chưa theo kịp chi phí vật tư.</p>
+              <p style="font-size:11.5px;line-height:1.7;color:var(--text2);margin-top:8px">Gói có thêm cột <b>hoa hồng tư vấn</b> mà dịch vụ lẻ không có — đó là phần trả cho kỹ thuật viên đã thuyết phục khách mua nhiều buổi một lần.</p>
+              <p style="font-size:11.5px;line-height:1.7;color:var(--text2);margin-top:8px">Số này <b>chưa trừ</b> phí nền tảng, thuê nhà, điện nước và lương lễ tân. Phí nền tảng xem ở tab Đối soát bên cạnh.</p>
+            </div>
+          </div>
+        </sc-if>
 
         <!-- ══ ĐỐI SOÁT NỀN TẢNG ══
              Trung tâm trả gì cho ANWELL và nhận lại gì. Để mờ chỗ này thì
@@ -2126,6 +2279,52 @@
         </div>
       </sc-if>
 
+      <!-- ══ VAI TRÒ & QUYỀN ══
+           Ma trận việc × vai trò, mỗi ô bật tắt riêng. Chia theo trách nhiệm
+           công việc chứ không theo chức danh — một người giữ hai vai được, và
+           trung tâm nhỏ thì chủ ôm hết. -->
+      <sc-if value="{{ setRoles }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px">
+          <p style="font-size:12px;color:var(--text2);max-width:600px">Vai trò chia theo <b>trách nhiệm công việc</b>, không theo chức danh. Năm vai dưới đây chỉ là gợi ý — thêm bớt được, và mỗi ô bật tắt riêng. Trung tâm nhỏ thì một người giữ hai ba vai là bình thường.</p>
+          <button sc-camel-on-click="{{ addRole }}" style="flex:none;padding:10px 16px;border-radius:10px;background:var(--primary);color:var(--on-primary);font-size:12.5px;font-weight:600;white-space:nowrap">+ Thêm vai trò</button>
+        </div>
+
+        <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow-x:auto">
+          <div style="min-width:640px">
+            <div class="rolerow" style="padding:12px 16px;border-bottom:1px solid var(--line);background:var(--bg)">
+              <span style="font-size:9.5px;font-weight:700;letter-spacing:.1em;color:var(--text3);text-transform:uppercase">Đầu việc</span>
+              <sc-for list="{{ roleCols }}" as="c" hint-placeholder-count="5">
+                <span style="text-align:center;min-width:0">
+                  <span style="display:block;font-size:10.5px;font-weight:700;color:var(--text2);line-height:1.25">{{ c.t }}</span>
+                  <span style="display:block;font-size:9px;color:var(--text3);margin-top:2px">{{ c.n }}</span>
+                </span>
+              </sc-for>
+            </div>
+            <sc-for list="{{ roleRows }}" as="r" hint-placeholder-count="13">
+              <div class="rolerow" style="padding:11px 16px;border-bottom:1px solid var(--line2);align-items:center">
+                <span style="font-size:12px;color:var(--text);min-width:0">{{ r.t }}</span>
+                <sc-for list="{{ r.cells }}" as="c" hint-placeholder-count="5">
+                  <span style="display:grid;place-items:center">
+                    <button sc-camel-on-click="{{ c.toggle }}" aria-label="Bật tắt quyền" style="width:22px;height:22px;border-radius:6px;background:{{ c.bg }};border:1.5px solid {{ c.bd }};display:grid;place-items:center;color:#fff;font-size:12px;font-weight:700">{{ c.tick }}</button>
+                  </span>
+                </sc-for>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div class="split" style="margin-top:14px">
+          <div style="background:var(--surface2);border-radius:12px;padding:15px 16px">
+            <div style="font-size:12px;font-weight:700;color:var(--text2)">{{ roleNote }}</div>
+            <p style="font-size:11.5px;line-height:1.65;color:var(--text2);margin-top:7px">Bỏ tick <b>Chỉnh điểm khách, bán gói</b> khỏi lễ tân thì nút Điều chỉnh ở hồ sơ khách biến mất với tài khoản đó — không phải ẩn đi cho đẹp, mà thật sự không bấm được.</p>
+          </div>
+          <div style="background:var(--surface2);border-radius:12px;padding:15px 16px">
+            <p style="font-size:11.5px;line-height:1.65;color:var(--text2)">Hai đầu việc nên cân nhắc kỹ trước khi giao rộng: <b>Đặt giá dịch vụ và lương khoán</b> và <b>Chốt bảng lương</b>. Đó là hai chỗ đụng thẳng vào tiền của cả trung tâm lẫn kỹ thuật viên.</p>
+            <p style="font-size:11.5px;line-height:1.65;color:var(--text2);margin-top:7px">Mọi thay đổi ở đây đều vào <b>Nhật ký thao tác</b> ở tab bên cạnh.</p>
+          </div>
+        </div>
+      </sc-if>
+
       <!-- ══ NHẬT KÝ THAO TÁC ══
            Trung tâm có nhiều tài khoản nhân viên, và có những nút đụng tới tiền
            và điểm của khách. Không có sổ ghi ai làm gì thì mọi tranh cãi về sau
@@ -2222,6 +2421,22 @@ class Component extends DCLogic {
     ],
     fbPhone:'', fbNewName:'', fbSvc:null, fbSlot:null, fbDone:false,
     adjT2:70, adjT3:150, logKind:'all',
+    // Vai trò do trung tâm tự đặt, không cố định. Năm cái dưới đây chỉ là mẫu
+    // gợi ý theo trách nhiệm công việc chứ không theo chức danh.
+    roles:[
+      { k:'gd',  t:'Giám đốc',        n:1 },
+      { k:'ad',  t:'ADMIN',           n:1 },
+      { k:'ca',  t:'Quản lý ca · lễ tân', n:3 },
+      { k:'sm',  t:'Social Media',    n:1 },
+      { k:'vt',  t:'Quản lý vật tư',  n:1 }
+    ],
+    perms:{
+      gd:['g1','g2','g3','g4','g5','g6','g7','g8','g9','g10','g11','g12','g13'],
+      ad:['g1','g2','g3','g4','g5','g6','g8','g10','g11','g12','g13'],
+      ca:['g1','g2','g3','g5','g6'],
+      sm:['g1','g5','g7'],
+      vt:['g1','g11']
+    },
     // null = theo bậc dịch vụ yêu cầu; số = tỷ lệ riêng, vẫn trong 30–45%
     svcPay:{ s1:null, s2:null, s3:42 },
     // Kỹ thuật viên được chia theo TỶ LỆ trên giá trị sau thuế, không phải
@@ -2410,6 +2625,11 @@ class Component extends DCLogic {
       fbSubmit: () => ready ? this.setState({ fbDone:true, fbPhone:'', fbNewName:'', fbSvc:null, fbSlot:null }) : null,
       fbDone: s.fbDone
     };
+  }
+  togglePerm(role, job){
+    const cur = this.state.perms[role] || [];
+    const next = cur.includes(job) ? cur.filter(x => x !== job) : [...cur, job];
+    this.setState({ perms: {...this.state.perms, [role]: next} });
   }
   setSvcPay(id, v){
     const c = v == null ? null : Math.min(45, Math.max(30, v));
@@ -2882,6 +3102,41 @@ class Component extends DCLogic {
           })()
         };
       })(),
+      // ── Vai trò & quyền ─────────────────────────────────────────
+      // Chia theo TRÁCH NHIỆM CÔNG VIỆC, không theo chức danh: một người có
+      // thể giữ hai vai, và trung tâm nhỏ thì chủ ôm hết. Vai trò không cố
+      // định — thêm bớt được, và mỗi ô trong ma trận bật tắt riêng.
+      ...(() => {
+        const JOBS = [
+          ['g1','Xem tổng quan và báo cáo'],
+          ['g2','Đặt lịch hộ khách, đánh dấu khách đến'],
+          ['g3','Duyệt yêu cầu đổi/huỷ lịch'],
+          ['g4','Xử lý sự cố và phân xử giờ'],
+          ['g5','Xem hồ sơ khách và lịch sử buổi'],
+          ['g6','Chỉnh điểm khách, bán gói'],
+          ['g7','Tạo ưu đãi, gửi ZNS/SMS'],
+          ['g8','Nhận đăng ký và quản lý kỹ thuật viên'],
+          ['g9','Đặt giá dịch vụ và lương khoán'],
+          ['g10','Chốt bảng lương'],
+          ['g11','Quản lý kho vật tư và thiết bị'],
+          ['g12','Xem doanh thu và đối soát nền tảng'],
+          ['g13','Sửa cấu hình, thuế và vai trò']
+        ];
+        return {
+          roleCols: s.roles.map(r => ({ t:r.t, n: r.n + ' người' })),
+          roleRows: JOBS.map(([k,t]) => ({ t,
+            cells: s.roles.map(r => {
+              const on = (s.perms[r.k] || []).includes(k);
+              return { tick: on ? '✓' : '',
+                bg: on ? 'var(--primary)' : 'var(--surface)',
+                bd: on ? 'var(--primary)' : 'var(--muted)',
+                toggle: () => this.togglePerm(r.k, k) };
+            }) })),
+          addRole: () => {},
+          roleNote: s.roles.length + ' vai trò · ' + JOBS.length + ' đầu việc'
+        };
+      })(),
+
       // ── Nhật ký thao tác ────────────────────────────────────────
       ...(() => {
         const KINDS = [['all','Tất cả'],['money','Tiền'],['sched','Lịch'],['points','Điểm khách'],['cfg','Cấu hình']];
@@ -2913,8 +3168,9 @@ class Component extends DCLogic {
         ];
         const rows = s.logKind === 'all' ? LOGS : LOGS.filter(l => l.k === s.logKind);
         return {
-          setTabs: this.tabBar('settings', [['gen','Cấu hình chung'], ['log','Nhật ký thao tác']]),
+          setTabs: this.tabBar('settings', [['gen','Cấu hình chung'], ['roles','Vai trò & quyền'], ['log','Nhật ký thao tác']]),
           setGeneral: this.tabOf('settings','gen') === 'gen',
+          setRoles: this.tabOf('settings','gen') === 'roles',
           setLog: this.tabOf('settings','gen') === 'log',
           logFilters: KINDS.map(([k,t]) => ({ t,
             pick: () => this.setState({ logKind:k }),
@@ -2945,6 +3201,13 @@ class Component extends DCLogic {
         // Đường đi của tiền cho từng dịch vụ. promo là ưu đãi đang chạy áp
         // cho dịch vụ đó; vat là thuế GTGT tính trên số khách trả SAU giảm.
         const VAT = 8;
+        // Phụ trội khung giờ áp lên phần lương khoán, không áp lên giá bán.
+        // Ca tối khó tuyển người nên phải trả thêm; ca chiều vắng thì không.
+        const SLOT_BONUS = [
+          { k:'Sáng 8–14h',   v:0,  d:'Khung dễ xếp người nhất' },
+          { k:'Chiều 14–19h', v:0,  d:'Khung thường' },
+          { k:'Tối 19–22h',   v:10, d:'Ít người nhận, phải trả thêm' }
+        ];
         const COSTS = [
           { id:'s1', t:'Trị liệu cổ vai gáy 60′', price:450, promo:15, tier:2,
             promoNote:'Đang áp ưu đãi giảm 15% khung 14–16h',
@@ -2958,8 +3221,8 @@ class Component extends DCLogic {
         ];
         const money = (n) => n.toLocaleString('vi-VN') + 'k';
         return {
-          svcTabs: this.tabBar('services', [['price','Bảng giá'], ['cost','Lương & giá vốn theo dịch vụ']]),
-          svcPrice: tab==='price', svcCost: tab==='cost',
+          svcTabs: this.tabBar('services', [['price','Bảng giá & gói'], ['pay','Lương khoán KTV'], ['cost','Định mức vật tư']]),
+          svcPrice: tab==='price', svcPay2: tab==='pay', svcCost: tab==='cost',
           tierAdj: TIERS.map(a => ({ tier:a.tier, d:a.d, c:a.c,
             v: a.v === 0 ? '—' : '+' + a.v + 'k',
             up:   () => a.k === 't1' ? null : this.stepAdj(a.k, 1),
@@ -2968,6 +3231,35 @@ class Component extends DCLogic {
           priceExample: 'Trị liệu cổ vai gáy 60′ với kỹ thuật viên Bậc 2 lúc 20h: 450k + '
             + s.adjT2 + 'k + 10% = ' + Math.round((450 + s.adjT2) * 1.1) + 'k. Cùng dịch vụ đó lúc 15h với Bậc 1: '
             + Math.round(450 * 0.85) + 'k.',
+          // ── Quy định lương khoán ──
+          slotBonus: SLOT_BONUS.map(x => ({ k:x.k, d:x.d,
+            v: x.v ? '+' + x.v + '% lương khoán' : 'không phụ trội',
+            c: x.v ? 'var(--accent)' : 'var(--text3)' })),
+          payRates: [1,2,3].map(t => ({
+            tier: 'Bậc ' + t,
+            v: [s.payR1, s.payR2, s.payR3][t-1] + '%',
+            up:   () => this.stepPay('r' + t, 1),
+            down: () => this.stepPay('r' + t, -1) })),
+          pkgComm: s.payPkg + '%',
+          pkgCommUp:   () => this.stepPay('pkg', 1),
+          pkgCommDown: () => this.stepPay('pkg', -1),
+          homeAllow: s.payHome + 'k/ca',
+          homeUp:   () => this.stepPay('home', 1),
+          homeDown: () => this.stepPay('home', -1),
+          // Bảng tra: mỗi dịch vụ ra số tiền khoán cụ thể theo từng bậc.
+          payTable: COSTS.map(c => {
+            const base = c.price - Math.round(c.price * VAT / 100);
+            const own  = s.svcPay[c.id];
+            return { t:c.t, base: money(base), price: money(c.price),
+              own: own != null, ownV: own != null ? (own + '%') : '',
+              cells: [1,2,3].map(t => {
+                const r = own != null ? own : [s.payR1, s.payR2, s.payR3][t-1];
+                const v = Math.round(base * r / 100);
+                return { r: r + '%', v: money(v),
+                  night: money(Math.round(v * 1.1)),
+                  c: t === 3 ? 'var(--accent)' : 'var(--text)' };
+              }) };
+          }),
           svcCosts: COSTS.map(c => {
             const disc  = Math.round(c.price * c.promo / 100);
             const paid  = c.price - disc;
@@ -3195,8 +3487,61 @@ class Component extends DCLogic {
           ],
           sources: SRC.map(o => ({ ...o, pct: Math.round(o.n/total*100) + '%' })),
 
-          finTabs: this.tabBar('finance', [['rev','Doanh thu'], ['recon','Đối soát nền tảng']]),
-          finRev: finTab==='rev', finRecon: finTab==='recon',
+          finTabs: this.tabBar('finance', [['rev','Doanh thu'], ['bysvc','Kết quả theo dịch vụ'], ['recon','Đối soát nền tảng']]),
+          finRev: finTab==='rev', finBySvc: finTab==='bysvc', finRecon: finTab==='recon',
+          // Tổng hợp cả tháng theo từng dịch vụ và gói: tổng thu trừ dần tới
+          // phần trung tâm thật sự giữ lại.
+          ...(() => {
+            const VAT = 8;
+            const R = [
+              { t:'Trị liệu cổ vai gáy 60′', kind:'Lẻ',  n:412, price:450, promo:15, tier:2, mat:28 },
+              { t:'Vật lý trị liệu 45′',     kind:'Lẻ',  n:286, price:380, promo:0,  tier:2, mat:41 },
+              { t:'Massage thư giãn 90′',    kind:'Lẻ',  n:198, price:620, promo:0,  tier:1, mat:52 },
+              { t:'Gói Trị liệu cổ vai gáy · 8 buổi', kind:'Gói', n:184, price:380, promo:0, tier:2, mat:28, pkg:true },
+              { t:'Gói Phục hồi sau đột quỵ · 20 buổi', kind:'Gói', n:104, price:600, promo:0, tier:3, mat:34, pkg:true }
+            ];
+            const RATE = [s.payR1, s.payR2, s.payR3];
+            const rows = R.map(r => {
+              const gross = r.n * r.price;
+              const disc  = Math.round(gross * r.promo / 100);
+              const paid  = gross - disc;
+              const tax   = Math.round(paid * VAT / 100);
+              const net   = paid - tax;
+              const base  = r.n * (r.price - Math.round(r.price * VAT / 100));
+              const labor = Math.round(base * RATE[r.tier - 1] / 100);
+              const comm  = r.pkg ? Math.round(paid * s.payPkg / 100) : 0;
+              const mat   = r.n * r.mat;
+              const left  = net - labor - comm - mat;
+              return { ...r, gross, disc, paid, tax, net, labor, comm, mat, left,
+                pct: Math.round(left / gross * 100) };
+            });
+            const S = (k) => rows.reduce((a,r) => a + r[k], 0);
+            const tr = (n) => (n / 1000).toFixed(1).replace('.', ',') + 'tr';
+            return {
+              bySvc: rows.map(r => ({ t:r.t, kind:r.kind,
+                kFg: r.kind === 'Gói' ? 'var(--primary)' : 'var(--text2)',
+                kBg: r.kind === 'Gói' ? 'var(--tint)' : 'var(--surface2)',
+                n: r.n + ' buổi',
+                gross: tr(r.gross),
+                disc: r.disc ? '−' + tr(r.disc) : '—',
+                tax: '−' + tr(r.tax),
+                labor: '−' + tr(r.labor),
+                comm: r.comm ? '−' + tr(r.comm) : '—',
+                mat: '−' + tr(r.mat),
+                left: tr(r.left), pct: r.pct + '%',
+                pctC: r.pct < 20 ? 'var(--danger)' : r.pct < 30 ? 'var(--accent)' : 'var(--primary)' })),
+              bySvcTotal: [
+                { k:'Tổng thu theo giá niêm yết', v: tr(S('gross')), fg:'var(--text)', wt:'700' },
+                { k:'− Ưu đãi đã áp',             v:'−' + tr(S('disc')), fg:'var(--danger)', wt:'500' },
+                { k:'= Khách trả thực',           v: tr(S('paid')), fg:'var(--text)', wt:'700' },
+                { k:'− Thuế GTGT ' + VAT + '%',   v:'−' + tr(S('tax')), fg:'var(--danger)', wt:'500' },
+                { k:'− Lương khoán kỹ thuật viên',v:'−' + tr(S('labor')), fg:'var(--danger)', wt:'500' },
+                { k:'− Hoa hồng tư vấn bán gói',  v:'−' + tr(S('comm')), fg:'var(--danger)', wt:'500' },
+                { k:'− Chi phí vật tư',           v:'−' + tr(S('mat')), fg:'var(--danger)', wt:'500' },
+                { k:'= Trung tâm còn lại',        v: tr(S('left')) + ' · ' + Math.round(S('left')/S('gross')*100) + '%', fg:'var(--primary)', wt:'700' }
+              ]
+            };
+          })(),
           reconOut: [
             { k:'Chiết khấu nền tảng 15%', v:'−31,9tr', d:'Chỉ tính trên 486 buổi khách đến từ app ANWELL, không tính khách bạn tự có', fg:'var(--text)', wt:'600' },
             { k:'Chi phí thưởng ANP · phần của bạn', v:'−3,6tr', d:'42 lượt đổi tại cơ sở bạn · bạn chịu 60%, ANWELL chịu 40%', fg:'var(--text)', wt:'600' },
