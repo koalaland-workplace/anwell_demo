@@ -381,7 +381,11 @@
               <p style="font-size:11px;color:var(--text3);font-style:italic;margin:8px 0 0">Verified wellness, one tap away.</p>
             </div>
             <button sc-camel-on-click="{{ goExplore }}" style="background:var(--primary);color:var(--on-primary);border-radius:var(--r-sm);padding:15px;font-weight:600;font-size:15px;width:100%">Khám phá ANWELL · Bắt đầu</button>
-            <p style="text-align:center;font-size:12px;color:var(--text2);margin:14px 0 0">Đã có tài khoản? <b style="color:var(--accent)">Đăng nhập</b></p>
+            <!-- Hai lối vào rõ ràng: xem trước không cần tài khoản, hoặc đăng ký
+                 / đăng nhập ngay. Cùng một màn xác thực số điện thoại phục vụ
+                 cả hai — người mới thì tạo tài khoản, người cũ thì nhận lại. -->
+            <button sc-camel-on-click="{{ goAuth }}" style="background:var(--surface);color:var(--primary);border:1.5px solid var(--primary);border-radius:var(--r-sm);padding:15px;font-weight:600;font-size:15px;width:100%;margin-top:10px">Đăng ký · Đăng nhập</button>
+            <p style="text-align:center;font-size:11px;line-height:1.6;color:var(--text3);margin:14px 0 0">Đăng nhập bằng số điện thoại — không cần mật khẩu.<br>Có tài khoản rồi thì hệ thống tự nhận ra bạn.</p>
           </sc-if>
 
           
@@ -438,12 +442,12 @@
         <div class="body pad view">
           <div style="display:flex;align-items:center;gap:10px;padding:12px 0 4px">
             <button sc-camel-on-click="{{ verifyBack }}" style="width:36px;height:36px;border-radius:50%;border:1px solid var(--border);display:grid;place-items:center;color:var(--text2)"><svg sc-camel-view-box="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5l-7 7 7 7"></path></svg></button>
-            <span class="lo" style="color:var(--text)">Xác thực để đặt lịch</span>
+            <span class="lo" style="color:var(--text)">{{ verifyTitle }}</span>
           </div>
 
           <sc-if value="{{ verifyInfo }}" hint-placeholder-val="{{ true }}">
             <h1 style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:24px;line-height:1.18;margin:16px 0 0">Cho ANWELL biết <span style="font-style:italic;color:var(--accent)">bạn là ai</span></h1>
-            <p style="font-size:12px;color:var(--text3);line-height:1.55;margin:6px 0 0">Để giữ lịch và liên hệ khi kỹ thuật viên đến, vui lòng cung cấp thông tin và xác thực số điện thoại.</p>
+            <p style="font-size:12px;color:var(--text3);line-height:1.55;margin:6px 0 0">{{ verifyLead }}</p>
             <p style="font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--text3);margin:22px 0 8px">HỌ TÊN</p>
             <input value="{{ vName }}" sc-camel-on-input="{{ onVName }}" placeholder="Nguyễn Văn A" style="width:100%;padding:13px 14px;border-radius:var(--r-sm);border:1px solid var(--card-border);background:var(--surface);color:var(--text);font-size:14px;font-family:inherit">
             <p style="font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--text3);margin:16px 0 8px">SỐ ĐIỆN THOẠI</p>
@@ -2936,7 +2940,14 @@ class Component extends DCLogic {
       sendOtp:()=>{ if((s.vName||'').trim() && (s.vPhone||'').trim()) this.setState({verifyStep:'otp'}); },
       sendOtpBg: ((s.vName||'').trim() && (s.vPhone||'').trim()) ? 'var(--primary)' : 'var(--surface2)',
       sendOtpFg: ((s.vName||'').trim() && (s.vPhone||'').trim()) ? 'var(--on-primary)' : 'var(--text3)',
-      verifyBack:()=>{ if(s.verifyStep==='otp') this.setState({verifyStep:'info'}); else this.setState({view: s.pendingAction==='care'?'carebook':'book'}); },
+      verifyBack:()=>{ if(s.verifyStep==='otp') this.setState({verifyStep:'info'});
+        else this.setState({view: s.pendingAction==='auth' ? 'onboard' : (s.pendingAction==='care'?'carebook':'book')}); },
+      goAuth:()=>this.setState({view:'verify', verifyStep:'info', pendingAction:'auth'}),
+      // Tiêu đề màn xác thực đổi theo lý do vào: đăng nhập hay giữ chỗ đặt lịch.
+      verifyTitle: s.pendingAction==='auth' ? 'Đăng ký · Đăng nhập' : 'Xác thực để đặt lịch',
+      verifyLead:  s.pendingAction==='auth'
+        ? 'Nhập số điện thoại để tạo tài khoản mới hoặc đăng nhập. Chưa có tài khoản thì hệ thống tự tạo giúp bạn.'
+        : 'Để giữ lịch và liên hệ khi kỹ thuật viên đến, vui lòng cung cấp thông tin và xác thực số điện thoại.',
       finishVerify:()=>{ const k=s.pendingAction; this.setState({ verified:true, view: k==='care'?'carebook':'book', booked: k==='book'?true:s.booked, careDone: k==='care'?true:s.careDone }); },
       areas, centers, days, slots, summary,
       // pain
