@@ -1025,16 +1025,61 @@
           </sc-for>
         </div>
         <sc-if value="{{ caTab1 }}" hint-placeholder-val="{{ true }}">
-          <p style="font-size:12px;color:var(--text2);max-width:660px;margin-bottom:14px">Bảy loại hình chuẩn. Trung tâm gắn dịch vụ của mình vào đây để khách lọc được trên app — không gắn thì dịch vụ không hiện trong tìm kiếm.</p>
-          <div class="g4">
-            <sc-for list="{{ catSvcs }}" as="c" hint-placeholder-count="7">
-              <div style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px">
-                <div style="font-size:12.5px;font-weight:600">{{ c.t }}</div>
-                <div style="font-size:10px;color:var(--text3);margin-top:3px">mã {{ c.k }} · {{ c.n }}</div>
+          <sc-if value="{{ catNone }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:14px">
+              <p style="font-size:12px;color:var(--text2);max-width:600px">Bảy loại hình chuẩn. Trung tâm gắn dịch vụ của mình vào đây để khách lọc được trên app — không gắn thì dịch vụ không hiện trong tìm kiếm. Nhấp vào một danh mục để xem chi tiết.</p>
+              <button sc-camel-on-click="{{ catAdd }}" style="flex:none;padding:10px 16px;border-radius:10px;background:var(--gold);color:#06140F;font-size:12.5px;font-weight:700;white-space:nowrap">+ Thêm danh mục</button>
+            </div>
+            <div class="g4">
+              <sc-for list="{{ catSvcs }}" as="c" hint-placeholder-count="7">
+                <button sc-camel-on-click="{{ c.open }}" style="width:100%;text-align:left;background:var(--surface);border:1px solid {{ c.bd }};border-radius:12px;padding:14px;opacity:{{ c.dim }}">
+                  <span style="display:flex;align-items:center;gap:7px;flex-wrap:wrap">
+                    <span style="font-size:12.5px;font-weight:600">{{ c.t }}</span>
+                    <sc-if value="{{ c.hasSt }}" hint-placeholder-val="{{ false }}">
+                      <span style="flex:none;font-size:9px;font-weight:700;color:var(--accent);background:var(--goldTint);padding:2px 8px;border-radius:99px">{{ c.stT }}</span>
+                    </sc-if>
+                  </span>
+                  <span style="display:block;font-size:10px;color:var(--text3);margin-top:3px">mã {{ c.k }} · {{ c.n }}</span>
+                </button>
+              </sc-for>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ catOne }}" hint-placeholder-val="{{ false }}">
+            <button sc-camel-on-click="{{ catBack }}" style="display:flex;align-items:center;gap:8px;margin-bottom:14px;font-size:12px;font-weight:600;color:var(--text2)">
+              <span style="width:26px;height:26px;border-radius:50%;background:var(--railBg2);display:grid;place-items:center">‹</span>Về danh sách danh mục
+            </button>
+            <div class="split">
+              <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px">
+                <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px;flex-wrap:wrap">
+                  <div>
+                    <div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:22px">{{ catD.t }}</div>
+                    <div style="font-size:11px;color:var(--text3);margin-top:2px">mã {{ catD.k }}</div>
+                  </div>
+                  <span style="flex:none;font-size:9px;font-weight:700;color:{{ catD.stFg }};background:{{ catD.stBg }};padding:3px 10px;border-radius:99px">{{ catD.stT }}</span>
+                </div>
+                <p style="font-size:12.5px;line-height:1.7;color:var(--text2);margin-top:12px">{{ catD.d }}</p>
+                <div style="margin-top:13px;padding:12px 14px;border-radius:11px;background:var(--railBg2)">
+                  <div style="font-size:10.5px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.1em">Đang được dùng</div>
+                  <div style="font-size:13px;font-weight:600;margin-top:4px">{{ catD.n }}</div>
+                </div>
+                <div style="margin-top:11px;padding:12px 14px;border-radius:11px;background:var(--dangerTint)">
+                  <div style="font-size:10.5px;font-weight:700;color:var(--danger);text-transform:uppercase;letter-spacing:.1em">Chống chỉ định gắn kèm</div>
+                  <div style="font-size:11.5px;line-height:1.6;color:var(--text2);margin-top:4px">{{ catD.avoid }}</div>
+                </div>
               </div>
-            </sc-for>
-          </div>
+
+              <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px">
+                <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:18px">Thao tác</div>
+                <button sc-camel-on-click="{{ catPause }}" style="width:100%;margin-top:13px;padding:12px;border-radius:11px;background:var(--goldTint);color:var(--accent);font-size:12.5px;font-weight:700">{{ catD.pauseT }}</button>
+                <p style="font-size:11px;line-height:1.65;color:var(--text3);margin-top:8px">{{ catD.pauseNote }}</p>
+                <button sc-camel-on-click="{{ catDelete }}" style="width:100%;margin-top:14px;padding:12px;border-radius:11px;background:{{ catD.delBg }};color:{{ catD.delFg }};font-size:12.5px;font-weight:700">Xoá danh mục</button>
+                <p style="font-size:11px;line-height:1.65;color:var(--text3);margin-top:8px">{{ catD.delNote }}</p>
+              </div>
+            </div>
+          </sc-if>
         </sc-if>
+
         <sc-if value="{{ caTab2 }}" hint-placeholder-val="{{ false }}">
           <div style="display:flex;flex-direction:column;gap:10px">
             <sc-for list="{{ catCerts }}" as="c" hint-placeholder-count="4">
@@ -1129,16 +1174,37 @@
           </sc-for>
         </div>
         <sc-if value="{{ plTab1 }}" hint-placeholder-val="{{ true }}">
-          <p style="font-size:12px;color:var(--text2);max-width:660px;margin-bottom:16px">{{ planNote }}</p>
+          <p style="font-size:12px;color:var(--text2);max-width:680px;margin-bottom:16px">{{ planNote }}</p>
+
+          <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:0 0 11px">Gói cho trung tâm</p>
           <div class="split3">
-            <sc-for list="{{ planCards }}" as="p" hint-placeholder-count="3">
+            <sc-for list="{{ planCtr }}" as="p" hint-placeholder-count="3">
               <div style="background:var(--surface);border:1.5px solid {{ p.bd }};border-radius:14px;padding:18px">
-                <div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:21px">{{ p.t }}</div>
-                <div style="display:flex;align-items:baseline;gap:8px;margin-top:6px">
-                  <span style="font-size:15px;font-weight:700;color:var(--gold)">{{ p.fee }}</span>
+                <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px">
+                  <div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:21px">{{ p.t }}</div>
+                  <button sc-camel-on-click="{{ p.toggle }}" style="flex:none;padding:5px 11px;border-radius:8px;background:var(--railBg2);color:var(--text2);font-size:10.5px;font-weight:700;white-space:nowrap">{{ p.editT }}</button>
                 </div>
-                <div style="font-size:11.5px;color:var(--text2);margin-top:4px">Chiết khấu doanh thu <b>{{ p.disc }}</b></div>
-                <div style="font-size:10.5px;color:var(--text3);margin-top:2px">{{ p.n }} đang dùng</div>
+                <sc-if value="{{ p.notEditing }}" hint-placeholder-val="{{ true }}">
+                  <div style="font-size:15px;font-weight:700;color:var(--gold);margin-top:6px">{{ p.fee }}</div>
+                  <div style="font-size:11.5px;color:var(--text2);margin-top:4px">Chiết khấu doanh thu <b>{{ p.disc }}</b></div>
+                </sc-if>
+                <sc-if value="{{ p.editing }}" hint-placeholder-val="{{ false }}">
+                  <div style="margin-top:9px;padding:11px 12px;border-radius:11px;background:var(--railBg2)">
+                    <div style="display:flex;align-items:center;gap:8px">
+                      <span style="flex:1;font-size:11px;color:var(--text3)">Thuê bao/tháng</span>
+                      <button sc-camel-on-click="{{ p.feeDown }}" style="width:24px;height:24px;border-radius:7px;background:var(--surface);color:var(--text2);font-size:13px;font-weight:700">−</button>
+                      <span style="min-width:48px;text-align:center;font-size:12.5px;font-weight:700;color:var(--gold)">{{ p.feeV }}</span>
+                      <button sc-camel-on-click="{{ p.feeUp }}" style="width:24px;height:24px;border-radius:7px;background:var(--surface);color:var(--text2);font-size:13px;font-weight:700">+</button>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:8px;margin-top:8px">
+                      <span style="flex:1;font-size:11px;color:var(--text3)">Chiết khấu</span>
+                      <button sc-camel-on-click="{{ p.discDown }}" style="width:24px;height:24px;border-radius:7px;background:var(--surface);color:var(--text2);font-size:13px;font-weight:700">−</button>
+                      <span style="min-width:48px;text-align:center;font-size:12.5px;font-weight:700;color:var(--gold)">{{ p.discV }}</span>
+                      <button sc-camel-on-click="{{ p.discUp }}" style="width:24px;height:24px;border-radius:7px;background:var(--surface);color:var(--text2);font-size:13px;font-weight:700">+</button>
+                    </div>
+                  </div>
+                </sc-if>
+                <div style="font-size:10.5px;color:var(--text3);margin-top:6px">{{ p.n }} đang dùng</div>
                 <div style="display:flex;flex-direction:column;gap:6px;margin-top:13px;padding-top:13px;border-top:1px solid var(--line)">
                   <sc-for list="{{ p.has }}" as="h" hint-placeholder-count="4">
                     <div style="display:flex;gap:8px"><span style="flex:none;font-size:11px;color:var(--ok)">✓</span><span style="flex:1;font-size:11.5px;color:var(--text2)">{{ h.t }}</span></div>
@@ -1150,7 +1216,50 @@
               </div>
             </sc-for>
           </div>
+
+          <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:26px 0 11px">Gói cho kỹ thuật viên tự do</p>
+          <div class="split3">
+            <sc-for list="{{ planKtv }}" as="p" hint-placeholder-count="3">
+              <div style="background:var(--surface);border:1.5px solid {{ p.bd }};border-radius:14px;padding:18px">
+                <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px">
+                  <div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:21px">{{ p.t }}</div>
+                  <button sc-camel-on-click="{{ p.toggle }}" style="flex:none;padding:5px 11px;border-radius:8px;background:var(--railBg2);color:var(--text2);font-size:10.5px;font-weight:700;white-space:nowrap">{{ p.editT }}</button>
+                </div>
+                <sc-if value="{{ p.notEditing }}" hint-placeholder-val="{{ true }}">
+                  <div style="font-size:15px;font-weight:700;color:var(--gold);margin-top:6px">{{ p.fee }}</div>
+                  <div style="font-size:11.5px;color:var(--text2);margin-top:4px">Chiết khấu doanh thu <b>{{ p.disc }}</b></div>
+                </sc-if>
+                <sc-if value="{{ p.editing }}" hint-placeholder-val="{{ false }}">
+                  <div style="margin-top:9px;padding:11px 12px;border-radius:11px;background:var(--railBg2)">
+                    <div style="display:flex;align-items:center;gap:8px">
+                      <span style="flex:1;font-size:11px;color:var(--text3)">Thuê bao/tháng</span>
+                      <button sc-camel-on-click="{{ p.feeDown }}" style="width:24px;height:24px;border-radius:7px;background:var(--surface);color:var(--text2);font-size:13px;font-weight:700">−</button>
+                      <span style="min-width:48px;text-align:center;font-size:12.5px;font-weight:700;color:var(--gold)">{{ p.feeV }}</span>
+                      <button sc-camel-on-click="{{ p.feeUp }}" style="width:24px;height:24px;border-radius:7px;background:var(--surface);color:var(--text2);font-size:13px;font-weight:700">+</button>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:8px;margin-top:8px">
+                      <span style="flex:1;font-size:11px;color:var(--text3)">Chiết khấu</span>
+                      <button sc-camel-on-click="{{ p.discDown }}" style="width:24px;height:24px;border-radius:7px;background:var(--surface);color:var(--text2);font-size:13px;font-weight:700">−</button>
+                      <span style="min-width:48px;text-align:center;font-size:12.5px;font-weight:700;color:var(--gold)">{{ p.discV }}</span>
+                      <button sc-camel-on-click="{{ p.discUp }}" style="width:24px;height:24px;border-radius:7px;background:var(--surface);color:var(--text2);font-size:13px;font-weight:700">+</button>
+                    </div>
+                  </div>
+                </sc-if>
+                <div style="font-size:10.5px;color:var(--text3);margin-top:6px">{{ p.n }} đang dùng</div>
+                <div style="display:flex;flex-direction:column;gap:6px;margin-top:13px;padding-top:13px;border-top:1px solid var(--line)">
+                  <sc-for list="{{ p.has }}" as="h" hint-placeholder-count="4">
+                    <div style="display:flex;gap:8px"><span style="flex:none;font-size:11px;color:var(--ok)">✓</span><span style="flex:1;font-size:11.5px;color:var(--text2)">{{ h.t }}</span></div>
+                  </sc-for>
+                  <sc-for list="{{ p.no }}" as="h" hint-placeholder-count="2">
+                    <div style="display:flex;gap:8px;opacity:.5"><span style="flex:none;font-size:11px;color:var(--text3)">—</span><span style="flex:1;font-size:11.5px;color:var(--text3)">{{ h.t }}</span></div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          <p style="font-size:11px;line-height:1.65;color:var(--text3);margin-top:14px;max-width:680px">Kỹ thuật viên tự do mua thứ khác trung tâm: họ cần ca đều và chỗ dựa khi có sự cố, không cần tin ZNS hay báo cáo doanh thu. Gói Tự do giữ đúng 15% để khớp con số app kỹ thuật viên đang hiện.</p>
         </sc-if>
+
         <sc-if value="{{ plTab2 }}" hint-placeholder-val="{{ false }}">
           <p style="font-size:12px;color:var(--text2);max-width:660px;margin-bottom:16px">Bán thêm ngoài gói. Đây là phần doanh thu nền tảng <b>không phụ thuộc số buổi trung tâm bán được</b> — quan trọng vì doanh thu theo giao dịch lên xuống theo mùa.</p>
           <div style="display:flex;flex-direction:column;gap:11px">
@@ -1594,7 +1703,15 @@ class Component extends DCLogic {
     // Chính sách hoa hồng do ADMIN đặt. Chế độ hưởng có thời hạn hay trọn đời
     // cũng là một lựa chọn ở đây, không ghi cứng — sau này Hội đồng quản trị
     // bỏ phiếu quyết định thì chỉnh ở đúng chỗ này.
-    kregTier:2, bdMode:'term', bdMonths:24, bdPct:3, bdBonus:5000, bdTierBonus:20000,
+    kregTier:2, bdMode:'term', bdMonths:24,
+    // Gói nền tảng: ba cho trung tâm, ba cho KTV tự do. Thông số sửa được từng
+    // gói — gói cơ bản của KTV giữ 15% để khớp con số app KTV đang hiện.
+    planEdit:null, catSel:null,
+    // Danh mục có trạng thái riêng: tạm dừng thì không nhận gắn mới, nhưng
+    // những nơi đã gắn vẫn chạy tiếp — xoá mới là cắt đứt.
+    catOff:['sacdep'],
+    pCtr:{ basic:{fee:0,disc:18}, std:{fee:1500,disc:15}, pro:{fee:4200,disc:12} },
+    pKtv:{ free:{fee:0,disc:15},  solo:{fee:250,disc:12}, part:{fee:600,disc:9} }, bdPct:3, bdBonus:5000, bdTierBonus:20000,
     // Khiếu nại trung tâm không xử lý được, đẩy lên ANWELL
     escal:[
       { id:'e1', ctr:'Sen Spa & Care', who:'Khách Trần M.', what:'Trung tâm xử bất lợi tranh chấp giờ',
@@ -1736,6 +1853,17 @@ class Component extends DCLogic {
       bg: cur===k ? 'var(--surface)' : 'transparent',
       fg: cur===k ? 'var(--text)' : 'var(--text3)',
       sh: cur===k ? '0 1px 3px rgba(0,0,0,.08)' : 'none' }));
+  }
+  toggleCat(k){
+    const off = this.state.catOff;
+    this.setState({ catOff: off.includes(k) ? off.filter(x=>x!==k) : [...off, k] });
+  }
+  stepPlan(grp, key, field, dir){
+    const LIM = { fee:[0,10000,100], disc:[5,25,1] };
+    const [min,max,step] = LIM[field];
+    const g = { ...this.state[grp] };
+    g[key] = { ...g[key], [field]: Math.min(max, Math.max(min, g[key][field] + dir * step)) };
+    this.setState({ [grp]: g });
   }
   stepBd(k, dir){
     const LIM = { pct:[0,20,1], bonus:[0,50000,1000], months:[6,60,6], tier:[0,50000,1000] };
@@ -2071,12 +2199,62 @@ class Component extends DCLogic {
           isCatalog: s.page === 'catalog',
           catTabs: this.tabBar('cat', [['svc','Dịch vụ'], ['cert','Chứng chỉ & bậc'], ['dev','Thiết bị & hãng'], ['health','Sức khoẻ & chống chỉ định']]),
           caTab1: tab==='svc', caTab2: tab==='cert', caTab3: tab==='dev', caTab4: tab==='health',
-          catSvcs: [
-            { t:'Cổ vai gáy', k:'vaigay', n:'97 trung tâm' }, { t:'Massage chân', k:'chan', n:'84' },
-            { t:'Toàn thân', k:'toanthan', n:'91' }, { t:'Nhức mỏi cơ xương khớp', k:'coxuong', n:'62' },
-            { t:'Massage phổ thông', k:'phocap', n:'95' }, { t:'Thư giãn', k:'thugian', n:'93' },
-            { t:'Chăm sóc sắc đẹp', k:'sacdep', n:'48' }
-          ],
+          ...(() => {
+            const SVCS = [
+              { k:'vaigay', t:'Cổ vai gáy', n:97,
+                d:'Trị liệu vùng cổ, vai và gáy cho người ngồi máy tính lâu, đau mỏi mạn tính. Loại hình bán chạy nhất nền tảng.',
+                avoid:'Khoá với khách khai thoát vị đĩa đệm khi có động tác vặn xoắn.' },
+              { k:'chan', t:'Massage chân', n:84,
+                d:'Xoa bóp bàn chân và cẳng chân, thường kết hợp ngâm thảo dược. Khách lớn tuổi chọn nhiều.',
+                avoid:'Khoá với khách khai tiểu đường nếu có ngâm nước nóng.' },
+              { k:'toanthan', t:'Toàn thân', n:91,
+                d:'Trị liệu toàn thân 60–90 phút. Nhiều khách muốn kỹ thuật viên cùng giới với dịch vụ này.',
+                avoid:'Khoá với loãng xương, đang điều trị ung thư, đang mang thai, huyết áp cao.' },
+              { k:'coxuong', t:'Nhức mỏi cơ xương khớp', n:62,
+                d:'Nhóm phục hồi vận động. Cần kỹ thuật viên Bậc 2 trở lên và thường đi theo liệu trình nhiều buổi.',
+                avoid:'Khoá với loãng xương, thoát vị đĩa đệm, mới phẫu thuật dưới 6 tuần.' },
+              { k:'phocap', t:'Massage phổ thông', n:95,
+                d:'Dịch vụ cơ bản, giá thấp nhất, mọi bậc đều làm được. Thường là buổi đầu khách thử cơ sở mới.',
+                avoid:'Khoá với loãng xương và đang điều trị ung thư.' },
+              { k:'thugian', t:'Thư giãn', n:93,
+                d:'Massage nhẹ, tinh dầu, không tác động sâu. Hay đi kèm trị liệu nhiệt nên cần chú ý huyết áp.',
+                avoid:'Khoá với bệnh tim mạch và huyết áp cao.' },
+              { k:'sacdep', t:'Chăm sóc sắc đẹp', n:48,
+                d:'Chăm sóc da và cơ thể. Đang tạm dừng nhận gắn mới trong lúc rà lại ranh giới với dịch vụ y tế.',
+                avoid:'Khoá với khách đang mang thai.' }
+            ];
+            const sel = SVCS.find(x => x.k === s.catSel);
+            const off = (k) => s.catOff.includes(k);
+            return {
+              catSvcs: SVCS.map(x => ({ t:x.t, k:x.k,
+                n: x.n + ' trung tâm',
+                open: () => this.setState({ catSel: x.k }),
+                bd: off(x.k) ? 'var(--gold)' : 'var(--line)',
+                dim: off(x.k) ? '.62' : '1',
+                stT: off(x.k) ? 'Tạm dừng' : '',
+                hasSt: off(x.k) })),
+              catNone: !sel, catOne: !!sel,
+              catD: sel ? { t:sel.t, k:sel.k, d:sel.d, avoid:sel.avoid,
+                n: sel.n + ' trung tâm đang gắn dịch vụ này',
+                stT: off(sel.k) ? 'Tạm dừng' : 'Đang dùng',
+                stFg: off(sel.k) ? 'var(--accent)' : 'var(--ok)',
+                stBg: off(sel.k) ? 'var(--goldTint)' : 'var(--okTint)',
+                pauseT: off(sel.k) ? 'Bật lại' : 'Tạm dừng',
+                pauseNote: off(sel.k)
+                  ? 'Đang tạm dừng: trung tâm mới không gắn được, nhưng ' + sel.n + ' nơi đã gắn vẫn chạy bình thường.'
+                  : 'Tạm dừng thì trung tâm mới không gắn được, nơi đã gắn vẫn chạy tiếp. Khác hẳn xoá.',
+                // Danh mục đang có nơi dùng thì không xoá được — xoá là cắt lịch
+                // đang chạy và làm hỏng lịch sử buổi đã hoàn thành.
+                canDelete: sel.n === 0,
+                delNote: sel.n === 0 ? 'Không nơi nào đang dùng, xoá được.'
+                  : 'Không xoá được vì ' + sel.n + ' trung tâm đang dùng. Muốn ngừng thì tạm dừng — xoá sẽ cắt lịch đang chạy và làm hỏng lịch sử buổi đã xong.',
+                delBg: sel.n === 0 ? 'var(--dangerTint)' : 'var(--railBg2)',
+                delFg: sel.n === 0 ? 'var(--danger)' : 'var(--text3)' } : {},
+              catBack: () => this.setState({ catSel: null }),
+              catPause: () => sel ? this.toggleCat(sel.k) : null,
+              catDelete: () => {}, catAdd: () => {}
+            };
+          })(),
           catCerts: [
             { t:'Xoa bóp bấm huyệt', d:'Bắt buộc cho mọi kỹ thuật viên', n:'1.284 người' },
             { t:'Thiết bị công nghệ cao', d:'Bắt buộc để nhận ca dùng máy', n:'392 người' },
@@ -2131,17 +2309,52 @@ class Component extends DCLogic {
       // ── Gói nền tảng & tiện ích gia tăng ────────────────────────
       ...(() => {
         const tab = this.tabOf('plans', 'plan');
-        const PLANS = [
-          { k:'basic', t:'Cơ bản', fee:0, disc:18, n:34,
+        const money = (n) => n >= 1000 ? (n/1000).toFixed(1).replace('.',',') + 'tr' : n + 'k';
+        // Ba gói cho trung tâm và ba gói cho kỹ thuật viên tự do. Hai nhóm này
+        // mua thứ khác nhau nên không thể dùng chung một bảng.
+        const CTR = [
+          { k:'basic', t:'Cơ bản', n:34,
             has:['Nhận khách từ app ANWELL','Quản lý lịch và kỹ thuật viên','Đối soát tự động','Hỗ trợ qua email'],
             no:['Ưu tiên hiển thị','Tin ZNS trong gói','Báo cáo nâng cao'] },
-          { k:'std', t:'Tiêu chuẩn', fee:1500, disc:15, n:52,
+          { k:'std', t:'Tiêu chuẩn', n:52,
             has:['Toàn bộ gói Cơ bản','2.000 tin ZNS mỗi tháng','Báo cáo nâng cao','Hỗ trợ trong 4 giờ'],
             no:['Ưu tiên hiển thị'] },
-          { k:'pro', t:'Cao cấp', fee:4200, disc:12, n:11,
+          { k:'pro', t:'Cao cấp', n:11,
             has:['Toàn bộ gói Tiêu chuẩn','Ưu tiên hiển thị trong bán kính 5 km','8.000 tin ZNS mỗi tháng','Quản lý tài khoản riêng','Đào tạo kỹ thuật viên 2 khoá/năm'],
             no:[] }
         ];
+        const KTV = [
+          { k:'free', t:'Tự do', n:126,
+            has:['Nhận ca từ app ANWELL','Lịch và khách của riêng mình','Ví và đối soát tự động','Chia sẻ vị trí và nút SOS'],
+            no:['Ưu tiên ghép ca','Bảo hiểm nghề nghiệp','Đào tạo nâng bậc'] },
+          { k:'solo', t:'Chuyên nghiệp', n:44,
+            has:['Toàn bộ gói Tự do','Ưu tiên ghép ca trong bán kính chọn','Bảo hiểm trách nhiệm nghề nghiệp','Trang cá nhân chia sẻ được'],
+            no:['Đào tạo nâng bậc'] },
+          { k:'part', t:'Đối tác', n:14,
+            has:['Toàn bộ gói Chuyên nghiệp','Đào tạo nâng bậc 1 khoá/năm','Ưu tiên nhận ca phục hồi Bậc 3','Hỗ trợ riêng khi có sự cố'],
+            no:[] }
+        ];
+        const card = (grp, arr) => arr.map(p => {
+          const v = s[grp][p.k];
+          const id = grp + ':' + p.k;
+          const open = s.planEdit === id;
+          return { t:p.t,
+            fee: v.fee ? money(v.fee) + '/tháng' : 'Miễn phí',
+            disc: v.disc + '%',
+            n: p.n + (grp === 'pCtr' ? ' trung tâm' : ' kỹ thuật viên'),
+            hi: p.k === 'std' || p.k === 'solo',
+            bd: (p.k === 'std' || p.k === 'solo') ? 'var(--gold)' : 'var(--line)',
+            has: p.has.map(t => ({ t })), no: p.no.map(t => ({ t })),
+            editing: open, notEditing: !open,
+            editT: open ? 'Xong' : 'Điều chỉnh',
+            toggle: () => this.setState({ planEdit: open ? null : id }),
+            feeV: v.fee ? money(v.fee) : '0',
+            discV: v.disc + '%',
+            feeUp:   () => this.stepPlan(grp, p.k, 'fee', 1),
+            feeDown: () => this.stepPlan(grp, p.k, 'fee', -1),
+            discUp:   () => this.stepPlan(grp, p.k, 'disc', 1),
+            discDown: () => this.stepPlan(grp, p.k, 'disc', -1) };
+        });
         const ADDONS = [
           { t:'Gói tin ZNS bổ sung', d:'1.000 tin · dùng khi hết hạn mức trong gói', price:'320k/gói', n:47, on:true },
           { t:'Ưu tiên hiển thị theo khu vực', d:'Đứng đầu danh sách trong bán kính chọn · tính theo tuần', price:'1,2tr/tuần', n:18, on:true },
@@ -2149,28 +2362,25 @@ class Component extends DCLogic {
           { t:'Đào tạo nâng bậc kỹ thuật viên', d:'Khoá chuẩn hoá 40 giờ · cấp chứng chỉ ANWELL công nhận', price:'3,5tr/người', n:64, on:true },
           { t:'Bảo hiểm trách nhiệm nghề nghiệp', d:'Cho kỹ thuật viên làm ca tại nhà', price:'180k/người/tháng', n:0, on:false }
         ];
-        const money = (n) => n >= 1000 ? (n/1000).toFixed(1).replace('.',',') + 'tr' : n + 'k';
         return {
           isPlans: s.page === 'plans',
           planTabs: this.tabBar('plans', [['plan','Gói nền tảng'], ['addon','Tiện ích gia tăng'], ['who','Ai đang dùng']]),
           plTab1: tab==='plan', plTab2: tab==='addon', plTab3: tab==='who',
-          planCards: PLANS.map(p => ({ t:p.t,
-            fee: p.fee ? money(p.fee) + '/tháng' : 'Miễn phí',
-            disc: p.disc + '%',
-            n: p.n + ' trung tâm',
-            hi: p.k === 'std',
-            bd: p.k === 'std' ? 'var(--gold)' : 'var(--line)',
-            has: p.has.map(t => ({ t })), no: p.no.map(t => ({ t })),
-            hasNo: p.no.length > 0 })),
+          planCtr: card('pCtr', CTR),
+          planKtv: card('pKtv', KTV),
           addons: ADDONS.map(a => ({ ...a,
             nT: a.n ? a.n + ' đang dùng' : 'Chưa mở bán',
             stFg: a.on ? 'var(--ok)' : 'var(--text3)',
             stBg: a.on ? 'var(--okTint)' : 'var(--railBg2)',
             stT: a.on ? 'Đang bán' : 'Sắp có' })),
-          planMix: PLANS.map(p => ({ t:p.t, n:p.n,
+          planMix: CTR.map(p => ({ t:p.t, n:p.n,
             pct: Math.round(p.n / 97 * 100) + '%',
-            rev: money(p.fee * p.n),
+            rev: money(s.pCtr[p.k].fee * p.n),
             c: p.k === 'pro' ? 'var(--gold)' : p.k === 'std' ? 'var(--ok)' : 'var(--railFg2)' })),
+          planMixKtv: KTV.map(p => ({ t:p.t, n:p.n,
+            pct: Math.round(p.n / 184 * 100) + '%',
+            rev: money(s.pKtv[p.k].fee * p.n),
+            c: p.k === 'part' ? 'var(--gold)' : p.k === 'solo' ? 'var(--ok)' : 'var(--railFg2)' })),
           planNote: 'Chiết khấu giảm dần theo gói là có chủ đích: trung tâm lớn trả thuê bao để giữ lại phần trăm doanh thu, nền tảng đổi doanh thu biến động lấy doanh thu đều hằng tháng.'
         };
       })(),
