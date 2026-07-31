@@ -466,7 +466,117 @@
       </sc-if>
 
       <!-- ═══ CENTERS ═══ -->
-      <sc-if value="{{ isCenters }}" hint-placeholder-val="{{ false }}">
+      <!-- ═══ TRUNG TÂM ═══ vòng đời: đăng ký → thẩm định → duyệt → tạm dừng → chấm dứt -->
+      <sc-if value="{{ isCentersPage }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;gap:4px;padding:3px;border-radius:12px;background:var(--surface2);margin-bottom:16px;max-width:560px">
+          <sc-for list="{{ ctrTabs }}" as="t" hint-placeholder-count="3">
+            <button sc-camel-on-click="{{ t.pick }}" style="flex:1;padding:9px 8px;border-radius:9px;background:{{ t.bg }};color:{{ t.fg }};box-shadow:{{ t.sh }};font-size:12px;font-weight:600;white-space:nowrap">{{ t.t }}<sc-if value="{{ t.hasN }}" hint-placeholder-val="{{ true }}"><span style="margin-left:5px;font-size:10px;font-weight:700;color:#fff;background:var(--dangerSolid);border-radius:99px;padding:1px 6px">{{ t.n }}</span></sc-if></button>
+          </sc-for>
+        </div>
+
+        <!-- ── Hồ sơ đăng ký ── -->
+        <sc-if value="{{ ctrNew }}" hint-placeholder-val="{{ false }}">
+          <p style="font-size:12px;color:var(--text2);max-width:660px;margin-bottom:16px">Hồ sơ trung tâm nộp qua Cổng thông tin ANWELL. Người thẩm định tick từng mục đã kiểm. <b>Thiếu giấy tờ bắt buộc thì nút Phê duyệt bị khoá</b> — không phải nhắc suông.</p>
+          <div class="split">
+            <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px">
+              <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px;flex-wrap:wrap">
+                <div>
+                  <div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:21px">{{ regName }}</div>
+                  <div style="font-size:11px;color:var(--text3);margin-top:2px">Nộp {{ regSent }} · {{ regBy }}</div>
+                </div>
+                <span style="flex:none;font-size:9px;font-weight:700;color:var(--accent);background:var(--goldTint);padding:3px 10px;border-radius:99px">Chờ thẩm định</span>
+              </div>
+
+              <sc-for list="{{ regGroups }}" as="g" hint-placeholder-count="4">
+                <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.16em;color:var(--text3);text-transform:uppercase;margin:18px 0 9px">{{ g.t }}</p>
+                <div style="display:flex;flex-direction:column;gap:7px">
+                  <sc-for list="{{ g.rows }}" as="r" hint-placeholder-count="4">
+                    <div style="display:flex;align-items:flex-start;gap:10px;padding:9px 11px;border-radius:10px;background:{{ r.bg }}">
+                      <span style="flex:none;font-size:12px;margin-top:1px">{{ r.mark }}</span>
+                      <span style="flex:1;min-width:0">
+                        <span style="display:block;font-size:11px;color:var(--text3)">{{ r.k }}</span>
+                        <span style="display:block;font-size:12.5px;font-weight:600;color:{{ r.fg }};margin-top:1px">{{ r.v }}</span>
+                      </span>
+                    </div>
+                  </sc-for>
+                </div>
+              </sc-for>
+            </div>
+
+            <div>
+              <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px">
+                <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:18px">Giấy tờ pháp lý</div>
+                <div style="display:flex;flex-direction:column;gap:8px;margin-top:12px">
+                  <sc-for list="{{ regDocs }}" as="d" hint-placeholder-count="4">
+                    <div style="display:flex;align-items:flex-start;gap:10px;padding:11px 13px;border-radius:11px;background:{{ d.bg }};border:1px solid {{ d.bd }}">
+                      <span style="flex:none;font-size:13px;margin-top:1px">{{ d.mark }}</span>
+                      <span style="flex:1;min-width:0">
+                        <span style="display:block;font-size:12.5px;font-weight:600;color:{{ d.fg }}">{{ d.t }}</span>
+                        <span style="display:block;font-size:10.5px;line-height:1.55;color:var(--text3);margin-top:2px">{{ d.d }}</span>
+                      </span>
+                    </div>
+                  </sc-for>
+                </div>
+                <sc-if value="{{ needLicense }}" hint-placeholder-val="{{ true }}">
+                  <div style="margin-top:11px;padding:12px 13px;border-radius:11px;background:var(--dangerTint);border:1px solid var(--dangerSolid)">
+                    <p style="font-size:11.5px;line-height:1.65;color:var(--text2)"><b>Bắt buộc thêm vì hồ sơ khai có dịch vụ trị liệu.</b> Nhóm dịch vụ trị liệu, xâm lấn và khám chữa bệnh phải có giấy phép hành nghề — khai không có nhóm này thì mục đó không hiện.</p>
+                  </div>
+                </sc-if>
+              </div>
+
+              <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:14px">
+                <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:18px">Cam kết</div>
+                <div style="display:flex;flex-direction:column;gap:8px;margin-top:11px">
+                  <sc-for list="{{ regVows }}" as="v" hint-placeholder-count="2">
+                    <div style="display:flex;align-items:flex-start;gap:10px">
+                      <span style="flex:none;font-size:12px;color:var(--ok);margin-top:1px">✓</span>
+                      <span style="flex:1;font-size:11.5px;line-height:1.6;color:var(--text2)">{{ v.t }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+                <p style="font-size:10.5px;color:var(--text3);margin-top:10px">Ký điện tử lúc {{ vowTime }} · IP ghi lại trong nhật ký</p>
+              </div>
+
+              <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:14px">
+                <sc-if value="{{ regBlocked }}" hint-placeholder-val="{{ true }}">
+                  <p style="font-size:11.5px;line-height:1.6;color:var(--danger);font-weight:600;margin-bottom:11px">Thiếu {{ regMissing }} — chưa đủ điều kiện phê duyệt.</p>
+                </sc-if>
+                <div style="display:flex;gap:8px;flex-wrap:wrap">
+                  <button sc-camel-on-click="{{ regApprove }}" style="flex:1;min-width:120px;padding:12px;border-radius:10px;background:{{ regOkBg }};color:{{ regOkFg }};font-size:12.5px;font-weight:700">Phê duyệt</button>
+                  <button sc-camel-on-click="{{ regAsk }}" style="flex:1;min-width:120px;padding:12px;border-radius:10px;background:{{ regAskBg }};color:{{ regAskFg }};font-size:12.5px;font-weight:600">Yêu cầu bổ sung</button>
+                  <button sc-camel-on-click="{{ regReject }}" style="flex:none;padding:12px 16px;border-radius:10px;background:var(--railBg2);color:var(--text2);font-size:12.5px;font-weight:600">Từ chối</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ── Tạm dừng & chấm dứt ── -->
+        <sc-if value="{{ ctrOff }}" hint-placeholder-val="{{ false }}">
+          <p style="font-size:12px;color:var(--text2);max-width:660px;margin-bottom:16px">Hai trạng thái khác hẳn nhau. <b>Tạm dừng</b>: không nhận khách mới, nhưng lịch đã đặt vẫn phải phục vụ. <b>Chấm dứt</b>: phải xử lý xong gói khách đã mua chưa dùng hết trước khi đóng.</p>
+          <div style="display:flex;flex-direction:column;gap:11px">
+            <sc-for list="{{ offRows }}" as="o" hint-placeholder-count="3">
+              <div style="background:var(--surface);border:1px solid var(--line);border-left:3px solid {{ o.accent }};border-radius:14px;padding:15px">
+                <div style="display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap">
+                  <span style="flex:1;min-width:220px">
+                    <span style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+                      <span style="font-size:13px;font-weight:600">{{ o.n }}</span>
+                      <span style="font-size:9px;font-weight:700;color:{{ o.stFg }};background:{{ o.stBg }};padding:2px 9px;border-radius:99px">{{ o.st }}</span>
+                    </span>
+                    <span style="display:block;font-size:11.5px;color:var(--text2);margin-top:5px">{{ o.why }}</span>
+                    <span style="display:block;font-size:10.5px;color:{{ o.oblFg }};margin-top:5px">{{ o.obl }}</span>
+                  </span>
+                  <span style="flex:none;display:flex;gap:8px;flex-wrap:wrap">
+                    <button sc-camel-on-click="{{ o.act }}" style="padding:9px 14px;border-radius:9px;background:var(--gold);color:#06140F;font-size:11.5px;font-weight:700;white-space:nowrap">{{ o.actT }}</button>
+                  </span>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ ctrLive }}" hint-placeholder-val="{{ true }}">
+      <sc-if value="{{ isCenters }}" hint-placeholder-val="{{ true }}">
         <div style="background:var(--goldTint);border:1px solid var(--gold);border-radius:12px;padding:12px 14px;display:flex;align-items:flex-start;gap:10px;margin-bottom:14px">
           <span style="font-size:15px">ℹ️</span>
           <p style="font-size:11.5px;line-height:1.55;color:var(--text2)">ANWELL giám sát chỉ số và hỗ trợ, <b>không can thiệp vào vận hành chi tiết</b> của trung tâm. Chỉ tác động khi vi phạm chính sách hoặc chỉ số vượt ngưỡng cảnh báo.</p>
@@ -497,8 +607,70 @@
         </div>
       </sc-if>
 
+        </sc-if>
+      </sc-if>
+
       <!-- ═══ APPROVALS ═══ -->
-      <sc-if value="{{ isApprovals }}" hint-placeholder-val="{{ false }}">
+      <!-- ═══ CẦN XỬ LÝ ═══
+           Ba hàng chờ đều là việc ANWELL phải quyết. Gộp một mục để người trực
+           biết sáng nay mở cái nào trước, thay vì đi tìm ba chỗ. -->
+      <sc-if value="{{ isQueue }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;gap:4px;padding:3px;border-radius:12px;background:var(--surface2);margin-bottom:16px;max-width:560px">
+          <sc-for list="{{ qTabs }}" as="t" hint-placeholder-count="3">
+            <button sc-camel-on-click="{{ t.pick }}" style="flex:1;padding:9px 8px;border-radius:9px;background:{{ t.bg }};color:{{ t.fg }};box-shadow:{{ t.sh }};font-size:12px;font-weight:600;white-space:nowrap">{{ t.t }}<sc-if value="{{ t.hasN }}" hint-placeholder-val="{{ true }}"><span style="margin-left:5px;font-size:10px;font-weight:700;color:#fff;background:var(--dangerSolid);border-radius:99px;padding:1px 6px">{{ t.n }}</span></sc-if></button>
+          </sc-for>
+        </div>
+
+        <!-- ── Khiếu nại leo thang ── -->
+        <sc-if value="{{ qEscal }}" hint-placeholder-val="{{ false }}">
+          <p style="font-size:12px;color:var(--text2);max-width:640px;margin-bottom:14px">Việc trung tâm đã xử nhưng một bên không chấp nhận, hoặc trung tâm để quá hạn. ANWELL là <b>bên thứ ba</b> — có bản ghi định vị và nhật ký thao tác của trung tâm để đối chiếu, không phải nghe ai kể.</p>
+          <div style="display:flex;flex-direction:column;gap:11px">
+            <sc-for list="{{ escalRows }}" as="e" hint-placeholder-count="3">
+              <div style="background:var(--surface);border:1px solid var(--line);border-left:3px solid {{ e.accent }};border-radius:14px;padding:15px">
+                <div style="display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap">
+                  <span style="flex:1;min-width:220px">
+                    <span style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+                      <span style="font-size:13px;font-weight:600">{{ e.what }}</span>
+                      <span style="font-size:9px;font-weight:700;color:{{ e.sevFg }};background:{{ e.sevBg }};padding:2px 8px;border-radius:99px">{{ e.sevT }}</span>
+                    </span>
+                    <span style="display:block;font-size:11.5px;color:var(--text2);margin-top:5px">{{ e.d }}</span>
+                    <span style="display:block;font-size:10.5px;color:var(--text3);margin-top:5px">{{ e.ctr }} · {{ e.who }} · {{ e.ago }} trước</span>
+                  </span>
+                  <span style="flex:none;display:flex;gap:8px;flex-wrap:wrap">
+                    <button sc-camel-on-click="{{ e.resolve }}" style="padding:9px 14px;border-radius:9px;background:var(--gold);color:#06140F;font-size:11.5px;font-weight:700;white-space:nowrap">Phân xử</button>
+                    <button sc-camel-on-click="{{ e.ask }}" style="padding:9px 14px;border-radius:9px;background:var(--railBg2);color:var(--text2);font-size:11.5px;font-weight:600;white-space:nowrap">Hỏi trung tâm</button>
+                  </span>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <!-- ── Sự cố an toàn ── -->
+        <sc-if value="{{ qSafety }}" hint-placeholder-val="{{ false }}">
+          <p style="font-size:12px;color:var(--text2);max-width:640px;margin-bottom:14px">SOS và báo sự cố từ kỹ thuật viên. Khác khiếu nại tiền bạc: đây là <b>an toàn con người</b>, và ANWELL phải xem cả khi trung tâm nói đã xử lý xong.</p>
+          <div style="display:flex;flex-direction:column;gap:11px">
+            <sc-for list="{{ safetyRows }}" as="e" hint-placeholder-count="2">
+              <div style="background:var(--dangerTint);border:1px solid var(--dangerSolid);border-radius:14px;padding:15px">
+                <div style="display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap">
+                  <span style="flex:none;font-size:17px">{{ e.icon }}</span>
+                  <span style="flex:1;min-width:220px">
+                    <span style="display:block;font-size:13px;font-weight:700;color:var(--danger)">{{ e.what }}</span>
+                    <span style="display:block;font-size:11.5px;color:var(--text2);margin-top:5px">{{ e.d }}</span>
+                    <span style="display:block;font-size:10.5px;color:var(--text3);margin-top:5px">{{ e.ktv }} · {{ e.ctr }} · {{ e.ago }} trước</span>
+                  </span>
+                  <span style="flex:none;display:flex;gap:8px;flex-wrap:wrap">
+                    <button sc-camel-on-click="{{ e.act }}" style="padding:9px 14px;border-radius:9px;background:var(--dangerSolid);color:#fff;font-size:11.5px;font-weight:700;white-space:nowrap">{{ e.actT }}</button>
+                    <button sc-camel-on-click="{{ e.close }}" style="padding:9px 14px;border-radius:9px;background:var(--surface);color:var(--text2);font-size:11.5px;font-weight:600">Đóng hồ sơ</button>
+                  </span>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ qAppr }}" hint-placeholder-val="{{ true }}">
+      <sc-if value="{{ isApprovals }}" hint-placeholder-val="{{ true }}">
         <div class="g4" style="margin-bottom:14px">
           <sc-for list="{{ apprKpis }}" as="k" hint-placeholder-count="4">
             <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px">
@@ -551,6 +723,9 @@
             </div>
           </sc-for>
         </div>
+      </sc-if>
+
+        </sc-if>
       </sc-if>
 
       <!-- ═══ FREELANCE KTV ═══ -->
@@ -1003,6 +1178,36 @@ class Component extends DCLogic {
     // cũng là một lựa chọn ở đây, không ghi cứng — sau này Hội đồng quản trị
     // bỏ phiếu quyết định thì chỉnh ở đúng chỗ này.
     bdMode:'term', bdMonths:24, bdPct:3, bdBonus:5000, bdTierBonus:20000,
+    // Khiếu nại trung tâm không xử lý được, đẩy lên ANWELL
+    escal:[
+      { id:'e1', ctr:'Sen Spa & Care', who:'Khách Trần M.', what:'Trung tâm xử bất lợi tranh chấp giờ',
+        d:'Bản ghi định vị 58 phút, trung tâm chốt theo khách khai 40 phút mà không hỏi KTV', ago:'6 giờ', sev:'high' },
+      { id:'e2', ctr:'Padma Spa & Therapy', who:'KTV Lê Ngọc A.', what:'Bị trừ công không có căn cứ',
+        d:'Trung tâm đánh dấu vắng mặt trong khi định vị xác nhận KTV có mặt đủ giờ', ago:'1 ngày', sev:'high' },
+      { id:'e3', ctr:'Dưỡng Sinh Đông Y Bình Tân', who:'Khách Nguyễn H.', what:'Gói còn buổi nhưng bị từ chối đặt',
+        d:'Gói 8 buổi còn 3, trung tâm báo hết hạn dù hạn tới 10/2026', ago:'2 ngày', sev:'mid' }
+    ],
+    safety:[
+      { id:'s1', ktv:'Phạm Thị Dung', ctr:'Tịnh Viên Retreat', what:'Bấm SOS trong ca tại nhà',
+        d:'22:14 · Q.7 · điều phối viên đã gọi, KTV an toàn, khách có người thứ ba không khai báo', ago:'3 ngày', sev:'high' },
+      { id:'s2', ktv:'Nguyễn Bách', ctr:'KTV tự do', what:'Báo sự cố: khách đòi ngoài phạm vi',
+        d:'Lần thứ hai với cùng một khách. Đề nghị chặn khách này khỏi đặt ca tại nhà', ago:'1 ngày', sev:'mid' }
+    ],
+    // Quyền dữ liệu cá nhân theo Nghị định 13/2023
+    dsr:[
+      { id:'d1', who:'Trần Thu Hương', kind:'Xoá tài khoản', sent:'23/07/2026', due:'22/08/2026', st:'wait',
+        note:'Có 1 gói còn 2 buổi và 1 hoá đơn chưa quyết toán — phải xử lý trước khi xoá' },
+      { id:'d2', who:'Đỗ Minh Khoa', kind:'Xuất dữ liệu cá nhân', sent:'25/07/2026', due:'24/08/2026', st:'wait',
+        note:'Gồm hồ sơ sức khoẻ, lịch sử buổi, tin nhắn với KTV' },
+      { id:'d3', who:'Lê Quang Tuấn', kind:'Rút đồng ý chia sẻ hồ sơ sức khoẻ', sent:'18/07/2026', due:'—', st:'done',
+        note:'Đã ngừng chia sẻ với KTV từ 19/07. Buổi đang đặt vẫn giữ, KTV chỉ thấy dặn dò tự do' }
+    ],
+    posts:[
+      { id:'p1', ch:'Facebook', ctr:'An Nhiên Wellness', t:'Ưu đãi khung chiều 14–16h giảm 15%', st:'wait', ago:'2 giờ' },
+      { id:'p2', ch:'TikTok', ctr:'Padma Spa & Therapy', t:'Clip hướng dẫn giãn cơ vai gáy tại nhà', st:'wait', ago:'5 giờ' },
+      { id:'p3', ch:'Facebook', ctr:'Tịnh Viên Retreat', t:'Cam kết chữa khỏi thoát vị đĩa đệm sau 10 buổi', st:'no', ago:'1 ngày' },
+      { id:'p4', ch:'YouTube', ctr:'ANWELL', t:'Câu chuyện phục hồi sau đột quỵ · bà Phạm T. Lan', st:'ok', ago:'3 ngày' }
+    ],
     bds:[
       { i:'PT', n:'Phan Minh Tuấn', area:'TP.HCM · Q.1,3,7', since:'01/2025', refs:8, live:7, rev:2840000, st:'Đang hoạt động' },
       { i:'NL', n:'Nguyễn Thuỳ Linh', area:'TP.HCM · Thủ Đức', since:'04/2025', refs:5, live:5, rev:1620000, st:'Đang hoạt động' },
@@ -1083,15 +1288,24 @@ class Component extends DCLogic {
   }
 
   pages = [
-    { id:'dash',      g:'Tổng quan',   t:'Bảng điều hành',      ic:'grid' },
-    { id:'centers',   g:'Đối tượng',   t:'Quản lý trung tâm',   ic:'building' },
-    { id:'approvals', g:'Đối tượng',   t:'Phê duyệt hồ sơ',     ic:'check', live:'approvals' },
-    { id:'ktv',       g:'Đối tượng',   t:'KTV tự do',           ic:'users' },
-    { id:'bd',        g:'Đối tượng',   t:'Giám đốc Kinh doanh', ic:'award', live:'bdPending' },
-    { id:'loyalty',   g:'Khách hàng',  t:'Loyalty ANP',         ic:'award' },
-    { id:'partners',  g:'Khách hàng',  t:'Đối tác liên kết',    ic:'link' },
-    { id:'policy',    g:'Nền tảng',    t:'Chính sách & cấu hình', ic:'doc' },
-    { id:'data',      g:'Nền tảng',    t:'Dữ liệu & AI',        ic:'cpu' }
+    { id:'dash',      g:'Điều hành',   t:'Bảng điều hành',      ic:'grid' },
+    // Ba hàng chờ gộp một mục: đều là việc ANWELL phải quyết, và tách ra thì
+    // người trực không biết sáng nay mở cái nào trước.
+    { id:'queue',     g:'Điều hành',   t:'Cần xử lý',           ic:'check', live:'queue' },
+    { id:'centers',   g:'Thành viên',  t:'Trung tâm',           ic:'building', live:'ctrNew' },
+    { id:'ktv',       g:'Thành viên',  t:'Kỹ thuật viên',       ic:'users', live:'ktvNew' },
+    { id:'members',   g:'Thành viên',  t:'Khách hàng',          ic:'heart', live:'dsrOpen' },
+    { id:'bd',        g:'Thành viên',  t:'Giám đốc Kinh doanh', ic:'award', live:'bdPending' },
+    { id:'plans',     g:'Kinh doanh',  t:'Gói nền tảng & tiện ích', ic:'box' },
+    { id:'revenue',   g:'Kinh doanh',  t:'Doanh thu & đối soát', ic:'wallet' },
+    { id:'loyalty',   g:'Kinh doanh',  t:'Loyalty ANP',         ic:'award' },
+    { id:'social',    g:'Truyền thông',t:'Social media',        ic:'link', live:'postWait' },
+    { id:'partners',  g:'Truyền thông',t:'Đối tác liên kết',    ic:'link' },
+    // Danh mục chuẩn: ba thứ đang hard-code rải rác ở app, ktv và center. Sửa
+    // một chỗ quên chỗ kia là ra mâu thuẫn ngay.
+    { id:'catalog',   g:'Hệ thống',    t:'Danh mục chuẩn',      ic:'doc' },
+    { id:'policy',    g:'Hệ thống',    t:'Chính sách & thông số', ic:'doc' },
+    { id:'data',      g:'Hệ thống',    t:'Dữ liệu, AI & nhật ký', ic:'cpu' }
   ];
 
   go(id){ this.setState({page:id}); }
@@ -1126,9 +1340,14 @@ class Component extends DCLogic {
   renderVals(){
     const s = this.state, pg = this.pages.find(p=>p.id===s.page) || this.pages[0];
 
-    const navCount = (key) => key === 'bdPending'
-      ? s.refs.filter(r => r.st === 'wait').length
-      : s[key].length;
+    const navCount = (key) =>
+      key === 'bdPending' ? s.refs.filter(r => r.st === 'wait').length
+    : key === 'queue'     ? s.approvals.length + s.escal.length + s.safety.length
+    : key === 'ctrNew'    ? s.approvals.filter(a => a.kind === 'Trung tâm').length
+    : key === 'ktvNew'    ? s.approvals.filter(a => a.kind !== 'Trung tâm').length
+    : key === 'dsrOpen'   ? s.dsr.filter(d => d.st === 'wait').length
+    : key === 'postWait'  ? s.posts.filter(x => x.st === 'wait').length
+    : s[key].length;
 
     const groups = [];
     this.pages.forEach(p=>{
@@ -1144,8 +1363,8 @@ class Component extends DCLogic {
         count: p.live ? navCount(p.live) : p.count });
     });
 
-    const bIds = ['dash','centers','approvals','loyalty','data'];
-    const bLabels = { dash:'Điều hành', centers:'Trung tâm', approvals:'Duyệt', loyalty:'ANP', data:'AI' };
+    const bIds = ['dash','queue','centers','ktv','revenue'];
+    const bLabels = { dash:'Điều hành', queue:'Cần xử lý', centers:'Trung tâm', ktv:'KTV', revenue:'Doanh thu' };
     const bottomNav = bIds.map(id=>{
       const p = this.pages.find(x=>x.id===id), on = s.page===id;
       return { t:bLabels[id], icon:this.ic(p.ic,19), go:()=>this.go(id),
@@ -1357,7 +1576,133 @@ class Component extends DCLogic {
       dualFg: s.dual ? 'var(--primary)' : 'var(--text2)',
       dualTrack: s.dual ? 'var(--okSolid)' : 'var(--line)',
       dualKnob: s.dual ? '22px' : '3px',
-      isDash:s.page==='dash', isCenters:s.page==='centers', isApprovals:s.page==='approvals',
+      isDash:s.page==='dash',
+      // ── Trung tâm: vòng đời thành viên ──────────────────────────
+      // Hồ sơ đăng ký dựng theo đúng bốn nhóm thông tin trong quy định. Giấy
+      // phép hành nghề là điều kiện CÓ ĐIỀU KIỆN: chỉ bắt buộc khi hồ sơ khai
+      // có dịch vụ thuộc nhóm trị liệu, xâm lấn, khám chữa bệnh.
+      ...(() => {
+        const tab = this.tabOf('centers', 'live');
+        const R = {
+          name:'Hoà Mộc Center', sent:'22/07/2026', by:'Người nộp: Trần Văn Hoà · chủ cơ sở',
+          basic:[
+            ['Tên trung tâm','Hoà Mộc Center', true],
+            ['Slogan','Mộc mạc · An lành', true],
+            ['Địa điểm chính','88 Trần Duy Hưng, P.Trung Hoà, Cầu Giấy, Hà Nội', true],
+            ['Chi nhánh','1 chi nhánh · 24 Nguyễn Chí Thanh, Đống Đa', true],
+            ['Số điện thoại','024 3783 5566', true],
+            ['Email','lienhe@hoamoc.vn', true],
+            ['Website','hoamoc.vn', true],
+            ['Fanpage','fb.com/hoamoccenter · 18.400 theo dõi', true],
+            ['YouTube','Chưa có', false],
+            ['TikTok','tiktok.com/@hoamoc · 6.200 theo dõi', true]
+          ],
+          act:[
+            ['Bắt đầu hoạt động từ','03/2021 · 5 năm', true],
+            ['Số KTV chính thức','9 người', true],
+            ['KTV có chứng chỉ xoa bóp bấm huyệt','7/9 người', true],
+            ['KTV có chứng chỉ công nghệ cao','3/9 người', true]
+          ],
+          svc:[
+            ['Danh mục dịch vụ','Cổ vai gáy · Massage chân · Toàn thân · Vật lý trị liệu', true],
+            ['Phương pháp cổ truyền','Xoa bóp bấm huyệt, giác hơi, ngâm chân thảo dược', true],
+            ['Thiết bị công nghệ cao','FOHOWAY (2 máy) · Thiên Sư (1 máy)', true],
+            ['Đơn giá','Đã nộp bảng giá 14 dịch vụ, từ 280k đến 780k', true]
+          ],
+          legal:[
+            ['Đăng ký kinh doanh','GP số 0109882471 · cấp 18/03/2021 · Sở KHĐT Hà Nội', true],
+            ['Có dịch vụ trị liệu / xâm lấn','Có — khai mục Vật lý trị liệu', true]
+          ]
+        };
+        const hasTherapy = true;   // hồ sơ này có khai vật lý trị liệu
+        const DOCS = [
+          { t:'Giấy đăng ký kinh doanh', d:'Số 0109882471 · còn hiệu lực', ok:true },
+          { t:'Chứng nhận PCCC', d:'Cấp 04/2024 · hạn 04/2027', ok:true },
+          { t:'Chứng nhận vệ sinh cơ sở', d:'Chưa nộp', ok:false },
+          ...(hasTherapy ? [{ t:'Giấy phép hành nghề trị liệu', d:'Bắt buộc vì hồ sơ khai có Vật lý trị liệu · chưa nộp', ok:false }] : [])
+        ];
+        const missing = DOCS.filter(d => !d.ok);
+        const grp = (t, rows) => ({ t, rows: rows.map(([k,v,ok]) => ({ k, v,
+          mark: ok ? '✓' : '—',
+          fg: ok ? 'var(--text)' : 'var(--text3)',
+          bg: ok ? 'var(--railBg2)' : 'transparent' })) });
+
+        const OFF = [
+          { n:'Sen Spa & Care', st:'Tạm dừng', why:'Điểm chất lượng 3,90 dưới ngưỡng 4,20 hai kỳ liên tiếp',
+            obl:'Còn 14 buổi khách đã đặt phải phục vụ hết · 6 gói chưa dùng xong', ok:false, actT:'Khôi phục' },
+          { n:'Mộc An Spa', st:'Chờ chấm dứt', why:'Chủ cơ sở xin dừng hợp tác từ 01/09/2026',
+            obl:'23 gói khách chưa dùng hết · cần chốt phương án hoàn tiền trước khi đóng', ok:false, actT:'Xử lý gói tồn' },
+          { n:'Hương Sen Spa', st:'Đã chấm dứt', why:'Vi phạm quảng cáo sai công dụng · chấm dứt 12/05/2026',
+            obl:'Đã hoàn tiền xong toàn bộ gói tồn', ok:true, actT:'Xem hồ sơ' }
+        ];
+        return {
+          isCentersPage: s.page === 'centers',
+          isCenters: s.page === 'centers' && tab === 'live',
+          ctrTabs: this.tabBar('centers', [
+            ['live','Đang hoạt động'], ['new','Hồ sơ đăng ký', '1'], ['off','Tạm dừng & chấm dứt', '2']
+          ]),
+          ctrLive: tab==='live', ctrNew: tab==='new', ctrOff: tab==='off',
+          regName: R.name, regSent: R.sent, regBy: R.by,
+          regGroups: [
+            grp('1 · Thông tin cơ bản', R.basic),
+            grp('2 · Thông tin hoạt động', R.act),
+            grp('3 · Dịch vụ chính & phương pháp', R.svc),
+            grp('4 · Thông tin pháp lý', R.legal)
+          ],
+          regDocs: DOCS.map(d => ({ t:d.t, d:d.d,
+            mark: d.ok ? '✓' : '✗',
+            fg: d.ok ? 'var(--text)' : 'var(--danger)',
+            bg: d.ok ? 'var(--railBg2)' : 'var(--dangerTint)',
+            bd: d.ok ? 'var(--line)' : 'var(--dangerSolid)' })),
+          needLicense: hasTherapy,
+          regVows: [
+            { t:'Cam kết toàn bộ thông tin khai là đúng sự thật' },
+            { t:'Cam kết đã đọc, hiểu và đồng ý các điều kiện, điều khoản và quy định của ANWELL Platform' }
+          ],
+          vowTime: '22/07/2026 14:38',
+          regBlocked: missing.length > 0,
+          regMissing: missing.map(d => d.t.toLowerCase()).join(' và '),
+          regOkBg: missing.length ? 'var(--railBg2)' : 'var(--gold)',
+          regOkFg: missing.length ? 'var(--text3)' : '#06140F',
+          regAskBg: missing.length ? 'var(--gold)' : 'var(--railBg2)',
+          regAskFg: missing.length ? '#06140F' : 'var(--text2)',
+          regApprove: () => missing.length ? null : this.setTab('centers','live'),
+          regAsk: () => {}, regReject: () => {},
+          offRows: OFF.map(o => ({ ...o,
+            stFg: o.st === 'Đã chấm dứt' ? 'var(--text3)' : 'var(--danger)',
+            stBg: o.st === 'Đã chấm dứt' ? 'var(--railBg2)' : 'var(--dangerTint)',
+            accent: o.st === 'Đã chấm dứt' ? 'var(--line)' : 'var(--dangerSolid)',
+            oblFg: o.ok ? 'var(--ok)' : 'var(--accent)',
+            act: () => {} }))
+        };
+      })(),
+
+      // ── Cần xử lý: ba hàng chờ ──────────────────────────────────
+      ...(() => {
+        const tab = this.tabOf('queue', 'appr');
+        const sev = { high:['Gấp','var(--danger)','var(--dangerTint)','var(--dangerSolid)'],
+                      mid:['Thường','var(--accent)','var(--goldTint)','var(--gold)'] };
+        return {
+          isQueue: s.page === 'queue',
+          isApprovals: s.page === 'queue' && tab === 'appr',
+          qTabs: this.tabBar('queue', [
+            ['appr','Duyệt hồ sơ', String(s.approvals.length)],
+            ['escal','Khiếu nại leo thang', String(s.escal.length)],
+            ['safety','Sự cố an toàn', String(s.safety.length)]
+          ]),
+          qAppr: tab==='appr', qEscal: tab==='escal', qSafety: tab==='safety',
+          escalRows: s.escal.map(e => ({ ...e,
+            sevT: sev[e.sev][0], sevFg: sev[e.sev][1], sevBg: sev[e.sev][2], accent: sev[e.sev][3],
+            resolve: () => this.setState({ escal: s.escal.filter(x => x.id !== e.id) }),
+            ask: () => {} })),
+          safetyRows: s.safety.map(e => ({ ...e,
+            icon: e.what.indexOf('SOS') >= 0 ? '🚨' : '⚠️',
+            actT: e.what.indexOf('SOS') >= 0 ? 'Mở hồ sơ an toàn' : 'Chặn khách này',
+            act: () => {},
+            close: () => this.setState({ safety: s.safety.filter(x => x.id !== e.id) }) }))
+        };
+      })(),
+
       // ── Giám đốc Kinh doanh ─────────────────────────────────────
       ...(() => {
         const tab = this.tabOf('bd', 'list');
