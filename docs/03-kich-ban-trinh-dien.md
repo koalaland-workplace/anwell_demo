@@ -6,6 +6,8 @@ gì**. Phần *nói gì* là gợi ý, hãy diễn đạt theo giọng của b�
 ## Chuẩn bị trước buổi gặp
 
 - [ ] Mở sẵn các tab cần dùng, tải xong trang trước khi vào phòng
+- [ ] Mở `demo.html` làm trang chờ — gom cả bốn cổng một chỗ, không phải gõ địa
+      chỉ giữa buổi. Hoặc mở Portal ở mục **Nền tảng** rồi bấm từng khối
 - [ ] Bấm `Cmd + Shift + R` một lần để chắc chắn đang xem bản mới nhất
 - [ ] Nếu chiếu màn hình: đặt cửa sổ trình duyệt ở kích thước vừa, đừng thu nhỏ
 - [ ] Nhớ một câu mở đầu để nếu ai hỏi: *"Số liệu trong đây là giả lập để minh
@@ -97,12 +99,13 @@ tại nhà*.
 
 | Bấm | Nói |
 |---|---|
-| Yêu cầu từ KTV | Đây chính là đề xuất vừa nãy. Trung tâm duyệt hoặc từ chối tại đây |
+| **Cần duyệt → Từ kỹ thuật viên** | Đây chính là đề xuất vừa nãy. Trung tâm duyệt hoặc từ chối tại đây |
 | Cuộn xuống khối **Sự cố tại ca** | Đọc nhãn nút: *Tính công KTV · thu 50% phí khách*. Không phải "Duyệt / Từ chối" — điều phối viên phải thấy mình đang quyết cái gì về tiền |
 | Cuộn tiếp → **Phân xử giờ** | Tranh chấp vừa nãy về đây. Bản ghi định vị đặt lên trước, ghi rõ *bên thứ ba · không ai sửa được*. Có cả đường chia đôi khi hai bên đều có phần đúng |
 | Chỉ vào khối đỏ *Báo bận khẩn cấp* | Cái này **không có nút duyệt** — vì đã có hiệu lực. Trung tâm chỉ còn việc bố trí người thay |
-| Yêu cầu từ khách → cuộn xuống yêu cầu cuối | Khi không còn khung trống, hệ thống **không cho chấp nhận** — bắt phải đề xuất giờ khác. Tránh hứa rồi không xếp được lịch |
-| Đánh giá & chất lượng | Phản hồi dưới 4 sao tự động thành việc cần xử lý, có nút trả lời khách và nhắc kỹ thuật viên |
+| Đổi sang tab **Từ khách** → yêu cầu cuối | Khi không còn khung trống, hệ thống **không cho chấp nhận** — bắt phải đề xuất giờ khác. Tránh hứa rồi không xếp được lịch |
+| **Quầy lễ tân → Đang diễn ra** | Ba giờ chiều phòng nào đang chạy còn mấy phút, phòng nào trống. Tổng quan cho số cả ngày, đây là thứ đang chạy ngay bây giờ |
+| **Dịch vụ & bảng giá → Định mức vật tư** | Dịch vụ đang chạy ưu đãi 15%: sau thuế, lương khoán và vật tư còn lại bao nhiêu. Ít chủ cơ sở tính ngược lại phép này |
 
 ### Bước 4 — ANWELL giám sát · 60 giây
 
@@ -111,9 +114,11 @@ tại nhà*.
 | Bấm | Nói |
 |---|---|
 | Bảng điều hành | ANWELL nhìn toàn nền tảng: trung tâm, kỹ thuật viên, chất lượng theo khu vực |
-| Phê duyệt hồ sơ → *Hoà Mộc Center* | Cơ sở này thiếu chứng nhận vệ sinh. Hệ thống **không cho duyệt** — nút bị vô hiệu |
-| Bấm thử nút mờ đó | Không có gì xảy ra. Đây là tuân thủ được cài vào sản phẩm, không phải quy trình giấy tờ |
-| Chính sách & cấu hình | Mọi quy tắc — chiết khấu, hạng thành viên, ràng buộc hai lớp — đều là tham số, đổi được mà không cần sửa mã |
+| **Trung tâm → Hồ sơ đăng ký** | Hồ sơ *Hoà Mộc Center*. Chỉ vào mục **Giấy phép hành nghề trị liệu**: nó hiện lên **vì hồ sơ khai có Vật lý trị liệu**. Khai không có nhóm đó thì mục này không xuất hiện |
+| Bấm thử nút **Phê duyệt** mờ | Không có gì xảy ra. Tuân thủ cài vào sản phẩm, không phải quy trình giấy tờ |
+| **Danh mục chuẩn → Sức khoẻ & chống chỉ định** | Nguồn duy nhất của cảnh báo mà khách thấy lúc đặt và kỹ thuật viên đọc lại trước ca. Một bảng, ba nơi dùng |
+| **Gói nền tảng & tiện ích** | Ba gói cho trung tâm, ba gói cho KTV, cộng năm tiện ích bán thêm. Doanh thu ngoài chiết khấu chiếm 25% |
+| **Giám đốc Kinh doanh → Chính sách hoa hồng** | Bấm *Trọn đời* để hiện cảnh báo chi phí tích luỹ. Chế độ hưởng là lựa chọn của ADMIN, không ghi cứng |
 
 ### Kết — 30 giây
 
@@ -221,6 +226,10 @@ lấy mất khách của họ.
 | *"Kỹ thuật viên báo sự cố thì ai chịu tiền?"* | Mở `center.html` → Yêu cầu từ KTV → khối *Sự cố tại ca*. Nhãn nút viết thẳng hệ quả tiền bạc, anh chị quyết chứ không phải hệ thống quyết |
 | *"Khách và kỹ thuật viên cãi nhau về giờ thì sao?"* | Cùng trang, khối *Phân xử giờ*. Bản ghi định vị check-in/check-out là bên thứ ba, không ai sửa được |
 | *"Kỹ thuật viên nữ đi làm tại nhà buổi tối có an toàn không?"* | Mở `ktv.html` → vào một ca → check-in. Chỉ công tắc *Chia sẻ vị trí trực tiếp* và nút SOS tách riêng |
+| *"Nền tảng sống bằng gì ngoài ăn phần trăm?"* | Mở `admin.html` → **Gói nền tảng & tiện ích**. Ba gói thuê bao cho trung tâm, ba cho KTV, năm tiện ích bán thêm |
+| *"Ai chịu phần giảm giá khi trung tâm chạy khuyến mãi?"* | Mở `center.html` → Dịch vụ & bảng giá → **Lương khoán KTV**. Lương tính trên giá niêm yết sau thuế, **chưa trừ ưu đãi** — trung tâm chịu trọn |
+| *"Cơ sở nào cũng tự khai máy Fohoway thì khách tin ai?"* | Mở `admin.html` → **Danh mục chuẩn → Thiết bị & hãng**. Trung tâm chọn từ danh mục ANWELL duyệt, không gõ tay |
+| *"Khách đòi xoá tài khoản thì sao?"* | Mở `admin.html` → **Khách hàng → Quyền dữ liệu cá nhân**. Nghị định 13/2023, hạn trả lời 30 ngày, nghĩa vụ tài chính phải xử lý trước |
 | *"Số liệu này ở đâu ra?"* | Dữ liệu giả lập để minh hoạ giao diện. Số kinh doanh thật trình bày riêng |
 | *"Bao giờ chạy thật được?"* | Nói thẳng theo kế hoạch của bạn. Đừng hứa mốc chưa chắc |
 | *"Tôi đang dùng phần mềm khác rồi."* | Hỏi họ khâu nào đang tốn thời gian nhất, rồi mở đúng màn hình đó |

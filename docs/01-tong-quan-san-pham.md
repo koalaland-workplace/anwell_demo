@@ -17,7 +17,7 @@ cầu có thật, liệu trình dài, nhưng không có ai theo sát.
 ở trung tâm, người nhận khách lẻ qua mạng xã hội. Không có nơi nào chuẩn hoá tay
 nghề, theo dõi chất lượng và kết nối họ với người thật sự cần.
 
-## 2. Bốn vai trò trong hệ sinh thái
+## 2. Năm vai trò trong hệ sinh thái
 
 ```mermaid
 flowchart LR
@@ -25,6 +25,7 @@ flowchart LR
     TT["Trung tâm<br/>đối tác"]
     KTV["Kỹ thuật viên"]
     AW["ANWELL<br/>nền tảng"]
+    GD["Giám đốc<br/>Kinh doanh"]
 
     KH -->|đặt lịch, đánh giá| TT
     KH -->|đặt trực tiếp| KTV
@@ -33,6 +34,8 @@ flowchart LR
     AW -->|xác minh, xếp bậc| KTV
     AW -->|thẩm định, giám sát| TT
     TT -->|phí nền tảng| AW
+    GD -->|giới thiệu trung tâm| AW
+    AW -->|hoa hồng theo doanh số| GD
 ```
 
 | Vai trò | Làm gì |
@@ -41,6 +44,7 @@ flowchart LR
 | **Trung tâm** | Điều phối ca, quản lý KTV và khách, đối soát doanh thu, giữ chất lượng |
 | **Kỹ thuật viên** | Nhận ca từ trung tâm, hoặc tự nhận khách riêng; ghi chép buổi làm việc |
 | **ANWELL** | Thẩm định trung tâm, xác minh và xếp bậc KTV, đặt chính sách, giám sát chất lượng |
+| **Giám đốc Kinh doanh** | Đưa trung tâm mới về nền tảng; hưởng % doanh số của chính những nơi mình giới thiệu, sau khi ANWELL duyệt |
 
 ## 3. Mô hình hai lớp — điểm cốt lõi
 
@@ -90,7 +94,18 @@ Dòng cuối bảng được **nói thẳng trong app** ở màn Khách hàng, k
 đoán: thôi liên kết là mất toàn bộ khách được giao, khách tự tìm thì giữ nguyên.
 Nói trước để KTV tính đường dài, và để trung tâm yên tâm giao khách.
 
-## 4. Bốn giao diện đã dựng
+## 4. Sáu trang đã dựng
+
+Bốn giao diện sản phẩm, cộng trang giới thiệu công khai và trang gom demo:
+
+| Trang | Là gì |
+|---|---|
+| `index.html` | **ANWELL Portal** — trang giới thiệu công khai, mặt tiền |
+| `demo.html` | Trang gom bốn cổng, tiện khi ngồi demo trực tiếp |
+| `app.html` · `center.html` · `ktv.html` · `admin.html` | Bốn giao diện sản phẩm |
+
+**Cổng Giám đốc Kinh doanh chưa có bản riêng** — hiện là tab xem trước trong
+`admin.html`, sẽ dựng cùng Cổng thông tin ANWELL.
 
 ### 4.1 Khách hàng — 5 mục ở thanh đáy
 
@@ -163,39 +178,136 @@ Ba chỗ tách bạc rõ ràng, và đây là chủ ý thiết kế chứ không
 
 Mọi màn phụ đều có nút `<` trả về màn trước đó, giống app khách.
 
-### 4.3 Trung tâm — 11 trang
+### 4.3 Trung tâm — 14 trang / 5 nhóm
 
-**Vận hành:** Tổng quan hôm nay · Điều phối lịch · Yêu cầu từ khách · Yêu cầu từ
-KTV · Kỹ thuật viên
-**Kinh doanh:** Khách hàng · Dịch vụ & bảng giá · Doanh thu & đối soát
-**Chất lượng:** Đánh giá & chất lượng · Vật tư & thiết bị
-**Hệ thống:** Cấu hình trung tâm
+| Nhóm | Trang | Tab bên trong |
+|---|---|---|
+| **Hôm nay** | Tổng quan | — |
+| | Quầy lễ tân | Đang diễn ra · Khách đến hôm nay · Đặt lịch hộ · Danh sách chờ |
+| | Lịch hẹn | Theo kỹ thuật viên · Theo phòng · Nguồn đặt |
+| | Cần duyệt | Từ khách · Từ kỹ thuật viên |
+| **Khách hàng** | Hồ sơ khách | bảng → mở hồ sơ chi tiết |
+| | Liệu trình & gói | Gói đang bán · Khách đang dùng · Sắp hết buổi |
+| | Chăm sóc & ưu đãi | Chiến dịch · ZNS/SMS · Tự động |
+| | Đánh giá & phản hồi | — |
+| **Nhân sự** | Kỹ thuật viên | Đang làm · Đăng ký mới · Chứng chỉ sắp hết |
+| | Lương & hoa hồng | Kỳ này · Cách tính *(chỉ đọc)* |
+| **Kinh doanh** | Dịch vụ & bảng giá | Bảng giá & gói · Lương khoán KTV · Định mức vật tư |
+| | Phòng & vật tư | Phòng · Thiết bị & bảo trì · Kho vật tư |
+| | Doanh thu & đối soát | Doanh thu · Kết quả theo dịch vụ · Đối soát nền tảng |
+| **Hệ thống** | Cấu hình trung tâm | Chung · Vai trò & quyền · Nhật ký thao tác |
 
-Hai trang xử lý yêu cầu là phía đối ứng của những gì khách và KTV gửi lên. Trang
-Cấu hình có khai báo thuế doanh nghiệp và tuỳ chọn khấu trừ hộ KTV.
+Nhóm đầu tên là **"Hôm nay"** chứ không phải "Vận hành": bốn mục đó là thứ người
+ta mở mỗi sáng. Mục nào chẳng là vận hành, tên đó không phân biệt gì.
 
-Trang **Yêu cầu từ KTV** gộp ba loại việc khác bản chất, huy hiệu ở menu đếm cả
-ba nên trung tâm không tưởng nhầm là đã xong:
+#### Bốn chỗ đáng chú ý
+
+**Quầy lễ tân** vá ba lỗ hằng ngày: đặt lịch hộ khách gọi điện, đánh dấu khách
+đến và vắng mặt, bảng phòng đang chạy ngay lúc này. Trước đây tab *Nguồn đặt* ghi
+212 buổi lễ tân đặt hộ mà không có màn nào để đặt.
+
+**Cần duyệt** gộp ba loại việc khác bản chất, huy hiệu ở menu đếm cả ba:
 
 1. **Duyệt lịch** — đổi giờ, huỷ ca, xin thêm việc. Câu hỏi là cho hay không cho.
-2. **Sự cố tại ca** — việc đã xảy ra rồi. Câu hỏi là *ai chịu phí*. Nên nhãn nút
-   viết thẳng hệ quả tiền bạc: "Tính công KTV · thu 50% phí khách" thay vì
-   "Duyệt". Nút chung chung khiến điều phối viên bấm mà không biết vừa quyết gì.
-3. **Phân xử giờ** — khách khai một đằng, ứng dụng ghi một nẻo. Bản ghi định vị
-   check-in/check-out đặt lên trước và ghi rõ *bên thứ ba · không ai sửa được*,
-   nên đây không phải chuyện tin ai hơn ai. Có đường thứ ba là chia đôi.
+2. **Sự cố tại ca** — việc đã xảy ra rồi. Câu hỏi là *ai chịu phí*. Nhãn nút viết
+   thẳng hệ quả tiền bạc: "Tính công KTV · thu 50% phí khách" thay vì "Duyệt".
+3. **Phân xử giờ** — bản ghi định vị check-in/check-out đặt lên trước, ghi rõ
+   *bên thứ ba · không ai sửa được*. Có đường thứ ba là chia đôi.
 
-### 4.4 Quản trị nền tảng — 8 trang
+**Ba quy định tách rời nhau**, không trộn chung một bảng:
 
-**Tổng quan:** Bảng điều hành
-**Đối tượng:** Quản lý trung tâm · Phê duyệt hồ sơ · KTV tự do
-**Khách hàng:** Loyalty ANP · Đối tác liên kết
-**Nền tảng:** Chính sách & cấu hình · Dữ liệu & AI
+| Quy định về | Ở đâu |
+|---|---|
+| Giá với **khách** | Dịch vụ & bảng giá → Bảng giá & gói |
+| Trả với **kỹ thuật viên** | Dịch vụ & bảng giá → Lương khoán KTV |
+| **Kết quả** ra sao | Doanh thu → Kết quả theo dịch vụ |
 
-Trang **Phê duyệt hồ sơ** có một quy tắc đáng chú ý: hồ sơ thiếu giấy tờ bắt
-buộc thì **không phê duyệt thẳng được** — nút phê duyệt bị vô hiệu và hệ thống
-chuyển hành động chính sang "Yêu cầu bổ sung". Duyệt một cơ sở trị liệu chưa có
-PCCC hay chứng nhận vệ sinh là rủi ro pháp lý và an toàn cho khách.
+Lương khoán là **tỷ lệ 30–45% trên giá niêm yết sau thuế, chưa trừ ưu đãi** —
+nghĩa là trung tâm chịu trọn phần giảm giá, kỹ thuật viên không mất thu nhập vì
+khuyến mãi mà họ không quyết định. Nền tảng chặn cứng hai đầu 30% và 45%. Chỉ
+**Giám đốc** sửa được, lấy quyền từ ô *"Đặt giá dịch vụ và lương khoán"* trong ma
+trận ở Cấu hình → Vai trò & quyền.
+
+**Vai trò & quyền** là ma trận 13 đầu việc × 5 vai trò, mỗi ô bật tắt riêng. Chia
+theo trách nhiệm công việc chứ không theo chức danh, và vai trò không cố định.
+
+### 4.4 Quản trị nền tảng — 14 trang / 5 nhóm
+
+| Nhóm | Trang | Tab bên trong |
+|---|---|---|
+| **Điều hành** | Bảng điều hành | — |
+| | Cần xử lý | Duyệt hồ sơ · Khiếu nại leo thang · Sự cố an toàn |
+| **Thành viên** | Trung tâm | Đang hoạt động · Hồ sơ đăng ký · Tạm dừng & chấm dứt |
+| | Kỹ thuật viên | KTV tự do · Hồ sơ đăng ký · Bậc & chứng chỉ |
+| | Khách hàng | Tài khoản · Quyền dữ liệu cá nhân |
+| | Giám đốc Kinh doanh | Danh sách · Trung tâm đã giới thiệu · Chính sách hoa hồng · Xem trước màn GĐKD |
+| **Kinh doanh** | Gói nền tảng & tiện ích | Gói nền tảng · Tiện ích gia tăng · Ai đang dùng |
+| | Doanh thu & đối soát | Doanh thu · Đối soát trung tâm · Công nợ |
+| | Loyalty ANP | — |
+| **Truyền thông** | Social media | Kênh · Chiến dịch · Nội dung chờ duyệt |
+| | Đối tác liên kết | — |
+| **Hệ thống** | Danh mục chuẩn | Dịch vụ · Chứng chỉ & bậc · Thiết bị & hãng · Sức khoẻ & chống chỉ định |
+| | Chính sách & thông số | — |
+| | Dữ liệu, AI & nhật ký | Mô hình · Quản trị dữ liệu · Nhật ký thao tác |
+
+#### Vòng đời thành viên — sáu trạng thái
+
+```
+Nháp → Chờ thẩm định → [Yêu cầu bổ sung] → Đã duyệt → Tạm dừng → Chấm dứt
+                            ↑______________|              ↓
+                                                      khôi phục
+```
+
+**Tạm dừng khác chấm dứt**, và sản phẩm nói rõ nghĩa vụ còn lại: tạm dừng thì
+không nhận khách mới nhưng **lịch đã đặt vẫn phải phục vụ**; chấm dứt thì phải xử
+lý xong gói khách đã mua chưa dùng hết.
+
+#### Hồ sơ đăng ký — hai biểu mẫu
+
+**Trung tâm** khai bốn nhóm: thông tin cơ bản (gồm fanpage, YouTube, TikTok) ·
+hoạt động (số KTV, ai có chứng chỉ gì) · dịch vụ và phương pháp (cổ truyền hay
+thiết bị, ghi rõ hãng) · pháp lý. Kèm hai cam kết.
+
+**Giấy phép hành nghề là điều kiện *có điều kiện*:** chỉ hiện và chỉ bắt buộc khi
+hồ sơ khai có dịch vụ trị liệu, xâm lấn hoặc khám chữa bệnh. Thiếu giấy tờ bắt
+buộc thì nút Phê duyệt bị khoá, hành động chính chuyển sang *Yêu cầu bổ sung*.
+
+**Kỹ thuật viên tự do** khai họ tên · CCCD · địa chỉ · điện thoại · chứng chỉ còn
+hiệu lực · số năm nghề · dịch vụ có thể làm · khám sức khoẻ, kèm hai cam kết. Số
+CCCD chỉ ANWELL thấy đầy đủ; sau thẩm định, màn của trung tâm chỉ còn bốn số cuối.
+
+**Bậc luôn do ANWELL cấp**, trung tâm không tự phong — bậc là thứ khách nhìn vào
+để tin, mỗi nơi tự phong thì bậc mất nghĩa trên toàn mạng.
+
+#### Danh mục chuẩn — một nguồn duy nhất
+
+Bốn danh mục trước đây hard-code rải rác ở `app.html`, `ktv.html` và
+`center.html`: loại hình dịch vụ · chứng chỉ & bậc · hãng thiết bị · tình trạng
+sức khoẻ và chống chỉ định. Sửa một chỗ quên chỗ kia là ra mâu thuẫn ngay —
+**bảng chống chỉ định từng có hai bản riêng và đã gây lỗi thật**: khách khai huyết
+áp cao mà không dịch vụ nào cảnh báo.
+
+Mỗi danh mục nhấp vào được, có giới thiệu, số nơi đang dùng, và ba thao tác
+*Thêm · Tạm dừng · Xoá*. Xoá bị chặn khi còn nơi đang dùng.
+
+#### Gói nền tảng — ba cho trung tâm, ba cho KTV
+
+| | Trung tâm | KTV tự do |
+|---|---|---|
+| Gói cơ bản | miễn phí · chiết khấu 18% | miễn phí · chiết khấu 15% |
+| Gói giữa | 1,5tr/tháng · 15% | 250k/tháng · 12% |
+| Gói cao | 4,2tr/tháng · 12% | 600k/tháng · 9% |
+
+Mỗi gói có nút *Điều chỉnh* sửa thuê bao và chiết khấu tại chỗ. Cộng năm tiện ích
+bán thêm. Doanh thu ngoài chiết khấu chiếm 25% — đó là lập luận khi trung tâm lớn
+đòi giảm phần trăm.
+
+#### Giám đốc Kinh doanh
+
+Hưởng % doanh số của chính những trung tâm mình giới thiệu, **sau khi ANWELL
+duyệt**. Hồ sơ chờ và bị từ chối không tính đồng nào. Chế độ hưởng — có thời hạn
+hay trọn đời — là **lựa chọn ADMIN đặt**, không ghi cứng: sau này Hội đồng quản
+trị bỏ phiếu rồi chỉnh ở đúng chỗ đó.
 
 ## 5. Cơ chế doanh thu và thuế
 

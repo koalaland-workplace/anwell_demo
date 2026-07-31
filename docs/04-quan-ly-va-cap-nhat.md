@@ -6,9 +6,9 @@ Tài liệu cho người bảo trì bản demo.
 
 **Sửa trong `src/pages/`, không bao giờ sửa trực tiếp file ở gốc.**
 
-Năm file HTML ở gốc kho mã (`index.html`, `app.html`, `center.html`, `ktv.html`,
-`admin.html`) là **kết quả dựng ra**. Sửa thẳng vào đó thì lần chạy `build.py`
-tiếp theo sẽ ghi đè mất.
+Sáu file HTML ở gốc kho mã (`index.html`, `demo.html`, `app.html`, `center.html`,
+`ktv.html`, `admin.html`) là **kết quả dựng ra**. Sửa thẳng vào đó thì lần chạy
+`build.py` tiếp theo sẽ ghi đè mất.
 
 ```
 src/pages/ktv.html   ← sửa ở đây
@@ -22,7 +22,7 @@ src/pages/ktv.html   ← sửa ở đây
 python3 tools/build.py && python3 tools/verify.py
 ```
 
-`verify.py` kiểm tra trước khi cho đi tiếp: đủ 5 trang, không còn mã định danh
+`verify.py` kiểm tra trước khi cho đi tiếp: đủ 6 trang, không còn mã định danh
 chưa thay, mọi đường dẫn ảnh và font đều tồn tại, mỗi trang có tiêu đề và mô tả,
 không file nào vượt 400 KB.
 
@@ -52,6 +52,31 @@ lần, vì trình duyệt giữ bản cũ rất dai. Mở Console (phím `F12`) 
 
 Xong thì dừng máy chủ bằng `Ctrl + C`.
 
+### Rà cả 6 trang, không chỉ trang vừa sửa
+
+Đây là bài học đắt nhất của kho mã này. Đã **ba lần** một thay đổi nhỏ làm trắng
+những trang không liên quan, mà `verify.py` vẫn báo đạt:
+
+| Việc đã làm | Hậu quả |
+|---|---|
+| Gộp hai mục thành một, thẻ `sc-if` bọc nhầm | 6 trang trắng |
+| Đặt sai chỗ hai thẻ đóng | 4 trang trắng |
+| Đổi menu mà quên thanh nav dưới còn trỏ trang cũ | trang trắng hoàn toàn |
+
+Cả ba đều **chỉ lộ ra khi mở đúng trang bị ảnh hưởng**. Nên mỗi lần đụng tới cấu
+trúc — thêm bớt trang, gộp mục, di chuyển khối — phải mở lần lượt **cả 6 trang và
+mọi tab bên trong**, xem trang nào trống thì sửa trước khi commit.
+
+### Hai bẫy hay gặp khi sửa `src/pages/`
+
+**Bẫy 1 — huy hiệu ở menu đọc thẳng từ `state`.** Trỏ vào một giá trị tính trong
+`renderVals()` thì lúc dựng menu nó chưa tồn tại và trang trắng ngay. Dùng hàm
+`navCount()` có sẵn ở cả `center.html` và `admin.html`.
+
+**Bẫy 2 — thay thế theo mốc quá rộng.** Cắt từ mốc A tới mốc B mà mốc B trùng
+nhiều chỗ thì nuốt mất khối logic ở giữa. Đã hai lần mất nguyên một trang vì thế.
+Sửa từng đoạn nhỏ và kiểm dựng sau mỗi bước thì an toàn hơn.
+
 ## Sửa những thứ hay gặp
 
 | Muốn sửa | Sửa ở đâu |
@@ -69,7 +94,7 @@ Xong thì dừng máy chủ bằng `Ctrl + C`.
 
 ```
 anwell_demo/
-├─ index.html  app.html  center.html  ktv.html  admin.html   ← kết quả dựng
+├─ index.html  demo.html  app.html  center.html  ktv.html  admin.html  ← kết quả dựng
 ├─ assets/
 │  ├─ fonts/     22 file chữ, dùng chung cả 5 trang
 │  ├─ img/       ảnh WebP + ảnh xem trước khi chia sẻ
@@ -146,4 +171,7 @@ Những việc chưa làm, ghi lại để không quên:
 | Dựng tự động bằng GitHub Actions | Hiện phải chạy `build.py` thủ công trước khi đẩy. Tự động hoá được nhưng thêm một điểm có thể hỏng |
 | Nút trang trí chưa nối | Chuông thông báo ở `center` và `admin`, avatar ở `admin`, vài nút chuyển màn hình phụ ở `ktv`. Các nút thao tác chính đều chạy thật |
 | Đồng bộ vỏ trang cho `center` và `admin` | Hai trang này là bảng điều khiển máy tính, chưa dùng khung điện thoại như `app` và `ktv`. Font và cỡ chữ thì đã thống nhất |
+| Cổng Giám đốc Kinh doanh thành trang riêng | Hiện là tab xem trước trong `admin.html`. Khối 03 trên Portal ghi *đang xây dựng*; dựng xong thì đổi thành liên kết |
+| Trung tâm: kho sản phẩm bán ra, thu chi & công nợ | Đã bỏ POS theo yêu cầu. Giá vốn mỗi buổi đã có, đủ nền để sau này tính lợi nhuận thật |
+| Bộ chọn vai trò chi phối cả portal | Hiện chỉ ảnh hưởng trang Lương khoán. Muốn lễ tân không thấy Doanh thu thì phải gài quyền ở mọi trang |
 | Kịch bản dẫn dắt trong sản phẩm | Từng có trong thiết kế ban đầu: lớp phủ tô sáng nút cần bấm, bật bằng `?tour=`. Chưa dựng — hiện dùng kịch bản giấy ở `docs/03` |

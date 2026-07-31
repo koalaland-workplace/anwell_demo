@@ -14,8 +14,11 @@ Tài liệu này viết cho người mở demo lần đầu, không cần biết
 
 ## Mở demo
 
-Vào **https://koalaland-workplace.github.io/anwell_demo/** rồi chọn giao diện
-muốn xem. Hoặc mở thẳng:
+Vào **https://koalaland-workplace.github.io/anwell_demo/** — đó là **ANWELL
+Portal**, trang giới thiệu. Cuộn tới mục **Nền tảng**, ở đó có năm khối; bốn khối
+bấm thẳng vào bản demo tương ứng.
+
+Hoặc mở thẳng:
 
 | Muốn xem | Địa chỉ |
 |---|---|
@@ -23,6 +26,11 @@ muốn xem. Hoặc mở thẳng:
 | Công cụ của trung tâm | `.../center.html` |
 | Ứng dụng của kỹ thuật viên | `.../ktv.html` |
 | Bảng điều hành ANWELL | `.../admin.html` |
+| Trang gom cả bốn cổng | `.../demo.html` |
+
+> **Khối *Giám đốc Kinh doanh* không bấm được** và ghi *đang xây dựng* — cổng đó
+> chưa có bản riêng. Muốn xem tạm thì vào `admin.html` → **Giám đốc Kinh doanh**
+> → tab *Xem trước màn GĐKD*.
 
 > **Nếu thấy bản cũ:** trình duyệt giữ bản đã tải trước đó. Bấm `Cmd + Shift + R`
 > (máy Mac) hoặc `Ctrl + F5` (máy Windows) để tải lại từ đầu.
@@ -81,38 +89,54 @@ Khách hàng vẫn giữ chế độ cũ.
 
 ## Giao diện Trung tâm
 
-**Vào đâu:** `center.html`
+**Vào đâu:** `center.html` · **14 trang / 5 nhóm**
 
 Đây là phía đối ứng: những gì khách và kỹ thuật viên gửi lên sẽ hiện ở đây.
 
 **Đường đi đáng xem nhất:**
 
-1. **Tổng quan hôm nay** → công suất theo giờ, việc tồn đọng
-2. **Yêu cầu từ khách** (số đỏ) → bốn yêu cầu đổi giờ, hoãn, huỷ
-   - Yêu cầu cuối cùng của *Phạm Thị Lan* có cảnh báo vàng: chưa có khung trống
-     nên nút "Chấp nhận" bị mờ, hệ thống đẩy "Đề xuất giờ khác" thành nút chính
-3. **Yêu cầu từ KTV** (số đỏ) → phía đối ứng của mục Khả dụng bên ứng dụng KTV
-   - Khối đỏ *Báo bận khẩn cấp* **không có nút duyệt** — vì đã có hiệu lực rồi,
-     trung tâm chỉ bố trí người thay
-4. **Đánh giá & chất lượng** → phản hồi 3 sao của Quang T. có ba nút xử lý; phản
-   hồi 5 sao thì không
-5. **Cấu hình trung tâm** → thẻ **Thuế & hoá đơn** ở cột phải
+1. **Quầy lễ tân → Đang diễn ra** → ảnh chụp lúc 15:20, phòng nào đang chạy còn
+   mấy phút, phòng nào trống
+2. **Quầy lễ tân → Khách đến hôm nay** → bấm *Đã đến* hoặc *Vắng mặt*; khách quá
+   giờ 15 phút tự được đánh dấu **Trễ**
+3. **Cần duyệt → Từ khách** → yêu cầu cuối của *Phạm Thị Lan* có cảnh báo: chưa
+   có khung trống nên nút "Chấp nhận" bị mờ
+4. **Cần duyệt → Từ kỹ thuật viên** → cuộn xuống hai khối **Sự cố tại ca** và
+   **Phân xử giờ**. Đọc nhãn nút: *"Tính công KTV · thu 50% phí khách"* — không
+   phải "Duyệt / Từ chối" chung chung
+5. **Dịch vụ & bảng giá → Lương khoán KTV** → bốn tiêu chí quyết định lương; bấm
+   `+` ở *Bậc 2* sẽ thấy nền tảng chặn cứng ở 45%
+6. **Doanh thu → Kết quả theo dịch vụ** → tổng thu từng gói trừ dần tới phần
+   trung tâm giữ lại
+7. **Cấu hình → Vai trò & quyền** → ma trận 13 đầu việc × 5 vai trò, bấm từng ô
+
+> **Chỗ đáng dừng lâu nhất:** *Dịch vụ & bảng giá → Định mức vật tư*. Dịch vụ
+> đang chạy ưu đãi 15% thì sau thuế, lương và vật tư trung tâm còn bao nhiêu —
+> con số tự nói ra điều mà ít chủ cơ sở tính ngược lại.
 
 ---
 
 ## Giao diện Quản trị nền tảng
 
-**Vào đâu:** `admin.html`
+**Vào đâu:** `admin.html` · **14 trang / 5 nhóm**
 
 **Đường đi đáng xem nhất:**
 
 1. **Bảng điều hành** → bức tranh toàn nền tảng
-2. **Phê duyệt hồ sơ** (số đỏ) → phần đáng xem nhất:
-   - *Thảo Mộc Wellness* đủ giấy tờ → bấm **Phê duyệt**, số đỏ tụt xuống
-   - *Hoà Mộc Center* thiếu chứng nhận vệ sinh → nút Phê duyệt **mờ và bấm không
-     được**, hệ thống bắt phải "Yêu cầu bổ sung"
-3. **Loyalty ANP** → mô hình hai lớp điểm
-4. **Chính sách & cấu hình** → các quy tắc áp cho toàn nền tảng
+2. **Cần xử lý → Duyệt hồ sơ** → *Thảo Mộc Wellness* đủ giấy tờ, bấm **Phê
+   duyệt** thì số đỏ tụt xuống
+3. **Trung tâm → Hồ sơ đăng ký** → hồ sơ *Hoà Mộc Center*. Khối giấy tờ có
+   **Giấy phép hành nghề trị liệu** hiện lên **vì hồ sơ khai có Vật lý trị
+   liệu** — khai không có nhóm đó thì mục ấy không xuất hiện. Thiếu giấy tờ bắt
+   buộc nên nút Phê duyệt bị khoá
+4. **Kỹ thuật viên → Hồ sơ đăng ký** → bậc do ANWELL chốt, không phải trung tâm
+5. **Danh mục chuẩn → Sức khoẻ & chống chỉ định** → nguồn duy nhất của cảnh báo
+   mà khách thấy lúc đặt và KTV đọc lại trước ca
+6. **Gói nền tảng & tiện ích** → ba gói trung tâm, ba gói KTV, mỗi gói có nút
+   *Điều chỉnh*
+7. **Giám đốc Kinh doanh → Chính sách hoa hồng** → bấm *Trọn đời* để thấy cảnh
+   báo về chi phí tích luỹ
+8. **Cần xử lý → Khiếu nại leo thang** → việc trung tâm xử mà một bên không chịu
 
 ---
 
