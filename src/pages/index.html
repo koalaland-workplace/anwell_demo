@@ -263,10 +263,22 @@ p{color:var(--ink-2);text-wrap:pretty}
 .mono{font-family:ui-monospace,monospace}
 /* Thẻ dẫn vào bản demo. Ghi rõ là bản mô phỏng để không ai nhầm số liệu
    minh hoạ là số thật của một cơ sở đang chạy. */
-a.demolink{display:block;text-decoration:none;color:inherit;transition:transform .18s ease,box-shadow .18s ease}
-a.demolink:hover{transform:translateY(-3px);box-shadow:0 14px 32px -18px rgba(12,63,54,.42)}
+a.demolink{display:flex;flex-direction:column;text-decoration:none;color:inherit;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+a.demolink:hover{transform:translateY(-3px);box-shadow:0 16px 36px -18px rgba(12,63,54,.45);border-color:var(--accent)}
 a.demolink:focus-visible{outline:2px solid var(--accent-ink);outline-offset:3px}
-.demotag{display:block;margin-top:12px;padding-top:11px;border-top:1px solid rgba(0,0,0,.08);font:600 11px/1.4 ui-monospace,monospace;letter-spacing:.04em;color:var(--accent-ink)}
+.card.portal .sub{font-size:13.5px;line-height:1.72;color:var(--ink-2);margin-top:9px}
+/* Nhãn đẩy xuống đáy để năm thẻ có chiều cao khác nhau vẫn thẳng hàng dưới. */
+.demotag{display:flex;align-items:center;gap:8px;margin-top:auto;padding-top:13px;border-top:1px solid rgba(255,255,255,.1);font:600 11.5px/1.4 ui-monospace,monospace;letter-spacing:.04em;color:var(--accent-ink)}
+.demotag b{font-weight:700}
+/* Bàn tay chỉ nhấp nháy nhẹ để mắt biết thẻ bấm được. Tôn trọng máy đã tắt
+   hiệu ứng chuyển động trong cài đặt hệ thống. */
+.pt{flex:none;color:var(--accent);animation:ptTap 1.9s ease-in-out infinite}
+@keyframes ptTap{0%,72%,100%{transform:translateY(0);opacity:.85}82%{transform:translateY(3px);opacity:1}90%{transform:translateY(0);opacity:1}}
+a.demolink:hover .pt{animation-duration:.9s}
+@media(prefers-reduced-motion:reduce){.pt{animation:none}}
+/* Hai cột, hàng cuối kéo dài hết chiều ngang. */
+.gportal{grid-template-columns:repeat(2,1fr)}
+.gportal .wide{grid-column:1 / -1}
 
 /* ── THANG ĐO: mô-típ chữ ký ── */
 .scale{display:flex;align-items:flex-end;gap:0;height:26px;margin:26px 0}
@@ -714,7 +726,8 @@ footer a{text-decoration:none}
   .fgrid{grid-template-columns:1fr 1fr}
 }
 @media(max-width:760px){
-  .g2,.g3,.g4,.fields{grid-template-columns:1fr}
+  .g2,.g3,.g4,.gportal,.fields{grid-template-columns:1fr}
+  .gportal .wide{grid-column:auto}
   .ladder{grid-template-columns:1fr} .rung{border-right:0;border-bottom:1px solid var(--line)}
   .fgrid{grid-template-columns:1fr}
   .logo{flex:1 1 auto;min-width:0}
@@ -897,13 +910,14 @@ body{overflow-x:clip;overflow-wrap:break-word}
       <h2>Năm cấu phần trên một lõi</h2>
       <p class="lede">Mỗi vai trò có cổng riêng với quyền riêng, nhưng dùng chung một lõi nghiệp vụ. Chạy trên trình duyệt và trong Zalo — khách không phải cài ứng dụng.</p>
     </div>
-    <div class="grid g3">
-      <a class="card demolink" href="admin.html"><p class="num">01</p><h3>Cổng quản trị nền tảng</h3><p>Duyệt hồ sơ đối tác · cấu hình chính sách · giám sát chất lượng và an toàn · đối soát · thư viện phác đồ chuẩn.</p><span class="demotag">Bản mô phỏng · số liệu minh hoạ →</span></a>
-      <a class="card lead demolink" href="center.html"><p class="num">02</p><h3>Cổng Trung tâm + website riêng</h3><p>Quản lý kỹ thuật viên, dịch vụ, giá, lịch, khách theo liệu trình, đối soát. Kèm <strong>trang riêng dạng tencoso.anwell.vn</strong> có bảng giá, đội ngũ kèm bậc nghề, nút đặt lịch và mã QR in dán tại quầy.</p><span class="demotag">Bản mô phỏng · số liệu minh hoạ →</span></a>
-      <a class="card demolink" href="ktv.html"><p class="num">03</p><h3>Ứng dụng Kỹ thuật viên</h3><p>Hồ sơ nghề đi theo người · chứng nhận theo bậc · ca hôm nay theo tuyến · ghi nhận buổi có quy trình bắt buộc · thu nhập minh bạch.</p><span class="demotag">Bản mô phỏng · số liệu minh hoạ →</span></a>
-      <a class="card demolink" href="admin.html#bd"><p class="num">04</p><h3>Cổng Giám đốc Kinh doanh</h3><p>Phễu phát triển mạng lưới · chỉ tiêu theo vùng và theo người · xếp hạng và cảnh báo cơ sở · báo cáo vùng tự sinh.</p><span class="demotag">Bản mô phỏng · số liệu minh hoạ →</span></a>
-      <a class="card demolink" href="app.html"><p class="num">05</p><h3>Ứng dụng Khách hàng</h3><p>Đặt buổi có sàng lọc an toàn · lịch và chi tiết buổi · tra cứu chứng nhận người đến nhà · cửa sổ gia đình · đánh giá sau buổi.</p><span class="demotag">Bản mô phỏng · số liệu minh hoạ →</span></a>
-      <div class="card alt"><p class="num">AN TOÀN</p><h3>Ba tầng lưới</h3><p><strong>Sàng lọc cờ đỏ</strong> chặn đặt khi có dấu hiệu bệnh nghiêm trọng · <strong>chặn ca vượt bậc</strong> chứng nhận · <strong>giới hạn ca, bán kính và khung giờ</strong> bảo vệ kỹ thuật viên.</p></div>
+    <!-- Năm cổng, xếp 2 – 2 – 1. Hàng cuối kéo dài bằng hai khối trên vì
+         Management Portal là lõi cả bốn cổng kia cắm vào. -->
+    <div class="grid gportal">
+      <a class="card portal demolink lead" href="center.html"><p class="num">01</p><h3>Quản trị Trung tâm</h3><p>Hệ quản trị dành cho trung tâm, cơ sở trị liệu, spa và dưỡng sinh.</p><p class="sub">Lễ tân và lịch hẹn · hồ sơ khách theo liệu trình · gói dịch vụ · lương khoán kỹ thuật viên · phòng và vật tư · doanh thu và đối soát. Kèm trang riêng dạng <strong>tencoso.anwell.vn</strong> có bảng giá, đội ngũ kèm bậc nghề và mã QR in dán tại quầy.</p><span class="demotag"><svg class="pt" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11V5.5a1.5 1.5 0 1 1 3 0V11"/><path d="M12 11V4.5a1.5 1.5 0 1 1 3 0V11"/><path d="M15 11.5V7a1.5 1.5 0 1 1 3 0v6.5a7 7 0 0 1-7 7h-.7a6 6 0 0 1-4.5-2l-2.6-3a1.6 1.6 0 0 1 2.3-2.2L7 15"/><path d="M9 11v4"/></svg> Bấm để mở bản mô phỏng <b>&rarr;</b></span></a>
+      <a class="card portal demolink" href="ktv.html"><p class="num">02</p><h3>Quản trị KTV</h3><p>Hệ quản trị dành cho kỹ thuật viên — cả người làm tại trung tâm và người làm tự do.</p><p class="sub">Hồ sơ nghề đi theo người · chứng nhận theo bậc · ca hôm nay theo tuyến · thẻ chuẩn bị trước ca có cảnh báo chống chỉ định · chia sẻ vị trí và nút SOS · thu nhập minh bạch từng nguồn.</p><span class="demotag"><svg class="pt" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11V5.5a1.5 1.5 0 1 1 3 0V11"/><path d="M12 11V4.5a1.5 1.5 0 1 1 3 0V11"/><path d="M15 11.5V7a1.5 1.5 0 1 1 3 0v6.5a7 7 0 0 1-7 7h-.7a6 6 0 0 1-4.5-2l-2.6-3a1.6 1.6 0 0 1 2.3-2.2L7 15"/><path d="M9 11v4"/></svg> Bấm để mở bản mô phỏng <b>&rarr;</b></span></a>
+      <a class="card portal demolink" href="admin.html#bd"><p class="num">03</p><h3>Giám đốc Kinh doanh</h3><p>Trang quản lý dành cho các Giám đốc Kinh doanh.</p><p class="sub">Link giới thiệu riêng · trung tâm đã đưa về và trạng thái duyệt · hoa hồng theo doanh số · chỉ tiêu theo vùng và theo người.</p><span class="demotag"><svg class="pt" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11V5.5a1.5 1.5 0 1 1 3 0V11"/><path d="M12 11V4.5a1.5 1.5 0 1 1 3 0V11"/><path d="M15 11.5V7a1.5 1.5 0 1 1 3 0v6.5a7 7 0 0 1-7 7h-.7a6 6 0 0 1-4.5-2l-2.6-3a1.6 1.6 0 0 1 2.3-2.2L7 15"/><path d="M9 11v4"/></svg> Bấm để mở bản mô phỏng <b>&rarr;</b></span></a>
+      <a class="card portal demolink" href="app.html"><p class="num">04</p><h3>Web-App dành cho Khách hàng</h3><p>Ứng dụng đặt chỗ, quản lý và theo dõi tiến triển chăm sóc bản thân và người thân.</p><p class="sub">Đặt buổi có sàng lọc an toàn · hồ sơ sức khoẻ tự cảnh báo dịch vụ cần tránh · theo dõi buổi đang diễn ra · cửa sổ gia đình · tích điểm Hành trình An.</p><span class="demotag"><svg class="pt" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11V5.5a1.5 1.5 0 1 1 3 0V11"/><path d="M12 11V4.5a1.5 1.5 0 1 1 3 0V11"/><path d="M15 11.5V7a1.5 1.5 0 1 1 3 0v6.5a7 7 0 0 1-7 7h-.7a6 6 0 0 1-4.5-2l-2.6-3a1.6 1.6 0 0 1 2.3-2.2L7 15"/><path d="M9 11v4"/></svg> Bấm để mở bản mô phỏng <b>&rarr;</b></span></a>
+      <a class="card portal demolink wide lead" href="admin.html"><p class="num">05</p><h3>Management Portal</h3><p>Hệ quản trị nền tảng ANWELL.</p><p class="sub">Quản lý đăng ký, phê duyệt và hoạt động của trung tâm, kỹ thuật viên và các gói dịch vụ nền tảng · chính sách và thông số · danh mục chuẩn dùng chung · chỉ số toàn mạng · định vị thương hiệu và truyền thông.</p><span class="demotag"><svg class="pt" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11V5.5a1.5 1.5 0 1 1 3 0V11"/><path d="M12 11V4.5a1.5 1.5 0 1 1 3 0V11"/><path d="M15 11.5V7a1.5 1.5 0 1 1 3 0v6.5a7 7 0 0 1-7 7h-.7a6 6 0 0 1-4.5-2l-2.6-3a1.6 1.6 0 0 1 2.3-2.2L7 15"/><path d="M9 11v4"/></svg> Bấm để mở bản mô phỏng <b>&rarr;</b></span></a>
     </div>
 
     <h3 style="margin:48px 0 8px">Sáu tầng giá trị — trả lời câu hỏi "các anh là công ty công nghệ ở chỗ nào?"</h3>
