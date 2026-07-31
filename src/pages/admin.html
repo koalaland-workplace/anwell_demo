@@ -1842,6 +1842,12 @@ class Component extends DCLogic {
     { id:'data',      g:'Hệ thống',    t:'Dữ liệu, AI & nhật ký', ic:'cpu' }
   ];
 
+  // Cho phép dẫn thẳng vào một mục qua địa chỉ, ví dụ admin.html#bd. Trang
+  // Portal dùng cách này để thẻ Cổng Giám đốc Kinh doanh mở đúng chỗ.
+  componentDidMount(){
+    const h = (location.hash || '').replace('#','');
+    if (h && this.pages.some(p => p.id === h)) this.setState({ page: h });
+  }
   go(id){ this.setState({page:id}); }
   // Tab trong trang: mỗi trang nhớ riêng tab đang mở.
   setTab(page, k){ this.setState({ tabs: {...this.state.tabs, [page]: k} }); }

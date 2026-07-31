@@ -12,7 +12,7 @@ import sys
 from pathlib import Path
 from urllib.parse import unquote, urlparse
 
-PAGES = ["index", "app", "center", "ktv", "admin"]
+PAGES = ["index", "demo", "app", "center", "ktv", "admin"]
 ROOT = Path(__file__).resolve().parent.parent
 MAX_HTML_KB = 400
 

@@ -17,7 +17,7 @@ import re
 import shutil
 from pathlib import Path
 
-PAGES = ["index", "app", "center", "ktv", "admin"]
+PAGES = ["index", "demo", "app", "center", "ktv", "admin"]
 ROOT = Path(__file__).resolve().parent.parent
 SHARED = ROOT / "src" / "shared"
 
@@ -93,13 +93,25 @@ def build_page(page: str, meta: dict) -> int:
     head_close = source.index("</head>")
     old_head = source[head_open:head_close]
 
-    # Giữ lại mọi thẻ <script>/<link> sẵn có trong <head> gốc (dc-runtime v.v.),
-    # chỉ thay phần meta ở đầu.
-    keep = "\n".join(
-        line
-        for line in old_head.splitlines()
-        if line.strip().startswith(("<script", "<link"))
+    # Giữ nguyên mọi thứ trong <head> gốc TRỪ những thẻ build.py tự dựng lại:
+    # meta, title và link rel=icon. Cách loại trừ này giữ được cả khối <style>
+    # — bản whitelist cũ chỉ nhận <script> và <link> nên nuốt mất CSS của trang.
+    drop = re.compile(
+        r'^\s*(?:<meta\b|<title\b|<link[^>]*\brel="(?:icon|apple-touch-icon)")',
+        re.I,
     )
+    keep_lines, in_title = [], False
+    for line in old_head.splitlines():
+        if in_title:
+            if "</title>" in line:
+                in_title = False
+            continue
+        if drop.match(line):
+            if line.lstrip().startswith("<title") and "</title>" not in line:
+                in_title = True
+            continue
+        keep_lines.append(line)
+    keep = "\n".join(keep_lines).strip("\n")
 
     new_head = "\n" + build_head(page, meta) + "\n" + keep + "\n"
     if (SHARED / "demo-guide").is_dir():

@@ -1,15 +1,10 @@
 <!DOCTYPE html>
-<html><head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="vendor/dc-runtime.js"></script>
-</head>
-<body>
-<x-dc>
-<helmet>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<style>/* vietnamese */
+<html lang="vi" data-theme="annhien">
+<head>
+<link rel="apple-touch-icon" sizes="180x180" href="assets/img/portal-d8b0644283.webp">
+<style>
+/* Font nội bộ, cùng bộ với bốn trang demo — trang chạy được cả khi mất mạng
+   và không gửi truy cập của khách sang máy chủ bên thứ ba. */
 @font-face {
   font-family: 'Be Vietnam Pro';
   font-style: normal;
@@ -18,7 +13,6 @@
   src: url("assets/fonts/font-01.woff2") format('woff2');
   unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
 }
-/* latin-ext */
 @font-face {
   font-family: 'Be Vietnam Pro';
   font-style: normal;
@@ -27,7 +21,6 @@
   src: url("assets/fonts/font-02.woff2") format('woff2');
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
-/* latin */
 @font-face {
   font-family: 'Be Vietnam Pro';
   font-style: normal;
@@ -36,7 +29,6 @@
   src: url("assets/fonts/font-03.woff2") format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
-/* vietnamese */
 @font-face {
   font-family: 'Be Vietnam Pro';
   font-style: normal;
@@ -45,7 +37,6 @@
   src: url("assets/fonts/font-04.woff2") format('woff2');
   unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
 }
-/* latin-ext */
 @font-face {
   font-family: 'Be Vietnam Pro';
   font-style: normal;
@@ -54,7 +45,6 @@
   src: url("assets/fonts/font-05.woff2") format('woff2');
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
-/* latin */
 @font-face {
   font-family: 'Be Vietnam Pro';
   font-style: normal;
@@ -63,7 +53,6 @@
   src: url("assets/fonts/font-06.woff2") format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
-/* vietnamese */
 @font-face {
   font-family: 'Be Vietnam Pro';
   font-style: normal;
@@ -72,7 +61,6 @@
   src: url("assets/fonts/font-07.woff2") format('woff2');
   unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
 }
-/* latin-ext */
 @font-face {
   font-family: 'Be Vietnam Pro';
   font-style: normal;
@@ -81,7 +69,6 @@
   src: url("assets/fonts/font-08.woff2") format('woff2');
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
-/* latin */
 @font-face {
   font-family: 'Be Vietnam Pro';
   font-style: normal;
@@ -90,7 +77,6 @@
   src: url("assets/fonts/font-09.woff2") format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
-/* vietnamese */
 @font-face {
   font-family: 'Be Vietnam Pro';
   font-style: normal;
@@ -99,7 +85,6 @@
   src: url("assets/fonts/font-10.woff2") format('woff2');
   unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
 }
-/* latin-ext */
 @font-face {
   font-family: 'Be Vietnam Pro';
   font-style: normal;
@@ -108,7 +93,6 @@
   src: url("assets/fonts/font-11.woff2") format('woff2');
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
-/* latin */
 @font-face {
   font-family: 'Be Vietnam Pro';
   font-style: normal;
@@ -117,7 +101,6 @@
   src: url("assets/fonts/font-12.woff2") format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
-/* cyrillic-ext */
 @font-face {
   font-family: 'Cormorant Garamond';
   font-style: italic;
@@ -126,7 +109,6 @@
   src: url("assets/fonts/font-13.woff2") format('woff2');
   unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
 }
-/* cyrillic */
 @font-face {
   font-family: 'Cormorant Garamond';
   font-style: italic;
@@ -135,7 +117,6 @@
   src: url("assets/fonts/font-14.woff2") format('woff2');
   unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
 }
-/* vietnamese */
 @font-face {
   font-family: 'Cormorant Garamond';
   font-style: italic;
@@ -144,7 +125,6 @@
   src: url("assets/fonts/font-15.woff2") format('woff2');
   unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
 }
-/* latin-ext */
 @font-face {
   font-family: 'Cormorant Garamond';
   font-style: italic;
@@ -153,7 +133,6 @@
   src: url("assets/fonts/font-16.woff2") format('woff2');
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
-/* latin */
 @font-face {
   font-family: 'Cormorant Garamond';
   font-style: italic;
@@ -162,7 +141,6 @@
   src: url("assets/fonts/font-17.woff2") format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
-/* cyrillic-ext */
 @font-face {
   font-family: 'Cormorant Garamond';
   font-style: normal;
@@ -171,7 +149,6 @@
   src: url("assets/fonts/font-18.woff2") format('woff2');
   unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
 }
-/* cyrillic */
 @font-face {
   font-family: 'Cormorant Garamond';
   font-style: normal;
@@ -180,7 +157,6 @@
   src: url("assets/fonts/font-19.woff2") format('woff2');
   unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
 }
-/* vietnamese */
 @font-face {
   font-family: 'Cormorant Garamond';
   font-style: normal;
@@ -189,7 +165,6 @@
   src: url("assets/fonts/font-20.woff2") format('woff2');
   unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
 }
-/* latin-ext */
 @font-face {
   font-family: 'Cormorant Garamond';
   font-style: normal;
@@ -198,7 +173,6 @@
   src: url("assets/fonts/font-21.woff2") format('woff2');
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
-/* latin */
 @font-face {
   font-family: 'Cormorant Garamond';
   font-style: normal;
@@ -207,7 +181,6 @@
   src: url("assets/fonts/font-22.woff2") format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
-/* cyrillic-ext */
 @font-face {
   font-family: 'Cormorant Garamond';
   font-style: normal;
@@ -216,7 +189,6 @@
   src: url("assets/fonts/font-18.woff2") format('woff2');
   unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
 }
-/* cyrillic */
 @font-face {
   font-family: 'Cormorant Garamond';
   font-style: normal;
@@ -225,7 +197,6 @@
   src: url("assets/fonts/font-19.woff2") format('woff2');
   unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
 }
-/* vietnamese */
 @font-face {
   font-family: 'Cormorant Garamond';
   font-style: normal;
@@ -234,7 +205,6 @@
   src: url("assets/fonts/font-20.woff2") format('woff2');
   unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
 }
-/* latin-ext */
 @font-face {
   font-family: 'Cormorant Garamond';
   font-style: normal;
@@ -243,7 +213,6 @@
   src: url("assets/fonts/font-21.woff2") format('woff2');
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
-/* latin */
 @font-face {
   font-family: 'Cormorant Garamond';
   font-style: normal;
@@ -254,100 +223,1352 @@
 }
 </style>
 <style>
-  *{margin:0;padding:0;box-sizing:border-box}
-  body{background:#0A1512;font-family:'Be Vietnam Pro',system-ui,sans-serif;-webkit-font-smoothing:antialiased;color:#EAF4ED}
-  a{color:#E7CE97;text-decoration:none}a:hover{color:#F0DCAE}
-  .wrap{min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:44px 20px 26px;
-    background:radial-gradient(130% 90% at 50% 0%,#123227 0%,#0A1512 72%)}
-  .cards{display:grid;grid-template-columns:1fr;gap:14px;width:100%;max-width:1000px;margin-top:34px}
-  @media(min-width:760px){ .cards{grid-template-columns:repeat(3,1fr);gap:16px} .wrap{padding:60px 26px 30px} }
-  @keyframes bloom{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:none}}
-  @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
-  @keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-  .u{animation:up .5s cubic-bezier(.22,.61,.36,1) both}
-  .card{display:block;background:rgba(255,255,255,.045);border:1px solid #22382D;border-radius:20px;padding:24px 22px;
-    transition:transform .22s ease,border-color .22s ease,background .22s ease}
-  .card:hover{transform:translateY(-4px);border-color:#B9893B;background:rgba(231,206,151,.07)}
+/* ══════════ TOKENS · 3 CHỦ ĐỀ ══════════ */
+:root{
+  --bg:#F3F6F1; --surface:#FFFFFF; --surface-2:#EAF0E9; --line:#DCE5DD;
+  --ink:#14211B; --ink-2:#4C6157; --ink-3:#82968B;
+  --brand:#12564A; --brand-2:#2E8567; --accent:#B9893B; --accent-ink:#7A5514; --accent-soft:#E7CE97;
+  --hero-bg:linear-gradient(158deg,#0E4237 0%,#12564A 52%,#0B3A31 100%);
+  --hero-ink:#F4F7F3; --shadow:0 2px 10px rgba(11,58,49,.07); --shadow-lg:0 18px 44px rgba(11,58,49,.14);
+  --r:14px; --r-sm:8px;
+}
+[data-theme="rungtham"]{
+  --bg:#0C2F36; --surface:#123A3B; --surface-2:#16464A; --line:#215357;
+  --ink:#EAF2EC; --ink-2:#A9C2B6; --ink-3:#7B978A;
+  --brand:#54B79B; --brand-2:#6FCFB2; --accent:#D8B268; --accent-ink:#DCBA75; --accent-soft:#2A4238;
+  --hero-bg:linear-gradient(158deg,#0F3A31 0%,#155246 52%,#0A241E 100%);
+  --hero-ink:#EAF2EC; --shadow:0 2px 10px rgba(0,0,0,.30); --shadow-lg:0 18px 44px rgba(0,0,0,.42);
+}
+[data-theme="nhipsen"]{
+  --bg:#FBF5EA; --surface:#FFFFFF; --surface-2:#F4EAD8; --line:#E6D8C0;
+  --ink:#1A2118; --ink-2:#55604C; --ink-3:#8B8B73;
+  --brand:#12564A; --brand-2:#2E8567; --accent:#C9A05A; --accent-ink:#7A5514; --accent-soft:#F0DFB8;
+  --hero-bg:linear-gradient(158deg,#0E4237 0%,#12564A 48%,#3E3418 100%);
+  --hero-ink:#FBF5EA; --shadow:0 2px 10px rgba(94,70,24,.09); --shadow-lg:0 18px 44px rgba(94,70,24,.17);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:78px}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.6 'Be Vietnam Pro',system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased;transition:background .4s,color .4s}
+.wrap{width:min(1180px,92vw);margin:0 auto}
+section{padding:clamp(56px,8vw,104px) 0}
+h1,h2{font-family:'Cormorant Garamond',Georgia,serif;font-weight:700;letter-spacing:-.008em;line-height:1.06;text-wrap:balance}
+h3,h4{font-weight:700;letter-spacing:-.012em;line-height:1.16;text-wrap:balance}
+h1{font-size:clamp(36px,5.2vw,62px)}
+h2{font-size:clamp(28px,3.7vw,44px)}
+h3{font-size:clamp(18px,1.8vw,22px);font-weight:700;letter-spacing:-.012em}
+p{color:var(--ink-2);text-wrap:pretty}
+.eyebrow{font:600 11px/1 ui-monospace,monospace;letter-spacing:.22em;text-transform:uppercase;color:var(--accent-ink)}
+.lede{font-size:clamp(16px,1.5vw,19px);color:var(--ink-2);max-width:64ch;text-wrap:pretty}
+.mono{font-family:ui-monospace,monospace}
+/* Thẻ dẫn vào bản demo. Ghi rõ là bản mô phỏng để không ai nhầm số liệu
+   minh hoạ là số thật của một cơ sở đang chạy. */
+a.demolink{display:block;text-decoration:none;color:inherit;transition:transform .18s ease,box-shadow .18s ease}
+a.demolink:hover{transform:translateY(-3px);box-shadow:0 14px 32px -18px rgba(12,63,54,.42)}
+a.demolink:focus-visible{outline:2px solid var(--accent-ink);outline-offset:3px}
+.demotag{display:block;margin-top:12px;padding-top:11px;border-top:1px solid rgba(0,0,0,.08);font:600 11px/1.4 ui-monospace,monospace;letter-spacing:.04em;color:var(--accent-ink)}
+
+/* ── THANG ĐO: mô-típ chữ ký ── */
+.scale{display:flex;align-items:flex-end;gap:0;height:26px;margin:26px 0}
+.scale i{flex:1;background:var(--line);height:8px;border-radius:1px}
+.scale i:nth-child(5n+1){height:18px;background:var(--ink-3)}
+.scale i.on{background:var(--accent);height:22px}
+.scale-lab{display:flex;justify-content:space-between;font:500 10.5px/1 ui-monospace,monospace;color:var(--ink-2);letter-spacing:.1em}
+
+/* ── HEADER ── */
+header{position:sticky;top:0;z-index:60;background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;gap:22px;padding:13px 0}
+.logo{display:flex;align-items:center;gap:11px;text-decoration:none;flex:0 0 auto}
+.logo .mark{width:34px;height:34px;flex:0 0 auto;color:var(--accent);transition:color .4s}
+.logo:hover .mark{color:var(--brand)}
+.logo .lock{display:flex;flex-direction:column;gap:3px}
+.logo b{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:26px;letter-spacing:.006em;color:var(--brand);line-height:1}
+.logo i{font:500 8.2px/1 ui-monospace,monospace;color:var(--ink-3);letter-spacing:.075em;font-style:normal;white-space:nowrap}
+.menu{display:flex;gap:1px;margin-left:auto;align-items:center}
+.menu>a{padding:8px 11px;border-radius:var(--r-sm);text-decoration:none;color:var(--ink-2);font-size:13px;font-weight:500;
+  letter-spacing:-.005em;transition:.18s;position:relative;white-space:nowrap}
+.menu>a:hover,.menu>a:focus-visible{color:var(--brand)}
+.menu>a:after{content:"";position:absolute;left:11px;right:11px;bottom:3px;height:1.5px;background:var(--accent);
+  transform:scaleX(0);transform-origin:left;transition:transform .22s}
+.menu>a:hover:after{transform:scaleX(1)}
+.drop{position:relative;margin-left:8px}
+#joinbtn.dropbtn{font-size:13px;font-weight:600;padding:9px 16px;white-space:nowrap;line-height:1.2}
+.dropmenu{position:absolute;top:calc(100% + 9px);right:0;min-width:290px;background:var(--surface);
+  border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow-lg);padding:6px;display:none;z-index:80}
+.dropmenu.open{display:block}
+.dropmenu button{display:block;width:100%;text-align:left;border:0;background:transparent;cursor:pointer;
+  padding:11px 13px;border-radius:var(--r-sm);transition:.16s;font-family:'Be Vietnam Pro',sans-serif}
+.dropmenu button:hover{background:var(--surface-2)}
+.dropmenu b{display:block;font-size:14px;font-weight:600;color:var(--ink);margin-bottom:3px}
+.dropmenu span{display:block;font-size:12.5px;color:var(--ink-2);line-height:1.45}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:99px;border:0;cursor:pointer;
+  font:600 14.5px/1 'Be Vietnam Pro',sans-serif;text-decoration:none;transition:.2s}
+.btn-p{background:var(--brand);color:#fff}
+.btn-p:hover{background:var(--brand-2);transform:translateY(-1px)}
+.btn-o{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.btn-o:hover{border-color:var(--brand);color:var(--brand)}
+.themes{display:flex;gap:2px;background:var(--surface-2);padding:3px;border-radius:99px;margin-left:10px;flex:0 0 auto}
+.themes button{border:0;background:transparent;cursor:pointer;width:32px;height:32px;border-radius:50%;
+  color:var(--ink-2);transition:.18s;display:grid;place-items:center;padding:0}
+.themes button svg{width:16px;height:16px}
+.themes button:hover{color:var(--brand)}
+.themes button[aria-pressed="true"]{background:var(--brand);color:#fff}
+.burger{display:none;margin-left:auto;background:none;border:0;cursor:pointer;padding:8px;color:var(--ink)}
+
+/* ── HERO ── */
+.hero{background:var(--hero-bg);color:var(--hero-ink);position:relative;overflow:hidden;padding:clamp(52px,7vw,88px) 0 clamp(56px,7vw,92px)}
+.hero:before{content:"";position:absolute;inset:0;
+  background:radial-gradient(52% 46% at 78% 16%,rgba(185,137,59,.18),transparent 68%)}
+.hero-lotus{position:absolute;right:-6%;bottom:-30%;width:min(620px,62vw);color:var(--accent);
+  opacity:.075;z-index:1;pointer-events:none}
+@media(max-width:1000px){.hero-lotus{right:-24%;bottom:-16%;width:min(460px,88vw);opacity:.06}}
+.hero .wrap{position:relative;z-index:2;display:grid;grid-template-columns:1.12fr .88fr;gap:clamp(28px,4vw,56px);align-items:center}
+.hero .eyebrow{color:var(--accent)}
+.hero h1{color:var(--hero-ink);margin:16px 0 18px}
+.hero h1 em{font-style:normal;color:var(--accent);position:relative}
+.hero p{color:color-mix(in srgb,var(--hero-ink) 74%,transparent);font-size:clamp(15px,1.5vw,18px);max-width:52ch}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+.hero .btn-o{color:var(--hero-ink);border-color:color-mix(in srgb,var(--hero-ink) 30%,transparent)}
+.hero .btn-o:hover{border-color:var(--accent);color:var(--accent)}
+.hero-stats{display:flex;gap:26px;margin-top:34px;flex-wrap:wrap}
+.hero-stats div b{display:block;font:600 26px/1 ui-monospace,monospace;color:var(--accent)}
+.hero-stats div span{font-size:12.5px;color:color-mix(in srgb,var(--hero-ink) 62%,transparent)}
+
+/* thẻ đo — signature */
+.gauge{background:color-mix(in srgb,#fff 8%,transparent);border:1px solid color-mix(in srgb,var(--hero-ink) 18%,transparent);
+  border-radius:18px;padding:24px;backdrop-filter:blur(8px)}
+.gauge .hd{font:600 10px/1 ui-monospace,monospace;letter-spacing:.18em;color:var(--accent);text-transform:uppercase}
+.gauge .who{font-size:13px;color:color-mix(in srgb,var(--hero-ink) 66%,transparent);margin-top:9px}
+.gauge .nums{display:flex;align-items:baseline;gap:14px;margin:12px 0 4px}
+.gauge .from{font:600 34px/1 ui-monospace,monospace;color:color-mix(in srgb,var(--hero-ink) 42%,transparent);text-decoration:line-through;text-decoration-thickness:3px}
+.gauge .arrow{font-size:20px;color:color-mix(in srgb,var(--hero-ink) 50%,transparent)}
+.gauge .to{font:600 56px/1 ui-monospace,monospace;color:var(--accent)}
+.gauge .unit{font-size:12px;color:color-mix(in srgb,var(--hero-ink) 55%,transparent)}
+.gauge .ticks{display:flex;gap:3px;align-items:flex-end;height:34px;margin:18px 0 8px}
+.gauge .ticks i{flex:1;background:color-mix(in srgb,var(--hero-ink) 18%,transparent);border-radius:1px;height:10px;
+  transition:height .5s cubic-bezier(.2,.7,.2,1),background .5s}
+.gauge .ticks i.lit{background:var(--accent);height:30px}
+.gauge .foot{font-size:12.5px;color:color-mix(in srgb,var(--hero-ink) 70%,transparent);border-top:1px solid color-mix(in srgb,var(--hero-ink) 15%,transparent);padding-top:12px;margin-top:8px}
+
+/* ── KHỐI CHUNG ── */
+.head-2{max-width:70ch;margin-bottom:clamp(26px,3.4vw,44px)}
+.head-2 h2{margin:12px 0 12px}
+.grid{display:grid;gap:clamp(14px,1.6vw,20px)}
+.g2{grid-template-columns:repeat(2,1fr)} .g3{grid-template-columns:repeat(3,1fr)} .g4{grid-template-columns:repeat(4,1fr)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:clamp(20px,2.2vw,26px);
+  box-shadow:var(--shadow);transition:transform .22s,box-shadow .22s,border-color .22s}
+.card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+.card .num{font:600 11px/1 ui-monospace,monospace;letter-spacing:.16em;color:var(--accent-ink)}
+.card h3{margin:12px 0 8px}
+.card p{font-size:14.5px}
+.card.lead{border-left:3px solid var(--accent)}
+.tag{display:inline-block;font:500 11.5px/1 ui-monospace,monospace;padding:6px 10px;border:1px solid var(--line);
+  border-radius:99px;color:var(--ink-2);margin:0 5px 5px 0}
+.alt{background:var(--surface-2)}
+
+/* thang nghề */
+.ladder{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--line);margin-top:8px}
+.rung{padding:22px 22px 20px;border-right:1px solid var(--line)}
+.rung:last-child{border-right:0}
+.rung .lv{font:600 10px/1 ui-monospace,monospace;letter-spacing:.18em;color:var(--accent-ink);text-transform:uppercase}
+.rung .money{font:600 clamp(24px,2.8vw,32px)/1 ui-monospace,monospace;margin:12px 0 5px;color:var(--ink)}
+.rung .money s{font:500 13px/1 'Be Vietnam Pro',sans-serif;text-decoration:none;color:var(--ink-3)}
+.rung .bar{height:5px;background:var(--accent);border-radius:3px;margin-top:14px}
+.rung:nth-child(1) .bar{width:34%} .rung:nth-child(2) .bar{width:66%} .rung:nth-child(3) .bar{width:100%}
+
+/* ── ĐĂNG KÝ ── */
+.tabs{display:flex;gap:6px;background:var(--surface-2);padding:5px;border-radius:99px;margin-bottom:24px;flex-wrap:wrap}
+.tabs button{flex:1;min-width:150px;border:0;background:transparent;cursor:pointer;padding:12px 16px;border-radius:99px;
+  font:600 14.5px/1.3 'Be Vietnam Pro',sans-serif;color:var(--ink-2);transition:.2s}
+.tabs button[aria-selected="true"]{background:var(--surface);color:var(--brand);box-shadow:var(--shadow)}
+.form{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:clamp(22px,2.6vw,32px);box-shadow:var(--shadow)}
+.form-head{display:flex;gap:14px;align-items:flex-start;margin-bottom:22px;padding-bottom:20px;border-bottom:1px solid var(--line)}
+.form-head h3{margin:0 0 6px}
+.form-head p{font-size:14px}
+.fields{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.f{display:flex;flex-direction:column;gap:6px}
+.f.full{grid-column:1/-1}
+.f label{font-size:13px;font-weight:600;color:var(--ink)}
+.f label i{font-style:normal;color:var(--accent-ink)}
+.f input,.f select,.f textarea{font:400 15px/1.5 'Be Vietnam Pro',sans-serif;padding:11px 13px;border:1.5px solid var(--line);
+  border-radius:var(--r-sm);background:var(--bg);color:var(--ink);transition:.18s;width:100%}
+.f input:focus,.f select:focus,.f textarea:focus{outline:0;border-color:var(--brand);box-shadow:0 0 0 3px color-mix(in srgb,var(--brand) 14%,transparent)}
+.f small{font-size:12px;color:var(--ink-3)}
+.f textarea{min-height:88px;resize:vertical}
+.check{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;color:var(--ink-2);grid-column:1/-1}
+.check input{width:17px;height:17px;margin-top:2px;accent-color:var(--brand);flex:0 0 auto}
+.form-foot{display:flex;gap:12px;align-items:center;margin-top:22px;flex-wrap:wrap}
+.note{font-size:13px;color:var(--ink-3)}
+.ok{display:none;background:var(--accent-soft);border:1px solid var(--accent);border-radius:var(--r-sm);padding:14px 16px;
+  font-size:14px;color:var(--ink);margin-top:16px}
+.ok.show{display:block}
+
+/* FAQ */
+details{border-bottom:1px solid var(--line);padding:16px 0}
+details summary{cursor:pointer;font-weight:600;font-size:16px;list-style:none;display:flex;justify-content:space-between;gap:14px;align-items:center}
+details summary::-webkit-details-marker{display:none}
+details summary:after{content:"+";font:400 22px/1 ui-monospace,monospace;color:var(--accent-ink);transition:.2s}
+details[open] summary:after{transform:rotate(45deg)}
+details p{margin-top:11px;font-size:14.5px;max-width:78ch}
+
+/* FOOTER */
+footer{background:var(--surface-2);border-top:1px solid var(--line);padding:clamp(44px,5vw,68px) 0 28px}
+.fgrid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:clamp(20px,3vw,40px)}
+footer h4{font-size:13px;font-weight:700;margin-bottom:14px;letter-spacing:.02em}
+footer a{display:block;color:var(--ink-2);text-decoration:none;font-size:14px;padding:5px 0;transition:.16s}
+footer a:hover{color:var(--brand)}
+.fbot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid var(--line);
+  margin-top:32px;padding-top:20px;font-size:13px;color:var(--ink-3)}
+
+/* NÚT NỔI */
+.float{position:fixed;right:18px;bottom:18px;z-index:70;display:flex;flex-direction:column;gap:10px}
+.fab{width:52px;height:52px;border-radius:50%;border:0;cursor:pointer;display:grid;place-items:center;
+  box-shadow:var(--shadow-lg);transition:transform .2s;background:var(--brand);color:#fff}
+.fab:hover{transform:scale(1.07)}
+.fab.zalo{background:#0068FF}
+.chatbox{position:fixed;right:18px;bottom:84px;width:min(340px,90vw);background:var(--surface);border:1px solid var(--line);
+  border-radius:var(--r);box-shadow:var(--shadow-lg);z-index:71;display:none;overflow:hidden}
+.chatbox.open{display:block}
+.chatbox .ch{background:var(--brand);color:#fff;padding:14px 16px;font-weight:600;font-size:15px;display:flex;justify-content:space-between;align-items:center}
+.chatbox .ch button{background:none;border:0;color:#fff;cursor:pointer;font-size:19px;line-height:1}
+.chatbox .cb{padding:16px;font-size:14px;color:var(--ink-2)}
+.chatbox .cb b{display:block;color:var(--ink);margin-bottom:6px}
+.chatbox .opt{display:block;width:100%;text-align:left;margin-top:8px;padding:10px 12px;border:1px solid var(--line);
+  border-radius:var(--r-sm);background:var(--bg);cursor:pointer;font:500 13.5px 'Be Vietnam Pro',sans-serif;color:var(--ink);transition:.16s}
+.chatbox .opt:hover{border-color:var(--brand);color:var(--brand)}
+
+
+/* ── MODAL ĐĂNG KÝ ── */
+.ovl{position:fixed;inset:0;background:rgba(8,26,21,.62);backdrop-filter:blur(4px);z-index:90;
+  display:none;align-items:flex-start;justify-content:center;padding:24px 16px;overflow-y:auto}
+.ovl.open{display:flex}
+.modal{background:var(--surface);border-radius:var(--r);width:min(720px,100%);box-shadow:var(--shadow-lg);
+  border:1px solid var(--line);animation:pop .26s cubic-bezier(.2,.8,.2,1)}
+@keyframes pop{from{opacity:0;transform:translateY(14px) scale(.985)}to{opacity:1;transform:none}}
+.mh{display:flex;gap:14px;align-items:flex-start;padding:22px 24px;border-bottom:1px solid var(--line);position:sticky;
+  top:0;background:var(--surface);border-radius:var(--r) var(--r) 0 0;z-index:2}
+.mh h3{margin:0 0 5px;font-size:19px}
+.mh p{font-size:13.5px;margin:0}
+.mh .x{margin-left:auto;background:var(--surface-2);border:0;width:34px;height:34px;border-radius:50%;cursor:pointer;
+  color:var(--ink-2);font-size:19px;line-height:1;flex:0 0 auto;transition:.16s}
+.mh .x:hover{background:var(--line);color:var(--ink)}
+.mb{padding:22px 24px}
+.mf{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:16px 24px;border-top:1px solid var(--line);
+  background:var(--surface-2);border-radius:0 0 var(--r) var(--r);position:sticky;bottom:0}
+/* vùng tải tệp */
+.drop-file{border:1.6px dashed var(--line);border-radius:var(--r-sm);padding:18px;text-align:center;cursor:pointer;
+  transition:.18s;background:var(--bg)}
+.drop-file:hover,.drop-file.over{border-color:var(--brand);background:color-mix(in srgb,var(--brand) 5%,var(--bg))}
+.drop-file svg{color:var(--ink-3);margin-bottom:7px}
+.drop-file b{display:block;font-size:14px;color:var(--ink);margin-bottom:3px}
+.drop-file span{font-size:12.5px;color:var(--ink-3)}
+.files{margin-top:10px;display:flex;flex-direction:column;gap:6px}
+.file{display:flex;gap:9px;align-items:center;background:var(--surface-2);border-radius:var(--r-sm);padding:8px 11px;font-size:13px}
+.file b{flex:1;font-weight:500;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.file span{color:var(--ink-3);font-size:12px;flex:0 0 auto}
+.file button{background:none;border:0;cursor:pointer;color:var(--ink-3);font-size:17px;line-height:1;padding:0 3px}
+.file button:hover{color:#B3261E}
+.draft{font-size:12.5px;color:var(--ink-3);margin-left:auto}
+.draft.saved{color:var(--brand);font-weight:600}
+
+/* ── SLIDES ── */
+.slides{position:relative;border-radius:var(--r);overflow:hidden;border:1px solid var(--line);background:var(--surface-2)}
+.track{display:flex;transition:transform .5s cubic-bezier(.3,.8,.3,1);width:100%}
+.slide{flex:0 0 100%;min-width:0;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;gap:0;align-items:center;min-height:390px}
+.slide .txt{padding:clamp(20px,3.4vw,44px);min-width:0;overflow-wrap:anywhere}
+.slide .txt .num{font:600 11px/1 ui-monospace,monospace;letter-spacing:.18em;color:var(--accent-ink)}
+.slide .txt h3{margin:12px 0 10px;font-size:clamp(20px,2.3vw,27px)}
+.slide .txt p{font-size:14.5px}
+.slide .img{background:var(--hero-bg);display:grid;place-items:center;padding:26px;height:100%;min-height:390px}
+.slide .img img{max-height:330px;border-radius:14px;box-shadow:0 16px 40px rgba(0,0,0,.3);border:5px solid rgba(255,255,255,.14)}
+.sdots{display:flex;gap:7px;justify-content:center;padding:14px}
+.sdots button{width:8px;height:8px;border-radius:50%;border:0;background:var(--line);cursor:pointer;padding:0;transition:.2s}
+.sdots button[aria-current="true"]{background:var(--accent);width:24px;border-radius:99px}
+.snav{position:absolute;top:50%;transform:translateY(-50%);width:38px;height:38px;border-radius:50%;border:0;
+  background:var(--surface);box-shadow:var(--shadow);cursor:pointer;display:grid;place-items:center;color:var(--ink);z-index:3;transition:.18s}
+.snav:hover{background:var(--brand);color:#fff}
+.snav.prev{left:12px} .snav.next{right:12px}
+
+/* ── KHUNG THIẾT BỊ ── */
+.devbar{display:flex;gap:5px;background:var(--surface-2);padding:5px;border-radius:22px;margin:0 auto 26px;max-width:100%;flex-wrap:wrap;justify-content:center}
+.devbar button{border:0;background:transparent;cursor:pointer;padding:9px 15px;border-radius:99px;display:flex;gap:7px;
+  align-items:center;font:500 13px/1 'Be Vietnam Pro',sans-serif;color:var(--ink-2);transition:.18s}
+.devbar button svg{width:15px;height:15px}
+.devbar button[aria-pressed="true"]{background:var(--surface);color:var(--brand);box-shadow:var(--shadow)}
+.stage{display:grid;place-items:center;padding:clamp(20px,3vw,40px);background:var(--hero-bg);border-radius:var(--r);min-height:440px}
+.dev{transition:width .45s cubic-bezier(.3,.8,.3,1);max-width:100%}
+.dev .screen{background:#000;overflow:hidden;position:relative}
+.dev img{display:block;width:100%}
+.dev[data-d="laptop"]{width:min(760px,100%)}
+.dev[data-d="laptop"] .screen{border:9px solid #17332C;border-radius:11px 11px 2px 2px}
+.dev[data-d="laptop"] .base{height:11px;background:#17332C;border-radius:0 0 12px 12px;margin:0 -20px;position:relative}
+.dev[data-d="laptop"] .base:after{content:"";position:absolute;left:50%;top:3px;transform:translateX(-50%);width:58px;height:4px;background:#2C544A;border-radius:99px}
+.dev[data-d="tablet"]{width:min(540px,100%)}
+.dev[data-d="tablet"] .screen{border:13px solid #17332C;border-radius:20px}
+.dev[data-d="phone"]{width:min(272px,100%)}
+.dev[data-d="phone"] .screen{border:11px solid #17332C;border-radius:30px}
+.dev[data-d="phone"] .screen:before{content:"";position:absolute;top:7px;left:50%;transform:translateX(-50%);
+  width:74px;height:19px;background:#17332C;border-radius:99px;z-index:2}
+.devcap{text-align:center;color:color-mix(in srgb,var(--hero-ink) 72%,transparent);font-size:13px;margin-top:16px}
+.dev .base{display:none} .dev[data-d="laptop"] .base{display:block}
+
+/* ── VIDEO ── */
+.video{position:relative;border-radius:var(--r);overflow:hidden;background:var(--hero-bg);aspect-ratio:16/9;
+  display:grid;place-items:center;border:1px solid var(--line)}
+.video .poster{position:absolute;inset:0;display:grid;place-items:center;opacity:.28}
+.video .poster img{height:78%;border-radius:12px}
+.video .play{position:relative;z-index:2;width:74px;height:74px;border-radius:50%;border:0;cursor:pointer;
+  background:var(--accent);color:#1A1208;display:grid;place-items:center;box-shadow:0 12px 34px rgba(0,0,0,.34);transition:.22s}
+.video .play:hover{transform:scale(1.08)}
+.video .lab{position:absolute;bottom:18px;left:20px;right:20px;z-index:2;color:var(--hero-ink);font-size:14px}
+.video .lab b{display:block;font-size:17px;margin-bottom:3px}
+footer a{text-decoration:none}
+.fab.zalo{text-decoration:none}
+@media(max-width:860px){.slide{grid-template-columns:1fr} .slide .img{min-height:280px;order:-1} .slide .img img{max-height:230px}}
+
+
+/* ── THƯƠNG HIỆU ── */
+.brandhero{display:grid;grid-template-columns:1fr 1fr;gap:0;border-radius:var(--r);overflow:hidden;border:1px solid var(--line)}
+.brandhero>div{padding:clamp(28px,4vw,52px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;min-height:210px}
+.brandhero .light{background:#FFFFFF}
+.brandhero .dark{background:#12564A}
+.blk{display:flex;align-items:center;gap:13px}
+.blk .p{width:44px;height:44px}
+.blk .w{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:38px;letter-spacing:.006em;line-height:1}
+.brandhero small{font:400 12px/1.5 ui-monospace,monospace;letter-spacing:.1em;opacity:.6}
+.swatches{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.sw{border-radius:var(--r-sm);overflow:hidden;border:1px solid var(--line);background:var(--surface)}
+.sw .chip{height:74px}
+.sw .meta{padding:10px 11px}
+.sw b{display:block;font-size:13px;font-weight:600;color:var(--ink)}
+.sw span{display:block;font:500 11px/1.5 ui-monospace,monospace;color:var(--ink-3)}
+.sw i{display:block;font-style:normal;font-size:11.5px;color:var(--ink-2);margin-top:2px}
+.variants{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.vr{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-sm);padding:22px 16px;text-align:center}
+.vr .box{height:56px;display:grid;place-items:center;margin-bottom:12px}
+.vr b{display:block;font-size:13.5px;font-weight:600}
+.vr span{display:block;font-size:12px;color:var(--ink-2);margin-top:3px}
+.typespec{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.ts{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-sm);padding:22px}
+.ts .lab{font:600 10px/1 ui-monospace,monospace;letter-spacing:.18em;color:var(--accent-ink);text-transform:uppercase;
+  display:flex;justify-content:space-between;margin-bottom:14px}
+.ts .lab em{font-style:normal;color:var(--ink-3);letter-spacing:.06em}
+.ts .sample-c{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:40px;line-height:1.06;color:var(--ink)}
+.ts .sample-c i{display:block;font-size:19px;font-style:italic;font-weight:500;color:var(--accent-ink);margin-top:6px}
+.ts .sample-b{font-weight:700;font-size:21px;line-height:1.3;color:var(--ink)}
+.ts .wts{font:500 11.5px/1 ui-monospace,monospace;color:var(--ink-3);margin-top:14px;letter-spacing:.08em}
+.dodont{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.dd{border-radius:var(--r-sm);padding:18px 16px;border:1px solid var(--line);text-align:center;background:var(--surface)}
+.dd .box{height:44px;display:grid;place-items:center;margin-bottom:12px}
+.dd p{font-size:12.5px;margin-top:2px}
+.dd .yes{color:#177245;font-weight:600;font-size:13px}
+.dd .no{color:#B3261E;font-weight:600;font-size:13px}
+@media(max-width:900px){.brandhero{grid-template-columns:1fr}.swatches{grid-template-columns:repeat(3,1fr)}
+  .variants,.dodont{grid-template-columns:repeat(2,1fr)}.typespec{grid-template-columns:1fr}}
+@media(max-width:520px){.swatches{grid-template-columns:repeat(2,1fr)}}
+
+
+/* ── SHOWCASE ── */
+.show{display:grid;grid-template-columns:290px 1fr;gap:clamp(18px,2.4vw,34px);align-items:start}
+.steps{display:flex;flex-direction:column;gap:4px}
+.step{display:flex;gap:13px;align-items:flex-start;padding:14px 15px;border-radius:var(--r-sm);border:1px solid transparent;
+  background:transparent;cursor:pointer;text-align:left;width:100%;transition:.2s;font-family:'Be Vietnam Pro',sans-serif}
+.step:hover{background:var(--surface-2)}
+.step[aria-selected="true"]{background:var(--surface);border-color:var(--line);box-shadow:var(--shadow)}
+.step .k{font:600 11px/1.5 ui-monospace,monospace;color:var(--ink-3);flex:0 0 auto;transition:.2s}
+.step[aria-selected="true"] .k{color:var(--accent-ink)}
+.step b{display:block;font-size:14.5px;font-weight:600;color:var(--ink);line-height:1.35}
+.step span{display:block;font-size:12.5px;color:var(--ink-2);margin-top:3px;line-height:1.45}
+.step .tag2{display:inline-block;font:600 9.5px/1 ui-monospace,monospace;letter-spacing:.12em;padding:4px 7px;
+  border-radius:99px;background:var(--surface-2);color:var(--ink-2);margin-top:7px}
+.step[aria-selected="true"] .tag2{background:var(--accent-soft);color:#5A3E0E}
+
+.viewer{background:var(--hero-bg);border-radius:var(--r);padding:clamp(22px,3.2vw,44px);display:flex;
+  flex-direction:column;align-items:center;gap:18px;min-height:520px;justify-content:center;position:relative;overflow:hidden}
+.viewer:before{content:"";position:absolute;inset:0;background:radial-gradient(60% 50% at 74% 12%,rgba(185,137,59,.16),transparent 70%)}
+.frame{position:relative;z-index:2;transition:width .45s cubic-bezier(.3,.8,.3,1)}
+.frame .sc{background:#0A1512;overflow:hidden;position:relative;box-shadow:0 26px 60px rgba(0,0,0,.42)}
+.frame img{display:block;width:100%}
+.frame[data-d="phone"]{width:min(260px,72vw)}
+.frame[data-d="phone"] .sc{border:10px solid #17332C;border-radius:32px}
+.frame[data-d="phone"] .sc:before{content:"";position:absolute;top:8px;left:50%;transform:translateX(-50%);
+  width:76px;height:20px;background:#17332C;border-radius:99px;z-index:3}
+.frame[data-d="tablet"]{width:min(430px,86vw)}
+.frame[data-d="tablet"] .sc{border:12px solid #17332C;border-radius:20px}
+.frame[data-d="laptop"]{width:min(600px,92vw)}
+.frame[data-d="laptop"] .sc{border:9px solid #17332C;border-radius:11px 11px 2px 2px}
+.frame .lid{display:none;height:12px;background:#17332C;border-radius:0 0 14px 14px;margin:0 -22px;position:relative}
+.frame .lid:after{content:"";position:absolute;left:50%;top:3.5px;transform:translateX(-50%);width:62px;height:4px;background:#31594E;border-radius:99px}
+.frame[data-d="laptop"] .lid{display:block}
+.vtop{position:relative;z-index:2;display:flex;gap:5px;background:rgba(255,255,255,.09);padding:4px;border-radius:99px;
+  border:1px solid rgba(255,255,255,.14)}
+.vtop button{border:0;background:transparent;cursor:pointer;padding:8px 14px;border-radius:99px;display:flex;gap:7px;
+  align-items:center;font:500 12.5px/1 'Be Vietnam Pro',sans-serif;color:rgba(255,255,255,.72);transition:.18s}
+.vtop button svg{width:14px;height:14px}
+.vtop button:hover{color:#fff}
+.vtop button[aria-pressed="true"]{background:rgba(255,255,255,.94);color:#12564A}
+.vcap{position:relative;z-index:2;text-align:center;color:rgba(255,255,255,.72);font-size:12.5px;max-width:44ch}
+.vfull{position:absolute;top:16px;right:16px;z-index:4;width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.2);
+  background:rgba(255,255,255,.09);color:#fff;cursor:pointer;display:grid;place-items:center;transition:.18s}
+.vfull:hover{background:rgba(255,255,255,.2)}
+.dotrow{display:flex;gap:6px;justify-content:center;margin-top:16px}
+.dotrow button{width:7px;height:7px;border-radius:50%;border:0;background:var(--line);cursor:pointer;padding:0;transition:.2s}
+.dotrow button[aria-current="true"]{background:var(--accent);width:22px;border-radius:99px}
+
+/* ── VIDEO mới ── */
+.vidwrap{display:grid;grid-template-columns:.85fr 1.15fr;gap:0;border-radius:var(--r);overflow:hidden;border:1px solid var(--line)}
+.vidtxt{background:var(--surface);padding:clamp(26px,3.4vw,44px);display:flex;flex-direction:column;justify-content:center}
+.vidtxt .chip{display:inline-flex;align-items:center;gap:7px;align-self:flex-start;font:600 10.5px/1 ui-monospace,monospace;
+  letter-spacing:.14em;padding:7px 11px;border-radius:99px;background:var(--accent-soft);color:#5A3E0E;margin-bottom:16px}
+.vidtxt h3{font-size:clamp(20px,2.2vw,26px);margin-bottom:12px}
+.vidtxt ol{margin:16px 0 0;padding:0;list-style:none;counter-reset:v}
+.vidtxt li{counter-increment:v;display:flex;gap:12px;padding:9px 0;border-top:1px solid var(--line);font-size:14px;color:var(--ink-2)}
+.vidtxt li:before{content:counter(v);font:600 11px/1.6 ui-monospace,monospace;color:var(--accent-ink);flex:0 0 auto}
+.vidstage{background:var(--hero-bg);position:relative;display:grid;place-items:center;padding:clamp(26px,3.4vw,48px);min-height:340px;overflow:hidden}
+.vidstage:before{content:"";position:absolute;inset:0;background:radial-gradient(58% 52% at 70% 18%,rgba(185,137,59,.2),transparent 70%)}
+.vidstage .ph{position:relative;z-index:2;width:min(196px,44vw)}
+.vidstage .ph .sc{border:9px solid #17332C;border-radius:26px;overflow:hidden;background:#000;box-shadow:0 22px 50px rgba(0,0,0,.44)}
+.vidstage .ph img{display:block;width:100%}
+.playbig{position:absolute;z-index:4;left:50%;top:50%;transform:translate(-50%,-50%);width:72px;height:72px;border-radius:50%;
+  border:0;cursor:pointer;background:var(--accent);color:#1A1208;display:grid;place-items:center;
+  box-shadow:0 14px 38px rgba(0,0,0,.4);transition:transform .22s}
+.playbig:hover{transform:translate(-50%,-50%) scale(1.09)}
+.playbig:after{content:"";position:absolute;inset:-9px;border-radius:50%;border:1.5px solid var(--accent);opacity:.45;animation:pulse 2.6s ease-out infinite}
+@keyframes pulse{0%{transform:scale(1);opacity:.45}70%{transform:scale(1.32);opacity:0}100%{opacity:0}}
+.vidnote{position:absolute;left:0;right:0;bottom:0;z-index:5;background:rgba(10,21,18,.9);color:#EAF2EC;padding:14px 18px;
+  font-size:13px;transform:translateY(100%);transition:transform .3s}
+.vidnote.show{transform:none}
+.vidnote b{display:block;margin-bottom:3px;font-size:13.5px}
+@media(max-width:900px){.show{grid-template-columns:1fr}.steps{flex-direction:row;overflow-x:auto;gap:8px;padding-bottom:6px}
+  .step{min-width:200px}.vidwrap{grid-template-columns:1fr}}
+
+
+/* ── THAM GIA ── */
+.jtabs{display:flex;gap:6px;background:var(--surface-2);padding:5px;border-radius:16px;margin-bottom:26px;flex-wrap:wrap}
+.jtabs button{flex:1;min-width:170px;border:0;background:transparent;cursor:pointer;padding:14px 18px;border-radius:12px;
+  font-family:'Be Vietnam Pro',sans-serif;color:var(--ink-2);transition:.2s;text-align:left}
+.jtabs button b{display:block;font-size:15px;font-weight:600;color:inherit}
+.jtabs button span{display:block;font-size:12.5px;opacity:.8;margin-top:2px}
+.jtabs button[aria-selected="true"]{background:var(--surface);color:var(--brand);box-shadow:var(--shadow)}
+.jtabs button[aria-selected="true"] span{color:var(--ink-2);opacity:1}
+.jpanel{display:grid;gap:clamp(16px,2vw,24px);animation:jfade .28s ease both}
+.jpanel[hidden]{display:none}
+@keyframes jfade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.jtop{display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(16px,2vw,24px);align-items:start}
+.jintro{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:clamp(22px,2.6vw,30px)}
+.jintro h3{font-size:clamp(19px,2vw,23px);margin-bottom:10px}
+.jintro>p{font-size:14.5px}
+.blist{list-style:none;padding:0;margin:18px 0 0;display:grid;gap:10px}
+.blist li{display:flex;gap:11px;align-items:flex-start;font-size:14px;color:var(--ink-2);line-height:1.5}
+.blist li svg{flex:0 0 auto;color:var(--brand);margin-top:2px}
+.blist li b{color:var(--ink);font-weight:600}
+.jpack{background:var(--hero-bg);border-radius:var(--r);padding:clamp(22px,2.6vw,28px);color:var(--hero-ink);position:relative;overflow:hidden}
+.jpack:before{content:"";position:absolute;inset:0;background:radial-gradient(64% 56% at 76% 12%,rgba(185,137,59,.2),transparent 70%)}
+.jpack>*{position:relative;z-index:2}
+.jpack .tag3{display:inline-block;font:600 10px/1 ui-monospace,monospace;letter-spacing:.16em;padding:6px 10px;
+  border-radius:99px;background:var(--accent);color:#1A1208;margin-bottom:14px}
+.jpack h4{font-size:20px;margin-bottom:6px;color:var(--hero-ink)}
+.jpack .price{font:600 30px/1 ui-monospace,monospace;color:var(--accent);margin:12px 0 4px}
+.jpack .price s{font:500 13px/1 'Be Vietnam Pro',sans-serif;text-decoration:none;color:rgba(255,255,255,.6);display:block;margin-top:6px}
+.jpack ul{list-style:none;padding:0;margin:16px 0 0;display:grid;gap:8px}
+.jpack li{font-size:13.5px;color:rgba(255,255,255,.8);display:flex;gap:9px;align-items:flex-start;line-height:1.45}
+.jpack li:before{content:"—";color:var(--accent);flex:0 0 auto}
+.jbot{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,2vw,24px)}
+.jcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:clamp(20px,2.4vw,26px)}
+.jcard h4{font-size:16px;margin-bottom:6px}
+.jcard>p{font-size:13px;color:var(--ink-3);margin-bottom:14px}
+.reqs{display:flex;flex-wrap:wrap;gap:7px}
+.req{font:500 12.5px/1 'Be Vietnam Pro',sans-serif;padding:8px 11px;border:1px solid var(--line);border-radius:99px;color:var(--ink-2)}
+.req.must{border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+.flow{display:grid;gap:0}
+.fstep2{display:flex;gap:14px;padding:12px 0;border-top:1px solid var(--line)}
+.fstep2:first-child{border-top:0;padding-top:0}
+.fstep2 .n{width:26px;height:26px;border-radius:50%;background:var(--surface-2);color:var(--ink-2);flex:0 0 auto;
+  display:grid;place-items:center;font:600 12px/1 ui-monospace,monospace}
+.fstep2 b{display:block;font-size:14px;font-weight:600;color:var(--ink)}
+.fstep2 span{display:block;font-size:12.5px;color:var(--ink-2);margin-top:2px}
+.fstep2 .t{margin-left:auto;font:500 11.5px/1 ui-monospace,monospace;color:var(--accent-ink);flex:0 0 auto;white-space:nowrap}
+.jcta{background:var(--surface-2);border:1px solid var(--line);border-radius:var(--r);padding:clamp(20px,2.4vw,28px);
+  display:flex;gap:18px;align-items:center;flex-wrap:wrap;justify-content:space-between}
+.jcta b{display:block;font-size:17px;font-weight:700;color:var(--ink)}
+.jcta span{display:block;font-size:13.5px;color:var(--ink-2);margin-top:3px}
+@media(max-width:900px){.jtop,.jbot{grid-template-columns:1fr}.jtabs button{min-width:100%}}
+
+/* MOBILE */
+@media(max-width:1180px){
+  .nav{flex-wrap:wrap;position:relative}
+  .menu{display:none;position:absolute;top:100%;left:0;right:0;background:var(--surface);flex-direction:column;
+    padding:12px;border-bottom:1px solid var(--line);gap:2px;box-shadow:var(--shadow-lg);z-index:70;align-items:stretch}
+  .menu.open{display:flex}
+  .menu>a{width:100%;font-size:15px;padding:11px 12px}
+  .menu>a:after{display:none}
+  .drop{margin:6px 0 0;position:static}
+  .dropbtn{width:100%;justify-content:center}
+  .dropmenu{position:static;width:100%;min-width:0;margin-top:6px;box-shadow:none}
+  .burger{display:block;order:2}
+  .themes{order:3;margin-left:10px}
+}
+@media(max-width:1000px){
+  .hero .wrap{grid-template-columns:1fr} .g4{grid-template-columns:repeat(2,1fr)}
+  .fgrid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:760px){
+  .g2,.g3,.g4,.fields{grid-template-columns:1fr}
+  .ladder{grid-template-columns:1fr} .rung{border-right:0;border-bottom:1px solid var(--line)}
+  .fgrid{grid-template-columns:1fr}
+  .logo{flex:1 1 auto;min-width:0}
+  .logo i{font-size:7.4px;letter-spacing:.04em}
+  .devbar{border-radius:16px;gap:4px}
+  .devbar button{padding:8px 10px;font-size:12px;flex:1 1 auto;justify-content:center}
+  .stage{padding:16px}
+  .mb,.mh,.mf{padding-left:16px;padding-right:16px}
+}
+/* ══════════ TỐI ƯU ĐA THIẾT BỊ ══════════ */
+/* Chặn tràn ngang toàn cục. Dùng clip thay hidden để không phá position:sticky của header */
+html{overflow-x:clip}
+body{overflow-x:clip;overflow-wrap:break-word}
+
+/* Thanh chọn thiết bị trong showcase: xuống dòng thay vì bị cắt mất nút */
+.vtop{flex-wrap:wrap;justify-content:center}
+
+/* Khung máy mô phỏng không đẩy tràn trang */
+.stage{overflow:hidden}
+
+/* Cho phép các cột co về 0 khi màn hẹp */
+.fstep2>span{min-width:0}
+.slide,.jtop,.jbot,.show,.vidwrap,.brandhero,.hero .wrap{min-width:0}
+
+/* Vùng an toàn iPhone (tai thỏ / thanh home) */
+.float{right:max(18px,env(safe-area-inset-right));bottom:max(18px,calc(env(safe-area-inset-bottom) + 10px))}
+.chatbox{right:max(18px,env(safe-area-inset-right));bottom:calc(84px + env(safe-area-inset-bottom))}
+.ovl{padding-bottom:calc(24px + env(safe-area-inset-bottom))}
+
+/* Mở rộng vùng chạm cho các chấm điều hướng nhỏ */
+.dotrow button,.sdots button{position:relative}
+.dotrow button:after,.sdots button:after{content:"";position:absolute;inset:-12px -3px}
+
+@media(max-width:900px){
+  /* iOS Safari tự phóng to trang khi focus ô nhập có cỡ chữ dưới 16px */
+  .f input,.f select,.f textarea{font-size:16px}
+}
+@media(max-width:760px){
+  .stage{padding:20px}
+  .themes button{width:38px;height:38px}
+  .mh .x{width:40px;height:40px}
+  .vfull{width:40px;height:40px}
+  .dotrow,.sdots{gap:14px}
+  .dotrow button:after,.sdots button:after{inset:-14px -7px}
+}
+@media(max-width:560px){
+  .tabs button{min-width:100%}
+  .hero-stats{gap:18px}
+  .gauge .nums{flex-wrap:wrap;gap:10px}
+  .gauge .to{font-size:44px}
+  .gauge .from{font-size:28px}
+  .jpack .price{font-size:26px}
+  .vtop button{padding:8px 11px;font-size:12px}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.skip{position:absolute;left:-9999px}
+.skip:focus{left:16px;top:12px;z-index:99;background:var(--brand);color:#fff;padding:10px 16px;border-radius:var(--r-sm)}
 </style>
-</helmet>
+</head>
+<body>
+<a class="skip" href="#main">Bỏ qua điều hướng</a>
 
-<div class="wrap">
-
-  <div style="text-align:center;max-width:640px">
-    <svg width="74" height="74" sc-camel-view-box="0 0 24 24" style="animation:bloom 1.1s cubic-bezier(.4,0,.2,1),floaty 6s ease-in-out infinite 1.1s;filter:drop-shadow(0 8px 26px rgba(231,206,151,.3))">
-      <path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(-56 12 22)" fill="#B9893B" opacity=".5"></path>
-      <path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(-28 12 22)" fill="#D8A94E" opacity=".8"></path>
-      <path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" fill="#E7CE97"></path>
-      <path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(28 12 22)" fill="#D8A94E" opacity=".8"></path>
-      <path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(56 12 22)" fill="#B9893B" opacity=".5"></path>
-    </svg>
-    <h1 class="u" style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:40px;letter-spacing:.16em;margin-top:18px;line-height:1">ANWELL</h1>
-    <p class="u" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:20px;color:#E7CE97;margin-top:5px">Feel well. Live an.</p>
-    <p class="u" style="font-size:13.5px;line-height:1.7;color:#A9C4B5;margin-top:16px;text-wrap:pretty">Nền tảng trị liệu, dưỡng sinh và chăm sóc phục hồi tại nhà. Chọn một giao diện dưới đây để xem bản demo tương tác — mỗi bản chạy độc lập, bấm thử được mọi luồng chính.</p>
-    <p class="u" style="font:700 9.5px ui-monospace,monospace;letter-spacing:.24em;color:#7B9587;text-transform:uppercase;margin-top:16px">Bản demo · Tháng 7/2026</p>
-  </div>
-
-  <div class="cards">
-    <sc-for list="{{ apps }}" as="a" hint-placeholder-count="3">
-      <a class="card u" href="{{ a.href }}" style="animation-delay:{{ a.delay }}">
-        <span style="display:flex;align-items:center;justify-content:space-between;gap:12px">
-          <span style="flex:none;width:46px;height:46px;border-radius:14px;background:{{ a.iBg }};display:grid;place-items:center;color:{{ a.iFg }}">{{ a.icon }}</span>
-          <span style="flex:none;font:700 8.5px ui-monospace,monospace;letter-spacing:.16em;color:#7B9587;text-transform:uppercase">{{ a.tag }}</span>
-        </span>
-        <span style="display:block;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:22px;color:#EAF4ED;margin-top:16px;line-height:1.2">{{ a.t }}</span>
-        <span style="display:block;font-size:12.5px;line-height:1.65;color:#A9C4B5;margin-top:8px">{{ a.d }}</span>
-        <span style="display:flex;flex-wrap:wrap;gap:6px;margin-top:14px">
-          <sc-for list="{{ a.chips }}" as="c" hint-placeholder-count="3">
-            <span style="font-size:10px;font-weight:600;color:#C7DCD0;background:rgba(46,133,103,.2);padding:4px 9px;border-radius:99px">{{ c }}</span>
-          </sc-for>
-        </span>
-        <span style="display:flex;align-items:center;gap:7px;font-size:12px;font-weight:700;color:#E7CE97;margin-top:16px">
-          Mở bản demo
-          <svg width="15" height="15" sc-camel-view-box="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"></path></svg>
-        </span>
-      </a>
-    </sc-for>
-  </div>
-
-  <div style="flex:1;min-height:34px"></div>
-
-  <div style="display:flex;flex-direction:column;align-items:center;gap:14px;padding-top:26px;width:100%;max-width:1000px;border-top:1px solid #1B2E27">
-    <a href="admin.html" style="display:inline-flex;align-items:center;gap:8px;padding:8px 15px;border-radius:99px;background:rgba(255,255,255,.05);border:1px solid #22382D;font-size:11.5px;font-weight:600;color:#A9C4B5">
-      <svg width="13" height="13" sc-camel-view-box="0 0 24 24" fill="none" stroke="#7B9587" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"></path><path d="m9 12 2 2 4-4"></path></svg>
-      ADMIN · Quản trị nền tảng
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="#" aria-label="ANWELL — trang chủ">
+      <svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(-56 12 22)" fill="currentColor" opacity=".5"/><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(-28 12 22)" fill="currentColor" opacity=".78"/><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" fill="currentColor"/><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(28 12 22)" fill="currentColor" opacity=".78"/><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(56 12 22)" fill="currentColor" opacity=".5"/></svg>
+      <span class="lock"><b>Anwell</b><i>CÔNG TY CỔ PHẦN TẬP ĐOÀN ANWELL</i></span>
     </a>
-    <p style="font-size:10.5px;color:#7B9587;text-align:center;line-height:1.6">Dành cho đội vận hành ANWELL · dữ liệu trong demo là dữ liệu mẫu<br>© 2026 ANWELL</p>
+    <button class="burger" aria-label="Mở menu" aria-expanded="false" id="burger">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <nav class="menu" id="menu">
+      <a href="#gioithieu">Tổng quan</a>
+      <a href="#nentang">Nền tảng</a><a href="demo.html">Xem demo</a>
+      <a href="#xem">Trải nghiệm</a>
+      <a href="#khachhang">Khách hàng</a>
+      <a href="#nghe">Nghề nghiệp</a>
+      <a href="#thuonghieu">Thương hiệu</a>
+      <a href="#hoidap">Hỏi đáp</a>
+      <a href="#lienhe">Liên hệ</a>
+      <a class="btn btn-p dropbtn" href="#thamgia">Tham gia</a>
+    </nav>
+    <div class="themes" role="group" aria-label="Chọn giao diện">
+      <button data-t="annhien" aria-pressed="true" title="An Nhiên — sáng và tĩnh" aria-label="Giao diện An Nhiên">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.6M12 18.9v2.6M4.2 12H1.6M22.4 12h-2.6M6.5 6.5 4.7 4.7M19.3 19.3l-1.8-1.8M17.5 6.5l1.8-1.8M4.7 19.3l1.8-1.8"/></svg></button>
+      <button data-t="rungtham" aria-pressed="false" title="Rừng Thẫm — trầm và sâu" aria-label="Giao diện Rừng Thẫm">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21V12M12 12c0-4 3-7 7-7 0 4-3 7-7 7ZM12 14c0-3.4-2.6-6-6-6 0 3.4 2.6 6 6 6Z"/></svg></button>
+      <button data-t="nhipsen" aria-pressed="false" title="Nhịp Sen — ấm và gần" aria-label="Giao diện Nhịp Sen">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20c-4.4 0-8-2.7-8-6 2.2 0 4.1.8 5.4 2.1M12 20c4.4 0 8-2.7 8-6-2.2 0-4.1.8-5.4 2.1M12 20V9.5M12 9.5C12 6 10 3.4 8.2 2.6 7.4 5 8.8 8 12 9.5Zm0 0C12 6 14 3.4 15.8 2.6 16.6 5 15.2 8 12 9.5Z"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <svg class="hero-lotus" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(-56 12 22)" fill="currentColor" opacity=".5"/><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(-28 12 22)" fill="currentColor" opacity=".78"/><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" fill="currentColor"/><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(28 12 22)" fill="currentColor" opacity=".78"/><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(56 12 22)" fill="currentColor" opacity=".5"/></svg>
+  <div class="wrap">
+    <div>
+      <p class="eyebrow">Nền tảng chăm sóc và phục hồi</p>
+      <h1>Chăm sóc thì ai cũng nói.<br>Chúng tôi <em>đo được</em>.</h1>
+      <p>ANWELL kết nối trung tâm trị liệu, kỹ thuật viên có chứng nhận và người cần chăm sóc — bằng liệu trình có mục tiêu bằng số, có đo trước và sau, và có người đồng hành giữa các buổi.</p>
+      <div class="hero-cta">
+        <button class="btn btn-p" data-open="tt">Đăng ký tham gia</button>
+        <a class="btn btn-o" href="#nentang">Xem nền tảng hoạt động</a>
+      </div>
+      <div class="hero-stats">
+        <div><b>2.560</b><span>người làm phục hồi chức năng cả nước</span></div>
+        <div><b>~99.000</b><span>số người ngành đang cần</span></div>
+        <div><b>3 bậc</b><span>chứng nhận nghề</span></div>
+      </div>
+    </div>
+    <div class="gauge">
+      <p class="hd">Báo cáo tuần 3 / 8</p>
+      <p class="who">Đau vai gáy · thang đau VAS · gửi gia đình qua Zalo</p>
+      <div class="nums"><span class="from">7</span><span class="arrow">→</span><span class="to" id="gnum">4</span><span class="unit">/ 10</span></div>
+      <div class="ticks" id="gticks" aria-hidden="true"></div>
+      <div class="scale-lab"><span>0 — không đau</span><span>10 — đau nhất</span></div>
+      <p class="foot"><strong>Giảm 43% sau 3 buổi.</strong> Còn 5 buổi để về mục tiêu đã thoả thuận từ buổi đầu.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ GIỚI THIỆU ══ -->
+<section id="gioithieu">
+  <div class="wrap">
+    <div class="head-2">
+      <p class="eyebrow">Tổng quan</p>
+      <h2>Xây chuẩn đo lường và nghề nghiệp cho ngành chăm sóc hồi phục Việt Nam</h2>
+      <p class="lede">Cả nước có khoảng 2.560 người làm phục hồi chức năng cho nhu cầu ước tính 99.000 người — cứ bốn mươi người cần thì mới có một người làm. Đây không phải bài toán tìm khách. Đây là bài toán chuẩn hoá và tổ chức lại nguồn cung.</p>
+    </div>
+    <div class="grid g3">
+      <div class="card lead">
+        <p class="num">TẦM NHÌN</p>
+        <h3>Chuẩn của ngành, không phải một cái chợ</h3>
+        <p>Trở thành hệ chuẩn đo lường và chứng nhận nghề mà cả ngành chăm sóc hồi phục Việt Nam tham chiếu — để người bệnh biết mình đang tiến bộ bao nhiêu, và người làm nghề biết mình đang ở đâu.</p>
+      </div>
+      <div class="card lead">
+        <p class="num">SỨ MỆNH</p>
+        <h3>Làm cho đôi tay hiệu quả hơn</h3>
+        <p>Dùng công nghệ để một kỹ thuật viên chăm được nhiều người hơn mà không làm giảm chất lượng, và để kết quả của đôi tay ấy nhìn thấy được bằng số.</p>
+      </div>
+      <div class="card lead">
+        <p class="num">KHẨU QUYẾT</p>
+        <h3>An tâm chọn — An nhiên sống</h3>
+        <p>Công nghệ › Con người › An nhiên – Tự tại. Chỉ số chúng tôi tự hào nhất không phải doanh thu, mà là số người tốt nghiệp khỏi chương trình.</p>
+      </div>
+    </div>
+
+    <div class="scale-lab" style="margin-top:44px"><span>GIÁ TRỊ CỐT LÕI</span><span>05</span></div>
+    <div class="scale" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i class="on"></i><i></i><i></i><i></i><i class="on"></i><i></i><i></i><i></i><i class="on"></i><i></i><i></i><i></i><i class="on"></i><i></i><i></i><i></i></div>
+    <div class="grid g3">
+      <div class="card"><p class="num">01</p><h3>Đo được thì mới nói</h3><p>Không hứa chữa khỏi. Nói bằng con số đo được, và công bố cả khi số không đẹp.</p></div>
+      <div class="card"><p class="num">02</p><h3>An toàn đứng trên doanh thu</h3><p>Sàng lọc dấu hiệu nguy hiểm trước khi nhận ca. Chặn ca vượt bậc chứng nhận. Không có ngoại lệ vì tiến độ.</p></div>
+      <div class="card"><p class="num">03</p><h3>Nghề phải có bậc</h3><p>Người giỏi phải chứng minh được là giỏi, và phải có đường đi lên ngay trong nghề của mình.</p></div>
+      <div class="card"><p class="num">04</p><h3>Không bán thứ khách không cần</h3><p>Kỹ thuật viên không hưởng hoa hồng bán sản phẩm. Đạt mục tiêu thì mời giảm gói, không mời mua thêm.</p></div>
+      <div class="card"><p class="num">05</p><h3>Lớn theo bằng chứng</h3><p>Mở rộng khi số liệu cho phép, không mở rộng theo tham vọng. Không mua tăng trưởng bằng lỗ.</p></div>
+      <div class="card alt"><p class="num">NHẬN DIỆN</p><h3>Ba giao diện, khách tự chọn</h3><p><strong>An Nhiên</strong> sáng và tĩnh · <strong>Rừng Thẫm</strong> trầm và sâu · <strong>Nhịp Sen</strong> ấm và gần. Cùng một cấu trúc, khác nhau ở cảm giác — thử bằng nút ở góc trên.</p></div>
+    </div>
+
+    <h3 style="margin:48px 0 8px">Học từ bốn mô hình thế giới</h3>
+    <p class="lede" style="margin-bottom:20px">Không sao chép mô hình nào. Lấy phần đã được chứng minh, tránh phần đã thất bại.</p>
+    <div class="grid g4">
+      <div class="card"><p class="num">HÀ LAN</p><h3>Buurtzorg</h3><p>Đội y tá tự quản theo khu dân cư — khoảng 10.000 người, chiếm nửa thị trường chăm sóc tại nhà, chi phí quản lý thấp hơn tới hai phần ba.</p><p style="font-size:13px;margin-top:9px;color:var(--accent-ink);font-weight:600">Lấy: làm dày từng quận, công nghệ gánh hành chính</p></div>
+      <div class="card"><p class="num">MỸ</p><h3>Honor + Home Instead</h3><p>Nền tảng công nghệ đứng sau mạng lưới nhượng quyền, tổ hợp doanh thu trên 2,1 tỷ đô.</p><p style="font-size:13px;margin-top:9px;color:var(--accent-ink);font-weight:600">Lấy: nền tảng không sở hữu đôi tay</p></div>
+      <div class="card"><p class="num">SINGAPORE</p><h3>Homage</h3><p>Gọi hơn 45 triệu đô nhưng vướng nút thắt nguồn cung — không thể nhân đôi số trường điều dưỡng mỗi năm.</p><p style="font-size:13px;margin-top:9px;color:#B3261E;font-weight:600">Tránh: để trường đào tạo làm vai phụ</p></div>
+      <div class="card"><p class="num">ANH</p><h3>Babylon Health</h3><p>Định giá 4,2 tỷ đô trên câu chuyện bác sĩ AI; phá sản 2023.</p><p style="font-size:13px;margin-top:9px;color:#B3261E;font-weight:600">Tránh: dùng AI làm câu chuyện thay vì làm công cụ</p></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ NỀN TẢNG ══ -->
+<section id="nentang">
+  <div class="wrap">
+    <div class="head-2">
+      <p class="eyebrow">Tổng quan nền tảng</p>
+      <h2>Năm cấu phần trên một lõi</h2>
+      <p class="lede">Mỗi vai trò có cổng riêng với quyền riêng, nhưng dùng chung một lõi nghiệp vụ. Chạy trên trình duyệt và trong Zalo — khách không phải cài ứng dụng.</p>
+    </div>
+    <div class="grid g3">
+      <a class="card demolink" href="admin.html"><p class="num">01</p><h3>Cổng quản trị nền tảng</h3><p>Duyệt hồ sơ đối tác · cấu hình chính sách · giám sát chất lượng và an toàn · đối soát · thư viện phác đồ chuẩn.</p><span class="demotag">Bản mô phỏng · số liệu minh hoạ →</span></a>
+      <a class="card lead demolink" href="center.html"><p class="num">02</p><h3>Cổng Trung tâm + website riêng</h3><p>Quản lý kỹ thuật viên, dịch vụ, giá, lịch, khách theo liệu trình, đối soát. Kèm <strong>trang riêng dạng tencoso.anwell.vn</strong> có bảng giá, đội ngũ kèm bậc nghề, nút đặt lịch và mã QR in dán tại quầy.</p><span class="demotag">Bản mô phỏng · số liệu minh hoạ →</span></a>
+      <a class="card demolink" href="ktv.html"><p class="num">03</p><h3>Ứng dụng Kỹ thuật viên</h3><p>Hồ sơ nghề đi theo người · chứng nhận theo bậc · ca hôm nay theo tuyến · ghi nhận buổi có quy trình bắt buộc · thu nhập minh bạch.</p><span class="demotag">Bản mô phỏng · số liệu minh hoạ →</span></a>
+      <a class="card demolink" href="admin.html#bd"><p class="num">04</p><h3>Cổng Giám đốc Kinh doanh</h3><p>Phễu phát triển mạng lưới · chỉ tiêu theo vùng và theo người · xếp hạng và cảnh báo cơ sở · báo cáo vùng tự sinh.</p><span class="demotag">Bản mô phỏng · số liệu minh hoạ →</span></a>
+      <a class="card demolink" href="app.html"><p class="num">05</p><h3>Ứng dụng Khách hàng</h3><p>Đặt buổi có sàng lọc an toàn · lịch và chi tiết buổi · tra cứu chứng nhận người đến nhà · cửa sổ gia đình · đánh giá sau buổi.</p><span class="demotag">Bản mô phỏng · số liệu minh hoạ →</span></a>
+      <div class="card alt"><p class="num">AN TOÀN</p><h3>Ba tầng lưới</h3><p><strong>Sàng lọc cờ đỏ</strong> chặn đặt khi có dấu hiệu bệnh nghiêm trọng · <strong>chặn ca vượt bậc</strong> chứng nhận · <strong>giới hạn ca, bán kính và khung giờ</strong> bảo vệ kỹ thuật viên.</p></div>
+    </div>
+
+    <h3 style="margin:48px 0 8px">Sáu tầng giá trị — trả lời câu hỏi "các anh là công ty công nghệ ở chỗ nào?"</h3>
+    <p class="lede" style="margin-bottom:22px">Xếp từ dễ bắt chước tới không mua được bằng tiền. Mỗi tầng gắn với một mốc xây dựng.</p>
+    <div class="grid g3">
+      <div class="card"><p class="num">TẦNG 1</p><h3>Tối ưu công việc</h3><p>Điều phối tuyến đường, lấp giờ trống, AI lo phần việc quanh đôi tay: nhắc, ghi, tổng hợp, soạn báo cáo. Một kỹ thuật viên theo 15 hộ thay vì 8.</p><p style="font-size:13px;margin-top:9px;font-style:italic;color:var(--ink-3)">Tầng dễ nhất — và cũng dễ bị bắt chước nhất.</p></div>
+      <div class="card"><p class="num">TẦNG 2</p><h3>Tạo niềm tin</h3><p>Đo được thì tin được: chỉ số hồi phục, chứng nhận theo bậc khoá trong phần mềm, báo cáo tuần cho người ở xa.</p><p style="font-size:13px;margin-top:9px;font-style:italic;color:var(--ink-3)">Niềm tin trong ngành này xưa nay đi qua người quen — ANWELL cho nó đi qua bằng chứng.</p></div>
+      <div class="card lead"><p class="num">TẦNG 3</p><h3>Tạo nghề, không chỉ tạo việc</h3><p>Hồ sơ nghề tích luỹ theo người, ba bậc có lộ trình học và thi, kết quả thật trên người thật làm bằng chứng tay nghề.</p><p style="font-size:13px;margin-top:9px;font-style:italic;color:var(--ink-3)">Nền tảng đóng vai trò ngành này chưa ai đóng: vừa là trường, vừa là liên đoàn nghề.</p></div>
+      <div class="card lead"><p class="num">TẦNG 4</p><h3>Tri thức gộp lãi kép</h3><p>Kinh nghiệm của người giỏi nhất hiện nằm trong đầu họ và mất đi khi họ nghỉ. Nền tảng ghi lại cách làm nào cho kết quả nào trên loại ca nào.</p><p style="font-size:13px;margin-top:9px;font-style:italic;color:var(--ink-3)">Đối thủ sao chép phần mềm trong sáu tháng; không sao chép được vòng học này.</p></div>
+      <div class="card"><p class="num">TẦNG 5</p><h3>Lưới an toàn</h3><p>AI không chỉ tối ưu mà bảo vệ: chặn ca sai bậc, cảnh báo chống chỉ định trước từng buổi, phát hiện sớm bất thường để người thật can thiệp.</p><p style="font-size:13px;margin-top:9px;font-style:italic;color:var(--ink-3)">Trong ngành mà một tai biến có thể chấm dứt công ty, tầng này là điều kiện tồn tại.</p></div>
+      <div class="card"><p class="num">TẦNG 6</p><h3>Kéo con người lại gần nhau</h3><p>Cửa sổ gia đình không thay người con chăm bố — nó kéo người con vào việc chăm bố, mỗi Chủ nhật một lý do để gọi điện về.</p><p style="font-size:13px;margin-top:9px;font-style:italic;color:var(--ink-3)">Công nghệ tốt trong ngành chăm sóc không thay thế sự có mặt; nó tạo thêm lý do để có mặt.</p></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ XEM SẢN PHẨM ══ -->
+<section id="xem" class="alt">
+  <div class="wrap">
+    <div class="head-2">
+      <p class="eyebrow">Trải nghiệm sản phẩm</p>
+      <h2>Nền tảng đang chạy, không phải bản vẽ</h2>
+      <p class="lede">Ảnh chụp từ chính sản phẩm. Chọn một bước bên trái để xem màn hình tương ứng, và đổi khung thiết bị ở phía trên.</p>
+    </div>
+
+    <div class="show">
+      <div class="steps" role="tablist" aria-label="Các màn hình sản phẩm"><button class="step" data-cap="Ba nhóm dịch vụ dẫn vào ba luồng riêng, yêu cầu tay nghề riêng" role="tab" aria-selected="true" data-i="0" data-d="phone" data-img="chonnhom"><span class="k">01</span><span><b>Khách chọn nhóm</b><span>Ba nhóm dịch vụ dẫn vào ba luồng riêng, yêu cầu tay nghề riêng</span><span class="tag2">KHÁCH HÀNG</span></span></button><button class="step" data-cap="Khai tình trạng, sàng lọc dấu hiệu cần đi khám trước khi nhận ca" role="tab" aria-selected="false" data-i="1" data-d="phone" data-img="home"><span class="k">02</span><span><b>Đặt buổi có sàng lọc</b><span>Khai tình trạng, sàng lọc dấu hiệu cần đi khám trước khi nhận ca</span><span class="tag2">KHÁCH HÀNG</span></span></button><button class="step" data-cap="Buổi thứ mấy, tiến bộ bao nhiêu, còn bao xa tới mục tiêu" role="tab" aria-selected="false" data-i="2" data-d="phone" data-img="hanhtrinh"><span class="k">03</span><span><b>Hành trình hồi phục</b><span>Buổi thứ mấy, tiến bộ bao nhiêu, còn bao xa tới mục tiêu</span><span class="tag2">KHÁCH HÀNG</span></span></button><button class="step" data-cap="Biết trước ai đến, bậc nghề bao nhiêu, gọi được ngay" role="tab" aria-selected="false" data-i="3" data-d="phone" data-img="lichhen"><span class="k">04</span><span><b>Lịch và người sẽ đến</b><span>Biết trước ai đến, bậc nghề bao nhiêu, gọi được ngay</span><span class="tag2">KHÁCH HÀNG</span></span></button><button class="step" data-cap="Kỹ thuật viên, dịch vụ, giá, lịch, khách và đối soát trên một màn" role="tab" aria-selected="false" data-i="4" data-d="laptop" data-img="trungtam"><span class="k">05</span><span><b>Cổng quản trị cơ sở</b><span>Kỹ thuật viên, dịch vụ, giá, lịch, khách và đối soát trên một màn</span><span class="tag2">TRUNG TÂM</span></span></button><button class="step" data-cap="Ca theo tuyến, chống chỉ định nổi bật, thu nhập minh bạch" role="tab" aria-selected="false" data-i="5" data-d="laptop" data-img="ktv"><span class="k">06</span><span><b>Cổng kỹ thuật viên</b><span>Ca theo tuyến, chống chỉ định nổi bật, thu nhập minh bạch</span><span class="tag2">KỸ THUẬT VIÊN</span></span></button></div>
+      <div class="viewer">
+        <button class="vfull" id="vfull" aria-label="Xem toàn màn hình">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
+        </button>
+        <div class="vtop" role="group" aria-label="Khung thiết bị">
+          <button data-dev="phone" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="2" width="10" height="20" rx="2.6"/><path d="M12 18h.01"/></svg>Điện thoại</button>
+          <button data-dev="tablet" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>Máy tính bảng</button>
+          <button data-dev="laptop" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M2 20h20"/></svg>Máy tính</button>
+        </div>
+        <div class="frame" data-d="phone" id="frame">
+          <div class="sc"><img id="scimg" src="assets/img/portal-5c80c98d3c.webp" alt="Màn hình ANWELL"></div>
+          <div class="lid"></div>
+        </div>
+        <p class="vcap" id="vcap">Ba nhóm dịch vụ dẫn vào ba luồng riêng, yêu cầu tay nghề riêng</p>
+      </div>
+    </div>
+    <div class="dotrow" id="dotrow"></div>
+  </div>
+</section>
+
+
+<!-- ══ VIDEO ══ -->
+<section id="video">
+  <div class="wrap">
+    <div class="head-2">
+      <p class="eyebrow">Video</p>
+      <h2>Ba phút để hiểu ANWELL</h2>
+    </div>
+    <div class="vidwrap">
+      <div class="vidtxt">
+        <span class="chip">03:00 · TIẾNG VIỆT</span>
+        <h3>Từ lúc khai tình trạng tới báo cáo tiến triển đầu tiên</h3>
+        <p style="font-size:14.5px">Theo chân một gia đình có bố vừa xuất viện sau đột quỵ nhẹ — qua đủ năm bước của một liệu trình thật.</p>
+        <ol>
+          <li>Người con đặt buổi hộ bố, khai tình trạng và qua sàng lọc an toàn</li>
+          <li>Kỹ thuật viên bậc 3 nhận ca, xem chống chỉ định trước khi tới nhà</li>
+          <li>Đánh giá đầu vào, đặt mục tiêu bằng số cùng gia đình</li>
+          <li>Ghi bốn chỉ số sau mỗi buổi, gia đình theo dõi qua cửa sổ gia đình</li>
+          <li>Chủ nhật, báo cáo tiến triển đầu tiên gửi vào Zalo người con</li>
+        </ol>
+      </div>
+      <div class="vidstage">
+        <div class="ph"><div class="sc"><img src="assets/img/portal-642e3e4c7d.webp" alt=""></div></div>
+        <button class="playbig" id="playbig" aria-label="Phát video giới thiệu">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+        <div class="vidnote" id="vidnote">
+          <b>Video đang trong quá trình sản xuất.</b>
+          Khi có tệp, thay khối này bằng thẻ video hoặc nhúng liên kết — bố cục và ảnh nền giữ nguyên.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ KHÁCH HÀNG ══ -->
+<section id="khachhang" class="alt">
+  <div class="wrap">
+    <div class="head-2">
+      <p class="eyebrow">Ba nhóm khách hàng</p>
+      <h2>Một nền tảng, ba loại việc</h2>
+      <p class="lede">Mỗi nhóm có nhu cầu khác nhau, yêu cầu tay nghề khác nhau và cách bán khác nhau. Khách tự chọn nhóm ngay khi mở ứng dụng.</p>
+    </div>
+    <div class="grid g3">
+      <div class="card lead">
+        <p class="num">NHÓM 1 · TRỌNG TÂM</p>
+        <h3>Trị liệu đau mỏi cơ xương khớp</h3>
+        <p>Đau vai, cổ, gáy, lưng · tê bì tay chân · nhức mỏi cơ xương khớp. Khách mua cho chính mình.</p>
+        <p style="margin-top:12px"><strong>Bán liệu trình 6–10 buổi có đo trước và sau</strong>, không bán buổi lẻ. Đánh giá đầu vào, đặt mục tiêu bằng số, đo lại giữa và cuối.</p>
+        <div style="margin-top:14px"><span class="tag">Thang đau VAS</span><span class="tag">Tầm vận động</span><span class="tag">Bài tập tại nhà</span></div>
+      </div>
+      <div class="card">
+        <p class="num">NHÓM 2</p>
+        <h3>Massage, thư giãn, chăm sóc sắc đẹp</h3>
+        <p>Dịch vụ sẵn có của cơ sở, bao gồm cả khách du lịch. Đặt buổi lẻ theo giá cơ sở, không yêu cầu bậc chứng nhận.</p>
+        <p style="margin-top:12px">Vai trò: lấp công suất trống và giữ chân cơ sở trong mạng lưới.</p>
+        <div style="margin-top:14px"><span class="tag">Đặt nhanh</span><span class="tag">Giá công khai</span><span class="tag">Cơ sở đã xác minh</span></div>
+      </div>
+      <div class="card">
+        <p class="num">NHÓM 3 · CHUYÊN MÔN CAO</p>
+        <h3>Phục hồi tại nhà cho người thân</h3>
+        <p>Sau đột quỵ, tai biến, mổ khớp · người cao tuổi · phụ nữ sau sinh. Người nhà mua, người thân dùng.</p>
+        <p style="margin-top:12px">Theo kế hoạch bác sĩ đã kê, chu kỳ 20 buổi. <strong>Chỉ kỹ thuật viên chứng nhận bậc 2–3 được nhận.</strong></p>
+        <div style="margin-top:14px"><span class="tag">Cửa sổ gia đình</span><span class="tag">Báo cáo tuần</span><span class="tag">Thiết bị cho thuê</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ NGHỀ NGHIỆP ══ -->
+<section id="nghe" class="alt">
+  <div class="wrap">
+    <div class="head-2">
+      <p class="eyebrow">Nghề nghiệp</p>
+      <h2>Việc là ca hôm nay. Nghề là con đường mười năm.</h2>
+      <p class="lede">Hồ sơ nghề thuộc về chính kỹ thuật viên và đi theo người, không theo chỗ làm. Khách quét mã là thấy bậc, hiệu lực và số buổi đã thực hiện.</p>
+    </div>
+    <div class="ladder">
+      <div class="rung">
+        <p class="lv">Bậc 1 · vào nghề</p>
+        <p class="money">8 – 12 <s>triệu/tháng</s></p>
+        <p style="font-size:14px;color:var(--ink-2)">Nhận ca nhóm 2 và hỗ trợ nhóm 1. Học quy trình chuẩn, ghi nhận buổi, an toàn cơ bản.</p>
+        <div class="bar"></div>
+      </div>
+      <div class="rung">
+        <p class="lv">Bậc 2 · trị liệu</p>
+        <p class="money">15 – 18 <s>triệu/tháng</s></p>
+        <p style="font-size:14px;color:var(--ink-2)">Chủ trì liệu trình nhóm 1: đánh giá đau và tầm vận động, đặt mục tiêu, đo lại và điều chỉnh.</p>
+        <div class="bar"></div>
+      </div>
+      <div class="rung">
+        <p class="lv">Bậc 3 · phục hồi</p>
+        <p class="money">~24 <s>triệu/tháng</s></p>
+        <p style="font-size:14px;color:var(--ink-2)">Ca tại nhà theo kế hoạch bác sĩ đã kê, có bác sĩ phục hồi chức năng giám sát.</p>
+        <div class="bar"></div>
+      </div>
+    </div>
+    <p class="note" style="margin-top:18px">Mức thu nhập là con số mô hình theo mật độ ca mục tiêu, sẽ chốt bằng số liệu thật sau nhóm khách hàng đầu tiên.</p>
+  </div>
+</section>
+
+<!-- ══ THAM GIA ══ -->
+<section id="thamgia" class="alt">
+  <div class="wrap">
+    <div class="head-2">
+      <p class="eyebrow">Tham gia mạng lưới</p>
+      <h2>Ba cửa vào — chọn đúng cửa của bạn</h2>
+      <p class="lede">Mỗi vai trò có quyền lợi, yêu cầu hồ sơ và quy trình duyệt riêng. Xem kỹ phần của mình rồi hãy đăng ký.</p>
+    </div>
+    <div class="jtabs" role="tablist">
+      <button role="tab" aria-selected="true" data-jt="tt" id="jt-tt" aria-controls="jp-tt"><b>Trung tâm</b><span>Spa, phòng trị liệu, dưỡng sinh, vật lý trị liệu</span></button>
+      <button role="tab" aria-selected="false" data-jt="ktv" id="jt-ktv" aria-controls="jp-ktv"><b>KTV tự do</b><span>Kỹ thuật viên thuộc cơ sở hoặc làm tự do</span></button>
+      <button role="tab" aria-selected="false" data-jt="gd" id="jt-gd" aria-controls="jp-gd"><b>Giám đốc Kinh doanh</b><span>Phát triển mạng lưới theo khu vực</span></button>
+    </div>
+    <div class="jpanel" data-jp="tt" id="jp-tt" role="tabpanel" aria-labelledby="jt-tt">
+  <div class="jtop">
+    <div class="jintro">
+      <h3>Dành cho spa, phòng trị liệu, cơ sở dưỡng sinh và phòng vật lý trị liệu</h3>
+      <p>Cơ sở giữ nguyên khách, nhân sự và mặt bằng của mình. ANWELL không sở hữu đôi tay, không sở hữu mặt bằng — chỉ mang khách, mang chuẩn nghề và mang công cụ. Nền tảng chỉ có doanh thu khi cơ sở có việc.</p>
+      <ul class="blist"><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg><span><b>Website riêng theo tên miền phụ</b> dạng tencoso.anwell.vn có bảng giá, đội ngũ kèm bậc nghề, nút đặt lịch và mã QR in dán tại quầy</span></li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg><span><b>Hồ sơ khách theo liệu trình</b> nhắc buổi tự động qua Zalo, báo cáo tiến triển gửi tận tay — lý do khách quay lại là kết quả đo được, không phải khuyến mãi</span></li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg><span><b>Quản lý kỹ thuật viên</b> chứng nhận theo bậc, cảnh báo trước 30 ngày khi chứng nhận sắp hết hạn, chỉ số chất lượng từng người</span></li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg><span><b>Xếp ca có lưới an toàn</b> hệ thống tự chặn khi gán ca vượt bậc, ngoài khung giờ, vượt bán kính hoặc vượt giới hạn ca mỗi ngày</span></li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg><span><b>Bảng công suất và đối soát</b> biết dịch vụ nào đang lãi, khung giờ nào chết; xuất Excel phục vụ kế toán</span></li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg><span><b>Bán liệu trình có đo</b> chuyển từ bán buổi lẻ sang bán gói 6–10 buổi có mục tiêu bằng số — thoát trần giá và thoát cuộc đua giảm giá</span></li></ul>
+    </div>
+    <div class="jpack">
+      <span class="tag3">GÓI CƠ BẢN</span>
+      <h4>Gói Khởi động</h4>
+      <p style="font-size:13.5px;color:rgba(255,255,255,.72)">Dành cho cơ sở trong nhóm đầu tiên của mạng lưới.</p>
+      <p class="price">Miễn phí<s>có thời hạn · không phí tham gia, không thuê bao</s></p>
+      <ul><li>Toàn bộ tính năng bản đầu tiên</li><li>Website riêng theo tên miền phụ và mã QR</li><li>Hồ sơ khách, liệu trình và nhắc lịch qua Zalo</li><li>Bảng đối soát hiển thị đầy đủ, nền tảng chưa thu phí</li><li>Hệ thống ghi rõ giá niêm yết và mức hỗ trợ đang được hưởng</li><li>Hướng dẫn sử dụng và đồng hành 90 ngày đầu</li></ul>
+    </div>
+  </div>
+  <div class="jbot">
+    <div class="jcard">
+      <h4>Hồ sơ cần chuẩn bị</h4>
+      <p>Mục viền vàng là bắt buộc. Các mục còn lại có thể bổ sung sau.</p>
+      <div class="reqs"><span class="req must">Tên cơ sở</span><span class="req must">Người đại diện</span><span class="req must">Số điện thoại</span><span class="req must">Địa chỉ cơ sở</span><span class="req must">Số kỹ thuật viên</span><span class="req must">Loại hình dịch vụ</span><span class="req">Giấy chứng nhận đăng ký kinh doanh</span><span class="req">Giấy phép đủ điều kiện hoạt động</span><span class="req">Ảnh cơ sở</span><span class="req">Mã số thuế</span><span class="req">Số năm hoạt động</span></div>
+    </div>
+    <div class="jcard">
+      <h4>Quy trình và thời gian duyệt</h4>
+      <p>Tính theo ngày làm việc, không tính cuối tuần và ngày lễ.</p>
+      <div class="flow"><div class="fstep2"><span class="n">1</span><span><b>Gửi hồ sơ</b><span>Điền biểu mẫu trực tuyến, đính kèm giấy tờ nếu có</span></span><span class="t">ngay</span></div><div class="fstep2"><span class="n">2</span><span><b>Kiểm tra hồ sơ</b><span>Đối chiếu tiêu chí công khai; thiếu gì sẽ báo rõ thiếu gì</span></span><span class="t">trong 48 giờ</span></div><div class="fstep2"><span class="n">3</span><span><b>Gọi xác minh</b><span>Trao đổi trực tiếp với người đại diện về mô hình hợp tác</span></span><span class="t">1–2 ngày</span></div><div class="fstep2"><span class="n">4</span><span><b>Kích hoạt tài khoản</b><span>Cấp quyền, dựng trang riêng, tạo mã QR</span></span><span class="t">1 ngày</span></div><div class="fstep2"><span class="n">5</span><span><b>Hướng dẫn sử dụng</b><span>Một buổi hướng dẫn trực tiếp hoặc trực tuyến cho cả cơ sở</span></span><span class="t">theo lịch hẹn</span></div></div>
+    </div>
+  </div>
+  <div class="jcta">
+    <div><b>Sẵn sàng đưa cơ sở lên mạng lưới?</b><span>Xét duyệt trong 48 giờ làm việc. Không phí tham gia, không ràng buộc độc quyền.</span></div>
+    <button class="btn btn-p" data-open="tt" style="padding:14px 26px;font-size:15px">Đăng ký tham gia</button>
+  </div>
+</div>
+    <div class="jpanel" data-jp="ktv" id="jp-ktv" role="tabpanel" aria-labelledby="jt-ktv" hidden>
+  <div class="jtop">
+    <div class="jintro">
+      <h3>Dành cho kỹ thuật viên massage trị liệu, dưỡng sinh và vật lý trị liệu</h3>
+      <p>Cả người đang thuộc một cơ sở và người làm tự do đều tạo được hồ sơ. Hồ sơ nghề thuộc về chính anh chị và đi theo anh chị khi đổi chỗ làm — không thuộc về cơ sở nào.</p>
+      <ul class="blist"><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg><span><b>Hồ sơ nghề đi theo người</b> có mã tra cứu công khai; khách quét mã là thấy bậc nghề, hiệu lực và số buổi đã thực hiện</span></li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg><span><b>Ba bậc chứng nhận</b> có lộ trình học và thi rõ ràng; mỗi bậc mở ra loại ca và mức thu nhập mới</span></li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg><span><b>Ca điều phối lấp giờ trống</b> theo tuyến đường và bán kính gần, thay vì ngồi chờ khách vãng lai</span></li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg><span><b>Ba ràng buộc bảo vệ anh chị</b> giới hạn số ca mỗi ngày theo bậc, bán kính di chuyển tối đa, và chỉ xếp ca trong khung giờ anh chị đã đăng ký</span></li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg><span><b>Không phải kiêm việc bán hàng</b> kỹ thuật viên không hưởng hoa hồng bán sản phẩm — chỉ tập trung vào chuyên môn</span></li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg><span><b>Thu nhập minh bạch</b> xem được từng ca, từng khoản, đối soát rõ ràng</span></li></ul>
+    </div>
+    <div class="jpack">
+      <span class="tag3">GÓI CƠ BẢN</span>
+      <h4>Hồ sơ nghề</h4>
+      <p style="font-size:13.5px;color:rgba(255,255,255,.72)">Tạo và duy trì hồ sơ không mất phí.</p>
+      <p class="price">Miễn phí<s>trọn đời · hồ sơ thuộc về anh chị</s></p>
+      <ul><li>Hồ sơ nghề và mã tra cứu công khai</li><li>Nhận ca điều phối từ mạng lưới</li><li>Ba ràng buộc bảo vệ sức khoẻ nghề nghiệp</li><li>Ứng dụng ghi nhận buổi và theo dõi thu nhập</li><li>Được ưu tiên suất khoá học lên bậc</li><li>Khoá học lên bậc có học phí riêng</li></ul>
+    </div>
+  </div>
+  <div class="jbot">
+    <div class="jcard">
+      <h4>Hồ sơ cần chuẩn bị</h4>
+      <p>Mục viền vàng là bắt buộc. Các mục còn lại có thể bổ sung sau.</p>
+      <div class="reqs"><span class="req must">Họ và tên</span><span class="req must">Số điện thoại</span><span class="req must">Số năm kinh nghiệm</span><span class="req must">Chuyên môn chính</span><span class="req must">Khu vực nhận ca</span><span class="req">Chứng chỉ hành nghề</span><span class="req">Căn cước công dân</span><span class="req">Ảnh chân dung</span><span class="req">Nơi đang làm việc</span></div>
+    </div>
+    <div class="jcard">
+      <h4>Quy trình và thời gian duyệt</h4>
+      <p>Tính theo ngày làm việc, không tính cuối tuần và ngày lễ.</p>
+      <div class="flow"><div class="fstep2"><span class="n">1</span><span><b>Tạo hồ sơ nghề</b><span>Điền thông tin và chuyên môn trên biểu mẫu trực tuyến</span></span><span class="t">ngay</span></div><div class="fstep2"><span class="n">2</span><span><b>Xác minh thông tin</b><span>Đối chiếu giấy tờ và kinh nghiệm khai báo</span></span><span class="t">trong 48 giờ</span></div><div class="fstep2"><span class="n">3</span><span><b>Đánh giá tay nghề</b><span>Trao đổi chuyên môn ngắn, có bác sĩ thẩm định tham gia với bậc 2–3</span></span><span class="t">2–3 ngày</span></div><div class="fstep2"><span class="n">4</span><span><b>Gán bậc chứng nhận</b><span>Bậc 1 công nhận ngay; bậc 2–3 qua khoá học và kỳ thi</span></span><span class="t">tuỳ bậc</span></div><div class="fstep2"><span class="n">5</span><span><b>Bắt đầu nhận ca</b><span>Thiết lập khung giờ, bán kính và giới hạn ca của riêng mình</span></span><span class="t">ngay sau khi duyệt</span></div></div>
+    </div>
+  </div>
+  <div class="jcta">
+    <div><b>Bắt đầu xây hồ sơ nghề của mình</b><span>Không mất phí. Hồ sơ theo anh chị suốt nghề, không theo chỗ làm.</span></div>
+    <button class="btn btn-p" data-open="ktv" style="padding:14px 26px;font-size:15px">Đăng ký tham gia</button>
+  </div>
+</div>
+    <div class="jpanel" data-jp="gd" id="jp-gd" role="tabpanel" aria-labelledby="jt-gd" hidden>
+  <div class="jtop">
+    <div class="jintro">
+      <h3>Dành cho người có mạng lưới quan hệ trong ngành và kinh nghiệm phát triển đối tác</h3>
+      <p>Giám đốc Kinh doanh vùng chịu trách nhiệm phát triển và giữ chất lượng mạng lưới trung tâm tại một khu vực. Đây là vị trí đo bằng kết quả thật, không đo bằng số hồ sơ nộp về.</p>
+      <ul class="blist"><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg><span><b>Cổng quản trị riêng</b> phễu phát triển năm bước, chỉ tiêu theo vùng và theo người, xếp hạng và cảnh báo cơ sở</span></li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg><span><b>Bộ công cụ bán hàng đầy đủ</b> tài liệu giới thiệu, bản mẫu chạy được, hội thảo ký kết do khối truyền thông tổ chức</span></li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg><span><b>Thu nhập theo hiệu quả</b> cơ chế gồm phần cố định và phần theo kết quả, thoả thuận theo quy mô khu vực</span></li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg><span><b>Quyền tự quyết trong khung</b> phân bổ chỉ tiêu, điều chuyển người phụ trách, phê duyệt hỗ trợ thương mại trong ngân sách</span></li><li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg><span><b>Được hỗ trợ chuyên môn</b> bác sĩ thẩm định và khối vận hành cùng tham gia buổi làm việc với cơ sở lớn</span></li></ul>
+    </div>
+    <div class="jpack">
+      <span class="tag3">CƠ CHẾ</span>
+      <h4>Hợp tác theo khu vực</h4>
+      <p style="font-size:13.5px;color:rgba(255,255,255,.72)">Mỗi khu vực một người phụ trách, không chồng lấn địa bàn.</p>
+      <p class="price">Thoả thuận<s>theo quy mô khu vực và cam kết chỉ tiêu</s></p>
+      <ul><li>Phần cố định cộng phần theo hiệu quả</li><li>Địa bàn không chồng lấn trong thời hạn hợp tác</li><li>Ngân sách hoạt động và hỗ trợ thương mại</li><li>Được cấp cổng quản trị và bộ công cụ đầy đủ</li><li>Đánh giá theo số cơ sở HOẠT ĐỘNG — có giao dịch thật trong 30 ngày</li><li>Không đánh giá theo số cơ sở đã đăng ký</li></ul>
+    </div>
+  </div>
+  <div class="jbot">
+    <div class="jcard">
+      <h4>Hồ sơ cần chuẩn bị</h4>
+      <p>Mục viền vàng là bắt buộc. Các mục còn lại có thể bổ sung sau.</p>
+      <div class="reqs"><span class="req must">Họ và tên</span><span class="req must">Số điện thoại</span><span class="req must">Thư điện tử</span><span class="req must">Khu vực đề xuất</span><span class="req must">Số năm kinh nghiệm</span><span class="req must">Kế hoạch 90 ngày đầu</span><span class="req must">Quy mô mạng lưới hiện có</span><span class="req">Hồ sơ năng lực</span><span class="req">Lĩnh vực đã làm</span></div>
+    </div>
+    <div class="jcard">
+      <h4>Quy trình và thời gian duyệt</h4>
+      <p>Tính theo ngày làm việc, không tính cuối tuần và ngày lễ.</p>
+      <div class="flow"><div class="fstep2"><span class="n">1</span><span><b>Gửi hồ sơ ứng tuyển</b><span>Điền biểu mẫu, đặc biệt phần kế hoạch 90 ngày đầu</span></span><span class="t">ngay</span></div><div class="fstep2"><span class="n">2</span><span><b>Sàng lọc hồ sơ</b><span>Đọc kỹ kế hoạch hơn phần kinh nghiệm</span></span><span class="t">trong 5 ngày</span></div><div class="fstep2"><span class="n">3</span><span><b>Phỏng vấn</b><span>Trao đổi về khu vực, mạng lưới và cách tiếp cận</span></span><span class="t">1 buổi</span></div><div class="fstep2"><span class="n">4</span><span><b>Thống nhất khu vực và chỉ tiêu</b><span>Chốt địa bàn, mục tiêu và cơ chế thu nhập</span></span><span class="t">1–2 tuần</span></div><div class="fstep2"><span class="n">5</span><span><b>Ký hợp tác và bàn giao công cụ</b><span>Cấp cổng quản trị, tài liệu và ngân sách hoạt động</span></span><span class="t">1 tuần</span></div></div>
+    </div>
+  </div>
+  <div class="jcta">
+    <div><b>Cùng mở một khu vực mới</b><span>Phản hồi trong 5 ngày làm việc. Chúng tôi đọc kế hoạch 90 ngày kỹ hơn phần kinh nghiệm.</span></div>
+    <button class="btn btn-p" data-open="gd" style="padding:14px 26px;font-size:15px">Đăng ký tham gia</button>
+  </div>
+</div>
+  </div>
+</section>
+
+<!-- ══ THƯƠNG HIỆU ══ -->
+<section id="thuonghieu">
+  <div class="wrap">
+    <div class="head-2">
+      <p class="eyebrow">Bộ nhận diện · v1.0</p>
+      <h2>Thương hiệu Anwell</h2>
+      <p class="lede">Feel well. Live an. — An tâm chọn, An nhiên sống. Nhận diện được dựng quanh một hình ảnh duy nhất: hoa sen năm cánh xoè đối xứng.</p>
+    </div>
+
+    <div class="brandhero">
+      <div class="light">
+        <div class="blk"><span class="p"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:100%;height:100%;color:#B9893B"><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(-56 12 22)" fill="currentColor" opacity=".5"/><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(-28 12 22)" fill="currentColor" opacity=".78"/><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" fill="currentColor"/><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(28 12 22)" fill="currentColor" opacity=".78"/><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(56 12 22)" fill="currentColor" opacity=".5"/></svg></span><span class="w" style="color:#12564A">Anwell</span></div>
+        <small style="color:#4C6157">KHOÁ NGANG TRÊN NỀN SÁNG</small>
+      </div>
+      <div class="dark">
+        <div class="blk"><span class="p"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:100%;height:100%;color:#E7CE97"><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(-56 12 22)" fill="currentColor" opacity=".5"/><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(-28 12 22)" fill="currentColor" opacity=".78"/><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" fill="currentColor"/><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(28 12 22)" fill="currentColor" opacity=".78"/><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(56 12 22)" fill="currentColor" opacity=".5"/></svg></span><span class="w" style="color:#FFFFFF">Anwell</span></div>
+        <small style="color:#E7CE97">KHOÁ NGANG TRÊN NỀN TỐI</small>
+      </div>
+    </div>
+
+    <h3 style="margin:44px 0 8px">01 · Biểu tượng — hoa sen, an yên và tinh khiết</h3>
+    <p class="lede" style="margin-bottom:20px">Năm cánh sen xoè đối xứng gợi sự nở rộ, cân bằng và thanh tịnh — quốc hoa Việt Nam, biểu tượng của sức khoẻ và sự an nhiên. Cánh giữa vươn thẳng thể hiện sự vững vàng; hai lớp cánh nhạt dần tạo chiều sâu và cảm giác thở.</p>
+    <div class="grid g3">
+      <div class="card"><p class="num">05</p><h3>Cánh sen</h3><p>Số cánh cố định, không thêm bớt. Đối xứng qua trục dọc.</p></div>
+      <div class="card"><p class="num">1:1</p><h3>Tỷ lệ ô biểu tượng</h3><p>Biểu tượng luôn nằm trong ô vuông, không kéo giãn.</p></div>
+      <div class="card"><p class="num">24px</p><h3>Kích thước tối thiểu</h3><p>Dưới ngưỡng này dùng biểu tượng đơn sắc thay cho khoá đầy đủ.</p></div>
+    </div>
+
+    <h3 style="margin:44px 0 18px">02 · Bốn biến thể chính</h3>
+    <div class="variants">
+      <div class="vr"><div class="box"><div class="blk"><span class="p" style="width:26px;height:26px"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:100%;height:100%;color:#B9893B"><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(-56 12 22)" fill="currentColor" opacity=".5"/><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(-28 12 22)" fill="currentColor" opacity=".78"/><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" fill="currentColor"/><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(28 12 22)" fill="currentColor" opacity=".78"/><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(56 12 22)" fill="currentColor" opacity=".5"/></svg></span><span class="w" style="font-size:22px;color:#12564A">Anwell</span></div></div><b>Ngang</b><span>Mặc định — thanh điều hướng, tài liệu</span></div>
+      <div class="vr"><div class="box"><div style="display:flex;flex-direction:column;align-items:center;gap:3px"><span class="p" style="width:24px;height:24px"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:100%;height:100%;color:#B9893B"><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(-56 12 22)" fill="currentColor" opacity=".5"/><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(-28 12 22)" fill="currentColor" opacity=".78"/><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" fill="currentColor"/><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(28 12 22)" fill="currentColor" opacity=".78"/><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(56 12 22)" fill="currentColor" opacity=".5"/></svg></span><span class="w" style="font-size:17px;color:#12564A">Anwell</span></div></div><b>Dọc</b><span>Không gian vuông — hồ sơ, ảnh đại diện</span></div>
+      <div class="vr"><div class="box"><span class="w" style="font-size:23px;color:#12564A">Anwell</span></div><b>Wordmark</b><span>Chân trang, văn bản, con dấu chữ</span></div>
+      <div class="vr"><div class="box"><span class="p" style="width:34px;height:34px"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:100%;height:100%;color:#B9893B"><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(-56 12 22)" fill="currentColor" opacity=".5"/><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(-28 12 22)" fill="currentColor" opacity=".78"/><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" fill="currentColor"/><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(28 12 22)" fill="currentColor" opacity=".78"/><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(56 12 22)" fill="currentColor" opacity=".5"/></svg></span></div><b>Biểu tượng</b><span>Biểu tượng ứng dụng, favicon, con dấu</span></div>
+    </div>
+
+    <h3 style="margin:44px 0 18px">03 · Sắc sen và rừng thông</h3>
+    <div class="swatches">
+      <div class="sw"><div class="chip" style="background:#12564A"></div><div class="meta"><b>Xanh thông</b><span>#12564A</span><i>Màu chủ đạo</i></div></div>
+      <div class="sw"><div class="chip" style="background:#0C2F36"></div><div class="meta"><b>Rừng sâu</b><span>#0C2F36</span><i>Nền tối</i></div></div>
+      <div class="sw"><div class="chip" style="background:#2E8567"></div><div class="meta"><b>Ngọc</b><span>#2E8567</span><i>Nhấn phụ</i></div></div>
+      <div class="sw"><div class="chip" style="background:#B9893B"></div><div class="meta"><b>Vàng sen</b><span>#B9893B</span><i>Nhấn chính</i></div></div>
+      <div class="sw"><div class="chip" style="background:#E7CE97"></div><div class="meta"><b>Vàng nhạt</b><span>#E7CE97</span><i>Nền nhấn nhẹ</i></div></div>
+      <div class="sw"><div class="chip" style="background:#14211B"></div><div class="meta"><b>Mực</b><span>#14211B</span><i>Chữ chính</i></div></div>
+      <div class="sw"><div class="chip" style="background:#4C6157"></div><div class="meta"><b>Xám chữ</b><span>#4C6157</span><i>Chữ phụ</i></div></div>
+      <div class="sw"><div class="chip" style="background:#F3F6F1"></div><div class="meta"><b>Sương</b><span>#F3F6F1</span><i>Nền sáng</i></div></div>
+      <div class="sw"><div class="chip" style="background:#FFFFFF;border-bottom:1px solid var(--line)"></div><div class="meta"><b>Giấy</b><span>#FFFFFF</span><i>Nền thẻ</i></div></div>
+      <div class="sw"><div class="chip" style="background:linear-gradient(135deg,#12564A,#B9893B)"></div><div class="meta"><b>Cặp thương hiệu</b><span>Thông + Sen</span><i>Không dùng làm nền chữ</i></div></div>
+    </div>
+
+    <h3 style="margin:44px 0 18px">04 · Hệ chữ</h3>
+    <div class="typespec">
+      <div class="ts">
+        <p class="lab"><span>Tiêu đề</span><em>Cormorant Garamond</em></p>
+        <p class="sample-c">An nhiên<i>Feel well. Live an.</i></p>
+        <p class="wts">500 · 600 · 700 · nghiêng — tiêu đề, khoá logo, trích dẫn</p>
+      </div>
+      <div class="ts">
+        <p class="lab"><span>Nội dung</span><em>Be Vietnam Pro</em></p>
+        <p class="sample-b">Sức khoẻ trong một chạm</p>
+        <p style="font-size:14px;margin-top:8px">Đặt lịch trị liệu, dưỡng sinh và chăm sóc sức khoẻ tại các trung tâm đã xác minh — an toàn, minh bạch, đúng người đúng lúc.</p>
+        <p class="wts">300 · 400 · 500 · 600 · 700 · 800</p>
+      </div>
+    </div>
+
+    <h3 style="margin:44px 0 18px">05 · Nên và không nên</h3>
+    <div class="dodont">
+      <div class="dd" style="background:#F3F6F1"><div class="box"><div class="blk"><span class="p" style="width:22px;height:22px"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:100%;height:100%;color:#B9893B"><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(-56 12 22)" fill="currentColor" opacity=".5"/><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(-28 12 22)" fill="currentColor" opacity=".78"/><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" fill="currentColor"/><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(28 12 22)" fill="currentColor" opacity=".78"/><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(56 12 22)" fill="currentColor" opacity=".5"/></svg></span><span class="w" style="font-size:19px;color:#12564A">Anwell</span></div></div><p class="yes">✓ Nên</p><p>Giữ tỷ lệ và màu chuẩn</p></div>
+      <div class="dd" style="background:#B9893B"><div class="box"><div class="blk"><span class="p" style="width:22px;height:22px"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:100%;height:100%;color:#FFFFFF"><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(-56 12 22)" fill="currentColor" opacity=".5"/><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(-28 12 22)" fill="currentColor" opacity=".78"/><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" fill="currentColor"/><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(28 12 22)" fill="currentColor" opacity=".78"/><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(56 12 22)" fill="currentColor" opacity=".5"/></svg></span><span class="w" style="font-size:19px;color:#FFFFFF">Anwell</span></div></div><p class="yes" style="color:#14211B">✓ Nên</p><p style="color:#14211B">Đảo màu khi nền đậm</p></div>
+      <div class="dd"><div class="box"><span class="w" style="font-size:19px;color:#12564A;font-style:italic;transform:skewX(-12deg) scaleX(1.3);display:inline-block">Anwell</span></div><p class="no">✕ Không nên</p><p>Nghiêng hoặc bóp méo</p></div>
+      <div class="dd"><div class="box"><div class="blk"><span class="p" style="width:22px;height:22px"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:100%;height:100%;color:#C724B1"><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(-56 12 22)" fill="currentColor" opacity=".5"/><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(-28 12 22)" fill="currentColor" opacity=".78"/><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" fill="currentColor"/><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(28 12 22)" fill="currentColor" opacity=".78"/><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(56 12 22)" fill="currentColor" opacity=".5"/></svg></span><span class="w" style="font-size:19px;color:#C724B1">Anwell</span></div></div><p class="no">✕ Không nên</p><p>Đổi màu tuỳ tiện</p></div>
+    </div>
+
+    <p class="note" style="margin-top:26px">Bộ nhận diện đầy đủ kèm tệp gốc: <strong>Anwell Brand Identity v1.0</strong>. Đối tác trong mạng lưới được cấp bộ tệp logo và khung nội dung mẫu khi kích hoạt tài khoản.</p>
+  </div>
+</section>
+
+
+<!-- ══ HỎI ĐÁP ══ -->
+<section id="hoidap" class="alt">
+  <div class="wrap">
+    <div class="head-2">
+      <p class="eyebrow">Hỏi đáp</p>
+      <h2>Những câu được hỏi nhiều nhất</h2>
+    </div>
+    <div style="max-width:900px">
+      <details open><summary>Tham gia ANWELL có mất phí không?</summary><p>Giai đoạn đầu không thu phí tham gia và không thu thuê bao. Hệ thống vẫn ghi nhận đầy đủ giao dịch và hiển thị bảng đối soát để các bên cùng theo dõi, đồng thời ghi rõ giá niêm yết và mức hỗ trợ mỗi cơ sở đang được hưởng — để khi tới lúc thu phí, mọi thứ đã minh bạch từ trước.</p></details>
+      <details><summary>ANWELL có mang khách tới ngay không?</summary><p>Nói thẳng: ở giai đoạn đầu, lượng khách nền tảng mang tới mỗi cơ sở còn nhỏ. Điều làm được ngay là giúp cơ sở <strong>giữ khách sẵn có tốt hơn</strong> — biến khách lẻ thành khách liệu trình, biến khách một lần thành khách quay lại. Giữ một khách rẻ hơn tìm một khách, và đó mới là con số đổi dòng tiền trước.</p></details>
+      <details><summary>Khách hàng của cơ sở có bị ANWELL lấy mất không?</summary><p>Không. Hồ sơ khách thuộc về cơ sở. Kỹ thuật viên chỉ xem được buổi mình phụ trách. ANWELL không sở hữu đôi tay, không sở hữu mặt bằng, và không cạnh tranh với chính mạng lưới của mình.</p></details>
+      <details><summary>Kỹ thuật viên phải trả gì để có hồ sơ nghề?</summary><p>Không mất phí tạo hồ sơ. Hồ sơ nghề thuộc về chính kỹ thuật viên và đi theo người khi đổi chỗ làm. Khoá học lên bậc có học phí, và học xong thì mở ra loại ca cùng mức thu nhập mới.</p></details>
+      <details><summary>Trung tâm được lợi gì cụ thể trong ba tháng đầu?</summary><p>Ba thứ đến ngay và một thứ đến sau. <strong>Ngay:</strong> trang riêng theo tên miền phụ kèm mã QR in dán tại quầy — thay cho việc tự làm nội dung và chạy quảng cáo · hồ sơ khách theo liệu trình với nhắc buổi tự động, để khách không mất dấu sau một lần · bảng công suất theo khung giờ, biết giờ nào chết mà điều phối lấp. <strong>Đến sau:</strong> khi bán được liệu trình có đo thay vì buổi lẻ, giá trị mỗi khách tăng lên nhiều lần — đó mới là con số đổi dòng tiền, và nó cần một chu kỳ liệu trình để thấy.</p></details>
+      <details><summary>Kỹ thuật viên tăng thu nhập bằng cách nào?</summary><p>Không phải bằng cách làm nhiều giờ hơn — nền tảng còn <em>giới hạn</em> số ca mỗi ngày để bảo vệ cơ thể người làm nghề. Thu nhập tăng theo ba đường: <strong>lấp giờ trống</strong> bằng ca điều phối theo tuyến đường và bán kính gần, thay vì ngồi chờ khách vãng lai · <strong>lên bậc</strong> để nhận loại ca chuyên môn cao hơn với giá cao hơn · và <strong>giữ khách</strong> vì có hồ sơ nghề chứng minh được tay nghề, khách quay lại tìm đúng người. Ngoài ra kỹ thuật viên không phải kiêm việc bán hàng: không hưởng hoa hồng bán sản phẩm, nên chỉ tập trung vào chuyên môn.</p></details>
+      <details><summary>Khách hàng được gì mà đặt ở nơi khác không có?</summary><p><strong>Biết mình có thật sự đỡ hay không, bằng số.</strong> Đo đầu vào, đặt mục tiêu cụ thể, đo lại giữa và cuối liệu trình — thay vì trả tiền cho một lời hứa. Kèm ba thứ nữa: tra cứu được bậc nghề và hiệu lực chứng nhận của người sẽ phục vụ mình · sàng lọc an toàn trước khi nhận ca, có dấu hiệu cần đi khám thì được khuyên đi khám chứ không nhận bừa · và hồ sơ sức khoẻ lưu trên máy chủ tại Việt Nam, trường y tế mã hoá, mọi lần đọc đều ghi nhật ký. Với gia đình có người thân cần chăm sóc tại nhà, còn thêm báo cáo tiến triển gửi Zalo mỗi tuần — biết bố mẹ khá lên bao nhiêu dù đang ở xa.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ══ LIÊN HỆ ══ -->
+<section id="lienhe">
+  <div class="wrap">
+    <div class="head-2">
+      <p class="eyebrow">Liên hệ</p>
+      <h2>Nói chuyện với người thật</h2>
+      <p class="lede">Đối tác và kỹ thuật viên gọi trong giờ làm việc sẽ gặp người phụ trách trực tiếp, không qua tổng đài tự động.</p>
+    </div>
+    <div class="grid g3">
+      <div class="card">
+        <p class="num">VĂN PHÒNG</p>
+        <h3>Công ty Cổ phần ANWELL Việt Nam</h3>
+        <p>Địa chỉ: [đang cập nhật]<br>Giờ làm việc: 8:00 – 18:00, Thứ Hai – Thứ Bảy</p>
+      </div>
+      <div class="card">
+        <p class="num">ĐỐI TÁC & KỸ THUẬT VIÊN</p>
+        <h3>Hỗ trợ tham gia mạng lưới</h3>
+        <p>Điện thoại: [số hotline]<br>Zalo OA: <strong>ANWELL by BYT</strong><br>Thư điện tử: doitac@anwell.vn</p>
+      </div>
+      <div class="card">
+        <p class="num">KHÁCH HÀNG</p>
+        <h3>Hỗ trợ đặt lịch và liệu trình</h3>
+        <p>Điện thoại: [số hotline]<br>Zalo OA: nhắn tin bất cứ lúc nào<br>Thư điện tử: hotro@anwell.vn</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer id="chinhsach">
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <a class="logo" href="#" style="margin-bottom:14px" aria-label="ANWELL"><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(-56 12 22)" fill="currentColor" opacity=".5"/><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(-28 12 22)" fill="currentColor" opacity=".78"/><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" fill="currentColor"/><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(28 12 22)" fill="currentColor" opacity=".78"/><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(56 12 22)" fill="currentColor" opacity=".5"/></svg><span class="lock"><b>Anwell</b><i>CÔNG TY CỔ PHẦN TẬP ĐOÀN ANWELL</i></span></a>
+        <p style="font-size:14px;max-width:34ch">Nền tảng chăm sóc và phục hồi có đo lường. Chúng tôi xây thước đo và chuẩn nghề cho ngành — không xây thêm một ứng dụng đặt lịch.</p>
+        <div style="margin-top:16px"><span class="tag">An tâm chọn — An nhiên sống</span></div>
+      </div>
+      <div>
+        <h4>Nền tảng</h4>
+        <a href="#nentang">Tổng quan</a>
+        <a href="#khachhang">Ba nhóm khách hàng</a>
+        <a href="#nghe">Thang bậc nghề</a>
+        <a href="#">Tra cứu chứng nhận kỹ thuật viên</a>
+        <a href="#">Danh sách cơ sở đã xác minh</a>
+      </div>
+      <div>
+        <h4>Tham gia</h4>
+        <a href="#xem">Đăng ký trung tâm</a>
+        <a href="#xem">Tạo hồ sơ kỹ thuật viên</a>
+        <a href="#xem">Ứng tuyển Giám đốc Kinh doanh</a>
+        <a href="#">Khoá đào tạo lên bậc</a>
+        <a href="#hoidap">Câu hỏi thường gặp</a>
+      </div>
+      <div>
+        <h4>Chính sách</h4>
+        <a href="#">Điều khoản sử dụng</a>
+        <a href="#">Chính sách quyền riêng tư</a>
+        <a href="#">Chính sách dữ liệu sức khoẻ</a>
+        <a href="#">Quy tắc an toàn chuyên môn</a>
+        <a href="#">Chính sách hoàn và huỷ</a>
+        <a href="#">Giải quyết khiếu nại</a>
+      </div>
+    </div>
+    <div class="fbot">
+      <span>© 2026 Công ty Cổ phần ANWELL Việt Nam. Mã số doanh nghiệp: [đang cập nhật]</span>
+      <span class="mono">CÔNG NGHỆ · CON NGƯỜI · AN NHIÊN – TỰ TẠI</span>
+    </div>
+  </div>
+</footer>
+
+<div class="ovl" id="m-tt" role="dialog" aria-modal="true" aria-labelledby="h-tt">
+ <div class="modal">
+  <div class="mh"><div><h3 id="h-tt">Đăng ký Trung tâm / Cơ sở trị liệu</h3><p>Dành cho spa, phòng trị liệu, cơ sở dưỡng sinh, phòng vật lý trị liệu muốn nhận ca điều phối và bán liệu trình có đo.</p></div>
+   <button class="x" data-close aria-label="Đóng">×</button></div>
+  <form class="mb" data-key="tt" novalidate>
+   <div class="fields"><div class="f full"><label for="tt1">Tên cơ sở <i>*</i></label><input id="tt1" name="Tên cơ sở" type="text" required placeholder="Ví dụ: An Nhiên Wellness"></div><div class="f"><label for="tt2">Người đại diện <i>*</i></label><input id="tt2" name="Người đại diện" type="text" required placeholder=""></div><div class="f"><label for="tt3">Số điện thoại <i>*</i></label><input id="tt3" name="Số điện thoại" type="tel" required placeholder="0xxx xxx xxx"><small>Dùng để đăng nhập và nhận thông báo qua Zalo</small></div><div class="f"><label for="tt4">Thư điện tử</label><input id="tt4" name="Thư điện tử" type="email" placeholder=""></div><div class="f"><label for="tt5">Mã số thuế</label><input id="tt5" name="Mã số thuế" type="text" placeholder=""><small>Có thể bổ sung sau</small></div><div class="f full"><label for="tt6">Địa chỉ cơ sở <i>*</i></label><input id="tt6" name="Địa chỉ cơ sở" type="text" required placeholder="Số nhà, đường, phường/xã, quận/huyện, tỉnh/thành"></div><div class="f"><label for="tt7">Số kỹ thuật viên hiện có <i>*</i></label><input id="tt7" name="Số kỹ thuật viên hiện có" type="number" required placeholder=""></div><div class="f"><label for="tt8">Số phòng / giường</label><input id="tt8" name="Số phòng / giường" type="number" placeholder=""></div><div class="f"><label for="tt9">Loại hình dịch vụ đang làm <i>*</i></label><select id="tt9" name="Loại hình dịch vụ đang làm" required><option value="">— Chọn —</option><option>Massage, thư giãn, chăm sóc sắc đẹp</option><option>Trị liệu đau mỏi cơ xương khớp</option><option>Vật lý trị liệu, phục hồi chức năng</option><option>Dưỡng sinh, trị liệu cổ truyền</option><option>Kết hợp nhiều loại hình</option></select></div><div class="f"><label for="tt10">Số năm hoạt động</label><input id="tt10" name="Số năm hoạt động" type="number" placeholder=""></div><div class="f full"><label for="tt11">Điều gì khiến anh chị quan tâm tới ANWELL?</label><textarea id="tt11" name="Điều gì khiến anh chị quan tâm tới ANWELL?" placeholder="Ví dụ: cần thêm khách, muốn quản lý kỹ thuật viên tốt hơn, muốn bán liệu trình thay vì buổi lẻ…"></textarea></div>
+    <div class="f full"><label>Tài liệu đính kèm</label>
+     <div class="drop-file" tabindex="0" role="button" aria-label="Chọn tệp để tải lên">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 16V4m0 0L8 8m4-4 4 4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+      <b>Kéo tệp vào đây hoặc bấm để chọn</b><span>Giấy phép kinh doanh · giấy đủ điều kiện hoạt động · ảnh cơ sở · PDF, JPG, PNG · tối đa 10MB mỗi tệp</span>
+      <input type="file" multiple hidden accept=".pdf,.jpg,.jpeg,.png">
+     </div>
+     <div class="files"></div>
+    </div>
+    <label class="check"><input type="checkbox" required> Tôi xác nhận thông tin trên là đúng và đồng ý để ANWELL liên hệ xác minh. Tôi đã đọc <a href="#chinhsach" style="color:var(--brand)">Chính sách quyền riêng tư</a>.</label>
+   </div>
+   <div class="ok" role="status"></div>
+  </form>
+  <div class="mf">
+   <button class="btn btn-p" data-submit="tt">Gửi hồ sơ</button>
+   <button class="btn btn-o" data-save="tt">Lưu nháp</button>
+   <span class="draft" data-draft="tt">Xét duyệt trong 48 giờ làm việc · Không thu phí tham gia</span>
+  </div>
+ </div>
+</div>
+<div class="ovl" id="m-ktv" role="dialog" aria-modal="true" aria-labelledby="h-ktv">
+ <div class="modal">
+  <div class="mh"><div><h3 id="h-ktv">Đăng ký Kỹ thuật viên</h3><p>Dành cho người làm nghề massage trị liệu, dưỡng sinh, vật lý trị liệu — cả người thuộc cơ sở và người làm tự do.</p></div>
+   <button class="x" data-close aria-label="Đóng">×</button></div>
+  <form class="mb" data-key="ktv" novalidate>
+   <div class="fields"><div class="f"><label for="ktv1">Họ và tên <i>*</i></label><input id="ktv1" name="Họ và tên" type="text" required placeholder=""></div><div class="f"><label for="ktv2">Số điện thoại <i>*</i></label><input id="ktv2" name="Số điện thoại" type="tel" required placeholder="0xxx xxx xxx"></div><div class="f"><label for="ktv3">Năm sinh</label><input id="ktv3" name="Năm sinh" type="number" placeholder=""></div><div class="f"><label for="ktv4">Giới tính</label><select id="ktv4" name="Giới tính"><option value="">— Chọn —</option><option>Nữ</option><option>Nam</option></select></div><div class="f"><label for="ktv5">Số năm kinh nghiệm <i>*</i></label><input id="ktv5" name="Số năm kinh nghiệm" type="number" required placeholder=""></div><div class="f"><label for="ktv6">Đang làm việc tại <i>*</i></label><select id="ktv6" name="Đang làm việc tại" required><option value="">— Chọn —</option><option>Thuộc một cơ sở cố định</option><option>Làm tự do</option><option>Cả hai</option><option>Đang tìm việc</option></select></div><div class="f full"><label for="ktv7">Chuyên môn chính <i>*</i></label><select id="ktv7" name="Chuyên môn chính" multiple size="5" required><option>Massage thư giãn</option><option>Trị liệu cổ vai gáy</option><option>Trị liệu cột sống, thắt lưng</option><option>Vật lý trị liệu sau chấn thương</option><option>Phục hồi sau đột quỵ, tai biến</option><option>Chăm sóc người cao tuổi</option><option>Chăm sóc sau sinh</option><option>Dưỡng sinh, xoa bóp bấm huyệt</option></select><small>Chọn nhiều mục nếu có</small></div><div class="f"><label for="ktv8">Chứng chỉ hành nghề</label><select id="ktv8" name="Chứng chỉ hành nghề"><option value="">— Chọn —</option><option>Đã có</option><option>Đang học</option><option>Chưa có</option></select></div><div class="f"><label for="ktv9">Khu vực nhận ca <i>*</i></label><input id="ktv9" name="Khu vực nhận ca" type="text" required placeholder="Ví dụ: Q.1, Q.3, Q.Bình Thạnh"></div><div class="f"><label for="ktv10">Anh chị quan tâm điều gì nhất?</label><select id="ktv10" name="Anh chị quan tâm điều gì nhất?"><option value="">— Chọn —</option><option>Có thêm ca để tăng thu nhập</option><option>Học lên bậc để nhận ca chuyên môn cao hơn</option><option>Có hồ sơ nghề để chứng minh tay nghề</option><option>Chủ động giờ giấc và khu vực làm việc</option></select></div>
+    <div class="f full"><label>Tài liệu đính kèm</label>
+     <div class="drop-file" tabindex="0" role="button" aria-label="Chọn tệp để tải lên">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 16V4m0 0L8 8m4-4 4 4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+      <b>Kéo tệp vào đây hoặc bấm để chọn</b><span>Chứng chỉ hành nghề · căn cước · ảnh chân dung · PDF, JPG, PNG · tối đa 10MB mỗi tệp</span>
+      <input type="file" multiple hidden accept=".pdf,.jpg,.jpeg,.png">
+     </div>
+     <div class="files"></div>
+    </div>
+    <label class="check"><input type="checkbox" required> Tôi đồng ý để ANWELL liên hệ và xác minh thông tin nghề nghiệp. Tôi hiểu rằng để nhận ca chăm sóc tại nhà cần đạt chứng nhận bậc 2 trở lên. Tôi đã đọc <a href="#chinhsach" style="color:var(--brand)">Chính sách quyền riêng tư</a>.</label>
+   </div>
+   <div class="ok" role="status"></div>
+  </form>
+  <div class="mf">
+   <button class="btn btn-p" data-submit="ktv">Gửi hồ sơ</button>
+   <button class="btn btn-o" data-save="ktv">Lưu nháp</button>
+   <span class="draft" data-draft="ktv">Miễn phí · Hồ sơ thuộc về anh chị và đi theo anh chị khi đổi chỗ làm</span>
+  </div>
+ </div>
+</div>
+<div class="ovl" id="m-gd" role="dialog" aria-modal="true" aria-labelledby="h-gd">
+ <div class="modal">
+  <div class="mh"><div><h3 id="h-gd">Ứng tuyển Giám đốc Kinh doanh vùng</h3><p>Dành cho người có mạng lưới quan hệ trong ngành spa, chăm sóc sức khoẻ, hoặc kinh nghiệm phát triển hệ thống đối tác.</p></div>
+   <button class="x" data-close aria-label="Đóng">×</button></div>
+  <form class="mb" data-key="gd" novalidate>
+   <div class="fields"><div class="f"><label for="gd1">Họ và tên <i>*</i></label><input id="gd1" name="Họ và tên" type="text" required placeholder=""></div><div class="f"><label for="gd2">Số điện thoại <i>*</i></label><input id="gd2" name="Số điện thoại" type="tel" required placeholder=""></div><div class="f"><label for="gd3">Thư điện tử <i>*</i></label><input id="gd3" name="Thư điện tử" type="email" required placeholder=""></div><div class="f"><label for="gd4">Khu vực đề xuất phụ trách <i>*</i></label><input id="gd4" name="Khu vực đề xuất phụ trách" type="text" required placeholder="Tỉnh/thành hoặc cụm quận"></div><div class="f"><label for="gd5">Số năm kinh nghiệm phát triển thị trường <i>*</i></label><input id="gd5" name="Số năm kinh nghiệm phát triển thị trường" type="number" required placeholder=""></div><div class="f"><label for="gd6">Lĩnh vực đã làm</label><select id="gd6" name="Lĩnh vực đã làm"><option value="">— Chọn —</option><option>Spa, làm đẹp, chăm sóc sức khoẻ</option><option>Y tế, dược, thiết bị y tế</option><option>Nhượng quyền, chuỗi bán lẻ</option><option>Nền tảng công nghệ</option><option>Khác</option></select></div><div class="f"><label for="gd7">Mạng lưới hiện có <i>*</i></label><select id="gd7" name="Mạng lưới hiện có" required><option value="">— Chọn —</option><option>Dưới 10 cơ sở tiếp cận được</option><option>10 – 30 cơ sở</option><option>30 – 100 cơ sở</option><option>Trên 100 cơ sở</option></select></div><div class="f full"><label for="gd8">Anh chị sẽ làm gì trong 90 ngày đầu? <i>*</i></label><textarea id="gd8" name="Anh chị sẽ làm gì trong 90 ngày đầu?" required placeholder="Nêu ngắn gọn cách tiếp cận và con số cụ thể anh chị nhắm tới"></textarea><small>Chúng tôi đọc kỹ phần này hơn phần kinh nghiệm</small></div>
+    <div class="f full"><label>Tài liệu đính kèm</label>
+     <div class="drop-file" tabindex="0" role="button" aria-label="Chọn tệp để tải lên">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 16V4m0 0L8 8m4-4 4 4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+      <b>Kéo tệp vào đây hoặc bấm để chọn</b><span>Hồ sơ năng lực · giấy tờ tuỳ thân (không bắt buộc ở bước này) · PDF, JPG, PNG · tối đa 10MB mỗi tệp</span>
+      <input type="file" multiple hidden accept=".pdf,.jpg,.jpeg,.png">
+     </div>
+     <div class="files"></div>
+    </div>
+    <label class="check"><input type="checkbox" required> Tôi hiểu rằng vị trí này được đánh giá theo số cơ sở hoạt động — có phát sinh giao dịch thật trong 30 ngày — chứ không theo số cơ sở đăng ký. Tôi đã đọc <a href="#chinhsach" style="color:var(--brand)">Chính sách quyền riêng tư</a>.</label>
+   </div>
+   <div class="ok" role="status"></div>
+  </form>
+  <div class="mf">
+   <button class="btn btn-p" data-submit="gd">Gửi hồ sơ</button>
+   <button class="btn btn-o" data-save="gd">Lưu nháp</button>
+   <span class="draft" data-draft="gd">Phản hồi trong 5 ngày làm việc</span>
+  </div>
+ </div>
+</div>
+
+<div class="float">
+  <button class="fab" id="chatbtn" aria-label="Mở hỗ trợ trực tuyến" aria-expanded="false">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.2A8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5Z"/></svg>
+  </button>
+  <a class="fab zalo" href="#" aria-label="Nhắn tin qua Zalo"><span style="font:800 14px 'Be Vietnam Pro',sans-serif">Zalo</span></a>
+</div>
+
+<div class="chatbox" id="chatbox" role="dialog" aria-label="Hỗ trợ trực tuyến">
+  <div class="ch"><span>Hỗ trợ ANWELL</span><button id="chatclose" aria-label="Đóng">×</button></div>
+  <div class="cb">
+    <b>Chào anh chị. Anh chị đang quan tâm điều gì?</b>
+    <p style="font-size:13px;margin-bottom:4px">Chọn một mục để chúng tôi chuyển đúng người phụ trách.</p>
+    <button class="opt" data-go="tt">Tôi là chủ trung tâm, muốn tham gia</button>
+    <button class="opt" data-go="ktv">Tôi là kỹ thuật viên, muốn tạo hồ sơ</button>
+    <button class="opt" onclick="location.hash='#khachhang'">Tôi cần chăm sóc cho người thân</button>
+    <button class="opt" onclick="location.hash='#hoidap'">Tôi có câu hỏi khác</button>
+    <p style="font-size:12.5px;margin-top:12px;color:var(--ink-3)">Ngoài giờ làm việc, nhắn Zalo OA sẽ được trả lời trong buổi làm việc kế tiếp.</p>
   </div>
 </div>
 
-</x-dc>
-<script type="text/x-dc" data-dc-script="" data-props="{}">
-class Component extends DCLogic {
-  ic(d,size){
-    return React.createElement('svg',{viewBox:'0 0 24 24',width:size||23,height:size||23,fill:'none',stroke:'currentColor',strokeWidth:1.7,strokeLinecap:'round',strokeLinejoin:'round',dangerouslySetInnerHTML:{__html:d}});
+<script>
+(function(){
+  var $=function(q,r){return (r||document).querySelector(q)};
+  var $$=function(q,r){return [].slice.call((r||document).querySelectorAll(q))};
+
+  /* ── chủ đề ── */
+  var tb=$$('.themes button');
+  tb.forEach(function(b){b.onclick=function(){
+    document.documentElement.dataset.theme=b.dataset.t;
+    tb.forEach(function(x){x.setAttribute('aria-pressed',String(x===b))});};});
+
+  /* ── menu di động ── */
+  var bg=$('#burger'), mn=$('#menu');
+  bg.onclick=function(){var o=mn.classList.toggle('open'); bg.setAttribute('aria-expanded',String(o));};
+  mn.addEventListener('click',function(e){if(e.target.tagName==='A')mn.classList.remove('open')});
+
+  /* ── tab Tham gia ── */
+  var jt=$$('.jtabs button');
+  jt.forEach(function(t){t.onclick=function(){
+    jt.forEach(function(x){x.setAttribute('aria-selected',String(x===t))});
+    $$('[data-jp]').forEach(function(pn){pn.hidden = pn.dataset.jp!==t.dataset.jt});
+    var top=$('#thamgia').getBoundingClientRect().top+window.scrollY-72;
+    if(window.scrollY>top+180)window.scrollTo({top:top,behavior:'smooth'});
+  };});
+
+  /* ── thẻ đo hero ── */
+  var tk=$('#gticks');
+  if(tk)for(var i=0;i<10;i++){var el=document.createElement('i');if(i<4)el.className='lit';tk.appendChild(el);}
+
+  /* ── SHOWCASE ── */
+  var IMG={home:'assets/img/portal-3b0c29b3d2.webp',hanhtrinh:'assets/img/portal-642e3e4c7d.webp',lichhen:'assets/img/portal-c930ceba2a.webp',toi:'assets/img/portal-cba36172f9.webp',chonnhom:'assets/img/portal-5c80c98d3c.webp',trungtam:'assets/img/portal-743ab5f41a.webp',ktv:'assets/img/portal-2ae9352b94.webp'};
+  var steps=$$('.step'), frame=$('#frame'), scimg=$('#scimg'), vcap=$('#vcap'),
+      dotrow=$('#dotrow'), curStep=0, curDev='phone', tmr;
+  function paint(){
+    var st=steps[curStep];
+    scimg.src=IMG[st.dataset.img];
+    scimg.alt=st.querySelector('b').textContent;
+    vcap.textContent=st.getAttribute('data-cap')||'';
+    steps.forEach(function(x,i){x.setAttribute('aria-selected',String(i===curStep))});
+    $$('button',dotrow).forEach(function(d,i){d.setAttribute('aria-current',String(i===curStep))});
+    var nat=st.dataset.d;
+    $$('.vtop button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.dev===curDev))});
+    frame.dataset.d=curDev;
   }
-  renderVals(){
-    const apps = [
-      { href:'app.html', tag:'Khách hàng', t:'Giao diện người dùng',
-        d:'Ứng dụng cho khách: khám phá, đặt trị liệu tại cơ sở hoặc KTV tại nhà, theo dõi buổi làm việc, đánh giá và tích điểm.',
-        chips:['Đặt lịch','Phục hồi tại nhà','Hành trình An'],
-        iBg:'rgba(231,206,151,.16)', iFg:'#E7CE97',
-        icon:this.ic('<rect x="6" y="2.5" width="12" height="19" rx="2.6"/><path d="M10.5 5.5h3"/>') },
-      { href:'center.html', tag:'Đối tác', t:'Quản trị cho Trung tâm',
-        d:'Công cụ vận hành cơ sở: bảng điều phối lịch, kỹ thuật viên, khách hàng, doanh thu, chất lượng và vật tư.',
-        chips:['Điều phối ca','Đối soát','Chất lượng'],
-        iBg:'rgba(46,133,103,.22)', iFg:'#6FD3A0',
-        icon:this.ic('<path d="M4 21V5.5L12 3l8 2.5V21"/><path d="M9 21v-5h6v5M8 8.5h2M14 8.5h2M8 12.5h2M14 12.5h2"/>') },
-      { href:'ktv.html', tag:'Kỹ thuật viên', t:'Quản trị cho KTV',
-        d:'Hai chế độ làm việc: theo lịch trung tâm phân, hoặc làm tự do với khách riêng — lộ trình, thu nhập, đánh giá.',
-        chips:['2 chế độ','Lộ trình','Thu nhập'],
-        iBg:'rgba(185,137,59,.2)', iFg:'#D8A94E',
-        icon:this.ic('<circle cx="12" cy="7.6" r="3.6"/><path d="M4.6 20.5c0-3.9 3.3-5.9 7.4-5.9s7.4 2 7.4 5.9"/>') }
-    ].map((a,i)=>({ ...a, delay:(0.08*(i+1)).toFixed(2)+'s' }));
-    return { apps };
+  function pick(i,manual){curStep=(i+steps.length)%steps.length;
+    var nat=steps[curStep].dataset.d;
+    if(nat!==curDev){curDev=nat;}
+    paint(); if(manual)restart();}
+  steps.forEach(function(b,i){b.onclick=function(){pick(i,true)}});
+  $$('.vtop button').forEach(function(b){b.onclick=function(){curDev=b.dataset.dev;paint();restart()}});
+  if(steps.length){
+    for(var q=0;q<steps.length;q++){var dd=document.createElement('button');
+      dd.setAttribute('aria-label','Màn hình '+(q+1));
+      dd.onclick=(function(j){return function(){pick(j,true)}})(q); dotrow.appendChild(dd);}
+    function restart(){clearInterval(tmr);tmr=setInterval(function(){pick(curStep+1)},6000);}
+    paint(); restart();
+    $('.show').addEventListener('mouseenter',function(){clearInterval(tmr)});
+    $('.show').addEventListener('mouseleave',restart);
   }
-}
+  $('#vfull').onclick=function(){var v=$('.viewer');
+    if(document.fullscreenElement)document.exitFullscreen(); else if(v.requestFullscreen)v.requestFullscreen();};
+
+  /* ── VIDEO ── */
+  var pb=$('#playbig'), vn=$('#vidnote');
+  if(pb)pb.onclick=function(){vn.classList.toggle('show');
+    setTimeout(function(){vn.classList.remove('show')},6000);};
+
+  /* ── MODAL ĐĂNG KÝ ── */
+  var drafts={};
+  function openM(k){var m=$('#m-'+k); if(!m)return; m.classList.add('open');
+    document.body.style.overflow='hidden'; restore(k);
+    setTimeout(function(){var f=m.querySelector('input,select,textarea'); if(f)f.focus()},60);}
+  function closeM(m){m.classList.remove('open'); document.body.style.overflow='';}
+  $$('[data-open]').forEach(function(b){b.onclick=function(){openM(b.dataset.open)}});
+  $$('[data-close]').forEach(function(b){b.onclick=function(){closeM(b.closest('.ovl'))}});
+  $$('.ovl').forEach(function(o){o.addEventListener('click',function(e){if(e.target===o)closeM(o)})});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'){
+    $$('.ovl.open').forEach(closeM); $('#chatbox').classList.remove('open');}});
+
+  /* tải tệp */
+  $$('.drop-file').forEach(function(z){
+    var inp=z.querySelector('input[type=file]'), list=z.parentElement.querySelector('.files'), store=[];
+    function render(){list.innerHTML='';store.forEach(function(f,i){
+      var el=document.createElement('div');el.className='file';
+      el.innerHTML='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>'
+        +'<b>'+f.name+'</b><span>'+(f.size/1024>1024?(f.size/1048576).toFixed(1)+' MB':Math.round(f.size/1024)+' KB')+'</span>';
+      var x=document.createElement('button');x.type='button';x.textContent='×';x.setAttribute('aria-label','Xoá tệp');
+      x.onclick=function(){store.splice(i,1);render()};el.appendChild(x);list.appendChild(el);});}
+    function add(fs){[].slice.call(fs).forEach(function(f){
+      if(f.size>10*1048576){alert('Tệp "'+f.name+'" vượt 10MB. Vui lòng nén lại hoặc chọn tệp khác.');return;}
+      store.push(f);});render();}
+    z.onclick=function(){inp.click()};
+    z.onkeydown=function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();inp.click()}};
+    inp.onchange=function(){add(inp.files);inp.value=''};
+    z.addEventListener('dragover',function(e){e.preventDefault();z.classList.add('over')});
+    z.addEventListener('dragleave',function(){z.classList.remove('over')});
+    z.addEventListener('drop',function(e){e.preventDefault();z.classList.remove('over');add(e.dataTransfer.files)});
+    z._files=function(){return store};
+  });
+
+  function collect(k){var f=$('#m-'+k+' form'), d={};
+    $$('input,select,textarea',f).forEach(function(el){
+      if(el.type==='file')return;
+      if(el.type==='checkbox'){d[el.id||'agree']=el.checked;return;}
+      if(el.multiple){d[el.id]=$$('option:checked',el).map(function(o){return o.value});return;}
+      d[el.id]=el.value;});
+    return d;}
+  function restore(k){var d=drafts[k]; if(!d)return; var f=$('#m-'+k+' form');
+    Object.keys(d).forEach(function(id){var el=f.querySelector('#'+id)||f.querySelector('.check input');
+      if(!el)return;
+      if(el.type==='checkbox')el.checked=d[id];
+      else if(el.multiple)$$('option',el).forEach(function(o){o.selected=d[id].indexOf(o.value)>-1});
+      else el.value=d[id];});}
+
+  $$('[data-save]').forEach(function(b){b.onclick=function(){
+    var k=b.dataset.save; drafts[k]=collect(k);
+    var tag=$('[data-draft="'+k+'"]'); tag.textContent='Đã lưu nháp lúc '+new Date().toLocaleTimeString('vi-VN',{hour:'2-digit',minute:'2-digit'})+' — mở lại để điền tiếp';
+    tag.classList.add('saved');};});
+
+  $$('[data-submit]').forEach(function(b){b.onclick=function(){
+    var k=b.dataset.submit, f=$('#m-'+k+' form'), box=$('.ok',f);
+    var miss=$$('[required]',f).filter(function(el){
+      if(el.type==='checkbox')return !el.checked;
+      if(el.multiple)return $$('option:checked',el).length===0;
+      return !el.value.trim();});
+    if(miss.length){box.textContent='Còn '+miss.length+' mục bắt buộc chưa điền. Các mục có dấu * cần điền đủ để chúng tôi liên hệ được.';
+      box.classList.add('show'); miss[0].focus(); miss[0].scrollIntoView({block:'center',behavior:'smooth'}); return;}
+    var nf=($('.drop-file',f)._files||function(){return[]})().length;
+    box.innerHTML='<strong>Đã nhận hồ sơ.</strong> Chúng tôi sẽ gọi lại trong 48 giờ làm việc để xác minh trước khi kích hoạt tài khoản.'
+      +(nf?' Đã đính kèm '+nf+' tệp.':'')+' Mã hồ sơ tạm: <span class="mono">AW-'+Date.now().toString().slice(-6)+'</span>';
+    box.classList.add('show'); box.scrollIntoView({block:'center',behavior:'smooth'});
+    delete drafts[k];};});
+
+  /* ── hộp trò chuyện ── */
+  var cb=$('#chatbox'), btn=$('#chatbtn');
+  btn.onclick=function(){var o=!cb.classList.contains('open');cb.classList.toggle('open',o);btn.setAttribute('aria-expanded',String(o))};
+  $('#chatclose').onclick=function(){cb.classList.remove('open');btn.setAttribute('aria-expanded','false')};
+  $$('.chatbox .opt').forEach(function(o){var t=o.dataset.go; if(t)o.onclick=function(){cb.classList.remove('open');openM(t)}});
+})();
 </script>
-
-
-</body></html>
+</body>
+</html>
