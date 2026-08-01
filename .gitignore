@@ -4,3 +4,7 @@ Tailieu-noibo/
 
 # macOS
 .DS_Store
+
+# Cấu hình Claude Code riêng từng máy — chứa đường dẫn cá nhân và tên tệp nội bộ.
+# Thư mục .claude/skills/ thì VẪN commit: đó là quy tắc chung của dự án.
+.claude/settings.local.json
