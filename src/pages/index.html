@@ -224,27 +224,38 @@
 </style>
 <style>
 /* ══════════ TOKENS · 3 CHỦ ĐỀ ══════════ */
+/* Ba chủ đề phải nhìn là biết khác nhau ngay, nhưng vẫn nằm trong bảng màu ở
+   mục Thương hiệu. Cách tách:
+     An Nhiên  — nền Sương, XANH THÔNG dẫn dắt, chữ xanh đen.  (mặc định)
+     Rừng Thẫm — nền tối, xanh mint sáng trên nền rừng sâu.
+     Nhịp Sen  — nền kem, VÀNG SEN dẫn dắt, chữ nâu ấm.
+   --accent luôn ở tông vàng sen trung tính ở cả ba: nó vừa được dùng làm chữ
+   trên hero nền tối, vừa làm số lớn trên nền sáng — đổi sang màu quá nhạt hoặc
+   quá đậm là hỏng một trong hai chỗ. */
 :root{
-  --bg:#F3F6F1; --surface:#FFFFFF; --surface-2:#EAF0E9; --line:#DCE5DD;
+  --bg:#F3F6F1; --surface:#FFFFFF; --surface-2:#E4ECE4; --line:#D2DFD4;
   --ink:#14211B; --ink-2:#4C6157; --ink-3:#82968B;
-  --brand:#12564A; --brand-2:#2E8567; --accent:#B9893B; --accent-ink:#7A5514; --accent-soft:#E7CE97;
+  --brand:#12564A; --brand-2:#2E8567; --on-brand:#FFFFFF;
+  --accent:#B9893B; --accent-ink:#7A5514; --accent-soft:#E7CE97;
   --hero-bg:linear-gradient(158deg,#0E4237 0%,#12564A 52%,#0B3A31 100%);
   --hero-ink:#F4F7F3; --shadow:0 2px 10px rgba(11,58,49,.07); --shadow-lg:0 18px 44px rgba(11,58,49,.14);
   --r:14px; --r-sm:8px;
 }
 [data-theme="rungtham"]{
-  --bg:#0C2F36; --surface:#123A3B; --surface-2:#16464A; --line:#215357;
-  --ink:#EAF2EC; --ink-2:#A9C2B6; --ink-3:#7B978A;
-  --brand:#54B79B; --brand-2:#6FCFB2; --accent:#D8B268; --accent-ink:#DCBA75; --accent-soft:#2A4238;
-  --hero-bg:linear-gradient(158deg,#0F3A31 0%,#155246 52%,#0A241E 100%);
-  --hero-ink:#EAF2EC; --shadow:0 2px 10px rgba(0,0,0,.30); --shadow-lg:0 18px 44px rgba(0,0,0,.42);
+  --bg:#06202A; --surface:#0C2F36; --surface-2:#123E45; --line:#1D5158;
+  --ink:#E8F3EE; --ink-2:#9FBFB3; --ink-3:#93B0A5;
+  --brand:#5FC9A8; --brand-2:#86E5C4; --on-brand:#06202A;
+  --accent:#DFB86C; --accent-ink:#E7C687; --accent-soft:#123E33;
+  --hero-bg:linear-gradient(158deg,#0A3A32 0%,#0E4C41 46%,#02150F 100%);
+  --hero-ink:#E8F3EE; --shadow:0 2px 10px rgba(0,0,0,.38); --shadow-lg:0 20px 48px rgba(0,0,0,.52);
 }
 [data-theme="nhipsen"]{
-  --bg:#FBF5EA; --surface:#FFFFFF; --surface-2:#F4EAD8; --line:#E6D8C0;
-  --ink:#1A2118; --ink-2:#55604C; --ink-3:#8B8B73;
-  --brand:#12564A; --brand-2:#2E8567; --accent:#C9A05A; --accent-ink:#7A5514; --accent-soft:#F0DFB8;
-  --hero-bg:linear-gradient(158deg,#0E4237 0%,#12564A 48%,#3E3418 100%);
-  --hero-ink:#FBF5EA; --shadow:0 2px 10px rgba(94,70,24,.09); --shadow-lg:0 18px 44px rgba(94,70,24,.17);
+  --bg:#FAF2E2; --surface:#FFFCF5; --surface-2:#F3E5CB; --line:#E4D2AC;
+  --ink:#231A0C; --ink-2:#5B4A2C; --ink-3:#7C6A46;
+  --brand:#8A5E1C; --brand-2:#B9893B; --on-brand:#FFFCF5;
+  --accent:#B9893B; --accent-ink:#6E4A10; --accent-soft:#F3E3BC;
+  --hero-bg:linear-gradient(152deg,#0E3A31 0%,#4A3310 58%,#1C1204 100%);
+  --hero-ink:#FBF3E2; --shadow:0 2px 10px rgba(94,70,24,.11); --shadow-lg:0 18px 44px rgba(94,70,24,.20);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;scroll-padding-top:78px}
@@ -269,7 +280,7 @@ a.demolink:focus-visible{outline:2px solid var(--accent-ink);outline-offset:3px}
 .card.soon{display:flex;flex-direction:column}
 .card.portal .sub{font-size:13.5px;line-height:1.72;color:var(--ink-2);margin-top:9px}
 /* Nhãn đẩy xuống đáy để năm thẻ có chiều cao khác nhau vẫn thẳng hàng dưới. */
-.demotag{display:flex;align-items:center;gap:8px;margin-top:auto;padding-top:13px;border-top:1px solid rgba(255,255,255,.1);font:600 11.5px/1.4 ui-monospace,monospace;letter-spacing:.04em;color:var(--accent-ink)}
+.demotag{display:flex;align-items:center;gap:8px;margin-top:auto;padding-top:13px;border-top:1px solid var(--line);font:600 11.5px/1.4 ui-monospace,monospace;letter-spacing:.04em;color:var(--accent-ink)}
 .demotag b{font-weight:700}
 /* Bàn tay chỉ nhấp nháy nhẹ để mắt biết thẻ bấm được. Tôn trọng máy đã tắt
    hiệu ứng chuyển động trong cài đặt hệ thống. */
@@ -281,7 +292,7 @@ a.demolink:hover .pt{animation-duration:.9s}
 /* Khối chưa có sản phẩm riêng: không bấm được, và nói thẳng là đang xây dựng
    thay vì dẫn tạm sang một hệ khác. */
 .card.soon{border-style:dashed;opacity:.9}
-.soontag{display:flex;align-items:center;gap:8px;margin-top:auto;padding-top:13px;border-top:1px dashed rgba(255,255,255,.14);font:600 11.5px/1.4 ui-monospace,monospace;letter-spacing:.04em;color:var(--ink-3)}
+.soontag{display:flex;align-items:center;gap:8px;margin-top:auto;padding-top:13px;border-top:1px dashed var(--line);font:600 11.5px/1.4 ui-monospace,monospace;letter-spacing:.04em;color:var(--ink-3)}
 .soontag svg{flex:none;animation:soonSpin 6s linear infinite}
 @keyframes soonSpin{to{transform:rotate(360deg)}}
 @media(prefers-reduced-motion:reduce){.soontag svg{animation:none}}
@@ -306,6 +317,9 @@ header{position:sticky;top:0;z-index:60;background:color-mix(in srgb,var(--bg) 8
 .logo b{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:26px;letter-spacing:.006em;color:var(--brand);line-height:1}
 .logo i{font:500 8.2px/1 ui-monospace,monospace;color:var(--ink-3);letter-spacing:.075em;font-style:normal;white-space:nowrap}
 .menu{display:flex;gap:1px;margin-left:auto;align-items:center}
+/* Nút Tham gia nằm trong .menu nên bị .menu>a ghi đè màu chữ — chữ xanh
+   đậm trên nền xanh đậm, gần như không đọc được. Trả lại màu của .btn-p. */
+.menu>a.btn-p{color:var(--on-brand)}
 .menu>a{padding:8px 11px;border-radius:var(--r-sm);text-decoration:none;color:var(--ink-2);font-size:13px;font-weight:500;
   letter-spacing:-.005em;transition:.18s;position:relative;white-space:nowrap}
 .menu>a:hover,.menu>a:focus-visible{color:var(--brand)}
@@ -324,7 +338,7 @@ header{position:sticky;top:0;z-index:60;background:color-mix(in srgb,var(--bg) 8
 .dropmenu span{display:block;font-size:12.5px;color:var(--ink-2);line-height:1.45}
 .btn{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:99px;border:0;cursor:pointer;
   font:600 14.5px/1 'Be Vietnam Pro',sans-serif;text-decoration:none;transition:.2s}
-.btn-p{background:var(--brand);color:#fff}
+.btn-p{background:var(--brand);color:var(--on-brand)}
 .btn-p:hover{background:var(--brand-2);transform:translateY(-1px)}
 .btn-o{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
 .btn-o:hover{border-color:var(--brand);color:var(--brand)}
@@ -333,7 +347,7 @@ header{position:sticky;top:0;z-index:60;background:color-mix(in srgb,var(--bg) 8
   color:var(--ink-2);transition:.18s;display:grid;place-items:center;padding:0}
 .themes button svg{width:16px;height:16px}
 .themes button:hover{color:var(--brand)}
-.themes button[aria-pressed="true"]{background:var(--brand);color:#fff}
+.themes button[aria-pressed="true"]{background:var(--brand);color:var(--on-brand)}
 .burger{display:none;margin-left:auto;background:none;border:0;cursor:pointer;padding:8px;color:var(--ink)}
 
 /* ── HERO ── */
@@ -444,13 +458,13 @@ footer a:hover{color:var(--brand)}
 /* NÚT NỔI */
 .float{position:fixed;right:18px;bottom:18px;z-index:70;display:flex;flex-direction:column;gap:10px}
 .fab{width:52px;height:52px;border-radius:50%;border:0;cursor:pointer;display:grid;place-items:center;
-  box-shadow:var(--shadow-lg);transition:transform .2s;background:var(--brand);color:#fff}
+  box-shadow:var(--shadow-lg);transition:transform .2s;background:var(--brand);color:var(--on-brand)}
 .fab:hover{transform:scale(1.07)}
 .fab.zalo{background:#0068FF}
 .chatbox{position:fixed;right:18px;bottom:84px;width:min(340px,90vw);background:var(--surface);border:1px solid var(--line);
   border-radius:var(--r);box-shadow:var(--shadow-lg);z-index:71;display:none;overflow:hidden}
 .chatbox.open{display:block}
-.chatbox .ch{background:var(--brand);color:#fff;padding:14px 16px;font-weight:600;font-size:15px;display:flex;justify-content:space-between;align-items:center}
+.chatbox .ch{background:var(--brand);color:var(--on-brand);padding:14px 16px;font-weight:600;font-size:15px;display:flex;justify-content:space-between;align-items:center}
 .chatbox .ch button{background:none;border:0;color:#fff;cursor:pointer;font-size:19px;line-height:1}
 .chatbox .cb{padding:16px;font-size:14px;color:var(--ink-2)}
 .chatbox .cb b{display:block;color:var(--ink);margin-bottom:6px}
@@ -507,7 +521,7 @@ footer a:hover{color:var(--brand)}
 .sdots button[aria-current="true"]{background:var(--accent);width:24px;border-radius:99px}
 .snav{position:absolute;top:50%;transform:translateY(-50%);width:38px;height:38px;border-radius:50%;border:0;
   background:var(--surface);box-shadow:var(--shadow);cursor:pointer;display:grid;place-items:center;color:var(--ink);z-index:3;transition:.18s}
-.snav:hover{background:var(--brand);color:#fff}
+.snav:hover{background:var(--brand);color:var(--on-brand)}
 .snav.prev{left:12px} .snav.next{right:12px}
 
 /* ── KHUNG THIẾT BỊ ── */
@@ -793,7 +807,7 @@ body{overflow-x:clip;overflow-wrap:break-word}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
 :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
 .skip{position:absolute;left:-9999px}
-.skip:focus{left:16px;top:12px;z-index:99;background:var(--brand);color:#fff;padding:10px 16px;border-radius:var(--r-sm)}
+.skip:focus{left:16px;top:12px;z-index:99;background:var(--brand);color:var(--on-brand);padding:10px 16px;border-radius:var(--r-sm)}
 </style>
 </head>
 <body>
@@ -928,7 +942,7 @@ body{overflow-x:clip;overflow-wrap:break-word}
       <a class="card portal demolink wide lead" href="admin.html"><p class="num">05</p><h3>Management Portal</h3><p>Hệ quản trị nền tảng ANWELL.</p><p class="sub">Quản lý đăng ký, phê duyệt và hoạt động của trung tâm, kỹ thuật viên và các gói dịch vụ nền tảng · chính sách và thông số · danh mục chuẩn dùng chung · chỉ số toàn mạng · định vị thương hiệu và truyền thông.</p><span class="demotag"><svg class="pt" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11V5.5a1.5 1.5 0 1 1 3 0V11"/><path d="M12 11V4.5a1.5 1.5 0 1 1 3 0V11"/><path d="M15 11.5V7a1.5 1.5 0 1 1 3 0v6.5a7 7 0 0 1-7 7h-.7a6 6 0 0 1-4.5-2l-2.6-3a1.6 1.6 0 0 1 2.3-2.2L7 15"/><path d="M9 11v4"/></svg> Bấm để mở bản mô phỏng <b>&rarr;</b></span></a>
     </div>
 
-    <h3 style="margin:48px 0 8px">Sáu tầng giá trị — trả lời câu hỏi "các anh là công ty công nghệ ở chỗ nào?"</h3>
+    <h3 style="margin:48px 0 8px">Sáu tầng giá trị</h3>
     <p class="lede" style="margin-bottom:22px">Xếp từ dễ bắt chước tới không mua được bằng tiền. Mỗi tầng gắn với một mốc xây dựng.</p>
     <div class="grid g3">
       <div class="card"><p class="num">TẦNG 1</p><h3>Tối ưu công việc</h3><p>Điều phối tuyến đường, lấp giờ trống, AI lo phần việc quanh đôi tay: nhắc, ghi, tổng hợp, soạn báo cáo. Một kỹ thuật viên theo 15 hộ thay vì 8.</p><p style="font-size:13px;margin-top:9px;font-style:italic;color:var(--ink-3)">Tầng dễ nhất — và cũng dễ bị bắt chước nhất.</p></div>
@@ -947,7 +961,7 @@ body{overflow-x:clip;overflow-wrap:break-word}
   <div class="wrap">
     <div class="head-2">
       <p class="eyebrow">Trải nghiệm sản phẩm</p>
-      <h2>Nền tảng đang chạy, không phải bản vẽ</h2>
+      <h2>Sáu màn hình chính của sản phẩm</h2>
       <p class="lede">Ảnh chụp từ chính sản phẩm. Chọn một bước bên trái để xem màn hình tương ứng, và đổi khung thiết bị ở phía trên.</p>
     </div>
 
