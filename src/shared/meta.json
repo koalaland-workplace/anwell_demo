@@ -22,12 +22,16 @@
     "title": "Quản trị Kỹ thuật viên — ANWELL",
     "description": "Hai chế độ làm việc: theo lịch trung tâm phân, hoặc làm tự do với khách riêng. Lộ trình di chuyển, thu nhập và lộ trình thăng bậc."
   },
+  "bd": {
+    "title": "Quản trị Giám đốc Kinh doanh — ANWELL",
+    "description": "Cổng dành cho Giám đốc Kinh doanh: link và mã giới thiệu riêng cho trung tâm và kỹ thuật viên tự do, trạng thái duyệt hồ sơ, hoa hồng theo doanh số và chỉ tiêu theo vùng."
+  },
   "admin": {
     "title": "Quản trị Nền tảng — ANWELL",
     "description": "Giám sát toàn nền tảng: GMV theo khu vực, cảnh báo hệ thống, phê duyệt trung tâm và kỹ thuật viên, chính sách và cấu hình."
   },
   "demo": {
-    "title": "Bản demo ANWELL — bốn giao diện",
-    "description": "Bản demo tương tác: giao diện khách hàng, quản trị trung tâm, ứng dụng kỹ thuật viên và quản trị nền tảng. Số liệu là dữ liệu minh hoạ."
+    "title": "Bản demo ANWELL — các giao diện",
+    "description": "Bản demo tương tác: giao diện khách hàng, quản trị trung tâm, ứng dụng kỹ thuật viên, cổng Giám đốc Kinh doanh và quản trị nền tảng. Số liệu là dữ liệu minh hoạ."
   }
 }

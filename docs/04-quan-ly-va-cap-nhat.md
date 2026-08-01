@@ -171,7 +171,6 @@ Những việc chưa làm, ghi lại để không quên:
 | Dựng tự động bằng GitHub Actions | Hiện phải chạy `build.py` thủ công trước khi đẩy. Tự động hoá được nhưng thêm một điểm có thể hỏng |
 | Nút trang trí chưa nối | Chuông thông báo ở `center` và `admin`, avatar ở `admin`, vài nút chuyển màn hình phụ ở `ktv`. Các nút thao tác chính đều chạy thật |
 | Đồng bộ vỏ trang cho `center` và `admin` | Hai trang này là bảng điều khiển máy tính, chưa dùng khung điện thoại như `app` và `ktv`. Font và cỡ chữ thì đã thống nhất |
-| Cổng Giám đốc Kinh doanh thành trang riêng | Hiện là tab xem trước trong `admin.html`. Khối 03 trên Portal ghi *đang xây dựng*; dựng xong thì đổi thành liên kết |
 | Trung tâm: kho sản phẩm bán ra, thu chi & công nợ | Đã bỏ POS theo yêu cầu. Giá vốn mỗi buổi đã có, đủ nền để sau này tính lợi nhuận thật |
 | Bộ chọn vai trò chi phối cả portal | Hiện chỉ ảnh hưởng trang Lương khoán. Muốn lễ tân không thấy Doanh thu thì phải gài quyền ở mọi trang |
 | Kịch bản dẫn dắt trong sản phẩm | Từng có trong thiết kế ban đầu: lớp phủ tô sáng nút cần bấm, bật bằng `?tour=`. Chưa dựng — hiện dùng kịch bản giấy ở `docs/03` |

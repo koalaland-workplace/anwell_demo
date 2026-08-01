@@ -101,11 +101,11 @@ Bốn giao diện sản phẩm, cộng trang giới thiệu công khai và trang
 | Trang | Là gì |
 |---|---|
 | `index.html` | **ANWELL Portal** — trang giới thiệu công khai, mặt tiền |
-| `demo.html` | Trang gom bốn cổng, tiện khi ngồi demo trực tiếp |
-| `app.html` · `center.html` · `ktv.html` · `admin.html` | Bốn giao diện sản phẩm |
+| `demo.html` | Trang gom các cổng, tiện khi ngồi demo trực tiếp |
+| `app.html` · `center.html` · `ktv.html` · `bd.html` · `admin.html` | Năm giao diện sản phẩm |
 
-**Cổng Giám đốc Kinh doanh chưa có bản riêng** — hiện là tab xem trước trong
-`admin.html`, sẽ dựng cùng Cổng thông tin ANWELL.
+**Cổng Giám đốc Kinh doanh đã có bản riêng** tại `bd.html`. Tab *Xem trước màn
+GĐKD* trong `admin.html` vẫn giữ để người quản trị nền tảng xem nhanh.
 
 ### 4.1 Khách hàng — 5 mục ở thanh đáy
 
@@ -240,7 +240,7 @@ theo trách nhiệm công việc chứ không theo chức danh, và vai trò kh�
 | **Thành viên** | Trung tâm | Đang hoạt động · Hồ sơ đăng ký · Tạm dừng & chấm dứt |
 | | Kỹ thuật viên | KTV tự do · Hồ sơ đăng ký · Bậc & chứng chỉ |
 | | Khách hàng | Tài khoản · Quyền dữ liệu cá nhân |
-| | Giám đốc Kinh doanh | Danh sách · Trung tâm đã giới thiệu · Chính sách hoa hồng · Xem trước màn GĐKD |
+| | Giám đốc Kinh doanh | Danh sách · Trung tâm đã giới thiệu · Chính sách hoa hồng · Xem trước màn GĐKD<br>Cổng riêng của họ ở `bd.html` |
 | **Kinh doanh** | Gói nền tảng & tiện ích | Gói nền tảng · Tiện ích gia tăng · Ai đang dùng |
 | | Doanh thu & đối soát | Doanh thu · Đối soát trung tâm · Công nợ |
 | | Loyalty ANP | — |

@@ -11,10 +11,11 @@ Sáu trang, tất cả đã đẩy lên và chạy trên
 | Trang | Quy mô | Tình trạng |
 |---|---|---|
 | `index.html` | ANWELL Portal | Xong |
-| `demo.html` | Trang gom bốn cổng | Xong · không có link nào từ Portal, mở bằng địa chỉ trực tiếp |
+| `demo.html` | Trang gom các cổng | Xong · không có link nào từ Portal, mở bằng địa chỉ trực tiếp |
 | `app.html` | 5 mục thanh đáy | Xong |
 | `ktv.html` | 5 mục, hai chế độ | Xong |
 | `center.html` | 14 trang / 5 nhóm | Xong |
+| `bd.html` | 6 mục / 3 nhóm | Xong · mới dựng 02/08/2026 |
 | `admin.html` | 14 trang / 5 nhóm | Xong |
 
 ## Việc còn treo
@@ -23,7 +24,6 @@ Sáu trang, tất cả đã đẩy lên và chạy trên
 
 | Việc | Ghi chú |
 |---|---|
-| **Cổng Giám đốc Kinh doanh thành trang riêng** | Hiện là tab *Xem trước màn GĐKD* trong `admin.html`. Chủ dự án chốt dựng cùng Cổng thông tin ANWELL. Khối 03 trên Portal đang ghi *đang xây dựng* — dựng xong thì đổi thành liên kết |
 | **Trung tâm: kho sản phẩm bán ra** | Kho hiện chỉ có vật tư tiêu hao nội bộ |
 | **Trung tâm: thu chi & công nợ** | |
 | **Trung tâm: báo cáo lợi nhuận** | Giá vốn mỗi buổi đã có, đủ nền để tính. Hiện cố ý gọi *"Trung tâm còn lại"* chứ không gọi lợi nhuận vì chưa trừ thuê nhà, điện nước, lương lễ tân |

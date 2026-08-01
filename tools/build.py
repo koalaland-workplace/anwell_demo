@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Dựng 5 trang HTML ở gốc repo từ src/.
+"""Dựng các trang HTML ở gốc repo từ src/.
 
     python3 tools/build.py
 
@@ -17,7 +17,7 @@ import re
 import shutil
 from pathlib import Path
 
-PAGES = ["index", "demo", "app", "center", "ktv", "admin"]
+PAGES = ["index", "demo", "app", "center", "ktv", "bd", "admin"]
 ROOT = Path(__file__).resolve().parent.parent
 SHARED = ROOT / "src" / "shared"
 

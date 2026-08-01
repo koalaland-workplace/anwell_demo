@@ -26,11 +26,12 @@ Hoặc mở thẳng:
 | Công cụ của trung tâm | `.../center.html` |
 | Ứng dụng của kỹ thuật viên | `.../ktv.html` |
 | Bảng điều hành ANWELL | `.../admin.html` |
-| Trang gom cả bốn cổng | `.../demo.html` |
+| Cổng Giám đốc Kinh doanh | `.../bd.html` |
+| Trang gom các cổng | `.../demo.html` |
 
-> **Khối *Giám đốc Kinh doanh* không bấm được** và ghi *đang xây dựng* — cổng đó
-> chưa có bản riêng. Muốn xem tạm thì vào `admin.html` → **Giám đốc Kinh doanh**
-> → tab *Xem trước màn GĐKD*.
+> **Khối *Giám đốc Kinh doanh* đã bấm được**, mở sang `bd.html`. Chỗ đáng xem
+> nhất là mục *Link & mã giới thiệu*: hai link riêng — một cho trung tâm, một cho
+> kỹ thuật viên tự do — cùng mã `PMT-0416` và mã QR in ra được.
 
 > **Nếu thấy bản cũ:** trình duyệt giữ bản đã tải trước đó. Bấm `Cmd + Shift + R`
 > (máy Mac) hoặc `Ctrl + F5` (máy Windows) để tải lại từ đầu.

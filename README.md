@@ -25,9 +25,11 @@ Trang chủ là **ANWELL Portal** — trang giới thiệu công khai. Mục *N�
 Mỗi giao diện chạy độc lập, bấm thử được mọi luồng chính. Không cần đăng nhập,
 không lưu dữ liệu gì.
 
-**Cổng Giám đốc Kinh doanh chưa có bản riêng.** Hiện là một tab xem trước bên
-trong `admin.html` → Giám đốc Kinh doanh → *Xem trước màn GĐKD*; sẽ dựng cùng
-Cổng thông tin ANWELL. Khối số 03 trên Portal ghi rõ *đang xây dựng*.
+**Cổng Giám đốc Kinh doanh đã có bản riêng** tại `bd.html` — sáu mục, trong đó
+mục *Link & mã giới thiệu* là chỗ Giám đốc Kinh doanh lấy link và mã để gửi cho
+đối tác đăng ký thành trung tâm hoặc kỹ thuật viên tự do. Khối số 03 trên Portal
+mở thẳng vào đây. Tab *Xem trước màn GĐKD* trong `admin.html` vẫn giữ, dành cho
+người quản trị nền tảng xem nhanh mà không cần rời trang.
 
 ## Tài liệu
 

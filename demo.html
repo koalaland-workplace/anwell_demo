@@ -2,19 +2,19 @@
 <html><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Bản demo ANWELL — bốn giao diện</title>
-<meta name="description" content="Bản demo tương tác: giao diện khách hàng, quản trị trung tâm, ứng dụng kỹ thuật viên và quản trị nền tảng. Số liệu là dữ liệu minh hoạ.">
+<title>Bản demo ANWELL — các giao diện</title>
+<meta name="description" content="Bản demo tương tác: giao diện khách hàng, quản trị trung tâm, ứng dụng kỹ thuật viên, cổng Giám đốc Kinh doanh và quản trị nền tảng. Số liệu là dữ liệu minh hoạ.">
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="ANWELL">
 <meta property="og:locale" content="vi_VN">
-<meta property="og:title" content="Bản demo ANWELL — bốn giao diện">
-<meta property="og:description" content="Bản demo tương tác: giao diện khách hàng, quản trị trung tâm, ứng dụng kỹ thuật viên và quản trị nền tảng. Số liệu là dữ liệu minh hoạ.">
+<meta property="og:title" content="Bản demo ANWELL — các giao diện">
+<meta property="og:description" content="Bản demo tương tác: giao diện khách hàng, quản trị trung tâm, ứng dụng kỹ thuật viên, cổng Giám đốc Kinh doanh và quản trị nền tảng. Số liệu là dữ liệu minh hoạ.">
 <meta property="og:url" content="https://koalaland-workplace.github.io/anwell_demo/demo.html">
 <meta property="og:image" content="https://koalaland-workplace.github.io/anwell_demo/assets/img/og-cover.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Bản demo ANWELL — bốn giao diện">
-<meta name="twitter:description" content="Bản demo tương tác: giao diện khách hàng, quản trị trung tâm, ứng dụng kỹ thuật viên và quản trị nền tảng. Số liệu là dữ liệu minh hoạ.">
+<meta name="twitter:title" content="Bản demo ANWELL — các giao diện">
+<meta name="twitter:description" content="Bản demo tương tác: giao diện khách hàng, quản trị trung tâm, ứng dụng kỹ thuật viên, cổng Giám đốc Kinh doanh và quản trị nền tảng. Số liệu là dữ liệu minh hoạ.">
 <meta name="twitter:image" content="https://koalaland-workplace.github.io/anwell_demo/assets/img/og-cover.png">
 <script src="vendor/dc-runtime.js"></script>
 </head>
@@ -274,7 +274,10 @@
   .wrap{min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:44px 20px 26px;
     background:radial-gradient(130% 90% at 50% 0%,#123227 0%,#0A1512 72%)}
   .cards{display:grid;grid-template-columns:1fr;gap:14px;width:100%;max-width:1000px;margin-top:34px}
-  @media(min-width:760px){ .cards{grid-template-columns:repeat(3,1fr);gap:16px} .wrap{padding:60px 26px 30px} }
+  /* Bốn cổng: xếp 2x2 trên màn vừa, một hàng bốn trên màn rộng — tránh để
+     thẻ cuối đứng lẻ một mình như khi còn ba cổng. */
+  @media(min-width:760px){ .cards{grid-template-columns:repeat(2,1fr);gap:16px} .wrap{padding:60px 26px 30px} }
+  @media(min-width:1120px){ .cards{grid-template-columns:repeat(4,1fr);max-width:1260px} }
   @keyframes bloom{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:none}}
   @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
   @keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
@@ -362,7 +365,12 @@ class Component extends DCLogic {
         d:'Hai chế độ làm việc: theo lịch trung tâm phân, hoặc làm tự do với khách riêng — lộ trình, thu nhập, đánh giá.',
         chips:['2 chế độ','Lộ trình','Thu nhập'],
         iBg:'rgba(185,137,59,.2)', iFg:'#D8A94E',
-        icon:this.ic('<circle cx="12" cy="7.6" r="3.6"/><path d="M4.6 20.5c0-3.9 3.3-5.9 7.4-5.9s7.4 2 7.4 5.9"/>') }
+        icon:this.ic('<circle cx="12" cy="7.6" r="3.6"/><path d="M4.6 20.5c0-3.9 3.3-5.9 7.4-5.9s7.4 2 7.4 5.9"/>') },
+      { href:'bd.html', tag:'Giám đốc Kinh doanh', t:'Quản trị cho Giám đốc Kinh doanh',
+        d:'Link và mã giới thiệu riêng để đưa trung tâm và KTV tự do lên nền tảng, kèm trạng thái duyệt, hoa hồng và chỉ tiêu.',
+        chips:['Link giới thiệu','Hoa hồng','Chỉ tiêu'],
+        iBg:'rgba(231,206,151,.16)', iFg:'#E7CE97',
+        icon:this.ic('<circle cx="12" cy="9" r="5.4"/><path d="M8.6 13.6 7.5 21l4.5-2.4 4.5 2.4-1.1-7.4"/>') }
     ].map((a,i)=>({ ...a, delay:(0.08*(i+1)).toFixed(2)+'s' }));
     return { apps };
   }
