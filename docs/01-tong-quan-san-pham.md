@@ -240,7 +240,7 @@ theo trách nhiệm công việc chứ không theo chức danh, và vai trò kh�
 | **Thành viên** | Trung tâm | Đang hoạt động · Hồ sơ đăng ký · Tạm dừng & chấm dứt |
 | | Kỹ thuật viên | KTV tự do · Hồ sơ đăng ký · Bậc & chứng chỉ |
 | | Khách hàng | Tài khoản · Quyền dữ liệu cá nhân |
-| | Giám đốc Kinh doanh | Danh sách · Trung tâm đã giới thiệu · Chính sách hoa hồng · Xem trước màn GĐKD<br>Cổng riêng của họ ở `bd.html` |
+| | Giám đốc Kinh doanh | Danh sách · Trung tâm đã giới thiệu · Chính sách hoa hồng · Màn GĐKD nhìn thấy<br>Cổng riêng của họ ở `bd.html` |
 | **Kinh doanh** | Gói nền tảng & tiện ích | Gói nền tảng · Tiện ích gia tăng · Ai đang dùng |
 | | Doanh thu & đối soát | Doanh thu · Đối soát trung tâm · Công nợ |
 | | Loyalty ANP | — |

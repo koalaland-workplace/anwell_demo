@@ -28,8 +28,8 @@ không lưu dữ liệu gì.
 **Cổng Giám đốc Kinh doanh đã có bản riêng** tại `bd.html` — sáu mục, trong đó
 mục *Link & mã giới thiệu* là chỗ Giám đốc Kinh doanh lấy link và mã để gửi cho
 đối tác đăng ký thành trung tâm hoặc kỹ thuật viên tự do. Khối số 03 trên Portal
-mở thẳng vào đây. Tab *Xem trước màn GĐKD* trong `admin.html` vẫn giữ, dành cho
-người quản trị nền tảng xem nhanh mà không cần rời trang.
+mở thẳng vào đây. Tab *Màn GĐKD nhìn thấy* trong `admin.html` giữ bản
+rút gọn, kèm nút mở sang cổng đầy đủ.
 
 ## Tài liệu
 
