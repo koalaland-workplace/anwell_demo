@@ -2926,17 +2926,13 @@ class Component extends DCLogic {
       fbNewName: s.fbNewName, onFbName: (e)=>this.setState({ fbNewName:e.target.value }),
       fbSvcs: SVCS.map(v => ({ t:v.t, p:v.p,
         pick: () => this.setState({ fbSvc:v.t, fbDone:false }),
-        bg: s.fbSvc===v.t ? 'var(--primary)' : 'var(--surface)',
-        fg: s.fbSvc===v.t ? 'var(--on-primary)' : 'var(--text)',
-        bd: s.fbSvc===v.t ? 'var(--primary)' : 'var(--line)' })),
+        ...this.pill(s.fbSvc===v.t) })),
       fbSlots: SLOTS.map(t => {
         const past = t.m <= NOW, off = past || !t.free, on = s.fbSlot === t.m;
         return { t: hhmm(t.m), who: past ? 'đã qua giờ' : t.free ? t.who : 'đã kín',
           pick: () => off ? null : this.setState({ fbSlot:t.m, fbDone:false }),
           dim: off ? '.45' : '1',
-          bg: on ? 'var(--primary)' : 'var(--surface)',
-          fg: on ? 'var(--on-primary)' : 'var(--text)',
-          bd: on ? 'var(--primary)' : 'var(--line)' };
+          ...this.pill(on) };
       }),
       fbLabel: digits.length < 10 ? 'Nhập số điện thoại'
         : !nameOk ? 'Nhập tên khách mới'
@@ -3034,7 +3030,7 @@ class Component extends DCLogic {
 
     const dayTabs = ['T2','T3','T4','T5','T6','T7','CN'].map(d=>{
       const on = s.day===d;
-      return { t:d, pick:()=>this.setState({day:d}), bg:on?'var(--primary)':'var(--surface)', fg:on?'var(--on-primary)':'var(--text)', bd:on?'var(--primary)':'var(--line)' };
+      return { t:d, pick:()=>this.setState({day:d}), ...this.pill(on) };
     });
 
     const hours = ['8h','10h','12h','14h','16h','18h','20h','22h'];
@@ -3056,7 +3052,7 @@ class Component extends DCLogic {
     // hoặc có đủ bộ lọc theo bậc, hoặc không có cái nào.
     const staffFilters = ['Tất cả','Đang trực','Chờ duyệt'].map(t=>{
       const on = s.staffFilter===t;
-      return { t, pick:()=>this.setState({staffFilter:t}), bg:on?'var(--primary)':'var(--surface)', fg:on?'var(--on-primary)':'var(--text)', bd:on?'var(--primary)':'var(--line)' };
+      return { t, pick:()=>this.setState({staffFilter:t}), ...this.pill(on) };
     });
 
     const staff = [
@@ -3498,9 +3494,7 @@ class Component extends DCLogic {
           setLog: this.tabOf('settings','gen') === 'log',
           logFilters: KINDS.map(([k,t]) => ({ t,
             pick: () => this.setState({ logKind:k }),
-            bg: s.logKind===k ? 'var(--primary)' : 'var(--surface)',
-            fg: s.logKind===k ? 'var(--on-primary)' : 'var(--text)',
-            bd: s.logKind===k ? 'var(--primary)' : 'var(--line)' })),
+            ...this.pill(s.logKind===k) })),
           logRows: rows
         };
       })(),
@@ -4015,10 +4009,7 @@ class Component extends DCLogic {
           ['true',  'Tôi cam kết mọi thông tin khai trên đây là đúng sự thật. Khai sai thì hồ sơ bị huỷ và không được đăng ký lại trên ANWELL.'],
           ['terms', 'Tôi đã đọc, hiểu và đồng ý với điều kiện, điều khoản và quy định của ANWELL Platform — gồm quy tắc ứng xử với khách, quy định bảo mật thông tin khách hàng, và cơ chế xử lý khiếu nại.']
         ];
-        const chip = (t, on, tap) => ({ t, pick:tap,
-          bg: on ? 'var(--primary)' : 'var(--surface)',
-          fg: on ? 'var(--on-primary)' : 'var(--text)',
-          bd: on ? 'var(--primary)' : 'var(--line)' });
+        const chip = (t, on, tap) => ({ t, pick:tap, ...this.pill(on) });
         const box = (on) => ({
           tick: on ? '✓' : '',
           bg: on ? 'var(--tint)' : 'var(--surface)',
