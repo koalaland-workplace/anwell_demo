@@ -2026,6 +2026,13 @@ class Component extends DCLogic {
   // dưới, và chỉ đổi cho đúng mục đang mở.
   setMode(m){ this.setState({ modes: {...this.state.modes, [this.state.page]: m} }); }
   modeOf(page){ return this.state.modes[page || this.state.page] || 'center'; }
+  // Ô chọn dạng viên — nền đậm khi đang chọn. Giữ giống hệt bản ở center.html
+  // và admin.html để ba cổng đổi màu cùng lúc.
+  pill(on){
+    return { bg: on ? 'var(--primary)' : 'var(--surface)',
+             fg: on ? 'var(--on-primary)' : 'var(--text)',
+             bd: on ? 'var(--primary)' : 'var(--line)' };
+  }
 
   // ── lịch tháng ────────────────────────────────────────────────────
   // Neo "hôm nay" vào 25/07/2026 thay vì đồng hồ máy: toàn bộ số liệu trong bản
@@ -2581,10 +2588,7 @@ class Component extends DCLogic {
     // động từ và sự kiện, không có "khó tính" hay "dễ chịu".
     const TAGS = ['Đúng hẹn','Người nhà hỗ trợ tốt','Hay đổi giờ phút chót',
                   'Cần gọi xác nhận trước','Nhà có bậc thang hẹp','Có vật nuôi'];
-    const pillOf = (t, on, tap) => ({ t, pick:tap,
-      bg: on ? 'var(--primary)' : 'var(--surface)',
-      fg: on ? 'var(--on-primary)' : 'var(--text)',
-      bd: on ? 'var(--primary)' : 'var(--line)' });
+    const pillOf = (t, on, tap) => ({ t, pick:tap, ...this.pill(on) });
     const flip = (field, v) => { const cur = s[field];
       this.setState({ [field]: cur.includes(v) ? cur.filter(x=>x!==v) : [...cur, v] }); };
     const noteOk = s.tagSel.length > 0 || s.ktvNote.trim().length >= 10;
@@ -2616,7 +2620,7 @@ class Component extends DCLogic {
     ];
     const sessTasks = sessTaskDefs.map(x=>{
       const on = s.sessDone.includes(x.id);
-      return { t:x.t, bg:on?'var(--primary)':'var(--surface)', fg:on?'var(--on-primary)':'var(--text)', bd:on?'var(--primary)':'var(--line)',
+      return { t:x.t, ...this.pill(on),
         toggle:()=>{ const d=[...this.state.sessDone]; const i=d.indexOf(x.id); if(i>=0) d.splice(i,1); else d.push(x.id); this.setState({sessDone:d}); } };
     });
 

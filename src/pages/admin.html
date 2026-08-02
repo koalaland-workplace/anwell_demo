@@ -2084,6 +2084,13 @@ class Component extends DCLogic {
       fg: cur===k ? 'var(--text)' : 'var(--text3)',
       sh: cur===k ? '0 1px 3px rgba(0,0,0,.08)' : 'none' }));
   }
+  // Ô chọn dạng viên — nền đậm khi đang chọn. Khác tabBar ở trên: tabBar là
+  // thanh tab chìm, pill là viên nổi. Giữ giống hệt bản ở center.html.
+  pill(on){
+    return { bg: on ? 'var(--primary)' : 'var(--surface)',
+             fg: on ? 'var(--on-primary)' : 'var(--text)',
+             bd: on ? 'var(--primary)' : 'var(--line)' };
+  }
   toggleCat(k){
     const off = this.state.catOff;
     this.setState({ catOff: off.includes(k) ? off.filter(x=>x!==k) : [...off, k] });
@@ -2178,7 +2185,7 @@ class Component extends DCLogic {
 
     const ctrFilters = ['Tất cả','Hoạt động','Cảnh báo','Chờ duyệt'].map(t=>{
       const on = s.ctrFilter===t;
-      return { t, pick:()=>this.setState({ctrFilter:t}), bg:on?'var(--primary)':'var(--surface)', fg:on?'var(--on-primary)':'var(--text)', bd:on?'var(--primary)':'var(--line)' };
+      return { t, pick:()=>this.setState({ctrFilter:t}), ...this.pill(on) };
     });
 
     const centers = [
@@ -2264,7 +2271,7 @@ class Component extends DCLogic {
 
     const pFilters = ['Tất cả','Đào tạo','Vật tư','Thiết bị'].map(t=>{
       const on = s.pFilter===t;
-      return { t, pick:()=>this.setState({pFilter:t}), bg:on?'var(--primary)':'var(--surface)', fg:on?'var(--on-primary)':'var(--text)', bd:on?'var(--primary)':'var(--line)' };
+      return { t, pick:()=>this.setState({pFilter:t}), ...this.pill(on) };
     });
 
     const partners = [
