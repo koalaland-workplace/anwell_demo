@@ -23,6 +23,7 @@ thứ đã có câu trả lời là lãng phí, còn agent tự đoán là nguy 
 | Nhà cung cấp nào, thẩm định mất bao lâu? | `ANWELL-ho-so-ky-thuat.xlsx` › *Dịch vụ bên thứ ba* |
 | Việc nào chủ dự án phải lo, hạn tuần nào? | `ANWELL-ho-so-ky-thuat.xlsx` › *Cửa thời gian* |
 | Ai làm việc này, cần skill gì? | `ANWELL-ai-team-va-skill.xlsx` |
+| Chức năng nào ĐÃ QUYẾT cắt khỏi Phase đầu? | `ANWELL-15-phase-theo-muc-do.xlsx` › *Cắt sẵn theo mốc ngân sách* |
 | Mô hình sản phẩm, vì sao thiết kế thế? | `docs/01-tong-quan-san-pham.md` |
 | Quyết định nào đã chốt? Còn treo gì? | `docs/05-viec-dang-lam.md` |
 | Quy trình sửa và ba lỗi đã mắc | `docs/04-quan-ly-va-cap-nhat.md` |
@@ -52,7 +53,6 @@ thứ đã có câu trả lời là lãng phí, còn agent tự đoán là nguy 
 - Có cho KTV hiện số điện thoại trên hồ sơ công khai không
 - Chính sách phí vắng mặt
 - Ghi chú "cho KTV sau" thuộc về ai khi KTV chuyển trung tâm
-- Mốc ngân sách giữa lộ trình: giữ, dời, hay nâng — con số ở tài liệu nội bộ
 
 ## Bảy nhóm số phải khớp nhau giữa các trang
 

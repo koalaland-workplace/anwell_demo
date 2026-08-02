@@ -19,16 +19,24 @@ người dùng thật sớm. Ba mươi hai tuần chỉ đủ nếu mỗi Phase 
 - Khi thấy một chức năng "còn thiếu" thứ gì đó
 - Khi định thêm trường vào biểu mẫu, thêm trạng thái vào luồng, thêm kiểm tra
 
-## Quy trình bốn bước
+## Quy trình năm bước
 
 1. **Tra mã chức năng** (dạng `APP-B05`, `TT-L05`, `KTV-C08`) trong
    `Tailieu-noibo/ANWELL-15-phase-theo-muc-do.xlsx` → sheet *Chức năng theo Phase*.
+
 
 2. **Đọc cột "Mức độ"** — Mức 1 Cơ bản, Mức 2 Đầy đủ, hay Mức 3 Nâng cao.
 
 3. **Đọc cột "Phạm vi làm ở mức này"** — đây là ranh giới. Làm đúng chừng đó.
 
-4. **Đọc cột "CỐ Ý CHƯA LÀM" của Phase** ở sheet *15 Phase* — đây là danh sách
+4. **Kiểm danh sách CẮT SẴN** — sheet *Cắt sẵn theo mốc ngân sách* trong cùng
+   file. 22 chức năng đã bị cắt hẳn khỏi P01–P04 và 6 nhóm bị hạ từ Mức 2 xuống
+   Mức 1. Chủ dự án đã chốt. Làm một chức năng nằm trong đó là làm việc đã huỷ.
+   Sheet đó cũng có mục **TUYỆT ĐỐI KHÔNG CẮT** — sáu thứ không được bỏ dù bị ép
+   tiến độ, vì chạm sức khoẻ người thật, nghĩa vụ pháp lý, hoặc bằng chứng khi
+   tranh chấp.
+
+5. **Đọc cột "CỐ Ý CHƯA LÀM" của Phase** ở sheet *15 Phase* — đây là danh sách
    những thứ **không** được làm bây giờ.
 
 ## Ba mức
