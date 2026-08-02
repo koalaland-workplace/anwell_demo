@@ -276,19 +276,16 @@
   img{display:block;max-width:100%}
   ::-webkit-scrollbar{width:8px;height:8px}::-webkit-scrollbar-thumb{background:var(--line);border-radius:99px}
 
-  /* ── Ba mẫu = ba bộ token, MỘT bố cục ──
-     Đây là điểm cốt lõi: đổi mẫu chỉ đổi giá trị biến, không đổi một thẻ HTML
-     nào. Nếu dựng ba bố cục khác nhau thì chi phí gấp ba mà không thêm giá trị
-     kinh doanh nào. ── */
   /* ── BA MẪU = BA BỘ TOKEN trên MỘT bố cục ──
-     Đổi mẫu không đổi một thẻ HTML nào. Ngoài màu và kiểu chữ, bộ token còn
-     điều khiển MẬT ĐỘ: cỡ chữ, chiều cao khối mở đầu, độ thoáng giữa các
-     phần. Ba thứ đó mới làm ba phong cách khác nhau thật sự, chứ đổi mỗi màu
-     thì vẫn là một trang. ── */
+     Bộ token điều khiển ba thứ, không chỉ màu:
+       · MÀU và KIỂU CHỮ
+       · MẬT ĐỘ — cỡ chữ, chiều cao khối mở đầu, độ thoáng
+       · NHỊP CHUYỂN ĐỘNG — thời lượng và đường cong
+     Đổi mẫu không đụng một thẻ HTML nào. ── */
 
   /* ① TRỊ LIỆU — cổ vai gáy · truyền thống và thiết bị cao.
      Khách nhóm này phần lớn lớn tuổi: chữ lớn nhất, tương phản cao nhất, khối
-     mở đầu THẤP để bảng giá và bằng chứng lên sớm. Ảnh là phụ. */
+     mở đầu thấp để bảng giá lên sớm. Chuyển động NHANH và dứt khoát. */
   .site{
     --bg:#F6F8F5;--surface:#FFFFFF;--surface2:#EDF2EE;--line:#DCE4DE;--line2:#EAEFEB;
     --text:#12211A;--text2:#3F544A;--text3:#6E8378;
@@ -297,18 +294,18 @@
     --ok:#146B3F;--okTint:#DFEDE5;
     --footBg:#12211A;--footInk:#E6F0EA;--footInk2:#9DB3A7;
     --r:12px;--rs:9px;--rp:99px;
-    --hero:linear-gradient(158deg,#0B3A31,#0F5445 66%,#166050);
-    --onHero:#FFFFFF;--onHeroSub:rgba(255,255,255,.82);
+    --onHero:#FFFFFF;--onHeroSub:rgba(255,255,255,.86);
+    --veil:linear-gradient(100deg,rgba(8,32,26,.94) 0%,rgba(11,58,49,.82) 46%,rgba(11,58,49,.42) 100%);
     --ttl:'Be Vietnam Pro',system-ui,sans-serif;--ttlW:700;--ttlSp:-.015em;
     --fsH1:34px;--fsH2:25px;--fsLede:15.5px;--fsBody:14px;
-    --secPad:40px;--heroPad:40px;
-    --shadow:0 1px 3px rgba(18,33,26,.08);
+    --secPad:40px;--heroMin:440px;
+    --dur:.42s;--ease:cubic-bezier(.22,.68,.32,1);--kb:14s;--fade:.7s;
+    --shadow:0 1px 3px rgba(18,33,26,.08);--lift:0 12px 30px -14px rgba(18,33,26,.4);
     color:var(--text);background:var(--bg);
   }
   /* ② TINH HOA — làm đẹp · sang trọng hiện đại.
-     Nền tối, chữ tiêu đề rất lớn kiểu có chân, góc gần vuông, khoảng trắng
-     dọc rộng nhất. Ảnh là chính, chữ ít. Nhưng giá VẪN hiện — spa cao cấp hay
-     giấu giá, ANWELL thì không được: niêm yết giá là thứ nền tảng đang bán. */
+     Nền tối, chữ có chân rất lớn, góc gần vuông, thoáng nhất. Chuyển động CHẬM
+     và mượt — sang trọng đọc được qua nhịp, không chỉ qua màu. */
   .site[data-tpl="tinhhoa"]{
     --bg:#0D1210;--surface:#151C19;--surface2:#1D2621;--line:#2A352F;--line2:#222C27;
     --text:#F0EBE0;--text2:#BDB4A4;--text3:#8C8577;
@@ -317,16 +314,16 @@
     --ok:#8FBF8A;--okTint:#1B2A1D;
     --footBg:#080B0A;--footInk:#F0EBE0;--footInk2:#8C8577;
     --r:2px;--rs:2px;--rp:2px;
-    --hero:linear-gradient(158deg,#0A0D0C,#1A1512 58%,#2A2018);
-    --onHero:#F5F0E4;--onHeroSub:rgba(245,240,228,.66);
+    --onHero:#F5F0E4;--onHeroSub:rgba(245,240,228,.72);
+    --veil:linear-gradient(100deg,rgba(6,8,7,.94) 0%,rgba(10,13,12,.78) 42%,rgba(10,13,12,.3) 100%);
     --ttl:'Cormorant Garamond',serif;--ttlW:600;--ttlSp:.02em;
-    --fsH1:46px;--fsH2:31px;--fsLede:14px;--fsBody:12.5px;
-    --secPad:62px;--heroPad:78px;
-    --shadow:none;
+    --fsH1:48px;--fsH2:32px;--fsLede:14px;--fsBody:12.5px;
+    --secPad:64px;--heroMin:600px;
+    --dur:.9s;--ease:cubic-bezier(.16,1,.3,1);--kb:26s;--fade:1.4s;
+    --shadow:none;--lift:0 18px 44px -20px rgba(0,0,0,.8);
   }
   /* ③ TỊNH TẠI — thư giãn · chăm sóc toàn diện.
-     Kem và đất, góc bo lớn nhất, thoáng nhất. Nhịp chậm: khối mở đầu vừa
-     phải, chữ tiêu đề có chân nhưng nhẹ. */
+     Kem và đất, bo góc lớn nhất, thoáng. Chuyển động rất chậm và mềm. */
   .site[data-tpl="tinhtai"]{
     --bg:#FAF6EF;--surface:#FFFDF9;--surface2:#F2EBDF;--line:#E4DACA;--line2:#EFE8DC;
     --text:#2B2620;--text2:#5B5145;--text3:#8B8072;
@@ -335,44 +332,86 @@
     --ok:#5E6B4F;--okTint:#E9EDE2;
     --footBg:#2B2620;--footInk:#F5F0E7;--footInk2:#A79C8C;
     --r:22px;--rs:16px;--rp:99px;
-    --hero:linear-gradient(158deg,#3B4436,#5E6B4F 64%,#77855F);
-    --onHero:#FBF8F1;--onHeroSub:rgba(251,248,241,.78);
+    --onHero:#FBF8F1;--onHeroSub:rgba(251,248,241,.84);
+    --veil:linear-gradient(100deg,rgba(24,30,20,.93) 0%,rgba(48,57,43,.84) 46%,rgba(48,57,43,.46) 100%);
     --ttl:'Cormorant Garamond',serif;--ttlW:600;--ttlSp:0;
-    --fsH1:40px;--fsH2:28px;--fsLede:15px;--fsBody:13.5px;
-    --secPad:56px;--heroPad:58px;
-    --shadow:0 1px 2px rgba(43,38,32,.06);
+    --fsH1:42px;--fsH2:29px;--fsLede:15px;--fsBody:13.5px;
+    --secPad:58px;--heroMin:530px;
+    --dur:1.1s;--ease:cubic-bezier(.19,1,.22,1);--kb:32s;--fade:1.8s;
+    --shadow:0 1px 2px rgba(43,38,32,.06);--lift:0 14px 34px -18px rgba(43,38,32,.35);
   }
 
   .wrap{max-width:1080px;margin:0 auto;padding:0 18px}
   .ttl{font-family:var(--ttl);font-weight:var(--ttlW);letter-spacing:var(--ttlSp);line-height:1.15}
-  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow)}
-  .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:var(--rp);
-       background:var(--brand);color:var(--onBrand);font-size:14px;font-weight:600}
-  .btn2{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:var(--rp);
-        background:var(--surface);border:1px solid var(--line);color:var(--text);font-size:13.5px;font-weight:600}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);
+        transition:transform var(--dur) var(--ease),box-shadow var(--dur) var(--ease),border-color var(--dur) var(--ease)}
+  .card.hov:hover{transform:translateY(-4px);box-shadow:var(--lift);border-color:var(--accent)}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:13px 24px;border-radius:var(--rp);
+       background:var(--brand);color:var(--onBrand);font-size:14px;font-weight:600;
+       transition:transform var(--dur) var(--ease),opacity var(--dur) var(--ease)}
+  .btn:hover{transform:translateY(-2px)}
+  .btn2{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:var(--rp);
+        background:var(--surface);border:1px solid var(--line);color:var(--text);font-size:13.5px;font-weight:600;
+        transition:transform var(--dur) var(--ease),border-color var(--dur) var(--ease)}
+  .btn2:hover{transform:translateY(-2px);border-color:var(--accent)}
   .sec{padding:var(--secPad) 0}
   .eyebrow{font:700 9.5px ui-monospace,monospace;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+
+  /* ── Khối mở đầu: trình chiếu ảnh thật, chuyển mờ chồng + phóng chậm ── */
+  .hero{position:relative;min-height:var(--heroMin);display:flex;align-items:center;overflow:hidden;isolation:isolate}
+  .slide{position:absolute;inset:0;z-index:-2;opacity:0;transition:opacity var(--fade) ease}
+  .slide.on{opacity:1}
+  .slide img{width:100%;height:100%;object-fit:cover;transform:scale(1.06)}
+  .slide.on img{animation:kb var(--kb) ease-out forwards}
+  @keyframes kb{from{transform:scale(1.02)}to{transform:scale(1.14)}}
+  .veil{position:absolute;inset:0;z-index:-1;background:var(--veil)}
+  .dots{display:flex;gap:7px;margin-top:22px}
+  .dots button{width:26px;height:4px;border-radius:99px;background:rgba(255,255,255,.3);
+               transition:background var(--dur) var(--ease),width var(--dur) var(--ease)}
+  .dots button.on{background:var(--gold);width:44px}
+  .glass{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.2);backdrop-filter:blur(9px)}
+
+  /* ── Hiện dần khi cuộn tới ── */
+  .rv{opacity:0;transform:translateY(16px);transition:opacity var(--fade) var(--ease),transform var(--fade) var(--ease)}
+  .rv.in{opacity:1;transform:none}
+
+  /* ── Dải ảnh không gian ── */
+  .gal{display:grid;grid-template-columns:1fr;gap:10px}
+  .gal figure{position:relative;overflow:hidden;border-radius:var(--r);background:var(--surface2)}
+  .gal img{width:100%;height:100%;object-fit:cover;transition:transform 1.1s var(--ease)}
+  .gal figure:hover img{transform:scale(1.06)}
+  .gal figcaption{position:absolute;left:0;right:0;bottom:0;padding:22px 16px 13px;font-size:11.5px;font-weight:600;
+                  color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.62))}
 
   .g2w{display:grid;grid-template-columns:1fr;gap:14px}
   .g3w{display:grid;grid-template-columns:1fr;gap:14px}
   .g4w{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-  .heroGrid{display:grid;grid-template-columns:1fr;gap:20px;align-items:center}
+  .heroGrid{display:grid;grid-template-columns:1fr;gap:22px;align-items:center;width:100%}
   .navLinks{display:none}
+  .navLinks a{white-space:nowrap;transition:color var(--dur) var(--ease)}
+  .navLinks a:hover{color:var(--brand)}
   .bkGrid{display:grid;grid-template-columns:1fr;gap:14px}
+  .trust{display:flex;gap:26px;overflow-x:auto;padding:13px 0;scrollbar-width:none}
+  .trust::-webkit-scrollbar{display:none}
   @media(min-width:820px){
     .g2w{grid-template-columns:1.35fr 1fr;gap:20px}
     .g3w{grid-template-columns:repeat(3,1fr);gap:18px}
     .g4w{grid-template-columns:repeat(4,1fr);gap:16px}
-    .heroGrid{grid-template-columns:1.15fr .85fr;gap:34px}
-    .navLinks{display:flex;gap:22px}
+    .heroGrid{grid-template-columns:1.12fr .88fr;gap:34px}
+    .navLinks{display:flex;gap:20px}
     .bkGrid{grid-template-columns:1.1fr .9fr;gap:20px}
+    .gal{grid-template-columns:1.6fr 1fr;grid-template-rows:1fr 1fr;gap:12px;height:400px}
+    .gal figure:first-child{grid-row:span 2}
+    .trust{justify-content:center;overflow:visible}
   }
 
-  /* thanh xem trước — CHỈ có trong bản demo, trang thật không có */
   .demobar{position:sticky;top:0;z-index:40;background:#14211B;color:#EAF4ED;
            padding:9px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-size:11.5px}
-  @keyframes fu{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
-  .fu{animation:fu .32s cubic-bezier(.22,.61,.36,1)}
+  @media(prefers-reduced-motion:reduce){
+    .rv{opacity:1;transform:none;transition:none}
+    .slide.on img{animation:none}
+    .card,.btn,.btn2,.gal img{transition:none}
+  }
 </style>
 </helmet>
 
@@ -381,7 +420,7 @@
   <!-- ═══ Thanh xem trước — CHỈ có trong bản demo ═══ -->
   <div class="demobar">
     <span style="font:700 9px ui-monospace,monospace;letter-spacing:.16em;color:#E7CE97">BẢN XEM TRƯỚC</span>
-    <span style="color:#A9C4B5">Đây là website của một trung tâm, cấp tự động sau khi hồ sơ được duyệt.</span>
+    <span style="color:#A9C4B5">Website của một trung tâm, cấp tự động sau khi hồ sơ được duyệt.</span>
     <span style="flex:1"></span>
     <span style="color:#A9C4B5">Đổi mẫu:</span>
     <sc-for list="{{ tplPick }}" as="t" hint-placeholder-count="3">
@@ -399,7 +438,7 @@
         <span style="display:block;font-size:10.5px;color:var(--text3)">{{ ctrArea }}</span>
       </span>
       <nav class="navLinks" style="flex:1;justify-content:center;font-size:13.5px;color:var(--text2)">
-        <sc-for list="{{ navs }}" as="n" hint-placeholder-count="4">
+        <sc-for list="{{ navs }}" as="n" hint-placeholder-count="5">
           <a href="{{ n.h }}">{{ n.t }}</a>
         </sc-for>
       </nav>
@@ -408,53 +447,75 @@
     </div>
   </header>
 
-  <!-- ═══ Khối mở đầu ═══ -->
-  <section style="background:var(--hero);color:var(--onHero)">
-    <div class="wrap heroGrid" style="padding-top:var(--heroPad);padding-bottom:var(--heroPad)">
+  <!-- ═══ Khối mở đầu · trình chiếu ảnh thật ═══ -->
+  <section class="hero">
+    <sc-for list="{{ slides }}" as="s" hint-placeholder-count="3">
+      <div class="slide {{ s.cls }}"><img src="{{ s.src }}" alt="{{ s.alt }}"></div>
+    </sc-for>
+    <div class="veil"></div>
+    <div class="wrap heroGrid" style="padding-top:var(--secPad);padding-bottom:var(--secPad)">
       <div>
         <p class="eyebrow" style="color:var(--gold)">{{ ctrTag }}</p>
-        <h1 class="ttl" style="font-size:var(--fsH1);margin-top:10px;color:var(--onHero)">{{ ctrHead }}</h1>
-        <p style="font-size:var(--fsLede);line-height:1.7;color:var(--onHeroSub);margin-top:12px;max-width:460px">{{ ctrLede }}</p>
-        <div style="display:flex;align-items:center;gap:18px;margin-top:18px;flex-wrap:wrap">
-          <span style="display:flex;align-items:center;gap:7px">
-            <span style="font-family:var(--ttl);font-weight:700;font-size:26px;color:var(--gold)">{{ ctrStar }}</span>
-            <span style="font-size:11.5px;line-height:1.4;color:var(--onHeroSub)">{{ ctrRev }} đánh giá<br>từ khách đã tới</span>
+        <h1 class="ttl" style="font-size:var(--fsH1);margin-top:11px;color:var(--onHero)">{{ ctrHead }}</h1>
+        <p style="font-size:var(--fsLede);line-height:1.75;color:var(--onHeroSub);margin-top:13px;max-width:470px">{{ ctrLede }}</p>
+        <div style="display:flex;align-items:center;gap:20px;margin-top:20px;flex-wrap:wrap">
+          <span style="display:flex;align-items:center;gap:8px">
+            <span style="font-family:var(--ttl);font-weight:700;font-size:30px;color:var(--gold)">{{ ctrStar }}</span>
+            <span style="font-size:11.5px;line-height:1.45;color:var(--onHeroSub)">{{ ctrRev }} đánh giá<br>từ khách đã tới</span>
           </span>
-          <span style="width:1px;height:34px;background:rgba(255,255,255,.22)"></span>
-          <span style="font-size:11.5px;line-height:1.4;color:var(--onHeroSub)">Đã thẩm định bởi ANWELL<br>{{ ctrSince }}</span>
+          <span style="width:1px;height:36px;background:rgba(255,255,255,.24)"></span>
+          <span style="font-size:11.5px;line-height:1.45;color:var(--onHeroSub)">Đã thẩm định bởi ANWELL<br>{{ ctrSince }}</span>
         </div>
         <div style="display:flex;gap:10px;margin-top:22px;flex-wrap:wrap">
           <button sc-camel-on-click="{{ goBook }}" class="btn" style="background:var(--gold);color:#14211B">Đặt lịch ngay</button>
-          <a href="#dichvu" class="btn2" style="background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.2);color:var(--onHero)">Xem dịch vụ và giá</a>
+          <a href="#dichvu" class="btn2" style="background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.24);color:var(--onHero)">Xem dịch vụ và giá</a>
+        </div>
+        <div class="dots">
+          <sc-for list="{{ dots }}" as="d" hint-placeholder-count="3">
+            <button sc-camel-on-click="{{ d.pick }}" aria-label="{{ d.lab }}" class="{{ d.cls }}"></button>
+          </sc-for>
         </div>
       </div>
-      <div style="border-radius:var(--r);overflow:hidden;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);padding:18px">
+      <div class="glass" style="border-radius:var(--r);padding:18px">
         <p style="font-size:10.5px;font-weight:600;color:var(--onHeroSub)">Còn trống hôm nay</p>
         <div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:11px">
           <sc-for list="{{ freeToday }}" as="s" hint-placeholder-count="6">
-            <button sc-camel-on-click="{{ s.pick }}" style="padding:8px 13px;border-radius:var(--rs);font-size:12.5px;font-weight:600;background:{{ s.bg }};color:{{ s.fg }};border:1px solid rgba(255,255,255,.22)">{{ s.t }}</button>
+            <button sc-camel-on-click="{{ s.pick }}" style="padding:9px 14px;border-radius:var(--rs);font-size:12.5px;font-weight:600;background:{{ s.bg }};color:{{ s.fg }};border:1px solid rgba(255,255,255,.24);transition:background var(--dur) var(--ease)">{{ s.t }}</button>
           </sc-for>
         </div>
-        <p style="font-size:10.5px;line-height:1.6;color:var(--onHeroSub);margin-top:13px">Giờ trống đọc thẳng từ lịch của trung tâm — không phải danh sách gõ tay, nên không có chuyện đặt xong mới báo hết chỗ.</p>
+        <p style="font-size:10.5px;line-height:1.65;color:var(--onHeroSub);margin-top:13px">Giờ trống đọc thẳng từ lịch của trung tâm — không phải danh sách gõ tay, nên không có chuyện đặt xong mới báo hết chỗ.</p>
       </div>
     </div>
   </section>
 
+  <!-- ═══ Dải tin cậy ═══ -->
+  <div style="background:var(--surface);border-bottom:1px solid var(--line)">
+    <div class="wrap trust">
+      <sc-for list="{{ trust }}" as="t" hint-placeholder-count="4">
+        <span style="display:flex;align-items:center;gap:8px;white-space:nowrap;font-size:11.5px;font-weight:600;color:var(--text2)">
+          <span style="color:var(--ok)">✓</span>{{ t.t }}
+        </span>
+      </sc-for>
+    </div>
+  </div>
+
   <!-- ═══ Dịch vụ và giá ═══ -->
   <section id="dichvu" class="wrap sec">
-    <p class="eyebrow">Dịch vụ</p>
-    <h2 class="ttl" style="font-size:var(--fsH2);margin-top:7px">Bảng giá niêm yết</h2>
-    <p style="font-size:var(--fsBody);color:var(--text2);margin-top:7px;max-width:560px">Giá đọc thẳng từ hệ thống quản trị của trung tâm. Trung tâm sửa giá một chỗ, trang này đổi theo — không có bảng giá thứ hai để lệch nhau.</p>
-    <div class="g3w" style="margin-top:20px">
+    <div class="rv in">
+      <p class="eyebrow">Dịch vụ</p>
+      <h2 class="ttl" style="font-size:var(--fsH2);margin-top:7px">Bảng giá niêm yết</h2>
+      <p style="font-size:var(--fsBody);color:var(--text2);margin-top:8px;max-width:580px;line-height:1.7">Giá đọc thẳng từ hệ thống quản trị của trung tâm. Trung tâm sửa giá một chỗ, trang này đổi theo — không có bảng giá thứ hai để lệch nhau.</p>
+    </div>
+    <div class="g3w" style="margin-top:22px">
       <sc-for list="{{ svcs }}" as="s" hint-placeholder-count="6">
-        <div class="card" style="padding:17px">
+        <div class="card hov rv in" style="padding:18px">
           <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px">
-            <span class="ttl" style="font-size:16px">{{ s.t }}</span>
+            <span class="ttl" style="font-size:16.5px">{{ s.t }}</span>
             <sc-if value="{{ s.hot }}" hint-placeholder-val="{{ false }}"><span style="flex:none;font-size:9.5px;font-weight:700;color:var(--accent);background:var(--goldTint);padding:3px 8px;border-radius:99px">Đặt nhiều</span></sc-if>
           </div>
-          <p style="font-size:12px;line-height:1.6;color:var(--text2);margin-top:6px">{{ s.d }}</p>
-          <div style="display:flex;align-items:baseline;justify-content:space-between;margin-top:13px;padding-top:12px;border-top:1px solid var(--line2)">
-            <span><span style="font-family:var(--ttl);font-weight:700;font-size:22px;color:var(--brand)">{{ s.p }}</span><span style="font-size:11.5px;color:var(--text3)"> · {{ s.m }}</span></span>
+          <p style="font-size:12px;line-height:1.65;color:var(--text2);margin-top:7px">{{ s.d }}</p>
+          <div style="display:flex;align-items:baseline;justify-content:space-between;margin-top:14px;padding-top:13px;border-top:1px solid var(--line2)">
+            <span><span style="font-family:var(--ttl);font-weight:700;font-size:23px;color:var(--brand)">{{ s.p }}</span><span style="font-size:11.5px;color:var(--text3)"> · {{ s.m }}</span></span>
             <button sc-camel-on-click="{{ s.pick }}" style="font-size:12px;font-weight:600;color:var(--brand)">Chọn →</button>
           </div>
           <p style="font-size:10.5px;color:var(--text3);margin-top:8px">Yêu cầu {{ s.tier }}</p>
@@ -463,42 +524,62 @@
     </div>
   </section>
 
-  <!-- ═══ Đội ngũ ═══ -->
-  <section id="doingu" style="background:var(--surface2)">
+  <!-- ═══ Không gian · ảnh thật của cơ sở ═══ -->
+  <section id="khonggian" style="background:var(--surface2)">
     <div class="wrap sec">
-      <p class="eyebrow">Đội ngũ</p>
-      <h2 class="ttl" style="font-size:var(--fsH2);margin-top:7px">Kỹ thuật viên có bậc nghề</h2>
-      <p style="font-size:var(--fsBody);color:var(--text2);margin-top:7px;max-width:600px">Bậc do <b>ANWELL cấp sau thẩm định</b>, không phải trung tâm tự ghi. Bậc quyết định kỹ thuật viên được nhận loại ca nào.</p>
-      <div class="g4w" style="margin-top:20px">
-        <sc-for list="{{ team }}" as="k" hint-placeholder-count="4">
-          <div class="card" style="padding:16px;text-align:center">
-            <span style="display:grid;place-items:center;width:56px;height:56px;margin:0 auto;border-radius:50%;background:var(--tint);color:var(--brand);font-weight:700;font-size:17px">{{ k.i }}</span>
-            <p class="ttl" style="font-size:15px;margin-top:10px">{{ k.n }}</p>
-            <p style="display:inline-block;font-size:10px;font-weight:700;color:var(--ok);background:var(--okTint);padding:3px 10px;border-radius:99px;margin-top:6px">{{ k.tier }}</p>
-            <p style="font-size:11px;color:var(--text3);margin-top:7px;line-height:1.5">{{ k.exp }}<br>{{ k.spec }}</p>
-          </div>
+      <div class="rv in">
+        <p class="eyebrow">Không gian</p>
+        <h2 class="ttl" style="font-size:var(--fsH2);margin-top:7px">Ảnh chụp tại cơ sở</h2>
+        <p style="font-size:var(--fsBody);color:var(--text2);margin-top:8px;max-width:580px;line-height:1.7">Ảnh thật, không phải ảnh kho. ANWELL chặn xuất bản trang nào chưa có đủ bốn ảnh thật của cơ sở.</p>
+      </div>
+      <div class="gal rv in" style="margin-top:22px">
+        <sc-for list="{{ gallery }}" as="g" hint-placeholder-count="3">
+          <figure><img src="{{ g.src }}" alt="{{ g.alt }}"><figcaption>{{ g.cap }}</figcaption></figure>
         </sc-for>
       </div>
     </div>
   </section>
 
+  <!-- ═══ Đội ngũ ═══ -->
+  <section id="doingu" class="wrap sec">
+    <div class="rv in">
+      <p class="eyebrow">Đội ngũ</p>
+      <h2 class="ttl" style="font-size:var(--fsH2);margin-top:7px">Kỹ thuật viên có bậc nghề</h2>
+      <p style="font-size:var(--fsBody);color:var(--text2);margin-top:8px;max-width:620px;line-height:1.7">Bậc do <b>ANWELL cấp sau thẩm định</b>, không phải trung tâm tự ghi. Bậc quyết định kỹ thuật viên được nhận loại ca nào.</p>
+    </div>
+    <div class="g4w" style="margin-top:22px">
+      <sc-for list="{{ team }}" as="k" hint-placeholder-count="4">
+        <div class="card hov rv in" style="padding:0;overflow:hidden">
+          <div style="aspect-ratio:1/1;overflow:hidden;background:var(--surface2)">
+            <img src="{{ k.img }}" alt="{{ k.n }}" style="width:100%;height:100%;object-fit:cover;object-position:center 22%">
+          </div>
+          <div style="padding:14px;text-align:center">
+            <p class="ttl" style="font-size:15px">{{ k.n }}</p>
+            <p style="display:inline-block;font-size:10px;font-weight:700;color:var(--ok);background:var(--okTint);padding:3px 10px;border-radius:99px;margin-top:6px">{{ k.tier }}</p>
+            <p style="font-size:11px;color:var(--text3);margin-top:7px;line-height:1.55">{{ k.exp }}<br>{{ k.spec }}</p>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
   <!-- ═══ Giới thiệu · Giờ · Địa chỉ ═══ -->
-  <section id="gioithieu" class="wrap sec">
-    <div class="g2w">
-      <div>
+  <section id="gioithieu" style="background:var(--surface2)">
+    <div class="wrap sec g2w">
+      <div class="rv in">
         <p class="eyebrow">Giới thiệu</p>
         <h2 class="ttl" style="font-size:var(--fsH2);margin-top:7px">{{ aboutH }}</h2>
-        <p style="font-size:14px;line-height:1.8;color:var(--text2);margin-top:12px">{{ about }}</p>
-        <div style="display:flex;flex-direction:column;gap:10px;margin-top:18px">
+        <p style="font-size:var(--fsLede);line-height:1.85;color:var(--text2);margin-top:13px">{{ about }}</p>
+        <div style="display:flex;flex-direction:column;gap:11px;margin-top:20px">
           <sc-for list="{{ strong }}" as="s" hint-placeholder-count="4">
             <div style="display:flex;align-items:flex-start;gap:11px">
               <span style="flex:none;display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--tint);color:var(--brand);font-size:11px;font-weight:700;margin-top:1px">✓</span>
-              <span style="font-size:13px;line-height:1.6;color:var(--text2)">{{ s.t }}</span>
+              <span style="font-size:var(--fsBody);line-height:1.65;color:var(--text2)">{{ s.t }}</span>
             </div>
           </sc-for>
         </div>
       </div>
-      <div class="card" style="padding:18px">
+      <div class="card rv in" style="padding:18px">
         <p class="ttl" style="font-size:17px">Giờ mở cửa</p>
         <div style="display:flex;flex-direction:column;gap:9px;margin-top:12px">
           <sc-for list="{{ hours }}" as="h" hint-placeholder-count="4">
@@ -509,87 +590,87 @@
           </sc-for>
         </div>
         <p class="ttl" style="font-size:17px;margin-top:20px">Địa chỉ</p>
-        <p style="font-size:13px;line-height:1.7;color:var(--text2);margin-top:8px">{{ addr }}</p>
+        <p style="font-size:13px;line-height:1.75;color:var(--text2);margin-top:8px">{{ addr }}</p>
         <a href="#lienhe" class="btn2" style="margin-top:12px">Chỉ đường</a>
-        <p style="font-size:10.5px;color:var(--text3);margin-top:10px;line-height:1.6">Mở bằng ứng dụng bản đồ sẵn có trên máy. Bản đồ nhúng tính phí theo lượt xem nên chưa dùng ở giai đoạn này.</p>
       </div>
     </div>
   </section>
 
-  <!-- ═══ Đặt lịch ngay trên trang ═══ -->
-  <section id="datlich" style="background:var(--surface2)">
-    <div class="wrap sec">
+  <!-- ═══ Đặt lịch ═══ -->
+  <section id="datlich" class="wrap sec">
+    <div class="rv in">
       <p class="eyebrow">Đặt lịch</p>
       <h2 class="ttl" style="font-size:var(--fsH2);margin-top:7px">Đặt ngay tại đây, không rời trang</h2>
-      <div class="bkGrid" style="margin-top:20px">
-        <div class="card" style="padding:18px">
-          <p style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.08em">Bước 1 · Chọn dịch vụ</p>
-          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px">
-            <sc-for list="{{ bkSvcs }}" as="s" hint-placeholder-count="4">
-              <button sc-camel-on-click="{{ s.pick }}" style="padding:9px 14px;border-radius:var(--rs);font-size:12.5px;font-weight:600;background:{{ s.bg }};color:{{ s.fg }};border:1px solid {{ s.bd }}">{{ s.t }}</button>
-            </sc-for>
-          </div>
-
-          <p style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-top:18px">Bước 2 · Chọn ngày</p>
-          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px">
-            <sc-for list="{{ bkDays }}" as="d" hint-placeholder-count="5">
-              <button sc-camel-on-click="{{ d.pick }}" style="padding:9px 13px;border-radius:var(--rs);font-size:12.5px;font-weight:600;text-align:center;background:{{ d.bg }};color:{{ d.fg }};border:1px solid {{ d.bd }}">{{ d.t }}<span style="display:block;font-size:10px;font-weight:500;opacity:.75">{{ d.sub }}</span></button>
-            </sc-for>
-          </div>
-
-          <p style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-top:18px">Bước 3 · Chọn giờ còn trống</p>
-          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px">
-            <sc-for list="{{ bkSlots }}" as="s" hint-placeholder-count="8">
-              <button sc-camel-on-click="{{ s.pick }}" style="padding:9px 14px;border-radius:var(--rs);font-size:12.5px;font-weight:600;background:{{ s.bg }};color:{{ s.fg }};border:1px solid {{ s.bd }};opacity:{{ s.op }}">{{ s.t }}</button>
-            </sc-for>
-          </div>
-          <p style="font-size:10.5px;color:var(--text3);margin-top:11px">Giờ mờ là đã có khách đặt hoặc đã qua. Danh sách này đọc từ lịch thật của trung tâm.</p>
+    </div>
+    <div class="bkGrid" style="margin-top:22px">
+      <div class="card rv in" style="padding:18px">
+        <p style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.08em">Bước 1 · Chọn dịch vụ</p>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px">
+          <sc-for list="{{ bkSvcs }}" as="s" hint-placeholder-count="4">
+            <button sc-camel-on-click="{{ s.pick }}" style="padding:10px 15px;border-radius:var(--rs);font-size:12.5px;font-weight:600;background:{{ s.bg }};color:{{ s.fg }};border:1px solid {{ s.bd }};transition:all var(--dur) var(--ease)">{{ s.t }}</button>
+          </sc-for>
         </div>
-
-        <div class="card" style="padding:18px;align-self:start">
-          <p class="ttl" style="font-size:17px">Tóm tắt</p>
-          <div style="display:flex;flex-direction:column;gap:10px;margin-top:13px">
-            <sc-for list="{{ sumRows }}" as="r" hint-placeholder-count="4">
-              <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px">
-                <span style="font-size:12.5px;color:var(--text3)">{{ r.k }}</span>
-                <span style="font-size:12.5px;font-weight:600;text-align:right">{{ r.v }}</span>
-              </div>
-            </sc-for>
-          </div>
-          <div style="display:flex;align-items:baseline;justify-content:space-between;margin-top:14px;padding-top:13px;border-top:1px solid var(--line)">
-            <span style="font-size:13px;font-weight:600">Tổng cộng</span>
-            <span style="font-family:var(--ttl);font-weight:700;font-size:24px;color:var(--brand)">{{ total }}</span>
-          </div>
-          <button sc-camel-on-click="{{ doBook }}" class="btn" style="width:100%;justify-content:center;margin-top:14px;background:{{ bkBg }}">{{ bkLabel }}</button>
-          <p style="font-size:10.5px;line-height:1.6;color:var(--text3);margin-top:10px">{{ bkNote }}</p>
+        <p style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-top:19px">Bước 2 · Chọn ngày</p>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px">
+          <sc-for list="{{ bkDays }}" as="d" hint-placeholder-count="5">
+            <button sc-camel-on-click="{{ d.pick }}" style="padding:10px 14px;border-radius:var(--rs);font-size:12.5px;font-weight:600;text-align:center;background:{{ d.bg }};color:{{ d.fg }};border:1px solid {{ d.bd }};transition:all var(--dur) var(--ease)">{{ d.t }}<span style="display:block;font-size:10px;font-weight:500;opacity:.75">{{ d.sub }}</span></button>
+          </sc-for>
         </div>
+        <p style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-top:19px">Bước 3 · Chọn giờ còn trống</p>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px">
+          <sc-for list="{{ bkSlots }}" as="s" hint-placeholder-count="9">
+            <button sc-camel-on-click="{{ s.pick }}" style="padding:10px 15px;border-radius:var(--rs);font-size:12.5px;font-weight:600;background:{{ s.bg }};color:{{ s.fg }};border:1px solid {{ s.bd }};opacity:{{ s.op }};transition:all var(--dur) var(--ease)">{{ s.t }}</button>
+          </sc-for>
+        </div>
+        <p style="font-size:10.5px;color:var(--text3);margin-top:12px">Giờ mờ là đã có khách đặt hoặc đã qua. Danh sách này đọc từ lịch thật của trung tâm.</p>
+      </div>
+      <div class="card rv in" style="padding:18px;align-self:start">
+        <p class="ttl" style="font-size:17px">Tóm tắt</p>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-top:13px">
+          <sc-for list="{{ sumRows }}" as="r" hint-placeholder-count="4">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px">
+              <span style="font-size:12.5px;color:var(--text3)">{{ r.k }}</span>
+              <span style="font-size:12.5px;font-weight:600;text-align:right">{{ r.v }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div style="display:flex;align-items:baseline;justify-content:space-between;margin-top:15px;padding-top:14px;border-top:1px solid var(--line)">
+          <span style="font-size:13px;font-weight:600">Tổng cộng</span>
+          <span style="font-family:var(--ttl);font-weight:700;font-size:25px;color:var(--brand)">{{ total }}</span>
+        </div>
+        <button sc-camel-on-click="{{ doBook }}" class="btn" style="width:100%;justify-content:center;margin-top:15px;background:{{ bkBg }}">{{ bkLabel }}</button>
+        <p style="font-size:10.5px;line-height:1.65;color:var(--text3);margin-top:11px">{{ bkNote }}</p>
       </div>
     </div>
   </section>
 
   <!-- ═══ Đánh giá ═══ -->
-  <section class="wrap sec">
-    <p class="eyebrow">Khách nói gì</p>
-    <h2 class="ttl" style="font-size:var(--fsH2);margin-top:7px">Đánh giá của khách đã tới</h2>
-    <p style="font-size:var(--fsBody);color:var(--text2);margin-top:7px">Chỉ khách đã hoàn thành buổi mới đánh giá được. Trung tâm không sửa và không xoá được đánh giá.</p>
-    <div class="g3w" style="margin-top:20px">
-      <sc-for list="{{ reviews }}" as="r" hint-placeholder-count="3">
-        <div class="card" style="padding:17px">
-          <p style="font-size:14px;color:var(--gold)">{{ r.stars }}</p>
-          <p style="font-size:var(--fsBody);line-height:1.7;color:var(--text2);margin-top:9px">{{ r.q }}</p>
-          <p style="font-size:11.5px;color:var(--text3);margin-top:11px">{{ r.who }} · {{ r.svc }}</p>
-        </div>
-      </sc-for>
+  <section style="background:var(--surface2)">
+    <div class="wrap sec">
+      <div class="rv in">
+        <p class="eyebrow">Khách nói gì</p>
+        <h2 class="ttl" style="font-size:var(--fsH2);margin-top:7px">Đánh giá của khách đã tới</h2>
+        <p style="font-size:var(--fsBody);color:var(--text2);margin-top:8px;line-height:1.7">Chỉ khách đã hoàn thành buổi mới đánh giá được. Trung tâm không sửa và không xoá được đánh giá.</p>
+      </div>
+      <div class="g3w" style="margin-top:22px">
+        <sc-for list="{{ reviews }}" as="r" hint-placeholder-count="3">
+          <div class="card hov rv in" style="padding:18px">
+            <p style="font-size:14px;color:var(--gold);letter-spacing:.1em">{{ r.stars }}</p>
+            <p style="font-size:13px;line-height:1.75;color:var(--text2);margin-top:10px">{{ r.q }}</p>
+            <p style="font-size:11.5px;color:var(--text3);margin-top:12px">{{ r.who }} · {{ r.svc }}</p>
+          </div>
+        </sc-for>
+      </div>
     </div>
   </section>
 
   <!-- ═══ Chân trang — trung tâm KHÔNG gỡ được ═══ -->
   <footer id="lienhe" style="background:var(--footBg);color:var(--footInk)">
-    <div class="wrap" style="padding:38px 18px 26px">
+    <div class="wrap" style="padding:40px 18px 26px">
       <div class="g2w">
         <div>
-          <p class="ttl" style="font-size:19px;color:var(--footInk)">{{ ctrName }}</p>
-          <p style="font-size:13px;line-height:1.8;color:var(--footInk2);margin-top:9px">{{ addr }}</p>
+          <p class="ttl" style="font-size:20px;color:var(--footInk)">{{ ctrName }}</p>
+          <p style="font-size:13px;line-height:1.85;color:var(--footInk2);margin-top:9px">{{ addr }}</p>
           <p style="font-size:13px;color:var(--footInk2);margin-top:5px">{{ phone }} · {{ email }}</p>
         </div>
         <div>
@@ -601,7 +682,7 @@
               <p style="font-size:11px;color:var(--footInk2)">A Member of ANWELL Group</p>
             </div>
           </div>
-          <p style="font-size:11.5px;line-height:1.7;color:var(--footInk2);margin-top:12px">Cơ sở đã qua thẩm định của ANWELL: giấy phép hành nghề, chứng chỉ kỹ thuật viên và niêm yết giá được kiểm trước khi lên nền tảng.</p>
+          <p style="font-size:11.5px;line-height:1.75;color:var(--footInk2);margin-top:12px">Cơ sở đã qua thẩm định của ANWELL: giấy phép hành nghề, chứng chỉ kỹ thuật viên và niêm yết giá được kiểm trước khi lên nền tảng.</p>
           <div style="display:flex;flex-wrap:wrap;gap:14px;margin-top:12px;font-size:11.5px;color:var(--footInk2)">
             <sc-for list="{{ legal }}" as="l" hint-placeholder-count="3">
               <a href="{{ l.h }}" style="text-decoration:underline">{{ l.t }}</a>
@@ -609,7 +690,7 @@
           </div>
         </div>
       </div>
-      <p style="font-size:11px;color:var(--footInk2);opacity:.72;margin-top:24px;padding-top:16px;border-top:1px solid rgba(255,255,255,.14);line-height:1.7">{{ ctrLegalName }} · {{ ctrTax }}. ANWELL là nền tảng trung gian kết nối, không phải cơ sở khám chữa bệnh. Dịch vụ trên trang này là chăm sóc và phục hồi, không thay thế chẩn đoán hay điều trị y tế.</p>
+      <p style="font-size:11px;color:var(--footInk2);opacity:.72;margin-top:26px;padding-top:16px;border-top:1px solid rgba(255,255,255,.14);line-height:1.75">{{ ctrLegalName }} · {{ ctrTax }}. ANWELL là nền tảng trung gian kết nối, không phải cơ sở khám chữa bệnh. Dịch vụ trên trang này là chăm sóc và phục hồi, không thay thế chẩn đoán hay điều trị y tế.</p>
     </div>
   </footer>
 </div>
@@ -618,12 +699,12 @@
 <script type="text/x-dc" data-dc-script="" data-props="{&quot;tpl&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;trilieu&quot;,&quot;tinhhoa&quot;,&quot;tinhtai&quot;],&quot;default&quot;:&quot;trilieu&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Demo&quot;}}">
 class Component extends DCLogic {
   state = {
-    // Mẫu đang xem. Ba mẫu là BA BỘ TOKEN trên MỘT bố cục — đổi mẫu không đổi
-    // một thẻ HTML nào. Đây là lý do ba mẫu không tốn gấp ba.
+    // Mẫu đang xem. Ba mẫu là BA BỘ TOKEN trên MỘT bố cục — token điều khiển cả
+    // màu, mật độ và NHỊP CHUYỂN ĐỘNG. Đổi mẫu không đổi một thẻ HTML nào.
     tpl: 'trilieu',
+    slide: 0,                  // ảnh đang hiện ở khối mở đầu
     svc: 's1', day: 0, slot: '', booked: false,
 
-    // Hồ sơ trung tâm — đọc từ hệ thống, trung tâm khai một lần ở Quản trị.
     ctr: {
       ini: 'AN', name: 'An Nhiên Wellness', area: 'Q.3 · TP.HCM',
       tag: 'Trị liệu · Phục hồi · Chăm sóc',
@@ -635,29 +716,40 @@ class Component extends DCLogic {
       legalName: 'Công ty TNHH An Nhiên Wellness', tax: 'MST 0312-xxx-xxx'
     },
 
-    // Bảng giá đọc thẳng từ quản trị trung tâm. KHÔNG có bảng giá thứ hai
-    // trên web — hai nơi là sớm muộn lệch nhau.
+    // Ảnh thật của cơ sở. Ba ảnh, ba không khí khác nhau — mỗi mẫu mở đầu bằng
+    // ảnh hợp với mình nhất rồi lần lượt chạy hết.
+    photos: [
+      { f:'assets/img/tt-02.webp', alt:'Kỹ thuật viên đang làm việc trong phòng trị liệu', cap:'Phòng trị liệu · hai kỹ thuật viên một ca' },
+      { f:'assets/img/tt-01.webp', alt:'Phòng trị liệu buổi tối, ánh sáng ấm', cap:'Khu nghỉ · ánh sáng ấm, cách âm' },
+      { f:'assets/img/tt-03.webp', alt:'Khu vườn và hồ nước trong khuôn viên', cap:'Sân vườn · nơi chờ và thư giãn sau buổi' }
+    ],
+    // Mẫu nào mở đầu bằng ảnh nào: chỉ số trong mảng trên.
+    lead: { trilieu:0, tinhhoa:1, tinhtai:2 },
+
     svcs: [
-      { id:'s1', t:'Trị liệu cổ vai gáy',        p:450, m:'60 phút', tier:'Bậc 2 trở lên', hot:true,
+      { id:'s1', t:'Trị liệu cổ vai gáy',    p:450, m:'60 phút', tier:'Bậc 2 trở lên', hot:true,
         d:'Giãn cơ vùng cổ vai gáy cho người ngồi máy tính nhiều. Có đo tầm vận động trước và sau.' },
-      { id:'s2', t:'Massage chân thư giãn',      p:320, m:'45 phút', tier:'Bậc 1 trở lên', hot:false,
+      { id:'s2', t:'Massage chân thư giãn',  p:320, m:'45 phút', tier:'Bậc 1 trở lên', hot:false,
         d:'Bấm huyệt bàn chân và bắp chân, hợp với người đứng nhiều hoặc phù nhẹ.' },
-      { id:'s3', t:'Trị liệu toàn thân',         p:620, m:'90 phút', tier:'Bậc 2 trở lên', hot:true,
+      { id:'s3', t:'Trị liệu toàn thân',     p:620, m:'90 phút', tier:'Bậc 2 trở lên', hot:true,
         d:'Toàn thân theo trình tự, kết hợp chườm ấm. Không làm khi đang sốt hoặc viêm cấp.' },
-      { id:'s4', t:'Nhức mỏi cơ xương khớp',     p:540, m:'75 phút', tier:'Bậc 3',        hot:false,
+      { id:'s4', t:'Nhức mỏi cơ xương khớp', p:540, m:'75 phút', tier:'Bậc 3', hot:false,
         d:'Dành cho người có bệnh nền cơ xương khớp. Cần bác sĩ có chỉ định trước khi làm.' },
-      { id:'s5', t:'Massage phổ thông',          p:380, m:'60 phút', tier:'Bậc 1 trở lên', hot:false,
+      { id:'s5', t:'Massage phổ thông',      p:380, m:'60 phút', tier:'Bậc 1 trở lên', hot:false,
         d:'Thư giãn cơ bản, không tác động sâu. Phù hợp với người mới lần đầu.' },
-      { id:'s6', t:'Chăm sóc sau sinh',          p:480, m:'60 phút', tier:'Bậc 2 trở lên', hot:false,
+      { id:'s6', t:'Chăm sóc sau sinh',      p:480, m:'60 phút', tier:'Bậc 2 trở lên', hot:false,
         d:'Sau sinh từ tháng thứ hai, có sàng lọc trước. Kỹ thuật viên nữ.' }
     ],
 
-    // Bậc do ANWELL cấp sau thẩm định — trung tâm không sửa được trường này.
+    // Bốn kỹ thuật viên — TRÙNG KHỚP với bảng nhân sự trong center.html.
+    // KHÔNG dùng phuong-dung.webp và quynh-anh.webp: hai tệp đó bị in sẵn hoa
+    // văn ô cờ nền trong suốt vào chính ảnh, không phải nền trong suốt thật.
+    // Bậc do ANWELL cấp sau thẩm định, trung tâm không sửa được trường này.
     team: [
-      { i:'LA', n:'Lê Ngọc Anh',   tier:'Bậc 2', exp:'6 năm nghề', spec:'Cổ vai gáy · sau sinh' },
-      { i:'NB', n:'Nguyễn Bách',   tier:'Bậc 3', exp:'11 năm nghề', spec:'Cơ xương khớp · phục hồi' },
-      { i:'TD', n:'Trần Mỹ Duyên', tier:'Bậc 1', exp:'3 năm nghề', spec:'Massage chân · thư giãn' },
-      { i:'PD', n:'Phạm Thị Dung', tier:'Bậc 2', exp:'8 năm nghề', spec:'Toàn thân · chườm ấm' }
+      { img:'assets/img/hai-yen.webp',     n:'Trần Hải Yến',    tier:'Bậc 2', exp:'8 năm nghề',  spec:'Cơ xương khớp' },
+      { img:'assets/img/nguyen-minh.webp', n:'Nguyễn Minh',     tier:'Bậc 3', exp:'12 năm nghề', spec:'Phục hồi thần kinh' },
+      { img:'assets/img/ngoc-anh.webp',    n:'Lê Ngọc Anh',     tier:'Bậc 2', exp:'6 năm nghề',  spec:'VLTL thần kinh' },
+      { img:'assets/img/nguyen-bich.webp',  n:'Nguyễn Bách',     tier:'Bậc 1', exp:'4 năm nghề',  spec:'Hỗ trợ cao tuổi' }
     ],
 
     hours: [
@@ -676,11 +768,20 @@ class Component extends DCLogic {
         who:'Chị Đỗ Kim L.', svc:'Massage chân thư giãn' }
     ],
 
-    // Giờ trống — trong sản phẩm thật đọc từ động cơ lịch của nền tảng.
     slotsFree: ['09:00','10:30','14:00','15:30','17:00','19:00'],
     slotsTaken: ['11:00','13:00','18:00']
   };
 
+  // Trình chiếu tự chạy. Nhịp lấy theo mẫu: Trị Liệu đổi nhanh, Tinh Hoa và
+  // Tịnh Tại đổi chậm — cùng một bố cục mà cảm giác khác hẳn.
+  componentDidMount(){
+    this._t = setInterval(() => {
+      this.setState({ slide: (this.state.slide + 1) % this.state.photos.length });
+    }, this.state.tpl === 'trilieu' ? 5200 : 7600);
+  }
+  componentWillUnmount(){ if (this._t) clearInterval(this._t); }
+
+  setTpl(k){ this.setState({ tpl:k, slide: this.state.lead[k] }); }
   pick(k, v){ this.setState({ [k]:v, booked:false }); }
   book(){ if (this.state.slot) this.setState({ booked:true }); }
 
@@ -689,10 +790,18 @@ class Component extends DCLogic {
     const money = (n) => n.toLocaleString('vi-VN') + '.000₫';
 
     const TPL = [['trilieu','Trị Liệu'], ['tinhhoa','Tinh Hoa'], ['tinhtai','Tịnh Tại']];
-    const tplPick = TPL.map(([k, t]) => ({ t, pick:() => this.setState({ tpl:k }),
+    const tplPick = TPL.map(([k, t]) => ({ t, pick:() => this.setTpl(k),
       bg: s.tpl === k ? '#E7CE97' : 'transparent',
       fg: s.tpl === k ? '#14211B' : '#A9C4B5',
       bd: s.tpl === k ? '#E7CE97' : '#22382D' }));
+
+    // Thứ tự ảnh xoay theo mẫu: bắt đầu từ ảnh hợp với mẫu đó.
+    const n = s.photos.length, lead = s.lead[s.tpl] || 0;
+    const order = Array.from({ length:n }, (_, i) => s.photos[(lead + i) % n]);
+    const slides = order.map((p, i) => ({ src:p.f, alt:p.alt, cls: i === ((s.slide - lead + n * 2) % n) ? 'on' : '' }));
+    const dots = order.map((p, i) => ({ lab:'Ảnh ' + (i + 1),
+      cls: i === ((s.slide - lead + n * 2) % n) ? 'on' : '',
+      pick:() => this.setState({ slide: (lead + i) % n }) }));
 
     const svc = s.svcs.find(x => x.id === s.svc) || s.svcs[0];
 
@@ -716,22 +825,27 @@ class Component extends DCLogic {
     const jump = (id) => () => { this.pick('svc', id); location.hash = 'datlich'; };
 
     return {
-      tpl: s.tpl, tplPick,
+      tpl: s.tpl, tplPick, slides, dots,
       ctrIni: c.ini, ctrName: c.name, ctrArea: c.area, ctrTag: c.tag,
       ctrHead: c.head, ctrLede: c.lede, ctrStar: c.star, ctrRev: String(c.rev),
       ctrSince: c.since, addr: c.addr, phone: c.phone, email: c.email,
       ctrLegalName: c.legalName, ctrTax: c.tax,
 
-      navs: [{ t:'Dịch vụ', h:'#dichvu' }, { t:'Đội ngũ', h:'#doingu' },
-             { t:'Giới thiệu', h:'#gioithieu' }, { t:'Liên hệ', h:'#lienhe' }],
+      navs: [{ t:'Dịch vụ', h:'#dichvu' }, { t:'Không gian', h:'#khonggian' },
+             { t:'Đội ngũ', h:'#doingu' }, { t:'Giới thiệu', h:'#gioithieu' },
+             { t:'Liên hệ', h:'#lienhe' }],
       goBook,
 
+      trust: [{ t:'Đã thẩm định bởi ANWELL' }, { t:'Giấy phép hành nghề còn hiệu lực' },
+              { t:'Kỹ thuật viên có bậc nghề' }, { t:'Niêm yết giá đúng bằng giá thu' }],
+
       freeToday: s.slotsFree.map(t => ({ t, pick:() => this.pick('slot', t),
-        bg: s.slot === t ? 'var(--gold)' : 'rgba(255,255,255,.12)',
+        bg: s.slot === t ? 'var(--gold)' : 'rgba(255,255,255,.14)',
         fg: s.slot === t ? '#14211B' : 'var(--onHero)' })),
 
-      svcs: s.svcs.map(x => ({ ...x, p: money(x.p), pick: jump(x.id) })),
+      gallery: order.map(p => ({ src:p.f, alt:p.alt, cap:p.cap })),
 
+      svcs: s.svcs.map(x => ({ ...x, p: money(x.p), pick: jump(x.id) })),
       team: s.team,
       hours: s.hours.map(h => ({ ...h, c: h.on ? 'var(--text)' : 'var(--text3)' })),
 
@@ -753,10 +867,10 @@ class Component extends DCLogic {
       bkDays, bkSlots,
 
       sumRows: [
-        { k:'Dịch vụ',   v: svc.t },
+        { k:'Dịch vụ',    v: svc.t },
         { k:'Thời lượng', v: svc.m },
-        { k:'Ngày',      v: DAYS[s.day][0] + ' · ' + DAYS[s.day][1] },
-        { k:'Giờ',       v: s.slot || 'chưa chọn' }
+        { k:'Ngày',       v: DAYS[s.day][0] + ' · ' + DAYS[s.day][1] },
+        { k:'Giờ',        v: s.slot || 'chưa chọn' }
       ],
       total: money(svc.p),
       bkLabel: s.booked ? '✓ Đã gửi yêu cầu đặt' : (s.slot ? 'Xác nhận đặt lịch' : 'Chọn giờ để tiếp tục'),
