@@ -265,6 +265,7 @@
   .pad{padding:16px 16px 84px}.hd{padding:14px 16px}
   .g4{display:grid;grid-template-columns:1fr 1fr;gap:10px}
   .bdrow{display:grid;grid-template-columns:1.7fr 1fr;gap:9px}
+  .entrow{display:grid;grid-template-columns:1fr;gap:9px}
   .certrow{display:grid;grid-template-columns:1.6fr .8fr;gap:9px}
   .split3{display:grid;grid-template-columns:1fr;gap:12px}
   .refrow{display:grid;grid-template-columns:1.6fr 1fr;gap:9px}
@@ -279,6 +280,7 @@
     .pad{padding:22px 28px 28px}.hd{padding:16px 28px}
     .g4{grid-template-columns:repeat(4,1fr);gap:14px}
     .bdrow{grid-template-columns:1.9fr 1.1fr 1fr 1fr .9fr;gap:10px}
+    .entrow{grid-template-columns:1.9fr 1fr 1fr 1fr;gap:10px}
     .certrow{grid-template-columns:1.6fr .7fr 1.4fr .9fr 1.4fr;gap:10px}
     .split3{grid-template-columns:repeat(3,1fr);gap:14px}
     .refrow{grid-template-columns:1.6fr 1.2fr 1.1fr .8fr .8fr 1.1fr;gap:10px}
@@ -1304,6 +1306,72 @@
             <p style="font-size:11px;line-height:1.65;color:var(--text3);margin-top:14px">Trung tâm ở gói Cơ bản đông nhất nhưng đóng góp doanh thu thuê bao bằng không — họ trả bằng chiết khấu cao hơn. Đẩy nhóm này lên Tiêu chuẩn là việc của Giám đốc Kinh doanh.</p>
           </div>
         </sc-if>
+              <!-- ── Quyền lợi theo gói ── ADMIN đặt, không ghi cứng trong mã -->
+        <sc-if value="{{ plTab4 }}" hint-placeholder-val="{{ false }}">
+          <p style="font-size:12px;color:var(--text2);max-width:720px;margin-bottom:16px">Bảng này là <b>chỗ đặt quyền lợi</b>, không phải chính sách. ANWELL dựng cơ chế; gói nào được gì và mỗi tháng bao nhiêu là quyết định của chủ sở hữu nền tảng, đặt tại đây và áp từ kỳ sau.</p>
+
+          <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px">
+            <div class="entrow thead" style="font-size:9.5px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;padding-bottom:9px;border-bottom:1px solid var(--line)">
+              <span>Quyền lợi</span>
+              <sc-for list="{{ entCols }}" as="c" hint-placeholder-count="3">
+                <span style="text-align:center">{{ c.t }}</span>
+              </sc-for>
+            </div>
+            <div style="display:flex;flex-direction:column">
+              <sc-for list="{{ entRows }}" as="r" hint-placeholder-count="6">
+                <div class="entrow" style="align-items:center;padding:13px 0;border-bottom:1px solid var(--line2)">
+                  <span style="min-width:0">
+                    <span style="display:flex;align-items:center;gap:7px">
+                      <sc-if value="{{ r.locked }}" hint-placeholder-val="{{ false }}"><span style="flex:none;font-size:12px">🔒</span></sc-if>
+                      <span style="font-size:12.5px;font-weight:600">{{ r.t }}</span>
+                    </span>
+                    <span style="display:block;font-size:10.5px;color:var(--text3);margin-top:3px;line-height:1.55">{{ r.d }}</span>
+                  </span>
+                  <sc-for list="{{ r.cells }}" as="c" hint-placeholder-count="3">
+                    <span style="display:grid;place-items:center">
+                      <sc-if value="{{ c.isBool }}" hint-placeholder-val="{{ true }}">
+                        <button sc-camel-on-click="{{ c.toggle }}" style="padding:7px 15px;border-radius:99px;font-size:11.5px;font-weight:700;background:{{ c.bg }};color:{{ c.fg }};border:1px solid {{ c.bd }}">{{ c.v }}</button>
+                      </sc-if>
+                      <sc-if value="{{ c.isNum }}" hint-placeholder-val="{{ false }}">
+                        <span style="display:flex;align-items:center;gap:6px">
+                          <button sc-camel-on-click="{{ c.down }}" style="display:grid;place-items:center;width:24px;height:24px;border-radius:7px;background:var(--surface2);border:1px solid var(--line);font-size:13px;font-weight:700;color:var(--text2)">−</button>
+                          <span style="min-width:52px;text-align:center;font-size:13px;font-weight:700">{{ c.v }}</span>
+                          <button sc-camel-on-click="{{ c.up }}" style="display:grid;place-items:center;width:24px;height:24px;border-radius:7px;background:var(--surface2);border:1px solid var(--line);font-size:13px;font-weight:700;color:var(--text2)">+</button>
+                        </span>
+                      </sc-if>
+                    </span>
+                  </sc-for>
+                </div>
+              </sc-for>
+            </div>
+            <p style="font-size:11px;line-height:1.6;color:var(--text3);margin-top:13px">Đổi quyền lợi áp <b>từ kỳ sau</b>, không hồi tố. Trung tâm đang dùng quyền lợi cao hơn gói mới thì giữ nguyên tới hết kỳ đã trả tiền.</p>
+          </div>
+
+          <div class="split" style="margin-top:14px">
+            <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px">
+              <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:17px">Hai dòng đã chốt, không phải để đặt</div>
+              <div style="display:flex;flex-direction:column;gap:10px;margin-top:12px">
+                <sc-for list="{{ entFixed }}" as="f" hint-placeholder-count="2">
+                  <div style="padding:12px;border-radius:11px;background:{{ f.bg }};border-left:3px solid {{ f.bd }}">
+                    <p style="font-size:12.5px;font-weight:600">{{ f.t }}</p>
+                    <p style="font-size:11px;line-height:1.65;color:var(--text2);margin-top:5px">{{ f.d }}</p>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+            <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px">
+              <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:17px">Cách bảng này hoạt động</div>
+              <div style="display:flex;flex-direction:column;gap:11px;margin-top:12px">
+                <sc-for list="{{ entHow }}" as="h" hint-placeholder-count="4">
+                  <div style="display:flex;align-items:flex-start;gap:11px">
+                    <span style="flex:none;display:grid;place-items:center;width:21px;height:21px;border-radius:50%;background:var(--tint);color:var(--primary);font-size:10.5px;font-weight:700;margin-top:1px">{{ h.n }}</span>
+                    <span style="font-size:12px;line-height:1.65;color:var(--text2)">{{ h.t }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </sc-if>
       </sc-if>
 
       <!-- ═══ KỸ THUẬT VIÊN ═══ -->
@@ -1831,7 +1899,18 @@ class Component extends DCLogic {
     // những nơi đã gắn vẫn chạy tiếp — xoá mới là cắt đứt.
     catOff:['sacdep'],
     pCtr:{ basic:{fee:0,disc:18}, std:{fee:1500,disc:15}, pro:{fee:4200,disc:12} },
-    pKtv:{ free:{fee:0,disc:15},  solo:{fee:250,disc:12}, part:{fee:600,disc:9} }, bdPct:3, bdBonus:5000, bdTierBonus:20000,
+    pKtv:{ free:{fee:0,disc:15},  solo:{fee:250,disc:12}, part:{fee:600,disc:9} },
+    // Quyền lợi theo gói. ANWELL dựng CHỖ ĐẶT; gói nào được gì là quyết định
+    // của chủ sở hữu nền tảng, đặt ở đây chứ không ghi cứng trong mã.
+    // Giá trị dưới đây là mức khởi điểm để nhìn thấy bảng, KHÔNG phải chính sách.
+    ent:{
+      web:    { basic:true,  std:true,  pro:true  },
+      tplN:   { basic:1,     std:2,     pro:3     },
+      domain: { basic:false, std:false, pro:true  },
+      photoN: { basic:6,     std:20,    pro:60    },
+      feeWeb: { basic:8,     std:6,     pro:4     },
+      badge:  { basic:false, std:false, pro:false }
+    }, bdPct:3, bdBonus:5000, bdTierBonus:20000,
     // Khiếu nại trung tâm không xử lý được, đẩy lên ANWELL
     escal:[
       { id:'e1', ctr:'Sen Spa & Care', who:'Khách Trần M.', what:'Trung tâm xử bất lợi tranh chấp giờ',
@@ -1984,6 +2063,15 @@ class Component extends DCLogic {
     if (h && this.pages.some(p => p.id === h)) this.setState({ page: h });
   }
   go(id){ this.setState({page:id}); }
+  // Đặt quyền lợi cho một gói. Dòng khoá cứng thì không đổi được.
+  setEnt(row, pk, v){
+    if (row === 'badge') return;
+    this.setState({ ent: { ...this.state.ent, [row]: { ...this.state.ent[row], [pk]: v } } });
+  }
+  stepEnt(row, pk, dir, min, max, step){
+    const cur = this.state.ent[row][pk];
+    this.setEnt(row, pk, Math.min(max, Math.max(min, cur + dir * step)));
+  }
   setWebMod(id, st){ this.setState({ webMod: this.state.webMod.map(x => x.id===id ? {...x, st} : x) }); }
   // Tab trong trang: mỗi trang nhớ riêng tab đang mở.
   setTab(page, k){ this.setState({ tabs: {...this.state.tabs, [page]: k} }); }
@@ -2507,8 +2595,55 @@ class Component extends DCLogic {
         ];
         return {
           isPlans: s.page === 'plans',
-          planTabs: this.tabBar('plans', [['plan','Gói nền tảng'], ['addon','Tiện ích gia tăng'], ['who','Ai đang dùng']]),
-          plTab1: tab==='plan', plTab2: tab==='addon', plTab3: tab==='who',
+          planTabs: this.tabBar('plans', [['plan','Gói nền tảng'], ['addon','Tiện ích gia tăng'],
+                                          ['who','Ai đang dùng'], ['ent','Quyền lợi theo gói']]),
+          plTab1: tab==='plan', plTab2: tab==='addon', plTab3: tab==='who', plTab4: tab==='ent',
+
+          // ── Quyền lợi theo gói: ADMIN đặt, mã không ghi cứng ──
+          entCols: [{ t:'Cơ bản' }, { t:'Tiêu chuẩn' }, { t:'Chuyên nghiệp' }],
+          entRows: [
+            ['web',    'Website riêng · tên miền phụ', 'bool', 0, 0, 0,
+             'tencoso.anwell.vn, cấp tự động ngay khi hồ sơ được duyệt'],
+            ['tplN',   'Số mẫu được chọn', 'num', 1, 3, 1,
+             'Hiện có 3 mẫu đang chạy. Thêm mẫu mới thì tăng trần được ngay'],
+            ['domain', 'Tên miền riêng của trung tâm', 'bool', 0, 0, 0,
+             'ĐÃ CHỐT: chỉ gói cao nhất. Mỗi tên miền cần một chứng chỉ và một lần hướng dẫn trỏ DNS'],
+            ['photoN', 'Số ảnh trong thư viện', 'num', 4, 200, 2,
+             'Tối thiểu 4 ảnh mới đủ điều kiện xuất bản trang'],
+            ['feeWeb', 'Phí nền tảng khi khách đến từ web riêng (%)', 'num', 0, 20, 1,
+             'Thấp hơn phí thường vì ANWELL không mang khách tới. Cân nhắc đặt sàn để tránh trung tâm dồn hết khách cũ vào đây'],
+            ['badge',  'Gỡ huy hiệu Thành viên ANWELL Group', 'bool', 0, 0, 0,
+             'KHOÁ CỨNG — không gói nào gỡ được. Huy hiệu là bằng chứng đã qua thẩm định, thứ ANWELL đang bán']
+          ].map(([k, t, ty, min, max, step, d]) => ({
+            t, d, locked: k === 'badge',
+            cells: ['basic','std','pro'].map(pk => {
+              const v = s.ent[k][pk], lock = k === 'badge';
+              return ty === 'bool'
+                ? { isBool:true, isNum:false, v: v ? 'Có' : 'Không',
+                    toggle: () => this.setEnt(k, pk, !v),
+                    bg: lock ? 'var(--surface2)' : (v ? 'var(--okTint)' : 'var(--surface2)'),
+                    fg: lock ? 'var(--text3)' : (v ? 'var(--ok)' : 'var(--text3)'),
+                    bd: lock ? 'var(--line)' : (v ? 'var(--ok)' : 'var(--line)') }
+                : { isBool:false, isNum:true, v: String(v),
+                    up:   () => this.stepEnt(k, pk,  1, min, max, step),
+                    down: () => this.stepEnt(k, pk, -1, min, max, step),
+                    bg:'', fg:'', bd:'', toggle: () => {} };
+            })
+          })),
+          entFixed: [
+            { t:'Tên miền riêng — chỉ gói cao nhất',
+              d:'Chủ dự án chốt 02/08/2026. Vẫn để công tắc ở bảng trên vì sau này có thể mở thêm gói, nhưng mở là kèm chi phí hỗ trợ thật: chủ trung tâm không biết trỏ DNS.',
+              bg:'var(--tint)', bd:'var(--primary)' },
+            { t:'Huy hiệu ANWELL — không gói nào gỡ được',
+              d:'Khoá cứng, không phải tham số. Huy hiệu là bằng chứng đã qua thẩm định. Gỡ đi thì trang trung tâm thành một trang tự giới thiệu như mọi trang khác, mà ANWELL vẫn đứng tên ở dòng miễn trừ y khoa phía dưới.',
+              bg:'var(--dangerTint)', bd:'var(--danger)' }
+          ],
+          entHow: [
+            { n:'1', t:'Mã đọc quyền lợi từ bảng này, không hỏi tên gói. Thêm gói mới sau này chỉ cần thêm một cột, không sửa mã.' },
+            { n:'2', t:'Dòng có ổ khoá là ràng buộc cấu trúc, không phải tham số — bấm không đổi được.' },
+            { n:'3', t:'Đổi quyền lợi áp từ kỳ sau, không hồi tố. Trung tâm đang hưởng mức cao hơn thì giữ tới hết kỳ đã trả.' },
+            { n:'4', t:'Giá thuê bao và chiết khấu đặt ở tab Gói nền tảng. Bảng này chỉ quản quyền lợi, không quản tiền.' }
+          ],
           planCtr: card('pCtr', CTR),
           planKtv: card('pKtv', KTV),
           addons: ADDONS.map(a => ({ ...a,
