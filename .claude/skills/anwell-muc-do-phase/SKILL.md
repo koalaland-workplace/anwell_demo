@@ -27,6 +27,11 @@ người dùng thật sớm. Ba mươi hai tuần chỉ đủ nếu mỗi Phase 
 
 2. **Đọc cột "Mức độ"** — Mức 1 Cơ bản, Mức 2 Đầy đủ, hay Mức 3 Nâng cao.
 
+   **Riêng P00–P04: cột này KHÔNG phải lời cuối.** Sheet *Phân loại Mức 2 ·
+   P00–P04* đã rà lại toàn bộ 139 chức năng ghi Mức 2 và hạ 46 chức năng xuống
+   Mức 1. Tra mã ở sheet đó trước. Nếu nó ghi HẠ thì làm Mức 1, dù bảng chính
+   vẫn ghi Mức 2 — cột "Vì sao · phạm vi Mức 1" nói rõ làm tới đâu.
+
 3. **Đọc cột "Phạm vi làm ở mức này"** — đây là ranh giới. Làm đúng chừng đó.
 
 4. **Kiểm danh sách CẮT SẴN** — sheet *Cắt sẵn theo mốc ngân sách* trong cùng
