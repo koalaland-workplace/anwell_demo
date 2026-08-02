@@ -2418,7 +2418,7 @@
 
         <!-- ── Mẫu & màu ── -->
         <sc-if value="{{ wTpl }}" hint-placeholder-val="{{ true }}">
-          <p style="font-size:12px;color:var(--text2);max-width:680px;margin-bottom:16px">Ba mẫu dùng chung một bố cục, khác nhau ở màu và kiểu chữ. Đổi mẫu không mất nội dung đã nhập — nội dung nằm riêng, mẫu chỉ là lớp áo.</p>
+          <p style="font-size:12px;color:var(--text2);max-width:680px;margin-bottom:16px">Ba mẫu dùng chung một bố cục nhưng khác nhau cả <b>mật độ</b>: cỡ chữ, chiều cao khối mở đầu, độ thoáng. Đổi mẫu không mất nội dung đã nhập — nội dung nằm riêng, mẫu chỉ là lớp áo.</p>
           <div class="tpl3">
             <sc-for list="{{ tpls }}" as="t" hint-placeholder-count="3">
               <button sc-camel-on-click="{{ t.pick }}" style="display:block;width:100%;text-align:left;background:var(--surface);border:2px solid {{ t.bd }};border-radius:14px;padding:14px">
@@ -2600,7 +2600,7 @@ class Component extends DCLogic {
   state = {
     // Mặt tiền của trung tâm. Nội dung nằm riêng khỏi mẫu — đổi mẫu không mất
     // chữ đã nhập, vì mẫu chỉ là lớp áo.
-    web: { tpl:'annhien', color:'xanh', pub:true, mod:'ok', gallery:6 },
+    web: { tpl:'trilieu', color:'xanh', pub:true, mod:'ok', gallery:6 },
  theme:'serene', page:'dash', day:'T7', staffFilter:'Tất cả', withhold:true, tabs:{}, cusId:null, menuOpen:false,
     regForm:{}, regSvcs:[], regVenue:['center'], regDocsOn:[], regVowsOn:[],
     campOn:['c1','c3'], msgGroup:'lapse', msgText:'', autoOn:['a1','a2','a3'],
@@ -2804,6 +2804,14 @@ class Component extends DCLogic {
       fg: cur===k ? 'var(--text)' : 'var(--text3)',
       sh: cur===k ? '0 1px 3px rgba(0,0,0,.08)' : 'none' }));
   }
+  // Ô chọn dạng viên — nền đậm khi đang chọn. Sáu chỗ trong trang này dùng
+  // đúng một bộ ba màu; gom lại để đổi màu một lần là đổi cả trang.
+  // Khác tabBar ở trên: tabBar là thanh tab chìm, pill là viên nổi.
+  pill(on){
+    return { bg: on ? 'var(--primary)' : 'var(--surface)',
+             fg: on ? 'var(--on-primary)' : 'var(--text)',
+             bd: on ? 'var(--primary)' : 'var(--line)' };
+  }
   setArr(id, st){
     this.setState({ arrivals: this.state.arrivals.map(a => a.id === id ? {...a, st} : a) });
   }
@@ -2836,13 +2844,15 @@ class Component extends DCLogic {
       ...(() => {
         const w = s.web, tab = this.tabOf('web', 'tpl');
         const sub = 'annhien.anwell.vn';
+        // Ba mẫu bám theo ba nhóm cơ sở thật, khác nhau cả MẬT ĐỘ chứ không chỉ màu:
+        // cỡ chữ, chiều cao khối mở đầu, độ thoáng đều nằm trong bộ token.
         const TPL = [
-          ['annhien','An Nhiên','Xanh trị liệu, bo góc mềm. Hợp cơ sở làm phục hồi và trị liệu.',
-           'linear-gradient(135deg,#0C3F36,#12564A 60%,#2E8567)'],
-          ['moc','Mộc','Nâu ấm, góc vuông, chữ có chân. Hợp dưỡng sinh và cổ truyền.',
-           'linear-gradient(135deg,#3A2515,#7A4E24 60%,#A8712C)'],
-          ['sang','Sáng','Trắng xanh, bo góc lớn, chữ hiện đại. Hợp spa và chăm sóc sắc đẹp.',
-           'linear-gradient(135deg,#0B3A66,#0E5FA8 60%,#1A79C9)']
+          ['trilieu','Trị Liệu','Cổ vai gáy · truyền thống và thiết bị cao. Chữ lớn nhất, tương phản cao, khối mở đầu gọn để bảng giá và bằng chứng lên sớm — khách nhóm này phần lớn lớn tuổi.',
+           'linear-gradient(135deg,#0B3A31,#0F5445 60%,#166050)'],
+          ['tinhhoa','Tinh Hoa','Làm đẹp · sang trọng hiện đại. Nền tối, chữ có chân rất lớn, góc gần vuông, thoáng nhất. Ảnh là chính — nhưng giá vẫn hiện.',
+           'linear-gradient(135deg,#0A0D0C,#1A1512 55%,#2A2018)'],
+          ['tinhtai','Tịnh Tại','Thư giãn · chăm sóc toàn diện. Kem và đất, bo góc lớn nhất, nhịp chậm.',
+           'linear-gradient(135deg,#3B4436,#5E6B4F 60%,#77855F)']
         ];
         const COLOR = [['xanh','Xanh trị liệu','#12564A'], ['nau','Nâu mộc','#7A4E24'],
                        ['duong','Xanh dương','#0E5FA8'], ['vang','Vàng ấm','#96682A'],

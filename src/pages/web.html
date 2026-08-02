@@ -266,40 +266,67 @@
      Đây là điểm cốt lõi: đổi mẫu chỉ đổi giá trị biến, không đổi một thẻ HTML
      nào. Nếu dựng ba bố cục khác nhau thì chi phí gấp ba mà không thêm giá trị
      kinh doanh nào. ── */
+  /* ── BA MẪU = BA BỘ TOKEN trên MỘT bố cục ──
+     Đổi mẫu không đổi một thẻ HTML nào. Ngoài màu và kiểu chữ, bộ token còn
+     điều khiển MẬT ĐỘ: cỡ chữ, chiều cao khối mở đầu, độ thoáng giữa các
+     phần. Ba thứ đó mới làm ba phong cách khác nhau thật sự, chứ đổi mỗi màu
+     thì vẫn là một trang. ── */
+
+  /* ① TRỊ LIỆU — cổ vai gáy · truyền thống và thiết bị cao.
+     Khách nhóm này phần lớn lớn tuổi: chữ lớn nhất, tương phản cao nhất, khối
+     mở đầu THẤP để bảng giá và bằng chứng lên sớm. Ảnh là phụ. */
   .site{
-    --bg:#F7F8F5;--surface:#FFFFFF;--surface2:#F1F4F0;--line:#E4E8E2;--line2:#EEF1EC;
-    --text:#14211B;--text2:#4C6157;--text3:#7A8C83;
-    --brand:#12564A;--onBrand:#FFFFFF;--tint:#E4EFE8;
-    --accent:#96682A;--gold:#E7CE97;--goldTint:#F6EBD6;
-    --ok:#177245;--okTint:#E4EFE8;
-    --r:16px;--rs:11px;--rp:99px;
-    --hero:linear-gradient(158deg,#0C3F36,#12564A 68%,#1B5B4C);
-    --onHero:#FFFFFF;--onHeroSub:rgba(255,255,255,.78);
-    --ttl:'Cormorant Garamond',serif;--ttlW:600;--ttlSp:0;
-    --shadow:0 1px 3px rgba(20,33,27,.07);
+    --bg:#F6F8F5;--surface:#FFFFFF;--surface2:#EDF2EE;--line:#DCE4DE;--line2:#EAEFEB;
+    --text:#12211A;--text2:#3F544A;--text3:#6E8378;
+    --brand:#0F5445;--onBrand:#FFFFFF;--tint:#DFEDE5;
+    --accent:#8A5A18;--gold:#C9922F;--goldTint:#F6EDDC;
+    --ok:#146B3F;--okTint:#DFEDE5;
+    --footBg:#12211A;--footInk:#E6F0EA;--footInk2:#9DB3A7;
+    --r:12px;--rs:9px;--rp:99px;
+    --hero:linear-gradient(158deg,#0B3A31,#0F5445 66%,#166050);
+    --onHero:#FFFFFF;--onHeroSub:rgba(255,255,255,.82);
+    --ttl:'Be Vietnam Pro',system-ui,sans-serif;--ttlW:700;--ttlSp:-.015em;
+    --fsH1:34px;--fsH2:25px;--fsLede:15.5px;--fsBody:14px;
+    --secPad:40px;--heroPad:40px;
+    --shadow:0 1px 3px rgba(18,33,26,.08);
     color:var(--text);background:var(--bg);
   }
-  .site[data-tpl="moc"]{
-    --bg:#FAF6EF;--surface:#FFFDF8;--surface2:#F2EADC;--line:#E4D8C4;--line2:#EFE7D8;
-    --text:#2C241A;--text2:#5A4B38;--text3:#8A7A63;
-    --brand:#7A4E24;--onBrand:#FFF8EE;--tint:#F2E6D4;
-    --accent:#A8712C;--gold:#D9B26A;--goldTint:#F5E9D2;
-    --ok:#5C7A3A;--okTint:#EDF2E2;
-    --r:6px;--rs:4px;--rp:6px;
-    --hero:linear-gradient(158deg,#3A2515,#7A4E24 70%,#8A5A2C);
-    --ttl:'Cormorant Garamond',serif;--ttlW:700;--ttlSp:.01em;
-    --shadow:0 1px 2px rgba(44,36,26,.10);
+  /* ② TINH HOA — làm đẹp · sang trọng hiện đại.
+     Nền tối, chữ tiêu đề rất lớn kiểu có chân, góc gần vuông, khoảng trắng
+     dọc rộng nhất. Ảnh là chính, chữ ít. Nhưng giá VẪN hiện — spa cao cấp hay
+     giấu giá, ANWELL thì không được: niêm yết giá là thứ nền tảng đang bán. */
+  .site[data-tpl="tinhhoa"]{
+    --bg:#0D1210;--surface:#151C19;--surface2:#1D2621;--line:#2A352F;--line2:#222C27;
+    --text:#F0EBE0;--text2:#BDB4A4;--text3:#8C8577;
+    --brand:#C9A227;--onBrand:#12100A;--tint:#241F14;
+    --accent:#C9A227;--gold:#E0C271;--goldTint:#241F14;
+    --ok:#8FBF8A;--okTint:#1B2A1D;
+    --footBg:#080B0A;--footInk:#F0EBE0;--footInk2:#8C8577;
+    --r:2px;--rs:2px;--rp:2px;
+    --hero:linear-gradient(158deg,#0A0D0C,#1A1512 58%,#2A2018);
+    --onHero:#F5F0E4;--onHeroSub:rgba(245,240,228,.66);
+    --ttl:'Cormorant Garamond',serif;--ttlW:600;--ttlSp:.02em;
+    --fsH1:46px;--fsH2:31px;--fsLede:14px;--fsBody:12.5px;
+    --secPad:62px;--heroPad:78px;
+    --shadow:none;
   }
-  .site[data-tpl="sang"]{
-    --bg:#FFFFFF;--surface:#FFFFFF;--surface2:#F4F7FA;--line:#E2E9F0;--line2:#EFF3F7;
-    --text:#101A24;--text2:#40525F;--text3:#78889A;
-    --brand:#0E5FA8;--onBrand:#FFFFFF;--tint:#E4EFF9;
-    --accent:#0E5FA8;--gold:#7FB2DD;--goldTint:#E9F2FA;
-    --ok:#0E7A52;--okTint:#E3F3EC;
-    --r:20px;--rs:14px;--rp:99px;
-    --hero:linear-gradient(158deg,#0B3A66,#0E5FA8 72%,#1A79C9);
-    --ttl:'Be Vietnam Pro',system-ui,sans-serif;--ttlW:700;--ttlSp:-.02em;
-    --shadow:0 2px 10px rgba(16,26,36,.06);
+  /* ③ TỊNH TẠI — thư giãn · chăm sóc toàn diện.
+     Kem và đất, góc bo lớn nhất, thoáng nhất. Nhịp chậm: khối mở đầu vừa
+     phải, chữ tiêu đề có chân nhưng nhẹ. */
+  .site[data-tpl="tinhtai"]{
+    --bg:#FAF6EF;--surface:#FFFDF9;--surface2:#F2EBDF;--line:#E4DACA;--line2:#EFE8DC;
+    --text:#2B2620;--text2:#5B5145;--text3:#8B8072;
+    --brand:#5E6B4F;--onBrand:#FFFDF9;--tint:#E9EDE2;
+    --accent:#A07A45;--gold:#C9A96E;--goldTint:#F3E9D8;
+    --ok:#5E6B4F;--okTint:#E9EDE2;
+    --footBg:#2B2620;--footInk:#F5F0E7;--footInk2:#A79C8C;
+    --r:22px;--rs:16px;--rp:99px;
+    --hero:linear-gradient(158deg,#3B4436,#5E6B4F 64%,#77855F);
+    --onHero:#FBF8F1;--onHeroSub:rgba(251,248,241,.78);
+    --ttl:'Cormorant Garamond',serif;--ttlW:600;--ttlSp:0;
+    --fsH1:40px;--fsH2:28px;--fsLede:15px;--fsBody:13.5px;
+    --secPad:56px;--heroPad:58px;
+    --shadow:0 1px 2px rgba(43,38,32,.06);
   }
 
   .wrap{max-width:1080px;margin:0 auto;padding:0 18px}
@@ -309,7 +336,7 @@
        background:var(--brand);color:var(--onBrand);font-size:14px;font-weight:600}
   .btn2{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:var(--rp);
         background:var(--surface);border:1px solid var(--line);color:var(--text);font-size:13.5px;font-weight:600}
-  .sec{padding:44px 0}
+  .sec{padding:var(--secPad) 0}
   .eyebrow{font:700 9.5px ui-monospace,monospace;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
 
   .g2w{display:grid;grid-template-columns:1fr;gap:14px}
@@ -324,7 +351,6 @@
     .g4w{grid-template-columns:repeat(4,1fr);gap:16px}
     .heroGrid{grid-template-columns:1.15fr .85fr;gap:34px}
     .navLinks{display:flex;gap:22px}
-    .sec{padding:58px 0}
     .bkGrid{grid-template-columns:1.1fr .9fr;gap:20px}
   }
 
@@ -370,11 +396,11 @@
 
   <!-- ═══ Khối mở đầu ═══ -->
   <section style="background:var(--hero);color:var(--onHero)">
-    <div class="wrap sec heroGrid">
+    <div class="wrap heroGrid" style="padding-top:var(--heroPad);padding-bottom:var(--heroPad)">
       <div>
         <p class="eyebrow" style="color:var(--gold)">{{ ctrTag }}</p>
-        <h1 class="ttl" style="font-size:38px;margin-top:10px;color:var(--onHero)">{{ ctrHead }}</h1>
-        <p style="font-size:14.5px;line-height:1.7;color:var(--onHeroSub);margin-top:12px;max-width:460px">{{ ctrLede }}</p>
+        <h1 class="ttl" style="font-size:var(--fsH1);margin-top:10px;color:var(--onHero)">{{ ctrHead }}</h1>
+        <p style="font-size:var(--fsLede);line-height:1.7;color:var(--onHeroSub);margin-top:12px;max-width:460px">{{ ctrLede }}</p>
         <div style="display:flex;align-items:center;gap:18px;margin-top:18px;flex-wrap:wrap">
           <span style="display:flex;align-items:center;gap:7px">
             <span style="font-family:var(--ttl);font-weight:700;font-size:26px;color:var(--gold)">{{ ctrStar }}</span>
@@ -403,8 +429,8 @@
   <!-- ═══ Dịch vụ và giá ═══ -->
   <section id="dichvu" class="wrap sec">
     <p class="eyebrow">Dịch vụ</p>
-    <h2 class="ttl" style="font-size:27px;margin-top:7px">Bảng giá niêm yết</h2>
-    <p style="font-size:13px;color:var(--text2);margin-top:7px;max-width:560px">Giá đọc thẳng từ hệ thống quản trị của trung tâm. Trung tâm sửa giá một chỗ, trang này đổi theo — không có bảng giá thứ hai để lệch nhau.</p>
+    <h2 class="ttl" style="font-size:var(--fsH2);margin-top:7px">Bảng giá niêm yết</h2>
+    <p style="font-size:var(--fsBody);color:var(--text2);margin-top:7px;max-width:560px">Giá đọc thẳng từ hệ thống quản trị của trung tâm. Trung tâm sửa giá một chỗ, trang này đổi theo — không có bảng giá thứ hai để lệch nhau.</p>
     <div class="g3w" style="margin-top:20px">
       <sc-for list="{{ svcs }}" as="s" hint-placeholder-count="6">
         <div class="card" style="padding:17px">
@@ -427,8 +453,8 @@
   <section id="doingu" style="background:var(--surface2)">
     <div class="wrap sec">
       <p class="eyebrow">Đội ngũ</p>
-      <h2 class="ttl" style="font-size:27px;margin-top:7px">Kỹ thuật viên có bậc nghề</h2>
-      <p style="font-size:13px;color:var(--text2);margin-top:7px;max-width:600px">Bậc do <b>ANWELL cấp sau thẩm định</b>, không phải trung tâm tự ghi. Bậc quyết định kỹ thuật viên được nhận loại ca nào.</p>
+      <h2 class="ttl" style="font-size:var(--fsH2);margin-top:7px">Kỹ thuật viên có bậc nghề</h2>
+      <p style="font-size:var(--fsBody);color:var(--text2);margin-top:7px;max-width:600px">Bậc do <b>ANWELL cấp sau thẩm định</b>, không phải trung tâm tự ghi. Bậc quyết định kỹ thuật viên được nhận loại ca nào.</p>
       <div class="g4w" style="margin-top:20px">
         <sc-for list="{{ team }}" as="k" hint-placeholder-count="4">
           <div class="card" style="padding:16px;text-align:center">
@@ -447,7 +473,7 @@
     <div class="g2w">
       <div>
         <p class="eyebrow">Giới thiệu</p>
-        <h2 class="ttl" style="font-size:27px;margin-top:7px">{{ aboutH }}</h2>
+        <h2 class="ttl" style="font-size:var(--fsH2);margin-top:7px">{{ aboutH }}</h2>
         <p style="font-size:14px;line-height:1.8;color:var(--text2);margin-top:12px">{{ about }}</p>
         <div style="display:flex;flex-direction:column;gap:10px;margin-top:18px">
           <sc-for list="{{ strong }}" as="s" hint-placeholder-count="4">
@@ -480,7 +506,7 @@
   <section id="datlich" style="background:var(--surface2)">
     <div class="wrap sec">
       <p class="eyebrow">Đặt lịch</p>
-      <h2 class="ttl" style="font-size:27px;margin-top:7px">Đặt ngay tại đây, không rời trang</h2>
+      <h2 class="ttl" style="font-size:var(--fsH2);margin-top:7px">Đặt ngay tại đây, không rời trang</h2>
       <div class="bkGrid" style="margin-top:20px">
         <div class="card" style="padding:18px">
           <p style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.08em">Bước 1 · Chọn dịch vụ</p>
@@ -530,13 +556,13 @@
   <!-- ═══ Đánh giá ═══ -->
   <section class="wrap sec">
     <p class="eyebrow">Khách nói gì</p>
-    <h2 class="ttl" style="font-size:27px;margin-top:7px">Đánh giá của khách đã tới</h2>
-    <p style="font-size:13px;color:var(--text2);margin-top:7px">Chỉ khách đã hoàn thành buổi mới đánh giá được. Trung tâm không sửa và không xoá được đánh giá.</p>
+    <h2 class="ttl" style="font-size:var(--fsH2);margin-top:7px">Đánh giá của khách đã tới</h2>
+    <p style="font-size:var(--fsBody);color:var(--text2);margin-top:7px">Chỉ khách đã hoàn thành buổi mới đánh giá được. Trung tâm không sửa và không xoá được đánh giá.</p>
     <div class="g3w" style="margin-top:20px">
       <sc-for list="{{ reviews }}" as="r" hint-placeholder-count="3">
         <div class="card" style="padding:17px">
           <p style="font-size:14px;color:var(--gold)">{{ r.stars }}</p>
-          <p style="font-size:13px;line-height:1.7;color:var(--text2);margin-top:9px">{{ r.q }}</p>
+          <p style="font-size:var(--fsBody);line-height:1.7;color:var(--text2);margin-top:9px">{{ r.q }}</p>
           <p style="font-size:11.5px;color:var(--text3);margin-top:11px">{{ r.who }} · {{ r.svc }}</p>
         </div>
       </sc-for>
@@ -544,43 +570,43 @@
   </section>
 
   <!-- ═══ Chân trang — trung tâm KHÔNG gỡ được ═══ -->
-  <footer id="lienhe" style="background:var(--text);color:#EAF4ED">
+  <footer id="lienhe" style="background:var(--footBg);color:var(--footInk)">
     <div class="wrap" style="padding:38px 18px 26px">
       <div class="g2w">
         <div>
-          <p class="ttl" style="font-size:19px;color:#EAF4ED">{{ ctrName }}</p>
-          <p style="font-size:13px;line-height:1.8;color:#9FB3A8;margin-top:9px">{{ addr }}</p>
-          <p style="font-size:13px;color:#9FB3A8;margin-top:5px">{{ phone }} · {{ email }}</p>
+          <p class="ttl" style="font-size:19px;color:var(--footInk)">{{ ctrName }}</p>
+          <p style="font-size:13px;line-height:1.8;color:var(--footInk2);margin-top:9px">{{ addr }}</p>
+          <p style="font-size:13px;color:var(--footInk2);margin-top:5px">{{ phone }} · {{ email }}</p>
         </div>
         <div>
-          <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.16em;color:#7E9488;text-transform:uppercase">Thành viên</p>
+          <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.16em;color:var(--footInk2);text-transform:uppercase">Thành viên</p>
           <div style="display:flex;align-items:center;gap:11px;margin-top:11px">
             <svg width="30" height="30" sc-camel-view-box="0 0 24 24" style="flex:none"><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(-56 12 22)" fill="#96682A" opacity=".5"></path><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(-28 12 22)" fill="#D8A94E" opacity=".8"></path><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" fill="#E7CE97"></path><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(28 12 22)" fill="#D8A94E" opacity=".8"></path><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(56 12 22)" fill="#96682A" opacity=".5"></path></svg>
             <div>
               <p style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:17px;letter-spacing:.13em;color:#E7CE97">ANWELL</p>
-              <p style="font-size:11px;color:#9FB3A8">A Member of ANWELL Group</p>
+              <p style="font-size:11px;color:var(--footInk2)">A Member of ANWELL Group</p>
             </div>
           </div>
-          <p style="font-size:11.5px;line-height:1.7;color:#7E9488;margin-top:12px">Cơ sở đã qua thẩm định của ANWELL: giấy phép hành nghề, chứng chỉ kỹ thuật viên và niêm yết giá được kiểm trước khi lên nền tảng.</p>
-          <div style="display:flex;flex-wrap:wrap;gap:14px;margin-top:12px;font-size:11.5px;color:#9FB3A8">
+          <p style="font-size:11.5px;line-height:1.7;color:var(--footInk2);margin-top:12px">Cơ sở đã qua thẩm định của ANWELL: giấy phép hành nghề, chứng chỉ kỹ thuật viên và niêm yết giá được kiểm trước khi lên nền tảng.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:14px;margin-top:12px;font-size:11.5px;color:var(--footInk2)">
             <sc-for list="{{ legal }}" as="l" hint-placeholder-count="3">
               <a href="{{ l.h }}" style="text-decoration:underline">{{ l.t }}</a>
             </sc-for>
           </div>
         </div>
       </div>
-      <p style="font-size:11px;color:#5F7268;margin-top:24px;padding-top:16px;border-top:1px solid #22382D;line-height:1.7">{{ ctrLegalName }} · {{ ctrTax }}. ANWELL là nền tảng trung gian kết nối, không phải cơ sở khám chữa bệnh. Dịch vụ trên trang này là chăm sóc và phục hồi, không thay thế chẩn đoán hay điều trị y tế.</p>
+      <p style="font-size:11px;color:var(--footInk2);opacity:.72;margin-top:24px;padding-top:16px;border-top:1px solid rgba(255,255,255,.14);line-height:1.7">{{ ctrLegalName }} · {{ ctrTax }}. ANWELL là nền tảng trung gian kết nối, không phải cơ sở khám chữa bệnh. Dịch vụ trên trang này là chăm sóc và phục hồi, không thay thế chẩn đoán hay điều trị y tế.</p>
     </div>
   </footer>
 </div>
 
 </x-dc>
-<script type="text/x-dc" data-dc-script="" data-props="{&quot;tpl&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;annhien&quot;,&quot;moc&quot;,&quot;sang&quot;],&quot;default&quot;:&quot;annhien&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Demo&quot;}}">
+<script type="text/x-dc" data-dc-script="" data-props="{&quot;tpl&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;trilieu&quot;,&quot;tinhhoa&quot;,&quot;tinhtai&quot;],&quot;default&quot;:&quot;trilieu&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Demo&quot;}}">
 class Component extends DCLogic {
   state = {
     // Mẫu đang xem. Ba mẫu là BA BỘ TOKEN trên MỘT bố cục — đổi mẫu không đổi
     // một thẻ HTML nào. Đây là lý do ba mẫu không tốn gấp ba.
-    tpl: 'annhien',
+    tpl: 'trilieu',
     svc: 's1', day: 0, slot: '', booked: false,
 
     // Hồ sơ trung tâm — đọc từ hệ thống, trung tâm khai một lần ở Quản trị.
@@ -648,7 +674,7 @@ class Component extends DCLogic {
     const s = this.state, c = s.ctr;
     const money = (n) => n.toLocaleString('vi-VN') + '.000₫';
 
-    const TPL = [['annhien','An Nhiên'], ['moc','Mộc'], ['sang','Sáng']];
+    const TPL = [['trilieu','Trị Liệu'], ['tinhhoa','Tinh Hoa'], ['tinhtai','Tịnh Tại']];
     const tplPick = TPL.map(([k, t]) => ({ t, pick:() => this.setState({ tpl:k }),
       bg: s.tpl === k ? '#E7CE97' : 'transparent',
       fg: s.tpl === k ? '#14211B' : '#A9C4B5',
