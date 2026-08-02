@@ -26,6 +26,10 @@
     "title": "Quản trị Giám đốc Kinh doanh — ANWELL",
     "description": "Cổng dành cho Giám đốc Kinh doanh: link và mã giới thiệu riêng cho trung tâm và kỹ thuật viên tự do, trạng thái duyệt hồ sơ, hoa hồng theo doanh số và chỉ tiêu theo vùng."
   },
+  "web": {
+    "title": "An Nhiên Wellness — Trung tâm thành viên ANWELL",
+    "description": "Website riêng của trung tâm trên nền tảng ANWELL: bảng giá niêm yết, đội ngũ kỹ thuật viên có bậc nghề, và đặt lịch thẳng trên trang."
+  },
   "admin": {
     "title": "Quản trị Nền tảng — ANWELL",
     "description": "Giám sát toàn nền tảng: GMV theo khu vực, cảnh báo hệ thống, phê duyệt trung tâm và kỹ thuật viên, chính sách và cấu hình."

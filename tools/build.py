@@ -17,7 +17,7 @@ import re
 import shutil
 from pathlib import Path
 
-PAGES = ["index", "demo", "app", "center", "ktv", "bd", "admin"]
+PAGES = ["index", "demo", "app", "center", "ktv", "bd", "web", "admin"]
 ROOT = Path(__file__).resolve().parent.parent
 SHARED = ROOT / "src" / "shared"
 

@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="vendor/dc-runtime.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<style>/* vietnamese */
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/fonts/font-01.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/fonts/font-02.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/fonts/font-03.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("assets/fonts/font-04.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("assets/fonts/font-05.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("assets/fonts/font-06.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("assets/fonts/font-07.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("assets/fonts/font-08.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("assets/fonts/font-09.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("assets/fonts/font-10.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("assets/fonts/font-11.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("assets/fonts/font-12.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: italic;
+  font-weight: 600;
+  font-display: swap;
+  src: url("assets/fonts/font-13.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: italic;
+  font-weight: 600;
+  font-display: swap;
+  src: url("assets/fonts/font-14.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: italic;
+  font-weight: 600;
+  font-display: swap;
+  src: url("assets/fonts/font-15.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: italic;
+  font-weight: 600;
+  font-display: swap;
+  src: url("assets/fonts/font-16.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: italic;
+  font-weight: 600;
+  font-display: swap;
+  src: url("assets/fonts/font-17.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("assets/fonts/font-18.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("assets/fonts/font-19.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("assets/fonts/font-20.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("assets/fonts/font-21.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("assets/fonts/font-22.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("assets/fonts/font-18.woff2") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("assets/fonts/font-19.woff2") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("assets/fonts/font-20.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("assets/fonts/font-21.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("assets/fonts/font-22.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+</style>
+
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#EDF0EB;font-family:'Be Vietnam Pro',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;text-align:left}
+  img{display:block;max-width:100%}
+  ::-webkit-scrollbar{width:8px;height:8px}::-webkit-scrollbar-thumb{background:var(--line);border-radius:99px}
+
+  /* ── Ba mẫu = ba bộ token, MỘT bố cục ──
+     Đây là điểm cốt lõi: đổi mẫu chỉ đổi giá trị biến, không đổi một thẻ HTML
+     nào. Nếu dựng ba bố cục khác nhau thì chi phí gấp ba mà không thêm giá trị
+     kinh doanh nào. ── */
+  .site{
+    --bg:#F7F8F5;--surface:#FFFFFF;--surface2:#F1F4F0;--line:#E4E8E2;--line2:#EEF1EC;
+    --text:#14211B;--text2:#4C6157;--text3:#7A8C83;
+    --brand:#12564A;--onBrand:#FFFFFF;--tint:#E4EFE8;
+    --accent:#96682A;--gold:#E7CE97;--goldTint:#F6EBD6;
+    --ok:#177245;--okTint:#E4EFE8;
+    --r:16px;--rs:11px;--rp:99px;
+    --hero:linear-gradient(158deg,#0C3F36,#12564A 68%,#1B5B4C);
+    --onHero:#FFFFFF;--onHeroSub:rgba(255,255,255,.78);
+    --ttl:'Cormorant Garamond',serif;--ttlW:600;--ttlSp:0;
+    --shadow:0 1px 3px rgba(20,33,27,.07);
+    color:var(--text);background:var(--bg);
+  }
+  .site[data-tpl="moc"]{
+    --bg:#FAF6EF;--surface:#FFFDF8;--surface2:#F2EADC;--line:#E4D8C4;--line2:#EFE7D8;
+    --text:#2C241A;--text2:#5A4B38;--text3:#8A7A63;
+    --brand:#7A4E24;--onBrand:#FFF8EE;--tint:#F2E6D4;
+    --accent:#A8712C;--gold:#D9B26A;--goldTint:#F5E9D2;
+    --ok:#5C7A3A;--okTint:#EDF2E2;
+    --r:6px;--rs:4px;--rp:6px;
+    --hero:linear-gradient(158deg,#3A2515,#7A4E24 70%,#8A5A2C);
+    --ttl:'Cormorant Garamond',serif;--ttlW:700;--ttlSp:.01em;
+    --shadow:0 1px 2px rgba(44,36,26,.10);
+  }
+  .site[data-tpl="sang"]{
+    --bg:#FFFFFF;--surface:#FFFFFF;--surface2:#F4F7FA;--line:#E2E9F0;--line2:#EFF3F7;
+    --text:#101A24;--text2:#40525F;--text3:#78889A;
+    --brand:#0E5FA8;--onBrand:#FFFFFF;--tint:#E4EFF9;
+    --accent:#0E5FA8;--gold:#7FB2DD;--goldTint:#E9F2FA;
+    --ok:#0E7A52;--okTint:#E3F3EC;
+    --r:20px;--rs:14px;--rp:99px;
+    --hero:linear-gradient(158deg,#0B3A66,#0E5FA8 72%,#1A79C9);
+    --ttl:'Be Vietnam Pro',system-ui,sans-serif;--ttlW:700;--ttlSp:-.02em;
+    --shadow:0 2px 10px rgba(16,26,36,.06);
+  }
+
+  .wrap{max-width:1080px;margin:0 auto;padding:0 18px}
+  .ttl{font-family:var(--ttl);font-weight:var(--ttlW);letter-spacing:var(--ttlSp);line-height:1.15}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow)}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:var(--rp);
+       background:var(--brand);color:var(--onBrand);font-size:14px;font-weight:600}
+  .btn2{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:var(--rp);
+        background:var(--surface);border:1px solid var(--line);color:var(--text);font-size:13.5px;font-weight:600}
+  .sec{padding:44px 0}
+  .eyebrow{font:700 9.5px ui-monospace,monospace;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+
+  .g2w{display:grid;grid-template-columns:1fr;gap:14px}
+  .g3w{display:grid;grid-template-columns:1fr;gap:14px}
+  .g4w{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .heroGrid{display:grid;grid-template-columns:1fr;gap:20px;align-items:center}
+  .navLinks{display:none}
+  .bkGrid{display:grid;grid-template-columns:1fr;gap:14px}
+  @media(min-width:820px){
+    .g2w{grid-template-columns:1.35fr 1fr;gap:20px}
+    .g3w{grid-template-columns:repeat(3,1fr);gap:18px}
+    .g4w{grid-template-columns:repeat(4,1fr);gap:16px}
+    .heroGrid{grid-template-columns:1.15fr .85fr;gap:34px}
+    .navLinks{display:flex;gap:22px}
+    .sec{padding:58px 0}
+    .bkGrid{grid-template-columns:1.1fr .9fr;gap:20px}
+  }
+
+  /* thanh xem trước — CHỈ có trong bản demo, trang thật không có */
+  .demobar{position:sticky;top:0;z-index:40;background:#14211B;color:#EAF4ED;
+           padding:9px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-size:11.5px}
+  @keyframes fu{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
+  .fu{animation:fu .32s cubic-bezier(.22,.61,.36,1)}
+</style>
+</helmet>
+
+<div class="site" data-tpl="{{ tpl }}">
+
+  <!-- ═══ Thanh xem trước — CHỈ có trong bản demo ═══ -->
+  <div class="demobar">
+    <span style="font:700 9px ui-monospace,monospace;letter-spacing:.16em;color:#E7CE97">BẢN XEM TRƯỚC</span>
+    <span style="color:#A9C4B5">Đây là website của một trung tâm, cấp tự động sau khi hồ sơ được duyệt.</span>
+    <span style="flex:1"></span>
+    <span style="color:#A9C4B5">Đổi mẫu:</span>
+    <sc-for list="{{ tplPick }}" as="t" hint-placeholder-count="3">
+      <button sc-camel-on-click="{{ t.pick }}" style="padding:5px 12px;border-radius:99px;font-size:11.5px;font-weight:600;background:{{ t.bg }};color:{{ t.fg }};border:1px solid {{ t.bd }}">{{ t.t }}</button>
+    </sc-for>
+    <a href="center.html#web" style="padding:5px 12px;border-radius:99px;font-size:11.5px;font-weight:600;background:rgba(255,255,255,.1);color:#EAF4ED;border:1px solid #22382D">Chỗ trung tâm tự sửa →</a>
+  </div>
+
+  <!-- ═══ Đầu trang ═══ -->
+  <header style="position:sticky;top:0;z-index:30;background:var(--surface);border-bottom:1px solid var(--line)">
+    <div class="wrap" style="display:flex;align-items:center;gap:14px;padding-top:13px;padding-bottom:13px">
+      <span style="flex:none;display:grid;place-items:center;width:38px;height:38px;border-radius:var(--rs);background:var(--tint);color:var(--brand);font-weight:700;font-size:14px">{{ ctrIni }}</span>
+      <span style="flex:none;min-width:0">
+        <span class="ttl" style="display:block;font-size:17px">{{ ctrName }}</span>
+        <span style="display:block;font-size:10.5px;color:var(--text3)">{{ ctrArea }}</span>
+      </span>
+      <nav class="navLinks" style="flex:1;justify-content:center;font-size:13.5px;color:var(--text2)">
+        <sc-for list="{{ navs }}" as="n" hint-placeholder-count="4">
+          <a href="{{ n.h }}">{{ n.t }}</a>
+        </sc-for>
+      </nav>
+      <span style="flex:1" class="navLinks"></span>
+      <button sc-camel-on-click="{{ goBook }}" class="btn" style="flex:none;padding:10px 18px;font-size:13px">Đặt lịch</button>
+    </div>
+  </header>
+
+  <!-- ═══ Khối mở đầu ═══ -->
+  <section style="background:var(--hero);color:var(--onHero)">
+    <div class="wrap sec heroGrid">
+      <div>
+        <p class="eyebrow" style="color:var(--gold)">{{ ctrTag }}</p>
+        <h1 class="ttl" style="font-size:38px;margin-top:10px;color:var(--onHero)">{{ ctrHead }}</h1>
+        <p style="font-size:14.5px;line-height:1.7;color:var(--onHeroSub);margin-top:12px;max-width:460px">{{ ctrLede }}</p>
+        <div style="display:flex;align-items:center;gap:18px;margin-top:18px;flex-wrap:wrap">
+          <span style="display:flex;align-items:center;gap:7px">
+            <span style="font-family:var(--ttl);font-weight:700;font-size:26px;color:var(--gold)">{{ ctrStar }}</span>
+            <span style="font-size:11.5px;line-height:1.4;color:var(--onHeroSub)">{{ ctrRev }} đánh giá<br>từ khách đã tới</span>
+          </span>
+          <span style="width:1px;height:34px;background:rgba(255,255,255,.22)"></span>
+          <span style="font-size:11.5px;line-height:1.4;color:var(--onHeroSub)">Đã thẩm định bởi ANWELL<br>{{ ctrSince }}</span>
+        </div>
+        <div style="display:flex;gap:10px;margin-top:22px;flex-wrap:wrap">
+          <button sc-camel-on-click="{{ goBook }}" class="btn" style="background:var(--gold);color:#14211B">Đặt lịch ngay</button>
+          <a href="#dichvu" class="btn2" style="background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.2);color:var(--onHero)">Xem dịch vụ và giá</a>
+        </div>
+      </div>
+      <div style="border-radius:var(--r);overflow:hidden;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);padding:18px">
+        <p style="font-size:10.5px;font-weight:600;color:var(--onHeroSub)">Còn trống hôm nay</p>
+        <div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:11px">
+          <sc-for list="{{ freeToday }}" as="s" hint-placeholder-count="6">
+            <button sc-camel-on-click="{{ s.pick }}" style="padding:8px 13px;border-radius:var(--rs);font-size:12.5px;font-weight:600;background:{{ s.bg }};color:{{ s.fg }};border:1px solid rgba(255,255,255,.22)">{{ s.t }}</button>
+          </sc-for>
+        </div>
+        <p style="font-size:10.5px;line-height:1.6;color:var(--onHeroSub);margin-top:13px">Giờ trống đọc thẳng từ lịch của trung tâm — không phải danh sách gõ tay, nên không có chuyện đặt xong mới báo hết chỗ.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Dịch vụ và giá ═══ -->
+  <section id="dichvu" class="wrap sec">
+    <p class="eyebrow">Dịch vụ</p>
+    <h2 class="ttl" style="font-size:27px;margin-top:7px">Bảng giá niêm yết</h2>
+    <p style="font-size:13px;color:var(--text2);margin-top:7px;max-width:560px">Giá đọc thẳng từ hệ thống quản trị của trung tâm. Trung tâm sửa giá một chỗ, trang này đổi theo — không có bảng giá thứ hai để lệch nhau.</p>
+    <div class="g3w" style="margin-top:20px">
+      <sc-for list="{{ svcs }}" as="s" hint-placeholder-count="6">
+        <div class="card" style="padding:17px">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px">
+            <span class="ttl" style="font-size:16px">{{ s.t }}</span>
+            <sc-if value="{{ s.hot }}" hint-placeholder-val="{{ false }}"><span style="flex:none;font-size:9.5px;font-weight:700;color:var(--accent);background:var(--goldTint);padding:3px 8px;border-radius:99px">Đặt nhiều</span></sc-if>
+          </div>
+          <p style="font-size:12px;line-height:1.6;color:var(--text2);margin-top:6px">{{ s.d }}</p>
+          <div style="display:flex;align-items:baseline;justify-content:space-between;margin-top:13px;padding-top:12px;border-top:1px solid var(--line2)">
+            <span><span style="font-family:var(--ttl);font-weight:700;font-size:22px;color:var(--brand)">{{ s.p }}</span><span style="font-size:11.5px;color:var(--text3)"> · {{ s.m }}</span></span>
+            <button sc-camel-on-click="{{ s.pick }}" style="font-size:12px;font-weight:600;color:var(--brand)">Chọn →</button>
+          </div>
+          <p style="font-size:10.5px;color:var(--text3);margin-top:8px">Yêu cầu {{ s.tier }}</p>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- ═══ Đội ngũ ═══ -->
+  <section id="doingu" style="background:var(--surface2)">
+    <div class="wrap sec">
+      <p class="eyebrow">Đội ngũ</p>
+      <h2 class="ttl" style="font-size:27px;margin-top:7px">Kỹ thuật viên có bậc nghề</h2>
+      <p style="font-size:13px;color:var(--text2);margin-top:7px;max-width:600px">Bậc do <b>ANWELL cấp sau thẩm định</b>, không phải trung tâm tự ghi. Bậc quyết định kỹ thuật viên được nhận loại ca nào.</p>
+      <div class="g4w" style="margin-top:20px">
+        <sc-for list="{{ team }}" as="k" hint-placeholder-count="4">
+          <div class="card" style="padding:16px;text-align:center">
+            <span style="display:grid;place-items:center;width:56px;height:56px;margin:0 auto;border-radius:50%;background:var(--tint);color:var(--brand);font-weight:700;font-size:17px">{{ k.i }}</span>
+            <p class="ttl" style="font-size:15px;margin-top:10px">{{ k.n }}</p>
+            <p style="display:inline-block;font-size:10px;font-weight:700;color:var(--ok);background:var(--okTint);padding:3px 10px;border-radius:99px;margin-top:6px">{{ k.tier }}</p>
+            <p style="font-size:11px;color:var(--text3);margin-top:7px;line-height:1.5">{{ k.exp }}<br>{{ k.spec }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Giới thiệu · Giờ · Địa chỉ ═══ -->
+  <section id="gioithieu" class="wrap sec">
+    <div class="g2w">
+      <div>
+        <p class="eyebrow">Giới thiệu</p>
+        <h2 class="ttl" style="font-size:27px;margin-top:7px">{{ aboutH }}</h2>
+        <p style="font-size:14px;line-height:1.8;color:var(--text2);margin-top:12px">{{ about }}</p>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-top:18px">
+          <sc-for list="{{ strong }}" as="s" hint-placeholder-count="4">
+            <div style="display:flex;align-items:flex-start;gap:11px">
+              <span style="flex:none;display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--tint);color:var(--brand);font-size:11px;font-weight:700;margin-top:1px">✓</span>
+              <span style="font-size:13px;line-height:1.6;color:var(--text2)">{{ s.t }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      <div class="card" style="padding:18px">
+        <p class="ttl" style="font-size:17px">Giờ mở cửa</p>
+        <div style="display:flex;flex-direction:column;gap:9px;margin-top:12px">
+          <sc-for list="{{ hours }}" as="h" hint-placeholder-count="4">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:8px;border-bottom:1px solid var(--line2)">
+              <span style="font-size:12.5px;color:var(--text2)">{{ h.d }}</span>
+              <span style="font-size:12.5px;font-weight:600;color:{{ h.c }}">{{ h.t }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <p class="ttl" style="font-size:17px;margin-top:20px">Địa chỉ</p>
+        <p style="font-size:13px;line-height:1.7;color:var(--text2);margin-top:8px">{{ addr }}</p>
+        <a href="#lienhe" class="btn2" style="margin-top:12px">Chỉ đường</a>
+        <p style="font-size:10.5px;color:var(--text3);margin-top:10px;line-height:1.6">Mở bằng ứng dụng bản đồ sẵn có trên máy. Bản đồ nhúng tính phí theo lượt xem nên chưa dùng ở giai đoạn này.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Đặt lịch ngay trên trang ═══ -->
+  <section id="datlich" style="background:var(--surface2)">
+    <div class="wrap sec">
+      <p class="eyebrow">Đặt lịch</p>
+      <h2 class="ttl" style="font-size:27px;margin-top:7px">Đặt ngay tại đây, không rời trang</h2>
+      <div class="bkGrid" style="margin-top:20px">
+        <div class="card" style="padding:18px">
+          <p style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.08em">Bước 1 · Chọn dịch vụ</p>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px">
+            <sc-for list="{{ bkSvcs }}" as="s" hint-placeholder-count="4">
+              <button sc-camel-on-click="{{ s.pick }}" style="padding:9px 14px;border-radius:var(--rs);font-size:12.5px;font-weight:600;background:{{ s.bg }};color:{{ s.fg }};border:1px solid {{ s.bd }}">{{ s.t }}</button>
+            </sc-for>
+          </div>
+
+          <p style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-top:18px">Bước 2 · Chọn ngày</p>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px">
+            <sc-for list="{{ bkDays }}" as="d" hint-placeholder-count="5">
+              <button sc-camel-on-click="{{ d.pick }}" style="padding:9px 13px;border-radius:var(--rs);font-size:12.5px;font-weight:600;text-align:center;background:{{ d.bg }};color:{{ d.fg }};border:1px solid {{ d.bd }}">{{ d.t }}<span style="display:block;font-size:10px;font-weight:500;opacity:.75">{{ d.sub }}</span></button>
+            </sc-for>
+          </div>
+
+          <p style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-top:18px">Bước 3 · Chọn giờ còn trống</p>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px">
+            <sc-for list="{{ bkSlots }}" as="s" hint-placeholder-count="8">
+              <button sc-camel-on-click="{{ s.pick }}" style="padding:9px 14px;border-radius:var(--rs);font-size:12.5px;font-weight:600;background:{{ s.bg }};color:{{ s.fg }};border:1px solid {{ s.bd }};opacity:{{ s.op }}">{{ s.t }}</button>
+            </sc-for>
+          </div>
+          <p style="font-size:10.5px;color:var(--text3);margin-top:11px">Giờ mờ là đã có khách đặt hoặc đã qua. Danh sách này đọc từ lịch thật của trung tâm.</p>
+        </div>
+
+        <div class="card" style="padding:18px;align-self:start">
+          <p class="ttl" style="font-size:17px">Tóm tắt</p>
+          <div style="display:flex;flex-direction:column;gap:10px;margin-top:13px">
+            <sc-for list="{{ sumRows }}" as="r" hint-placeholder-count="4">
+              <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px">
+                <span style="font-size:12.5px;color:var(--text3)">{{ r.k }}</span>
+                <span style="font-size:12.5px;font-weight:600;text-align:right">{{ r.v }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:flex;align-items:baseline;justify-content:space-between;margin-top:14px;padding-top:13px;border-top:1px solid var(--line)">
+            <span style="font-size:13px;font-weight:600">Tổng cộng</span>
+            <span style="font-family:var(--ttl);font-weight:700;font-size:24px;color:var(--brand)">{{ total }}</span>
+          </div>
+          <button sc-camel-on-click="{{ doBook }}" class="btn" style="width:100%;justify-content:center;margin-top:14px;background:{{ bkBg }}">{{ bkLabel }}</button>
+          <p style="font-size:10.5px;line-height:1.6;color:var(--text3);margin-top:10px">{{ bkNote }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Đánh giá ═══ -->
+  <section class="wrap sec">
+    <p class="eyebrow">Khách nói gì</p>
+    <h2 class="ttl" style="font-size:27px;margin-top:7px">Đánh giá của khách đã tới</h2>
+    <p style="font-size:13px;color:var(--text2);margin-top:7px">Chỉ khách đã hoàn thành buổi mới đánh giá được. Trung tâm không sửa và không xoá được đánh giá.</p>
+    <div class="g3w" style="margin-top:20px">
+      <sc-for list="{{ reviews }}" as="r" hint-placeholder-count="3">
+        <div class="card" style="padding:17px">
+          <p style="font-size:14px;color:var(--gold)">{{ r.stars }}</p>
+          <p style="font-size:13px;line-height:1.7;color:var(--text2);margin-top:9px">{{ r.q }}</p>
+          <p style="font-size:11.5px;color:var(--text3);margin-top:11px">{{ r.who }} · {{ r.svc }}</p>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- ═══ Chân trang — trung tâm KHÔNG gỡ được ═══ -->
+  <footer id="lienhe" style="background:var(--text);color:#EAF4ED">
+    <div class="wrap" style="padding:38px 18px 26px">
+      <div class="g2w">
+        <div>
+          <p class="ttl" style="font-size:19px;color:#EAF4ED">{{ ctrName }}</p>
+          <p style="font-size:13px;line-height:1.8;color:#9FB3A8;margin-top:9px">{{ addr }}</p>
+          <p style="font-size:13px;color:#9FB3A8;margin-top:5px">{{ phone }} · {{ email }}</p>
+        </div>
+        <div>
+          <p style="font:700 9.5px ui-monospace,monospace;letter-spacing:.16em;color:#7E9488;text-transform:uppercase">Thành viên</p>
+          <div style="display:flex;align-items:center;gap:11px;margin-top:11px">
+            <svg width="30" height="30" sc-camel-view-box="0 0 24 24" style="flex:none"><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(-56 12 22)" fill="#96682A" opacity=".5"></path><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(-28 12 22)" fill="#D8A94E" opacity=".8"></path><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" fill="#E7CE97"></path><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(28 12 22)" fill="#D8A94E" opacity=".8"></path><path d="M12 3C9 9 9 15 12 22C15 15 15 9 12 3Z" transform="rotate(56 12 22)" fill="#96682A" opacity=".5"></path></svg>
+            <div>
+              <p style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:17px;letter-spacing:.13em;color:#E7CE97">ANWELL</p>
+              <p style="font-size:11px;color:#9FB3A8">A Member of ANWELL Group</p>
+            </div>
+          </div>
+          <p style="font-size:11.5px;line-height:1.7;color:#7E9488;margin-top:12px">Cơ sở đã qua thẩm định của ANWELL: giấy phép hành nghề, chứng chỉ kỹ thuật viên và niêm yết giá được kiểm trước khi lên nền tảng.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:14px;margin-top:12px;font-size:11.5px;color:#9FB3A8">
+            <sc-for list="{{ legal }}" as="l" hint-placeholder-count="3">
+              <a href="{{ l.h }}" style="text-decoration:underline">{{ l.t }}</a>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+      <p style="font-size:11px;color:#5F7268;margin-top:24px;padding-top:16px;border-top:1px solid #22382D;line-height:1.7">{{ ctrLegalName }} · {{ ctrTax }}. ANWELL là nền tảng trung gian kết nối, không phải cơ sở khám chữa bệnh. Dịch vụ trên trang này là chăm sóc và phục hồi, không thay thế chẩn đoán hay điều trị y tế.</p>
+    </div>
+  </footer>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script="" data-props="{&quot;tpl&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;annhien&quot;,&quot;moc&quot;,&quot;sang&quot;],&quot;default&quot;:&quot;annhien&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Demo&quot;}}">
+class Component extends DCLogic {
+  state = {
+    // Mẫu đang xem. Ba mẫu là BA BỘ TOKEN trên MỘT bố cục — đổi mẫu không đổi
+    // một thẻ HTML nào. Đây là lý do ba mẫu không tốn gấp ba.
+    tpl: 'annhien',
+    svc: 's1', day: 0, slot: '', booked: false,
+
+    // Hồ sơ trung tâm — đọc từ hệ thống, trung tâm khai một lần ở Quản trị.
+    ctr: {
+      ini: 'AN', name: 'An Nhiên Wellness', area: 'Q.3 · TP.HCM',
+      tag: 'Trị liệu · Phục hồi · Chăm sóc',
+      head: 'Chăm sóc có đo lường, không chỉ có cảm giác',
+      lede: 'Mỗi liệu trình có mục tiêu rõ, có số đo trước và sau. Kỹ thuật viên được ANWELL cấp bậc nghề, làm đúng phạm vi của bậc mình.',
+      star: '4,8', rev: 216, since: 'từ 03/2025',
+      addr: '184 Võ Văn Tần, Phường Võ Thị Sáu, Quận 3, TP.HCM',
+      phone: '028 3930 1184', email: 'annhien@anwell.vn',
+      legalName: 'Công ty TNHH An Nhiên Wellness', tax: 'MST 0312-xxx-xxx'
+    },
+
+    // Bảng giá đọc thẳng từ quản trị trung tâm. KHÔNG có bảng giá thứ hai
+    // trên web — hai nơi là sớm muộn lệch nhau.
+    svcs: [
+      { id:'s1', t:'Trị liệu cổ vai gáy',        p:450, m:'60 phút', tier:'Bậc 2 trở lên', hot:true,
+        d:'Giãn cơ vùng cổ vai gáy cho người ngồi máy tính nhiều. Có đo tầm vận động trước và sau.' },
+      { id:'s2', t:'Massage chân thư giãn',      p:320, m:'45 phút', tier:'Bậc 1 trở lên', hot:false,
+        d:'Bấm huyệt bàn chân và bắp chân, hợp với người đứng nhiều hoặc phù nhẹ.' },
+      { id:'s3', t:'Trị liệu toàn thân',         p:620, m:'90 phút', tier:'Bậc 2 trở lên', hot:true,
+        d:'Toàn thân theo trình tự, kết hợp chườm ấm. Không làm khi đang sốt hoặc viêm cấp.' },
+      { id:'s4', t:'Nhức mỏi cơ xương khớp',     p:540, m:'75 phút', tier:'Bậc 3',        hot:false,
+        d:'Dành cho người có bệnh nền cơ xương khớp. Cần bác sĩ có chỉ định trước khi làm.' },
+      { id:'s5', t:'Massage phổ thông',          p:380, m:'60 phút', tier:'Bậc 1 trở lên', hot:false,
+        d:'Thư giãn cơ bản, không tác động sâu. Phù hợp với người mới lần đầu.' },
+      { id:'s6', t:'Chăm sóc sau sinh',          p:480, m:'60 phút', tier:'Bậc 2 trở lên', hot:false,
+        d:'Sau sinh từ tháng thứ hai, có sàng lọc trước. Kỹ thuật viên nữ.' }
+    ],
+
+    // Bậc do ANWELL cấp sau thẩm định — trung tâm không sửa được trường này.
+    team: [
+      { i:'LA', n:'Lê Ngọc Anh',   tier:'Bậc 2', exp:'6 năm nghề', spec:'Cổ vai gáy · sau sinh' },
+      { i:'NB', n:'Nguyễn Bách',   tier:'Bậc 3', exp:'11 năm nghề', spec:'Cơ xương khớp · phục hồi' },
+      { i:'TD', n:'Trần Mỹ Duyên', tier:'Bậc 1', exp:'3 năm nghề', spec:'Massage chân · thư giãn' },
+      { i:'PD', n:'Phạm Thị Dung', tier:'Bậc 2', exp:'8 năm nghề', spec:'Toàn thân · chườm ấm' }
+    ],
+
+    hours: [
+      { d:'Thứ Hai – Thứ Sáu', t:'08:00 – 20:00', on:true },
+      { d:'Thứ Bảy',           t:'08:00 – 21:00', on:true },
+      { d:'Chủ Nhật',          t:'09:00 – 18:00', on:true },
+      { d:'Ngày lễ',           t:'Nghỉ',          on:false }
+    ],
+
+    reviews: [
+      { st:5, q:'Đau vai gáy ba năm, làm sáu buổi thì ngủ được. Kỹ thuật viên ghi lại tầm vận động từng buổi nên thấy rõ tiến triển.',
+        who:'Chị Trần Thu H.', svc:'Trị liệu cổ vai gáy' },
+      { st:5, q:'Đặt qua trang này nhanh hơn gọi điện. Chọn giờ xong là có tin nhắn xác nhận ngay.',
+        who:'Anh Nguyễn Minh Đ.', svc:'Trị liệu toàn thân' },
+      { st:4, q:'Cơ sở sạch, đúng giờ. Giá đúng như niêm yết trên trang, không phát sinh gì thêm.',
+        who:'Chị Đỗ Kim L.', svc:'Massage chân thư giãn' }
+    ],
+
+    // Giờ trống — trong sản phẩm thật đọc từ động cơ lịch của nền tảng.
+    slotsFree: ['09:00','10:30','14:00','15:30','17:00','19:00'],
+    slotsTaken: ['11:00','13:00','18:00']
+  };
+
+  pick(k, v){ this.setState({ [k]:v, booked:false }); }
+  book(){ if (this.state.slot) this.setState({ booked:true }); }
+
+  renderVals(){
+    const s = this.state, c = s.ctr;
+    const money = (n) => n.toLocaleString('vi-VN') + '.000₫';
+
+    const TPL = [['annhien','An Nhiên'], ['moc','Mộc'], ['sang','Sáng']];
+    const tplPick = TPL.map(([k, t]) => ({ t, pick:() => this.setState({ tpl:k }),
+      bg: s.tpl === k ? '#E7CE97' : 'transparent',
+      fg: s.tpl === k ? '#14211B' : '#A9C4B5',
+      bd: s.tpl === k ? '#E7CE97' : '#22382D' }));
+
+    const svc = s.svcs.find(x => x.id === s.svc) || s.svcs[0];
+
+    const DAYS = [['Hôm nay','02/08'], ['Ngày mai','03/08'], ['T2','04/08'], ['T3','05/08'], ['T4','06/08']];
+    const bkDays = DAYS.map(([t, sub], i) => ({ t, sub, pick:() => this.pick('day', i),
+      bg: s.day === i ? 'var(--brand)' : 'var(--surface2)',
+      fg: s.day === i ? 'var(--onBrand)' : 'var(--text2)',
+      bd: s.day === i ? 'var(--brand)' : 'var(--line)' }));
+
+    const ALL = ['09:00','10:30','11:00','13:00','14:00','15:30','17:00','18:00','19:00'];
+    const bkSlots = ALL.map(t => {
+      const taken = s.slotsTaken.includes(t) && s.day === 0;
+      return { t, op: taken ? '.4' : '1',
+        pick: taken ? () => {} : () => this.pick('slot', t),
+        bg: s.slot === t ? 'var(--brand)' : 'var(--surface2)',
+        fg: s.slot === t ? 'var(--onBrand)' : 'var(--text2)',
+        bd: s.slot === t ? 'var(--brand)' : 'var(--line)' };
+    });
+
+    const goBook = () => { location.hash = 'datlich'; };
+    const jump = (id) => () => { this.pick('svc', id); location.hash = 'datlich'; };
+
+    return {
+      tpl: s.tpl, tplPick,
+      ctrIni: c.ini, ctrName: c.name, ctrArea: c.area, ctrTag: c.tag,
+      ctrHead: c.head, ctrLede: c.lede, ctrStar: c.star, ctrRev: String(c.rev),
+      ctrSince: c.since, addr: c.addr, phone: c.phone, email: c.email,
+      ctrLegalName: c.legalName, ctrTax: c.tax,
+
+      navs: [{ t:'Dịch vụ', h:'#dichvu' }, { t:'Đội ngũ', h:'#doingu' },
+             { t:'Giới thiệu', h:'#gioithieu' }, { t:'Liên hệ', h:'#lienhe' }],
+      goBook,
+
+      freeToday: s.slotsFree.map(t => ({ t, pick:() => this.pick('slot', t),
+        bg: s.slot === t ? 'var(--gold)' : 'rgba(255,255,255,.12)',
+        fg: s.slot === t ? '#14211B' : 'var(--onHero)' })),
+
+      svcs: s.svcs.map(x => ({ ...x, p: money(x.p), pick: jump(x.id) })),
+
+      team: s.team,
+      hours: s.hours.map(h => ({ ...h, c: h.on ? 'var(--text)' : 'var(--text3)' })),
+
+      aboutH: 'Mười hai năm làm một việc',
+      about: 'An Nhiên Wellness mở năm 2013, làm trị liệu cổ vai gáy và phục hồi vận động. '
+           + 'Chúng tôi không hứa chữa khỏi bệnh — công việc của chúng tôi là giảm đau, tăng '
+           + 'tầm vận động, và ghi lại số đo để bạn thấy mình đang tiến tới đâu.',
+      strong: [
+        { t:'Bốn kỹ thuật viên, cả bốn đều có chứng chỉ hành nghề còn hiệu lực' },
+        { t:'Ghi số đo trước và sau mỗi buổi, gửi bản tóm tắt cho người nhà nếu bạn cho phép' },
+        { t:'Sàng lọc chống chỉ định trước khi đặt — có bệnh nền thì hệ thống tự cảnh báo' },
+        { t:'Giá niêm yết đúng bằng giá thu, không phụ phí phát sinh' }
+      ],
+
+      bkSvcs: s.svcs.slice(0, 4).map(x => ({ t:x.t, pick:() => this.pick('svc', x.id),
+        bg: s.svc === x.id ? 'var(--brand)' : 'var(--surface2)',
+        fg: s.svc === x.id ? 'var(--onBrand)' : 'var(--text2)',
+        bd: s.svc === x.id ? 'var(--brand)' : 'var(--line)' })),
+      bkDays, bkSlots,
+
+      sumRows: [
+        { k:'Dịch vụ',   v: svc.t },
+        { k:'Thời lượng', v: svc.m },
+        { k:'Ngày',      v: DAYS[s.day][0] + ' · ' + DAYS[s.day][1] },
+        { k:'Giờ',       v: s.slot || 'chưa chọn' }
+      ],
+      total: money(svc.p),
+      bkLabel: s.booked ? '✓ Đã gửi yêu cầu đặt' : (s.slot ? 'Xác nhận đặt lịch' : 'Chọn giờ để tiếp tục'),
+      bkBg: s.booked ? 'var(--ok)' : (s.slot ? 'var(--brand)' : 'var(--text3)'),
+      doBook: () => this.book(),
+      bkNote: s.booked
+        ? 'Trung tâm nhận được yêu cầu và sẽ xác nhận trong ít phút. Bạn nhận tin nhắn khi được xác nhận.'
+        : 'Buổi đặt từ trang này được ghi nguồn là website của trung tâm — dùng để tính phí nền tảng theo nguồn.',
+
+      reviews: s.reviews.map(r => ({ ...r, stars: '★'.repeat(r.st) + '☆'.repeat(5 - r.st) })),
+
+      legal: [{ t:'Chính sách & Quy định', h:'index.html' },
+              { t:'Quyền riêng tư', h:'index.html' },
+              { t:'Miễn trừ y khoa', h:'index.html' }]
+    };
+  }
+}
+</script>
+
+
+</body></html>
