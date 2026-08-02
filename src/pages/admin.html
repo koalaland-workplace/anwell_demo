@@ -271,6 +271,9 @@
   .g2{display:grid;grid-template-columns:1fr;gap:12px}
   .split{display:grid;grid-template-columns:1fr;gap:12px}
   .hideSm{display:none}
+  /* Dòng tiêu đề bảng: ẩn trên điện thoại, GIỮ display:grid trên máy tính.
+     Dùng hideSm ở đây là hỏng — nó đặt display:block, xoá mất lưới. */
+  .thead{display:none}
   @media(min-width:860px){
     .rail{display:flex}.btm{display:none}
     .pad{padding:22px 28px 28px}.hd{padding:16px 28px}
@@ -282,6 +285,7 @@
     .g2{grid-template-columns:1.5fr 1fr;gap:16px}
     .split{grid-template-columns:1fr 1fr;gap:16px}
     .hideSm{display:block}
+    .thead{display:grid}
   }
 
   /* ── 3 phong cách ANWELL ── */
@@ -1685,6 +1689,119 @@
 
       </sc-if>
 
+      <!-- ═══ MẪU WEBSITE ═══ nền tảng dựng mẫu, trung tâm chỉ chọn -->
+      <sc-if value="{{ isTpl }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;gap:4px;padding:3px;border-radius:12px;background:var(--surface2);margin-bottom:16px;max-width:540px">
+          <sc-for list="{{ tplTabs }}" as="t" hint-placeholder-count="3">
+            <button sc-camel-on-click="{{ t.pick }}" style="flex:1;padding:9px 8px;border-radius:9px;background:{{ t.bg }};color:{{ t.fg }};box-shadow:{{ t.sh }};font-size:12px;font-weight:600;white-space:nowrap">{{ t.t }}<sc-if value="{{ t.hasN }}" hint-placeholder-val="{{ true }}"><span style="margin-left:5px;font-size:10px;font-weight:700;color:#fff;background:var(--dangerSolid);border-radius:99px;padding:1px 6px">{{ t.n }}</span></sc-if></button>
+          </sc-for>
+        </div>
+
+        <!-- ── Bộ mẫu ── -->
+        <sc-if value="{{ tplList }}" hint-placeholder-val="{{ true }}">
+          <p style="font-size:12px;color:var(--text2);max-width:700px;margin-bottom:16px">Mẫu do <b>ANWELL dựng</b>, trung tâm chỉ chọn chứ không sửa bố cục. Cả ba mẫu dùng chung một bố cục và một bộ thành phần — thêm mẫu mới là thêm một bộ giá trị token, không phải dựng lại trang.</p>
+          <div class="g4">
+            <sc-for list="{{ tplKpis }}" as="k" hint-placeholder-count="4">
+              <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:15px">
+                <span style="font-size:10.5px;font-weight:600;color:var(--text3)">{{ k.t }}</span>
+                <div style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:29px;line-height:1.1;margin-top:8px;color:{{ k.c }}">{{ k.v }}</div>
+                <div style="font-size:10.5px;color:var(--text3);margin-top:2px">{{ k.sub }}</div>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;margin-top:14px">
+            <div class="bdrow thead" style="font-size:9.5px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;padding-bottom:8px;border-bottom:1px solid var(--line)">
+              <span>Mẫu</span><span>Trung tâm đang dùng</span><span>Bộ token</span><span>Cập nhật</span><span>Trạng thái</span>
+            </div>
+            <div style="display:flex;flex-direction:column">
+              <sc-for list="{{ tplRows }}" as="r" hint-placeholder-count="4">
+                <div class="bdrow" style="align-items:center;padding:12px 0;border-bottom:1px solid var(--line2)">
+                  <span style="display:flex;align-items:center;gap:11px">
+                    <span style="flex:none;width:44px;height:30px;border-radius:7px;background:{{ r.sw }}"></span>
+                    <span style="min-width:0"><span style="display:block;font-size:12.5px;font-weight:600">{{ r.t }}</span><span style="display:block;font-size:10.5px;color:var(--text3);margin-top:1px">{{ r.d }}</span></span>
+                  </span>
+                  <span style="font-size:12.5px;font-weight:600">{{ r.n }}<span style="font-size:10.5px;font-weight:400;color:var(--text3)"> trung tâm</span></span>
+                  <span style="font-size:11.5px;color:var(--text2)">{{ r.tok }}</span>
+                  <span style="font-size:11.5px;color:var(--text3)">{{ r.up }}</span>
+                  <span><span style="font-size:9.5px;font-weight:700;color:{{ r.stFg }};background:{{ r.stBg }};padding:3px 9px;border-radius:99px">{{ r.st }}</span></span>
+                </div>
+              </sc-for>
+            </div>
+            <div style="display:flex;gap:9px;margin-top:14px;flex-wrap:wrap">
+              <button style="padding:9px 16px;border-radius:99px;background:var(--primary);color:var(--on-primary);font-size:12px;font-weight:600">+ Thêm mẫu mới</button>
+              <a href="web.html" style="padding:9px 16px;border-radius:99px;background:var(--surface2);border:1px solid var(--line);font-size:12px;font-weight:600;color:var(--text)">Xem một trang thật →</a>
+            </div>
+            <p style="font-size:11px;line-height:1.6;color:var(--text3);margin-top:12px">Đổi mẫu đang chạy sẽ áp cho <b>toàn bộ trung tâm đang dùng mẫu đó</b> ở lần tải trang sau. Sửa mẫu phải qua bản nháp và xem trước, không sửa thẳng bản đang chạy.</p>
+          </div>
+        </sc-if>
+
+        <!-- ── Vùng cho sửa ── -->
+        <sc-if value="{{ tplZone }}" hint-placeholder-val="{{ false }}">
+          <p style="font-size:12px;color:var(--text2);max-width:700px;margin-bottom:16px">Quyết định trung tâm được đổi gì trên trang của họ. Đây là chỗ giữ ranh giới: <b>thứ thuộc thương hiệu thì mở, thứ là bằng chứng thì khoá.</b></p>
+          <div class="split">
+            <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px">
+              <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:17px">Trung tâm được đổi</div>
+              <div style="display:flex;flex-direction:column;gap:9px;margin-top:13px">
+                <sc-for list="{{ openZones }}" as="z" hint-placeholder-count="6">
+                  <div style="display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:11px;background:var(--okTint);border:1px solid var(--ok)">
+                    <span style="flex:none;font-size:12px">✓</span>
+                    <span style="flex:1;min-width:0"><span style="display:block;font-size:12.5px;font-weight:600">{{ z.t }}</span><span style="display:block;font-size:10.5px;color:var(--text3);margin-top:1px">{{ z.d }}</span></span>
+                    <sc-if value="{{ z.mod }}" hint-placeholder-val="{{ true }}"><span style="flex:none;font-size:9.5px;font-weight:700;color:var(--goldText);background:var(--goldTint);padding:3px 8px;border-radius:99px">Qua duyệt</span></sc-if>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+            <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px">
+              <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:17px">Khoá cứng — không mở được</div>
+              <div style="display:flex;flex-direction:column;gap:9px;margin-top:13px">
+                <sc-for list="{{ lockZones }}" as="z" hint-placeholder-count="4">
+                  <div style="display:flex;align-items:flex-start;gap:11px;padding:10px 12px;border-radius:11px;background:var(--dangerTint);border:1px solid var(--dangerLine)">
+                    <span style="flex:none;font-size:12px;margin-top:1px">🔒</span>
+                    <span style="flex:1;min-width:0"><span style="display:block;font-size:12.5px;font-weight:600">{{ z.t }}</span><span style="display:block;font-size:10.5px;color:var(--text2);margin-top:2px;line-height:1.55">{{ z.d }}</span></span>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="margin-top:13px;padding:12px;border-radius:11px;background:var(--bg);border-left:3px solid var(--text3)">
+                <p style="font-size:11px;line-height:1.6;color:var(--text2)">Bốn thứ này khoá vì chúng là <b>bằng chứng</b>, không phải thương hiệu. Mở ra thì trang trung tâm không còn nói lên điều gì đáng tin, và ANWELL mất luôn thứ mình đang bán.</p>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ── Kiểm duyệt nội dung web ── -->
+        <sc-if value="{{ tplMod }}" hint-placeholder-val="{{ false }}">
+          <p style="font-size:12px;color:var(--text2);max-width:700px;margin-bottom:16px">Chữ và ảnh trung tâm tự nhập vào cùng một hàng chờ với bài đăng social — <b>cùng quy tắc, cùng người duyệt</b>. Trang mang tên miền và logo ANWELL nên lời hứa sai công dụng trên đó là ANWELL đứng tên chịu.</p>
+          <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px">
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <sc-for list="{{ modRows }}" as="m" hint-placeholder-count="4">
+                <div style="padding:13px;border-radius:12px;background:{{ m.bg }};border:1px solid {{ m.bd }}">
+                  <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap">
+                    <span style="flex:1;min-width:180px">
+                      <span style="display:block;font-size:12.5px;font-weight:600">{{ m.ctr }}</span>
+                      <span style="display:block;font-size:10.5px;color:var(--text3);margin-top:1px">{{ m.what }} · gửi {{ m.ago }}</span>
+                    </span>
+                    <span style="flex:none;font-size:9.5px;font-weight:700;color:{{ m.stFg }};background:{{ m.stBg }};padding:3px 9px;border-radius:99px">{{ m.st }}</span>
+                  </div>
+                  <p style="font-size:12px;line-height:1.7;color:var(--text2);margin-top:9px;padding:10px 12px;border-radius:9px;background:var(--surface)">{{ m.q }}</p>
+                  <sc-if value="{{ m.bad }}" hint-placeholder-val="{{ true }}">
+                    <p style="font-size:11px;line-height:1.6;color:var(--danger);margin-top:8px;font-weight:600">✕ {{ m.why }}</p>
+                  </sc-if>
+                  <sc-if value="{{ m.open }}" hint-placeholder-val="{{ true }}">
+                    <div style="display:flex;gap:8px;margin-top:11px;flex-wrap:wrap">
+                      <button sc-camel-on-click="{{ m.ok }}" style="padding:8px 15px;border-radius:99px;background:var(--okSolid);color:#fff;font-size:11.5px;font-weight:600">Duyệt cho hiện</button>
+                      <button sc-camel-on-click="{{ m.no }}" style="padding:8px 15px;border-radius:99px;background:var(--surface);border:1px solid var(--dangerLine);color:var(--danger);font-size:11.5px;font-weight:600">Từ chối, nêu lý do</button>
+                    </div>
+                  </sc-if>
+                </div>
+              </sc-for>
+            </div>
+            <div style="margin-top:14px;padding:12px;border-radius:11px;background:var(--goldTint);border-left:3px solid var(--accent)">
+              <p style="font-size:11px;line-height:1.6;color:var(--goldText)">Trang chưa đủ nội dung tối thiểu thì hệ thống tự giữ ở nháp và chặn máy tìm kiếm đọc — không cần người duyệt can thiệp. Một trăm trang mỏng trên cùng tên miền có thể kéo tụt thứ hạng của cả anwell.vn.</p>
+            </div>
+          </div>
+        </sc-if>
+      </sc-if>
     </main>
 
     <nav class="btm" style="flex:none;grid-template-columns:repeat(5,1fr);align-items:center;background:var(--tabbar);border-top:1px solid var(--line);padding:7px 4px 10px;backdrop-filter:blur(12px)">
@@ -1738,6 +1855,18 @@ class Component extends DCLogic {
         note:'Gồm hồ sơ sức khoẻ, lịch sử buổi, tin nhắn với KTV' },
       { id:'d3', who:'Lê Quang Tuấn', kind:'Rút đồng ý chia sẻ hồ sơ sức khoẻ', sent:'18/07/2026', due:'—', st:'done',
         note:'Đã ngừng chia sẻ với KTV từ 19/07. Buổi đang đặt vẫn giữ, KTV chỉ thấy dặn dò tự do' }
+    ],
+    // Hàng chờ duyệt nội dung website trung tâm — cùng hàng với bài social.
+    webMod:[
+      { id:'w1', ctr:'Thảo Mộc Wellness', what:'Đoạn giới thiệu', ago:'3 giờ', st:'wait',
+        q:'Cơ sở chúng tôi có mười hai năm kinh nghiệm trị liệu cổ vai gáy, đội ngũ được ANWELL cấp bậc nghề, có ghi số đo trước và sau mỗi buổi.', bad:false, why:'' },
+      { id:'w2', ctr:'Tịnh Viên Retreat', what:'Đoạn giới thiệu', ago:'7 giờ', st:'wait',
+        q:'Liệu trình mười buổi của chúng tôi chữa dứt điểm thoát vị đĩa đệm, cam kết hoàn tiền nếu không khỏi.', bad:true,
+        why:'Hứa chữa khỏi bệnh và cam kết kết quả điều trị — vi phạm quy định quảng cáo dịch vụ y tế' },
+      { id:'w3', ctr:'Mộc An Spa', what:'Ảnh bìa và 4 ảnh cơ sở', ago:'1 ngày', st:'wait',
+        q:'Năm ảnh chụp phòng trị liệu và khu chờ, có mặt kỹ thuật viên trong hai ảnh.', bad:false, why:'' },
+      { id:'w4', ctr:'An Nhiên Wellness', what:'Đoạn giới thiệu', ago:'3 ngày', st:'ok',
+        q:'An Nhiên Wellness mở năm 2013, làm trị liệu cổ vai gáy và phục hồi vận động. Chúng tôi không hứa chữa khỏi bệnh.', bad:false, why:'' }
     ],
     posts:[
       { id:'p1', ch:'Facebook', ctr:'An Nhiên Wellness', t:'Ưu đãi khung chiều 14–16h giảm 15%', st:'wait', ago:'2 giờ' },
@@ -1841,6 +1970,9 @@ class Component extends DCLogic {
     // Danh mục chuẩn: ba thứ đang hard-code rải rác ở app, ktv và center. Sửa
     // một chỗ quên chỗ kia là ra mâu thuẫn ngay.
     { id:'catalog',   g:'Hệ thống',    t:'Danh mục chuẩn',      ic:'doc' },
+    // Mẫu website: nền tảng dựng mẫu, trung tâm chỉ chọn. Cùng nhóm với
+    // Danh mục chuẩn vì bản chất giống nhau — một nguồn dùng chung cho mọi nơi.
+    { id:'webtpl',    g:'Hệ thống',    t:'Mẫu website',         ic:'link', live:'webMod' },
     { id:'policy',    g:'Hệ thống',    t:'Chính sách & thông số', ic:'doc' },
     { id:'data',      g:'Hệ thống',    t:'Dữ liệu, AI & nhật ký', ic:'cpu' }
   ];
@@ -1852,6 +1984,7 @@ class Component extends DCLogic {
     if (h && this.pages.some(p => p.id === h)) this.setState({ page: h });
   }
   go(id){ this.setState({page:id}); }
+  setWebMod(id, st){ this.setState({ webMod: this.state.webMod.map(x => x.id===id ? {...x, st} : x) }); }
   // Tab trong trang: mỗi trang nhớ riêng tab đang mở.
   setTab(page, k){ this.setState({ tabs: {...this.state.tabs, [page]: k} }); }
   tabOf(page, dflt){ return this.state.tabs[page] || dflt; }
@@ -1901,6 +2034,7 @@ class Component extends DCLogic {
     : key === 'ktvNew'    ? s.approvals.filter(a => a.kind !== 'Trung tâm').length
     : key === 'dsrOpen'   ? s.dsr.filter(d => d.st === 'wait').length
     : key === 'postWait'  ? s.posts.filter(x => x.st === 'wait').length
+    : key === 'webMod'    ? s.webMod.filter(x => x.st === 'wait').length
     : s[key].length;
 
     const groups = [];
@@ -2671,6 +2805,58 @@ class Component extends DCLogic {
             note: r.termNote || '', dim: r.expired ? '.55' : '1' })),
           myTotal: money(paid.filter(r => r.by === 'Phan Minh Tuấn').reduce((a,r) => a + r.share, 0)),
           copyLink: () => {}, shareLink: () => {}
+        };
+      })(),
+      // ── Mẫu website ─────────────────────────────────────────────
+      ...(() => {
+        const tab = this.tabOf('webtpl', 'list');
+        const wait = s.webMod.filter(x => x.st === 'wait').length;
+        const TPL = [
+          ['An Nhiên', 'Xanh trị liệu · bo góc mềm', 32, 'linear-gradient(135deg,#0C3F36,#2E8567)', 'annhien-v2', '12/07/2026', 'Đang chạy'],
+          ['Mộc',      'Nâu ấm · góc vuông · chữ có chân', 14, 'linear-gradient(135deg,#3A2515,#A8712C)', 'moc-v1', '02/06/2026', 'Đang chạy'],
+          ['Sáng',     'Trắng xanh · bo góc lớn', 9, 'linear-gradient(135deg,#0B3A66,#1A79C9)', 'sang-v1', '20/06/2026', 'Đang chạy'],
+          ['Tối giản', 'Đen trắng · chưa mở cho trung tâm', 0, 'linear-gradient(135deg,#2A2520,#7A756E)', 'toigian-v0', '—', 'Nháp']
+        ];
+        const stM = { 'Đang chạy':['var(--ok)','var(--okTint)'], 'Nháp':['var(--text3)','var(--surface2)'] };
+        const modSt = { wait:['Chờ duyệt','var(--goldText)','var(--goldTint)'],
+                        ok:['Đã duyệt','var(--ok)','var(--okTint)'],
+                        no:['Từ chối','var(--danger)','var(--dangerTint)'] };
+        return {
+          isTpl: s.page === 'webtpl',
+          tplTabs: this.tabBar('webtpl', [['list','Bộ mẫu'], ['zone','Vùng cho sửa'],
+                                          ['mod','Kiểm duyệt nội dung', wait ? String(wait) : '']]),
+          tplList: tab==='list', tplZone: tab==='zone', tplMod: tab==='mod',
+          tplKpis: [
+            { t:'Mẫu đang chạy', v:'3', sub:'1 bản nháp chưa mở', c:'var(--text)' },
+            { t:'Trung tâm có website', v:'55', sub:'trên 97 trung tâm toàn mạng', c:'var(--primary)' },
+            { t:'Trang đang ở nháp', v:'12', sub:'chưa đủ nội dung tối thiểu', c:'var(--accent)' },
+            { t:'Nội dung chờ duyệt', v:String(wait), sub:'chữ và ảnh trung tâm nhập', c:'var(--danger)' }
+          ],
+          tplRows: TPL.map(([t, d, n, sw, tok, up, st]) => ({ t, d, n:String(n), sw, tok, up, st,
+            stFg: stM[st][0], stBg: stM[st][1] })),
+
+          openZones: [
+            { t:'Tên hiển thị và câu giới thiệu một dòng', d:'Khác được với tên trên giấy phép', mod:true },
+            { t:'Logo và ảnh bìa', d:'Ảnh thật của cơ sở, không lấy trên mạng', mod:true },
+            { t:'Thư viện ảnh cơ sở', d:'Tối thiểu 4 ảnh mới cho xuất bản', mod:true },
+            { t:'Đoạn giới thiệu', d:'Tối đa 400 chữ', mod:true },
+            { t:'Chọn một trong ba mẫu', d:'Đổi bao nhiêu lần cũng được, không mất nội dung', mod:false },
+            { t:'Bảng màu trong bộ có sẵn', d:'Không cho nhập mã màu tự do', mod:false }
+          ],
+          lockZones: [
+            { t:'Bảng giá dịch vụ', d:'Đọc từ hệ thống quản trị của trung tâm. Cho gõ lại trên web là sớm muộn hai nơi lệch nhau, khách đặt xong mới biết sai.' },
+            { t:'Bậc kỹ thuật viên', d:'ANWELL cấp sau thẩm định. Để trung tâm tự ghi bậc là hỏng toàn bộ giá trị của việc thẩm định.' },
+            { t:'Điểm đánh giá và nhận xét', d:'Của khách đã hoàn thành buổi. Sửa hay xoá được thì đánh giá không còn nghĩa gì.' },
+            { t:'Chân trang Thành viên ANWELL Group', d:'Là bằng chứng đã qua thẩm định — thứ khách dựa vào để tin, và thứ ANWELL đang bán.' }
+          ],
+
+          modRows: s.webMod.map(m => ({ ...m,
+            st: modSt[m.st][0], stFg: modSt[m.st][1], stBg: modSt[m.st][2],
+            open: m.st === 'wait',
+            bg: m.bad ? 'var(--dangerTint)' : 'var(--surface2)',
+            bd: m.bad ? 'var(--dangerLine)' : 'var(--line)',
+            ok: () => this.setWebMod(m.id, 'ok'),
+            no: () => this.setWebMod(m.id, 'no') }))
         };
       })(),
       isKtv:s.page==='ktv', isLoyalty:s.page==='loyalty', isPartners:s.page==='partners',
