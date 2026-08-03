@@ -2582,6 +2582,58 @@
 
 </x-dc>
 <script type="text/x-dc" data-dc-script="" data-props="{&quot;startPage&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;dash&quot;,&quot;schedule&quot;,&quot;staff&quot;,&quot;customers&quot;,&quot;services&quot;,&quot;finance&quot;,&quot;quality&quot;,&quot;inventory&quot;,&quot;settings&quot;],&quot;default&quot;:&quot;dash&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Demo&quot;}}">
+// ── Dữ liệu giả lập cho bản demo ─────────────────────────────
+// Để ngoài class vì đây là hằng, không phụ thuộc trạng thái. Trước đây
+// nằm trong renderVals() nên mỗi lần render lại dựng lại từ đầu, và
+// nhìn vào hàm thì không phân biệt được đâu là dữ liệu đâu là quy tắc.
+const staff = [
+  { i:'HY', n:'Trần Hải Yến', age:'32t', yrs:8, tier:'Bậc 2', field:'Cơ xương khớp', wk:26, q:94, st:'Đang trực' },
+  { i:'NM', n:'Nguyễn Minh', age:'38t', yrs:12, tier:'Bậc 3', field:'Phục hồi thần kinh', wk:19, q:97, st:'Đang trực' },
+  { i:'PD', n:'Phạm Phương Dung', age:'30t', yrs:7, tier:'Bậc 2', field:'Hậu phẫu · hậu sản', wk:22, q:92, st:'Đang trực' },
+  { i:'NA', n:'Lê Ngọc Anh', age:'29t', yrs:6, tier:'Bậc 2', field:'VLTL thần kinh', wk:0, q:0, st:'Chờ duyệt' },
+  { i:'QA', n:'Đỗ Quỳnh Anh', age:'26t', yrs:5, tier:'Bậc 1', field:'Massage trị liệu', wk:24, q:88, st:'Đang trực' },
+  { i:'NB', n:'Nguyễn Bách', age:'27t', yrs:4, tier:'Bậc 1', field:'Hỗ trợ cao tuổi', wk:15, q:85, st:'Nghỉ phép' }
+].map(x=>({
+  ...x, open:()=>{}, q: x.q||'—',
+  qFg: x.q>=92?'var(--ok)' : x.q>=85?'var(--accent)' : 'var(--text3)',
+  stFg: x.st==='Đang trực'?'var(--ok)' : x.st==='Chờ duyệt'?'var(--accent)' : 'var(--text2)',
+  stBg: x.st==='Đang trực'?'var(--tint)' : x.st==='Chờ duyệt'?'var(--goldTint)' : 'var(--surface2)'
+}));
+const payouts = [
+  { period:'01–15/07/2026', n:512, gross:'238tr', net:'202tr', st:'Đã chuyển', stFg:'var(--ok)', stBg:'var(--okTint)' },
+  { period:'16–30/06/2026', n:487, gross:'226tr', net:'192tr', st:'Đã chuyển', stFg:'var(--ok)', stBg:'var(--okTint)' },
+  { period:'16–31/07/2026', n:198, gross:'92tr',  net:'78tr',  st:'Đang chốt', stFg:'var(--goldText)', stBg:'var(--goldTint)' },
+  { period:'01–15/06/2026', n:461, gross:'214tr', net:'182tr', st:'Đã chuyển', stFg:'var(--ok)', stBg:'var(--okTint)' }
+];
+const inventory = [
+  { t:'Tinh dầu tràm', d:'Chai 100ml · dùng cho trị liệu', qty:'8 chai', w:'14%', c:'var(--danger)', st:'Sắp hết', stFg:'var(--danger)', stBg:'var(--dangerTint)' },
+  { t:'Khăn trị liệu', d:'Bộ 20 chiếc · giặt hấp', qty:'42 bộ', w:'70%', c:'var(--ok)', st:'Đủ dùng', stFg:'var(--ok)', stBg:'var(--okTint)' },
+  { t:'Giường trị liệu', d:'8 giường · kiểm định 03/2026', qty:'8/8', w:'100%', c:'var(--ok)', st:'Hoạt động', stFg:'var(--ok)', stBg:'var(--okTint)' },
+  { t:'Máy đo sinh hiệu', d:'Huyết áp · SpO₂ · nhịp tim', qty:'3 máy', w:'38%', c:'var(--accent)', st:'Nên bổ sung', stFg:'var(--goldText)', stBg:'var(--goldTint)' },
+  { t:'Đá nóng trị liệu', d:'Bộ 24 viên · làm nóng', qty:'5 bộ', w:'55%', c:'var(--ok)', st:'Đủ dùng', stFg:'var(--ok)', stBg:'var(--okTint)' }
+];
+const profileRows = [
+  { k:'Tên trung tâm', v:'An Nhiên Wellness & Spa' },
+  { k:'Mã ANWELL', v:'AW-CTR-0142' },
+  { k:'Địa chỉ', v:'12 Lê Quý Đôn, Q.3, TP.HCM' },
+  { k:'Giấy phép', v:'Đã xác minh · hết hạn 03/2028' },
+  { k:'Người đại diện', v:'Nguyễn Thị An' },
+  { k:'Hợp đồng nền tảng', v:'Chiết khấu 15% · gia hạn 01/2027' }
+];
+const taxRows = [
+  { k:'Mã số thuế', d:'Doanh nghiệp', v:'0312 345 678', c:'var(--text)' },
+  { k:'Phương pháp tính GTGT', d:'Áp dụng từ 01/2024', v:'Khấu trừ', c:'var(--text)' },
+  { k:'Kỳ kê khai', d:'Hạn nộp ngày 30 tháng kế tiếp', v:'Theo quý', c:'var(--text)' },
+  { k:'Hoá đơn điện tử', d:'Chữ ký số còn hạn tới 09/2027', v:'Đã kết nối', c:'var(--ok)' },
+  { k:'Hoá đơn đã phát hành', d:'Quý 3/2026', v:'1.284', c:'var(--text)' },
+  { k:'Phí nền tảng ANWELL', d:'Chiết khấu 15% · nhận hoá đơn GTGT', v:'Có hoá đơn', c:'var(--ok)' }
+];
+const members = [
+  { i:'NA', n:'Nguyễn Thị An', e:'an@annhien.vn', role:'Chủ cơ sở' },
+  { i:'TD', n:'Trần Đức', e:'duc@annhien.vn', role:'Quản lý ca' },
+  { i:'LP', n:'Lê Phương', e:'phuong@annhien.vn', role:'Lễ tân' }
+];
+
 class Component extends DCLogic {
   state = {
     // Mặt tiền của trung tâm. Nội dung nằm riêng khỏi mẫu — đổi mẫu không mất
@@ -3389,19 +3441,6 @@ class Component extends DCLogic {
       return { t, pick:()=>this.setState({staffFilter:t}), ...this.pill(on) };
     });
 
-    const staff = [
-      { i:'HY', n:'Trần Hải Yến', age:'32t', yrs:8, tier:'Bậc 2', field:'Cơ xương khớp', wk:26, q:94, st:'Đang trực' },
-      { i:'NM', n:'Nguyễn Minh', age:'38t', yrs:12, tier:'Bậc 3', field:'Phục hồi thần kinh', wk:19, q:97, st:'Đang trực' },
-      { i:'PD', n:'Phạm Phương Dung', age:'30t', yrs:7, tier:'Bậc 2', field:'Hậu phẫu · hậu sản', wk:22, q:92, st:'Đang trực' },
-      { i:'NA', n:'Lê Ngọc Anh', age:'29t', yrs:6, tier:'Bậc 2', field:'VLTL thần kinh', wk:0, q:0, st:'Chờ duyệt' },
-      { i:'QA', n:'Đỗ Quỳnh Anh', age:'26t', yrs:5, tier:'Bậc 1', field:'Massage trị liệu', wk:24, q:88, st:'Đang trực' },
-      { i:'NB', n:'Nguyễn Bách', age:'27t', yrs:4, tier:'Bậc 1', field:'Hỗ trợ cao tuổi', wk:15, q:85, st:'Nghỉ phép' }
-    ].map(x=>({
-      ...x, open:()=>{}, q: x.q||'—',
-      qFg: x.q>=92?'var(--ok)' : x.q>=85?'var(--accent)' : 'var(--text3)',
-      stFg: x.st==='Đang trực'?'var(--ok)' : x.st==='Chờ duyệt'?'var(--accent)' : 'var(--text2)',
-      stBg: x.st==='Đang trực'?'var(--tint)' : x.st==='Chờ duyệt'?'var(--goldTint)' : 'var(--surface2)'
-    }));
 
     const crmKpis = [
       { t:'Khách hoạt động', v:'842', sub:'+38 trong tháng' },
@@ -3436,12 +3475,6 @@ class Component extends DCLogic {
       { t:'Chờ đối soát', v:'8,6tr', sub:'Kỳ 16–31/07', c:'var(--accent)' }
     ];
 
-    const payouts = [
-      { period:'01–15/07/2026', n:512, gross:'238tr', net:'202tr', st:'Đã chuyển', stFg:'var(--ok)', stBg:'var(--okTint)' },
-      { period:'16–30/06/2026', n:487, gross:'226tr', net:'192tr', st:'Đã chuyển', stFg:'var(--ok)', stBg:'var(--okTint)' },
-      { period:'16–31/07/2026', n:198, gross:'92tr',  net:'78tr',  st:'Đang chốt', stFg:'var(--goldText)', stBg:'var(--goldTint)' },
-      { period:'01–15/06/2026', n:461, gross:'214tr', net:'182tr', st:'Đã chuyển', stFg:'var(--ok)', stBg:'var(--okTint)' }
-    ];
 
     // Phản hồi dưới 4 sao đánh dấu cần xử lý; xử lý xong thì đổi trạng thái.
     const reviews = s.reviews.map(r => {
@@ -3461,13 +3494,6 @@ class Component extends DCLogic {
       { t:'Tỷ lệ huỷ muộn',        v:'3,2%',  w:'12%', c:'var(--danger)' }
     ];
 
-    const inventory = [
-      { t:'Tinh dầu tràm', d:'Chai 100ml · dùng cho trị liệu', qty:'8 chai', w:'14%', c:'var(--danger)', st:'Sắp hết', stFg:'var(--danger)', stBg:'var(--dangerTint)' },
-      { t:'Khăn trị liệu', d:'Bộ 20 chiếc · giặt hấp', qty:'42 bộ', w:'70%', c:'var(--ok)', st:'Đủ dùng', stFg:'var(--ok)', stBg:'var(--okTint)' },
-      { t:'Giường trị liệu', d:'8 giường · kiểm định 03/2026', qty:'8/8', w:'100%', c:'var(--ok)', st:'Hoạt động', stFg:'var(--ok)', stBg:'var(--okTint)' },
-      { t:'Máy đo sinh hiệu', d:'Huyết áp · SpO₂ · nhịp tim', qty:'3 máy', w:'38%', c:'var(--accent)', st:'Nên bổ sung', stFg:'var(--goldText)', stBg:'var(--goldTint)' },
-      { t:'Đá nóng trị liệu', d:'Bộ 24 viên · làm nóng', qty:'5 bộ', w:'55%', c:'var(--ok)', st:'Đủ dùng', stFg:'var(--ok)', stBg:'var(--okTint)' }
-    ];
 
     // ── yêu cầu từ KTV ──
     const kindMeta = {
@@ -3504,14 +3530,6 @@ class Component extends DCLogic {
       ]
     };
 
-    const profileRows = [
-      { k:'Tên trung tâm', v:'An Nhiên Wellness & Spa' },
-      { k:'Mã ANWELL', v:'AW-CTR-0142' },
-      { k:'Địa chỉ', v:'12 Lê Quý Đôn, Q.3, TP.HCM' },
-      { k:'Giấy phép', v:'Đã xác minh · hết hạn 03/2028' },
-      { k:'Người đại diện', v:'Nguyễn Thị An' },
-      { k:'Hợp đồng nền tảng', v:'Chiết khấu 15% · gia hạn 01/2027' }
-    ];
 
     const hoursRows = [
       { d:'Thứ 2 – Thứ 6', t:'8:00 – 22:00' },
@@ -3520,20 +3538,7 @@ class Component extends DCLogic {
     ];
 
     // ── thuế & hoá đơn ──
-    const taxRows = [
-      { k:'Mã số thuế', d:'Doanh nghiệp', v:'0312 345 678', c:'var(--text)' },
-      { k:'Phương pháp tính GTGT', d:'Áp dụng từ 01/2024', v:'Khấu trừ', c:'var(--text)' },
-      { k:'Kỳ kê khai', d:'Hạn nộp ngày 30 tháng kế tiếp', v:'Theo quý', c:'var(--text)' },
-      { k:'Hoá đơn điện tử', d:'Chữ ký số còn hạn tới 09/2027', v:'Đã kết nối', c:'var(--ok)' },
-      { k:'Hoá đơn đã phát hành', d:'Quý 3/2026', v:'1.284', c:'var(--text)' },
-      { k:'Phí nền tảng ANWELL', d:'Chiết khấu 15% · nhận hoá đơn GTGT', v:'Có hoá đơn', c:'var(--ok)' }
-    ];
 
-    const members = [
-      { i:'NA', n:'Nguyễn Thị An', e:'an@annhien.vn', role:'Chủ cơ sở' },
-      { i:'TD', n:'Trần Đức', e:'duc@annhien.vn', role:'Quản lý ca' },
-      { i:'LP', n:'Lê Phương', e:'phuong@annhien.vn', role:'Lễ tân' }
-    ];
 
 
     // ── yêu cầu khách gửi từ app (đổi giờ / tạm hoãn / huỷ) ──
