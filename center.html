@@ -3367,6 +3367,96 @@ class Component extends DCLogic {
     };
   }
 
+  // Đăng ký kỹ thuật viên — biểu mẫu hồ sơ, dịch vụ nhận làm, cam kết.
+  dangKyKtvVals(){
+    const s = this.state;
+    const tab = this.tabOf('staff', 'now');
+    const F = [
+      ['name',   'Họ và tên',              '', 'Nguyễn Thị An'],
+      ['cccd',   'Số CCCD',                'ANWELL thẩm định, bạn chỉ thấy 4 số cuối', '0790123454812'],
+      ['dob',    'Ngày sinh',              '', '12/04/1990'],
+      ['gender', 'Giới tính',              'khách hay muốn chọn KTV cùng giới', 'Nữ'],
+      ['addr',   'Địa chỉ thường trú',     '', '48/2 Trần Quốc Thảo, P.Võ Thị Sáu, Q.3'],
+      ['phone',  'Số điện thoại',          '', '0903 415 812'],
+      ['yrs',    'Số năm đã làm nghề',     '', '8'],
+      ['certs',  'Chứng chỉ đang còn hiệu lực', 'ghi rõ nơi cấp và ngày hết hạn', 'Xoa bóp bấm huyệt · Sở Y tế TP.HCM · đến 03/2027'],
+      ['bank',   'Tài khoản nhận lương',   'trung tâm chuyển lương vào đây', 'Vietcombank · 0071000456312'],
+      ['tax',    'Mã số thuế cá nhân',     'để biết có khấu trừ hộ hay không', '8012345678'],
+      ['sos',    'Người liên hệ khẩn cấp', 'app KTV có nút SOS, cần số này', 'Nguyễn Văn B · anh trai · 0912 668 340']
+    ];
+    const SVCS = ['Trị liệu cổ vai gáy','Massage trị liệu','Vật lý trị liệu','Phục hồi vận động','Phục hồi hậu sản','Chăm sóc người cao tuổi'];
+    const VENUES = [['center','🏢 Tại cơ sở'], ['home','🏠 Tại nhà khách']];
+    const atHome = s.regVenue.includes('home');
+    const DOCS = [
+      ['cccd',  'Ảnh CCCD hai mặt',        'ANWELL đối chiếu với cơ sở dữ liệu dân cư'],
+      ['photo', 'Ảnh chân dung',           'Khách nhìn thấy ảnh này khi chọn kỹ thuật viên'],
+      ['cert',  'Bản chụp chứng chỉ',      'Có dấu và chữ ký nơi cấp'],
+      ['health','Giấy khám sức khoẻ',      'Trong vòng 6 tháng — nghề chạm người trực tiếp'],
+      ...(atHome ? [['crim', 'Phiếu lý lịch tư pháp số 1', 'Chỉ yêu cầu vì có nhận ca tại nhà khách']] : [])
+    ];
+    const VOWS = [
+      ['true',  'Tôi cam kết mọi thông tin khai trên đây là đúng sự thật. Khai sai thì hồ sơ bị huỷ và không được đăng ký lại trên ANWELL.'],
+      ['terms', 'Tôi đã đọc, hiểu và đồng ý với điều kiện, điều khoản và quy định của ANWELL Platform — gồm quy tắc ứng xử với khách, quy định bảo mật thông tin khách hàng, và cơ chế xử lý khiếu nại.']
+    ];
+    const chip = (t, on, tap) => ({ t, pick:tap, ...this.pill(on) });
+    const box = (on) => ({
+      tick: on ? '✓' : '',
+      bg: on ? 'var(--tint)' : 'var(--surface)',
+      bd: on ? 'var(--primary)' : 'var(--line)',
+      boxBg: on ? 'var(--primary)' : 'transparent',
+      boxBd: on ? 'var(--primary)' : 'var(--muted)' });
+    const flip = (field, v) => { const cur = s[field];
+      this.setState({ [field]: cur.includes(v) ? cur.filter(x=>x!==v) : [...cur, v] }); };
+    const filled = F.filter(([k]) => (s.regForm[k]||'').trim()).length;
+    const docsOk = DOCS.every(([k]) => s.regDocsOn.includes(k));
+    const vowsOk = VOWS.every(([k]) => s.regVowsOn.includes(k));
+    const ready = filled === F.length && s.regSvcs.length > 0 && s.regVenue.length > 0 && docsOk && vowsOk;
+    const CERTS = [
+      { i:'PD', n:'Phạm P. Dung', cert:'Chứng chỉ chăm sóc thai sản', exp:'18/08/2026', tag:'Còn 19 ngày',
+        tFg:'var(--danger)', tBg:'var(--dangerTint)', accent:'var(--dangerSolid)',
+        impact:'không nhận được ca hậu sản và thai sản' },
+      { i:'NB', n:'Nguyễn Bách', cert:'Chứng chỉ xoa bóp bấm huyệt', exp:'02/10/2026', tag:'Còn 2 tháng',
+        tFg:'var(--goldText)', tBg:'var(--goldTint)', accent:'var(--gold)',
+        impact:'không nhận được mọi ca trị liệu' },
+      { i:'QA', n:'Đỗ Quỳnh Anh', cert:'Giấy khám sức khoẻ định kỳ', exp:'30/11/2026', tag:'Còn 4 tháng',
+        tFg:'var(--text2)', tBg:'var(--surface2)', accent:'var(--line)',
+        impact:'không nhận được ca nào cho tới khi khám lại' }
+    ];
+    return {
+      stfTabs: this.tabBar('staff', [
+        ['now','Đang làm'], ['new','Đăng ký mới'], ['cert','Chứng chỉ sắp hết', String(CERTS.length)]
+      ]),
+      stfNow: tab==='now', stfNew: tab==='new', stfCert: tab==='cert',
+      regSteps: [
+        { n:'1', t:'Kỹ thuật viên khai', d:'Tự khai trên app hoặc trung tâm nhập hộ', on:true },
+        { n:'2', t:'Trung tâm xác nhận', d:'Bạn quyết có nhận người này hay không', on:true },
+        { n:'3', t:'ANWELL cấp bậc',     d:'Thẩm định chứng chỉ rồi xếp bậc — không phải việc của trung tâm', on:false }
+      ].map(p => ({ ...p,
+        bg: p.on ? 'var(--tint)' : 'var(--goldTint)',
+        bd: p.on ? 'var(--primary)' : 'var(--gold)',
+        fg: p.on ? 'var(--primary)' : 'var(--goldText)',
+        numBg: p.on ? 'var(--primary)' : 'var(--gold)',
+        numFg: p.on ? 'var(--on-primary)' : '#06140F' })),
+      regFields: F.map(([k,t,why,ph]) => ({ t, why, hasWhy: !!why, ph,
+        v: s.regForm[k] || '',
+        on: (e) => this.setState({ regForm: {...s.regForm, [k]: e.target.value} }) })),
+      regSvcs: SVCS.map(t => chip(t, s.regSvcs.includes(t), () => flip('regSvcs', t))),
+      regVenues: VENUES.map(([k,t]) => chip(t, s.regVenue.includes(k), () => flip('regVenue', k))),
+      needCrim: atHome,
+      regDocs: DOCS.map(([k,t,d]) => ({ t, d, ...box(s.regDocsOn.includes(k)),
+        toggle: () => flip('regDocsOn', k) })),
+      regVows: VOWS.map(([k,t]) => ({ t, ...box(s.regVowsOn.includes(k)),
+        toggle: () => flip('regVowsOn', k) })),
+      regLabel: !ready
+        ? ('Còn thiếu — đã điền ' + filled + '/' + F.length + ' mục bắt buộc')
+        : 'Gửi hồ sơ sang ANWELL thẩm định',
+      regBg: ready ? 'var(--primary)' : 'var(--surface2)',
+      regFg: ready ? 'var(--on-primary)' : 'var(--text3)',
+      regSubmit: () => ready ? this.setState({ tabs: {...s.tabs, staff:'now'} }) : null,
+      certs: CERTS.map(c => ({ ...c, remind: () => {} }))
+    };
+  }
+
   renderVals(){
     const s = this.state, pg = this.pages.find(p=>p.id===s.page) || this.pages[0];
 
@@ -4022,93 +4112,7 @@ class Component extends DCLogic {
       // cùng giới, tài khoản để trả lương, mã số thuế để biết có khấu trừ hộ
       // hay không, liên hệ khẩn cấp cho nút SOS, khám sức khoẻ vì nghề chạm
       // người trực tiếp.
-      ...(() => {
-        const tab = this.tabOf('staff', 'now');
-        const F = [
-          ['name',   'Họ và tên',              '', 'Nguyễn Thị An'],
-          ['cccd',   'Số CCCD',                'ANWELL thẩm định, bạn chỉ thấy 4 số cuối', '0790123454812'],
-          ['dob',    'Ngày sinh',              '', '12/04/1990'],
-          ['gender', 'Giới tính',              'khách hay muốn chọn KTV cùng giới', 'Nữ'],
-          ['addr',   'Địa chỉ thường trú',     '', '48/2 Trần Quốc Thảo, P.Võ Thị Sáu, Q.3'],
-          ['phone',  'Số điện thoại',          '', '0903 415 812'],
-          ['yrs',    'Số năm đã làm nghề',     '', '8'],
-          ['certs',  'Chứng chỉ đang còn hiệu lực', 'ghi rõ nơi cấp và ngày hết hạn', 'Xoa bóp bấm huyệt · Sở Y tế TP.HCM · đến 03/2027'],
-          ['bank',   'Tài khoản nhận lương',   'trung tâm chuyển lương vào đây', 'Vietcombank · 0071000456312'],
-          ['tax',    'Mã số thuế cá nhân',     'để biết có khấu trừ hộ hay không', '8012345678'],
-          ['sos',    'Người liên hệ khẩn cấp', 'app KTV có nút SOS, cần số này', 'Nguyễn Văn B · anh trai · 0912 668 340']
-        ];
-        const SVCS = ['Trị liệu cổ vai gáy','Massage trị liệu','Vật lý trị liệu','Phục hồi vận động','Phục hồi hậu sản','Chăm sóc người cao tuổi'];
-        const VENUES = [['center','🏢 Tại cơ sở'], ['home','🏠 Tại nhà khách']];
-        const atHome = s.regVenue.includes('home');
-        const DOCS = [
-          ['cccd',  'Ảnh CCCD hai mặt',        'ANWELL đối chiếu với cơ sở dữ liệu dân cư'],
-          ['photo', 'Ảnh chân dung',           'Khách nhìn thấy ảnh này khi chọn kỹ thuật viên'],
-          ['cert',  'Bản chụp chứng chỉ',      'Có dấu và chữ ký nơi cấp'],
-          ['health','Giấy khám sức khoẻ',      'Trong vòng 6 tháng — nghề chạm người trực tiếp'],
-          ...(atHome ? [['crim', 'Phiếu lý lịch tư pháp số 1', 'Chỉ yêu cầu vì có nhận ca tại nhà khách']] : [])
-        ];
-        const VOWS = [
-          ['true',  'Tôi cam kết mọi thông tin khai trên đây là đúng sự thật. Khai sai thì hồ sơ bị huỷ và không được đăng ký lại trên ANWELL.'],
-          ['terms', 'Tôi đã đọc, hiểu và đồng ý với điều kiện, điều khoản và quy định của ANWELL Platform — gồm quy tắc ứng xử với khách, quy định bảo mật thông tin khách hàng, và cơ chế xử lý khiếu nại.']
-        ];
-        const chip = (t, on, tap) => ({ t, pick:tap, ...this.pill(on) });
-        const box = (on) => ({
-          tick: on ? '✓' : '',
-          bg: on ? 'var(--tint)' : 'var(--surface)',
-          bd: on ? 'var(--primary)' : 'var(--line)',
-          boxBg: on ? 'var(--primary)' : 'transparent',
-          boxBd: on ? 'var(--primary)' : 'var(--muted)' });
-        const flip = (field, v) => { const cur = s[field];
-          this.setState({ [field]: cur.includes(v) ? cur.filter(x=>x!==v) : [...cur, v] }); };
-        const filled = F.filter(([k]) => (s.regForm[k]||'').trim()).length;
-        const docsOk = DOCS.every(([k]) => s.regDocsOn.includes(k));
-        const vowsOk = VOWS.every(([k]) => s.regVowsOn.includes(k));
-        const ready = filled === F.length && s.regSvcs.length > 0 && s.regVenue.length > 0 && docsOk && vowsOk;
-        const CERTS = [
-          { i:'PD', n:'Phạm P. Dung', cert:'Chứng chỉ chăm sóc thai sản', exp:'18/08/2026', tag:'Còn 19 ngày',
-            tFg:'var(--danger)', tBg:'var(--dangerTint)', accent:'var(--dangerSolid)',
-            impact:'không nhận được ca hậu sản và thai sản' },
-          { i:'NB', n:'Nguyễn Bách', cert:'Chứng chỉ xoa bóp bấm huyệt', exp:'02/10/2026', tag:'Còn 2 tháng',
-            tFg:'var(--goldText)', tBg:'var(--goldTint)', accent:'var(--gold)',
-            impact:'không nhận được mọi ca trị liệu' },
-          { i:'QA', n:'Đỗ Quỳnh Anh', cert:'Giấy khám sức khoẻ định kỳ', exp:'30/11/2026', tag:'Còn 4 tháng',
-            tFg:'var(--text2)', tBg:'var(--surface2)', accent:'var(--line)',
-            impact:'không nhận được ca nào cho tới khi khám lại' }
-        ];
-        return {
-          stfTabs: this.tabBar('staff', [
-            ['now','Đang làm'], ['new','Đăng ký mới'], ['cert','Chứng chỉ sắp hết', String(CERTS.length)]
-          ]),
-          stfNow: tab==='now', stfNew: tab==='new', stfCert: tab==='cert',
-          regSteps: [
-            { n:'1', t:'Kỹ thuật viên khai', d:'Tự khai trên app hoặc trung tâm nhập hộ', on:true },
-            { n:'2', t:'Trung tâm xác nhận', d:'Bạn quyết có nhận người này hay không', on:true },
-            { n:'3', t:'ANWELL cấp bậc',     d:'Thẩm định chứng chỉ rồi xếp bậc — không phải việc của trung tâm', on:false }
-          ].map(p => ({ ...p,
-            bg: p.on ? 'var(--tint)' : 'var(--goldTint)',
-            bd: p.on ? 'var(--primary)' : 'var(--gold)',
-            fg: p.on ? 'var(--primary)' : 'var(--goldText)',
-            numBg: p.on ? 'var(--primary)' : 'var(--gold)',
-            numFg: p.on ? 'var(--on-primary)' : '#06140F' })),
-          regFields: F.map(([k,t,why,ph]) => ({ t, why, hasWhy: !!why, ph,
-            v: s.regForm[k] || '',
-            on: (e) => this.setState({ regForm: {...s.regForm, [k]: e.target.value} }) })),
-          regSvcs: SVCS.map(t => chip(t, s.regSvcs.includes(t), () => flip('regSvcs', t))),
-          regVenues: VENUES.map(([k,t]) => chip(t, s.regVenue.includes(k), () => flip('regVenue', k))),
-          needCrim: atHome,
-          regDocs: DOCS.map(([k,t,d]) => ({ t, d, ...box(s.regDocsOn.includes(k)),
-            toggle: () => flip('regDocsOn', k) })),
-          regVows: VOWS.map(([k,t]) => ({ t, ...box(s.regVowsOn.includes(k)),
-            toggle: () => flip('regVowsOn', k) })),
-          regLabel: !ready
-            ? ('Còn thiếu — đã điền ' + filled + '/' + F.length + ' mục bắt buộc')
-            : 'Gửi hồ sơ sang ANWELL thẩm định',
-          regBg: ready ? 'var(--primary)' : 'var(--surface2)',
-          regFg: ready ? 'var(--on-primary)' : 'var(--text3)',
-          regSubmit: () => ready ? this.setState({ tabs: {...s.tabs, staff:'now'} }) : null,
-          certs: CERTS.map(c => ({ ...c, remind: () => {} }))
-        };
-      })(),
+      ...this.dangKyKtvVals(),
 
       // ── Hồ sơ khách chi tiết ────────────────────────────────────
       // Hai lớp điểm hiện cạnh nhau nhưng tách bạch: ANP là của nền tảng, điểm
