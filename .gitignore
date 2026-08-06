@@ -8,3 +8,11 @@ Tailieu-noibo/
 # Cấu hình Claude Code riêng từng máy — chứa đường dẫn cá nhân và tên tệp nội bộ.
 # Thư mục .claude/skills/ thì VẪN commit: đó là quy tắc chung của dự án.
 .claude/settings.local.json
+
+# Nhật ký chi phí token — do T7/T8 tự ghi mỗi lượt chạy.
+# Không commit: T8 là vai CHỈ ĐỌC, ghi vào cây làm việc thì lần rà sau lại thấy
+# chính dòng nhật ký của lần trước trong diff.
+tools/moi/nhat-ky-chi-phi.tsv
+
+# Bộ nhớ kết quả rà — tránh chạy lại trên nội dung không đổi.
+tools/moi/.da-ra/
