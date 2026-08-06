@@ -43,6 +43,10 @@ GUIDE_TAG = (
     '<script defer src="assets/demo-guide.js" data-page="{page}"></script>'
 )
 
+# Số liệu vận hành đội AI. Tệp assets/doi-ai.js bị .gitignore — bản công khai
+# không có nó, trang admin tự hiện bản rút gọn không kèm số.
+DOI_AI_TAG = '<script src="assets/doi-ai.js"></script>' 
+
 
 def esc(text: str) -> str:
     return (
@@ -116,6 +120,10 @@ def build_page(page: str, meta: dict) -> int:
     new_head = "\n" + build_head(page, meta) + "\n" + keep + "\n"
     if (SHARED / "demo-guide").is_dir():
         new_head += GUIDE_TAG.format(page=page) + "\n"
+    # Trang admin có mục Đội AI. Thẻ này nạp số liệu vận hành từ một tệp bị
+    # .gitignore — bản công khai không có tệp đó nên trang tự để trống.
+    if page == "admin":
+        new_head += DOI_AI_TAG + "\n"
 
     out = source[:head_open] + new_head + source[head_close:]
     dest = ROOT / f"{page}.html"

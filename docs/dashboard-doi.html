@@ -77,7 +77,7 @@ border-radius:8px;padding:12px 16px;margin:10px 0}
 <tr><td><b>T5₫</b></td><td>Backend · chế độ phần tiền</td><td><code>opus</code></td><td>agent anwell-t5-backend-tien</td><td><span class="v v-do">ghi được</span></td><td>103</td><td><span class="v v-xanh">đã dựng</span></td></tr>
 <tr><td><b>T6</b></td><td>Frontend</td><td><code>sonnet</code></td><td>agent anwell-t6-frontend</td><td><span class="v v-do">ghi được</span></td><td>93</td><td><span class="v v-xanh">đã dựng</span></td></tr>
 <tr><td><b>T7</b></td><td>QA &amp; Kiểm thử</td><td><code>gpt-codex</code></td><td>tools/kiem-thu-bang-codex.sh</td><td><span class="v v-do">ghi trong tests/</span></td><td>86</td><td><span class="v v-xanh">đã dựng</span></td></tr>
-<tr><td><b>T8</b></td><td>Rà độc lập</td><td><code>opus</code></td><td>tools/ra-bang-codex.sh · agent Opus</td><td><span class="v v-xanh">CHỈ ĐỌC</span></td><td>160</td><td><span class="v v-xanh">đã dựng</span></td></tr>
+<tr><td><b>T8</b></td><td>Rà độc lập</td><td><code>opus</code></td><td>agent anwell-t8-ra-doc-lap</td><td><span class="v v-xanh">CHỈ ĐỌC</span></td><td>160</td><td><span class="v v-xanh">đã dựng</span></td></tr>
 </table>
 <p class="ghi">Quyền ghi của T8 là ràng buộc bằng máy: bản Codex chạy <code>-s read-only</code>, bản Claude không khai <code>Write</code> hay <code>Edit</code>. T7 phải ghi tệp kiểm thử nên ranh giới "chỉ ghi trong <code>tests/</code>" là lời nhắc, không phải sandbox — vì vậy diff của T7 vẫn phải qua T8.</p>
 <h2>Bộ mồi — đo hành vi, không nghe lời khai</h2><table><tr><th>Mã</th><th>Kiểm vai</th><th>Số mục phải bắt</th><th>Trạng thái</th></tr>

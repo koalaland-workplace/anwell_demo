@@ -10,6 +10,8 @@ gõ tay thì sớm muộn dashboard nói một đằng kho mã một nẻo.
 
 import re
 import csv
+import sys
+from datetime import datetime
 from pathlib import Path
 from html import escape
 
@@ -28,7 +30,7 @@ VAI = [
     ("T5₫", "Backend · chế độ phần tiền",        "agent anwell-t5-backend-tien",         ".claude/agents/anwell-t5-backend-tien.md"),
     ("T6",  "Frontend",                 "agent anwell-t6-frontend",             ".claude/agents/anwell-t6-frontend.md"),
     ("T7",  "QA & Kiểm thử",            "tools/kiem-thu-bang-codex.sh",         "docs/vai/t7-qa-kiem-thu.md"),
-    ("T8",  "Rà độc lập",               "tools/ra-bang-codex.sh · agent Opus",  ".claude/agents/anwell-t8-ra-doc-lap.md"),
+    ("T8",  "Rà độc lập",               "agent anwell-t8-ra-doc-lap",  ".claude/agents/anwell-t8-ra-doc-lap.md"),
 ]
 
 
@@ -283,3 +285,98 @@ border-radius:8px;padding:12px 16px;margin:10px 0}}
 
 if __name__ == "__main__":
     dung()
+
+
+# ── Bơm số liệu đội vào Management Portal ────────────────────────────────────
+# Trang admin có mục "Đội AI & hạn mức". Đây là CÔNG CỤ NỘI BỘ — khi dựng
+# anwell-platform thì mục đó không chuyển sang: khách của ANWELL không cần thấy
+# đội phát triển của ANWELL.
+#
+# Khối dữ liệu trong src/pages/admin.html được sinh lại ở đây, không sửa tay.
+def bom_vao_admin() -> bool:
+    import json
+    import subprocess
+
+    tep = GOC / "src" / "pages" / "admin.html"
+    if not tep.exists():
+        return False
+
+    QUYEN = {"T7": "chỉ tests/", "T8": "không ghi"}
+    vai = []
+    for ma, ten, chay_bang, nguon in VAI:
+        p = GOC / nguon
+        fm = doc_frontmatter(p) if nguon.endswith(".md") and "/agents/" in nguon else None
+        if fm:
+            model = fm["model"]
+            quyen = "không ghi" if "Write" not in fm["tools"] else "ghi mã"
+        else:
+            model = "gpt-5.6-sol" if ma == "T7" else ("opus" if ma == "T1" else "—")
+            quyen = QUYEN.get(ma, "—")
+        vai.append({"ma": ma, "ten": ten, "moHinh": model, "chay": chay_bang,
+                    "quyen": quyen, "on": p.exists()})
+    # T8 còn một bản chạy bằng Codex — vai duy nhất có hai bộ máy, vì nguyên tắc
+    # là NGƯỢC với người viết chứ không phải luôn dùng một mô hình.
+    vai.append({"ma": "T8", "ten": "Rà độc lập · bản Codex", "moHinh": "gpt-5.6-sol",
+                "chay": "tools/ra-bang-codex.sh", "quyen": "không ghi",
+                "on": (GOC / "tools" / "ra-bang-codex.sh").exists()})
+
+    try:
+        pt = subprocess.run([sys.executable, str(GOC / "tools" / "doc-token.py"), "han-muc"],
+                            capture_output=True, text=True, timeout=30).stdout.strip()
+        han_muc = {"phanTram": int(pt), "nguong": 80} if pt.isdigit() else None
+    except (subprocess.SubprocessError, OSError, ValueError):
+        han_muc = None
+
+    def _n(r, k):
+        try:
+            return int(r.get(k) or 0)
+        except ValueError:
+            return 0
+
+    rows = [r for r in thu_chi_phi() if _n(r, "token_tong") > 0]
+    if rows:
+        tong = sum(_n(r, "token_tong") for r in rows)
+        # Giá tham chiếu USD/1 triệu token. Gói thuê bao thì đây KHÔNG phải tiền
+        # thật — chỉ để biết nếu tính theo API thì tốn bao nhiêu.
+        usd = sum(_n(r, "token_vao") * 1.25 + _n(r, "token_dem") * 0.125
+                  + _n(r, "token_ra") * 10.0 for r in rows) / 1_000_000
+        chi_phi = {"luot": len(rows), "tokenTong": tong,
+                   "vnd": f"{usd * 26000:,.0f}đ".replace(",", ".")}
+    else:
+        chi_phi = None
+
+    moi, _ = thu_moi()
+    canh_bao = []
+    if han_muc and han_muc["phanTram"] >= 60:
+        canh_bao.append(f"Hạn mức Codex đã dùng {han_muc['phanTram']}% của tuần. "
+                        "Chạm trần là hai cổng kiểm chứng dừng.")
+    chua = sum(1 for m in moi if not m["chay"])
+    if chua:
+        canh_bao.append(f"{chua}/{len(moi)} phép thử mồi chưa chạy — hành vi các vai đó chưa được đo.")
+    canh_bao.append("T7 chạy sandbox ghi được cả workspace; ranh giới «chỉ ghi trong tests/» "
+                    "bắt bằng đối chiếu hash sau khi chạy, không phải bằng sandbox.")
+
+    du_lieu = {
+        "capNhat": datetime.now().strftime("%d/%m/%Y %H:%M"),
+        "hanMuc": han_muc, "vai": vai, "chiPhi": chi_phi,
+        "moi": {"daChay": sum(1 for m in moi if m["chay"]), "tong": len(moi)},
+        "canhBao": canh_bao,
+    }
+
+    # Ghi ra tệp NGOÀI, không nhúng vào HTML. Tệp này bị .gitignore nên bản
+    # công khai trên GitHub Pages không có nó và trang tự để trống — số liệu
+    # vận hành không thể lộ do quên.
+    ra = GOC / "assets" / "doi-ai.js"
+    ra.parent.mkdir(parents=True, exist_ok=True)
+    ra.write_text(
+        "// Số liệu vận hành đội AI — SINH TỰ ĐỘNG, KHÔNG commit.\n"
+        "// Sinh lại: python3 tools/dashboard-doi.py && python3 tools/build.py\n"
+        "window.DOI_AI_THAT = " + json.dumps(du_lieu, ensure_ascii=False) + ";\n",
+        encoding="utf-8")
+    print(f"  đã ghi assets/doi-ai.js ({len(vai)} vai · hạn mức "
+          f"{han_muc['phanTram'] if han_muc else '?'}%) — tệp này KHÔNG commit")
+    print("  chạy tiếp: python3 tools/build.py")
+    return True
+
+
+bom_vao_admin()
