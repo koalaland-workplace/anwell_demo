@@ -1870,89 +1870,6 @@
           </div>
         </sc-if>
       </sc-if>
-
-      <!-- ═══ ĐỘI AI & HẠN MỨC ═══ công cụ nội bộ, không thuộc phạm vi sản phẩm -->
-      <sc-if value="{{ isDoiAi }}" hint-placeholder-val="{{ false }}">
-        <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:14px">
-          <sc-if value="{{ aiCongKhai }}" hint-placeholder-val="{{ true }}"><p style="font-size:12px;color:var(--text2);max-width:660px">Đội AI dựng nền tảng ANWELL. Số liệu ở trang này là <b>số thật</b> đọc từ tệp phiên của công cụ, không phải dữ liệu giả lập như phần còn lại của bản demo.</p></sc-if>
-          <sc-if value="{{ aiRiengTu }}" hint-placeholder-val="{{ false }}"><p style="font-size:12px;color:var(--text2);max-width:660px">Đội AI dựng nền tảng ANWELL. Bản công khai này <b>cố ý không kèm số liệu</b> — hạn mức tài khoản và chi phí là dữ liệu vận hành nội bộ.</p></sc-if>
-          <span style="flex:none;font-size:10.5px;color:var(--text3)">Cập nhật {{ aiCapNhat }}</span>
-        </div>
-
-        <sc-if value="{{ aiCongKhai }}" hint-placeholder-val="{{ true }}">
-        <div class="split" style="margin-bottom:14px">
-          <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px">
-            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px">
-              <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:17px">Hạn mức Codex</div>
-              <span style="font-size:22px;font-weight:700;color:{{ aiHmMau }}">{{ aiHmPhanTram }}</span>
-            </div>
-            <div style="height:9px;border-radius:99px;background:var(--surface2);overflow:hidden;margin-top:11px">
-              <div style="height:100%;width:{{ aiHmRong }};background:{{ aiHmMau }};border-radius:99px"></div>
-            </div>
-            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:8px">
-              <span style="font-size:11px;color:var(--text2)">Còn lại {{ aiHmConLai }} của tuần</span>
-              <span style="font-size:10.5px;font-weight:600;color:{{ aiHmMau }}">{{ aiHmNhan }}</span>
-            </div>
-            <sc-if value="{{ aiHmCang }}" hint-placeholder-val="{{ false }}">
-              <div style="margin-top:12px;padding:11px 12px;border-radius:11px;background:var(--dangerTint);border:1px solid var(--dangerLine)">
-                <p style="font-size:11px;line-height:1.6;color:var(--text2)">Chạm trần là <b>T7 và T8 dừng</b> — hai cổng kiểm chứng tắt mà không báo lỗi rõ ràng. Đây là kiểu hỏng khó chẩn đoán nhất. Chuẩn bị khoá API OpenAI làm đường lùi.</p>
-              </div>
-            </sc-if>
-          </div>
-
-          <div style="display:flex;flex-direction:column;gap:14px">
-            <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px">
-              <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:17px">Chi phí đã đo</div>
-              <div style="display:flex;gap:22px;margin-top:12px;flex-wrap:wrap">
-                <span><span style="display:block;font-size:21px;font-weight:700">{{ aiLuot }}</span><span style="display:block;font-size:10.5px;color:var(--text3);margin-top:1px">lượt gọi</span></span>
-                <span><span style="display:block;font-size:21px;font-weight:700">{{ aiToken }}</span><span style="display:block;font-size:10.5px;color:var(--text3);margin-top:1px">token thật</span></span>
-                <span><span style="display:block;font-size:21px;font-weight:700">{{ aiVnd }}</span><span style="display:block;font-size:10.5px;color:var(--text3);margin-top:1px">quy đổi giá API</span></span>
-              </div>
-              <p style="font-size:10.5px;color:var(--text3);margin-top:11px;line-height:1.55">Đang chạy bằng gói thuê bao nên đây <b>không phải tiền thật</b> — chỉ là quy đổi để biết nếu tính theo API thì tốn bao nhiêu.</p>
-            </div>
-            <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px">
-              <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px">
-                <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:17px">Bộ mồi đã chạy</div>
-                <span style="font-size:21px;font-weight:700">{{ aiMoi }}</span>
-              </div>
-              <sc-if value="{{ aiMoiThieu }}" hint-placeholder-val="{{ true }}">
-                <p style="font-size:11px;color:var(--text2);margin-top:9px;line-height:1.6">Mồi đo <b>hành vi</b> chứ không nghe agent tự khai. Còn vai chưa đo thì đội mới là <i>đã dựng</i>, chưa phải <i>đã hoạt động đúng</i>.</p>
-              </sc-if>
-            </div>
-          </div>
-        </div>
-
-        <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden">
-          <div style="padding:15px 16px;border-bottom:1px solid var(--line)">
-            <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:17px">Thành viên đội — 8 vai chức năng</div>
-            <div style="font-size:11px;color:var(--text3);margin-top:1px">{{ aiSoVaiOn }}/{{ aiSoVai }} bộ máy sẵn sàng · T5 và T8 mỗi vai hai chế độ · người rà bắt buộc khác mô hình người viết</div>
-          </div>
-          <sc-for list="{{ aiVai }}" as="v" hint-placeholder-count="9">
-            <div style="display:flex;align-items:center;gap:11px;padding:12px 16px;border-bottom:1px solid var(--line2);flex-wrap:wrap">
-              <span style="flex:none;width:38px;font-size:12px;font-weight:700;color:var(--primary)">{{ v.ma }}</span>
-              <span style="flex:1;min-width:150px"><span style="display:block;font-size:12.5px;font-weight:600">{{ v.ten }}</span><span style="display:block;font-size:10.5px;color:var(--text3);margin-top:1px">{{ v.chay }}</span></span>
-              <span style="flex:none;font-size:10.5px;font-weight:600;color:var(--text2);white-space:nowrap">{{ v.moHinh }}</span>
-              <span style="flex:none;font-size:9.5px;font-weight:700;color:{{ v.qFg }};background:{{ v.qBg }};padding:3px 9px;border-radius:99px;white-space:nowrap">{{ v.quyen }}</span>
-              <span style="flex:none;font-size:9.5px;font-weight:700;color:{{ v.stFg }};background:{{ v.stBg }};padding:3px 9px;border-radius:99px;white-space:nowrap">{{ v.st }}</span>
-            </div>
-          </sc-for>
-        </div>
-        </sc-if>
-
-        <sc-if value="{{ aiCoCanhBao }}" hint-placeholder-val="{{ true }}">
-          <div style="margin-top:14px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px">
-            <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:17px">Chưa kín</div>
-            <div style="display:flex;flex-direction:column;gap:9px;margin-top:12px">
-              <sc-for list="{{ aiCanhBao }}" as="c" hint-placeholder-count="3">
-                <div style="display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border-radius:11px;background:var(--goldTint);border:1px solid var(--goldLine)">
-                  <span style="flex:none;font-size:12px;margin-top:1px">⚠</span>
-                  <span style="flex:1;min-width:0;font-size:11.5px;line-height:1.6;color:var(--text2)">{{ c.t }}</span>
-                </div>
-              </sc-for>
-            </div>
-          </div>
-        </sc-if>
-      </sc-if>
     </main>
 
     <nav class="btm" style="flex:none;grid-template-columns:repeat(5,1fr);align-items:center;background:var(--tabbar);border-top:1px solid var(--line);padding:7px 4px 10px;backdrop-filter:blur(12px)">
@@ -1968,24 +1885,6 @@
 
 </x-dc>
 <script type="text/x-dc" data-dc-script="" data-props="{&quot;startPage&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;dash&quot;,&quot;centers&quot;,&quot;approvals&quot;,&quot;ktv&quot;,&quot;loyalty&quot;,&quot;partners&quot;,&quot;policy&quot;,&quot;data&quot;],&quot;default&quot;:&quot;dash&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Demo&quot;}}">
-// ══ DỮ LIỆU ĐỘI AI ══
-// TÁCH ĐÔI có chủ ý. Số liệu thật — hạn mức tài khoản, chi phí token, cấu hình
-// đội — là dữ liệu vận hành nội bộ; quy-tac-doi.md mục 9 cấm đưa lên kho công
-// khai. Nhưng trang thì vẫn nên xem được trên GitHub Pages.
-//
-// Cách giải: số liệu nằm ở assets/doi-ai.js — tệp đó BỊ .gitignore.
-//   · Chạy trên máy đã sinh tệp  → window.DOI_AI_THAT có → hiện số thật
-//   · Mở qua GitHub Pages        → tệp không tồn tại      → hiện bản rút gọn
-// Nhờ vậy tệp HTML được commit KHÔNG BAO GIỜ chứa số. Không thể lộ do quên.
-//
-// Sinh lại: python3 tools/dashboard-doi.py && python3 tools/build.py
-const DOI_AI = (typeof window !== 'undefined' && window.DOI_AI_THAT) || {
-  capNhat: 'chỉ hiện khi chạy cục bộ', hanMuc: null, chiPhi: null,
-  vai: [], moi: { daChay: 0, tong: 8 }, riengTu: true,
-  canhBao: ['Số liệu vận hành của đội chỉ hiện khi chạy trên máy phát triển. Bản công khai này cố ý để trống — hạn mức tài khoản và chi phí là dữ liệu nội bộ.']
-};
-
-
 class Component extends DCLogic {
   state = { theme:'serene', page:'dash', ctrFilter:'Tất cả', pFilter:'Tất cả', tabs:{},
     // ── Giám đốc Kinh doanh ──
@@ -2154,12 +2053,7 @@ class Component extends DCLogic {
     // Danh mục chuẩn vì bản chất giống nhau — một nguồn dùng chung cho mọi nơi.
     { id:'webtpl',    g:'Hệ thống',    t:'Mẫu website',         ic:'link', live:'webMod' },
     { id:'policy',    g:'Hệ thống',    t:'Chính sách & thông số', ic:'doc' },
-    { id:'data',      g:'Hệ thống',    t:'Dữ liệu, AI & nhật ký', ic:'cpu' },
-    // Đội AI dựng nền tảng — CÔNG CỤ NỘI BỘ, không thuộc phạm vi sản phẩm.
-    // Để ở đây vì đây là chỗ chủ nền tảng mở mỗi ngày. Khi dựng anwell-platform
-    // thì mục này KHÔNG chuyển sang: khách hàng của ANWELL không cần thấy đội
-    // phát triển của ANWELL.
-    { id:'doiai',     g:'Hệ thống',    t:'Đội AI & hạn mức',    ic:'cpu' }
+    { id:'data',      g:'Hệ thống',    t:'Dữ liệu, AI & nhật ký', ic:'cpu' }
   ];
 
   // Cho phép dẫn thẳng vào một mục qua địa chỉ, ví dụ admin.html#bd. Trang
@@ -3105,43 +2999,6 @@ class Component extends DCLogic {
             bd: m.bad ? 'var(--dangerLine)' : 'var(--line)',
             ok: () => this.setWebMod(m.id, 'ok'),
             no: () => this.setWebMod(m.id, 'no') }))
-        };
-      })(),
-      // ── Đội AI & hạn mức — dữ liệu THẬT từ DOI_AI, không phải số mồi ──
-      ...(() => {
-        const d = DOI_AI, hm = d.hanMuc, cp = d.chiPhi;
-        const nguong = hm ? hm.nguong : 80;
-        const cang = hm && hm.phanTram >= nguong;
-        return {
-          isDoiAi: s.page === 'doiai',
-          aiRiengTu: !!d.riengTu,
-          aiCongKhai: !d.riengTu,
-          aiCapNhat: d.capNhat,
-          aiCoHanMuc: !!hm,
-          aiHmPhanTram: hm ? hm.phanTram + '%' : '—',
-          aiHmConLai: hm ? (100 - hm.phanTram) + '%' : '—',
-          aiHmRong: hm ? Math.min(hm.phanTram, 100) + '%' : '0%',
-          aiHmMau: cang ? 'var(--dangerSolid)' : (hm && hm.phanTram >= 50 ? 'var(--gold)' : 'var(--ok)'),
-          aiHmNhan: cang ? 'Sắp chạm trần — chuẩn bị khoá API' : 'Trong ngưỡng an toàn',
-          aiHmCang: !!cang,
-          aiSoVai: d.vai.length,
-          aiSoVaiOn: d.vai.filter(v => v.on).length,
-          aiMoi: d.moi.daChay + '/' + d.moi.tong,
-          aiMoiThieu: d.moi.daChay < d.moi.tong,
-          aiCoChiPhi: !!cp,
-          aiLuot: cp ? cp.luot : 0,
-          aiToken: cp ? cp.tokenTong.toLocaleString('vi-VN') : '—',
-          aiVnd: cp ? cp.vnd : '—',
-          aiVai: d.vai.map(v => ({
-            ma: v.ma, ten: v.ten, moHinh: v.moHinh, chay: v.chay, quyen: v.quyen,
-            qFg: v.quyen === 'không ghi' ? 'var(--okText)' : (v.quyen === 'chỉ tests/' ? 'var(--goldText)' : 'var(--text2)'),
-            qBg: v.quyen === 'không ghi' ? 'var(--okTint)' : (v.quyen === 'chỉ tests/' ? 'var(--goldTint)' : 'var(--surface2)'),
-            stFg: v.on ? 'var(--okText)' : 'var(--dangerText)',
-            stBg: v.on ? 'var(--okTint)' : 'var(--dangerTint)',
-            st: v.on ? 'Sẵn sàng' : 'Thiếu tệp'
-          })),
-          aiCanhBao: d.canhBao.map(c => ({ t: c })),
-          aiCoCanhBao: d.canhBao.length > 0
         };
       })(),
       isKtv:s.page==='ktv', isLoyalty:s.page==='loyalty', isPartners:s.page==='partners',
