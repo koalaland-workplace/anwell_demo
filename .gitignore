@@ -16,3 +16,11 @@ tools/moi/nhat-ky-chi-phi.tsv
 
 # Bộ nhớ kết quả rà — tránh chạy lại trên nội dung không đổi.
 tools/moi/.da-ra/
+
+# Số liệu vận hành đội AI — hạn mức tài khoản và chi phí token.
+# Trang admin đọc tệp này khi chạy cục bộ; bản công khai không có nên để trống.
+assets/doi-ai.js
+
+# Bảng theo dõi đội AI — chứa hạn mức và chi phí token.
+# Sinh lại bằng: python3 tools/dashboard-doi.py
+docs/dashboard-doi.html
