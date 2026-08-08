@@ -32,15 +32,18 @@ MO_HINH="${MO_HINH_CODEX:-gpt-5.6-sol}"
 # SUY_LUAN_CODEX để ép một mức cố định.
 SUY_LUAN="${SUY_LUAN_CODEX:-}"
 
-CHI_SOAN=0; XEM_TEP=0; PHAM_VI=""; EP="${EP:-0}"
-for t in "$@"; do
-  case "$t" in
+CHI_SOAN=0; XEM_TEP=0; PHAM_VI=""; EP="${EP:-0}"; MUC_KHAI="${MUC_KHAI:-}"; NGUOI_VIET="${NGUOI_VIET:-}"
+while [ $# -gt 0 ]; do
+  case "$1" in
     --chi-soan)   CHI_SOAN=1 ;;
     --xem-tep)    XEM_TEP=1 ;;
     --giu-prompt) GIU_PROMPT=1 ;;
     --ep)         EP=1 ;;
-    *)            PHAM_VI="$t" ;;
+    --muc)        MUC_KHAI="${2:-}"; shift ;;
+    --nguoi-viet) NGUOI_VIET="${2:-}"; shift ;;
+    *)            PHAM_VI="$1" ;;
   esac
+  shift
 done
 
 source "$GOC/tools/_nap-skill.sh"
@@ -92,7 +95,7 @@ muc_suy_luan
 echo "Mức rủi ro suy từ skill: $MUC_RUI_RO → suy luận $SUY_LUAN" >&2
 
 # ③ Đã rà đúng nội dung này chưa?
-bam_pham_vi "$DIFF_MA" T8 "$MO_HINH" "$SUY_LUAN"
+bam_pham_vi "$DIFF_MA" T8 "$MO_HINH" "$SUY_LUAN" "$VAI"
 if [ "$EP" -eq 0 ] && [ -f "$BAM_TEP" ]; then
   echo "Đã rà đúng nội dung này lúc $(date -r "$BAM_TEP" '+%d/%m %H:%M') — dùng lại kết quả." >&2
   echo "Muốn rà lại: $0 --ep $*" >&2
@@ -108,7 +111,19 @@ tra_san "$PV_DIFF"
   echo "Làm đúng theo chỉ dẫn dưới đây. Trả về đúng khuôn đầu ra được yêu cầu."
   echo
   echo "QUAN TRỌNG: bạn CHỈ ĐỌC. Không sửa tệp nào, không chạy lệnh ghi."
-  echo "Mã dưới đây do Claude viết — bạn là mô hình khác, đó là lý do bạn được gọi."
+  # Không khẳng định bừa ai viết. Bản đầu ghi cứng "do Claude viết" — nếu mã do
+  # Codex viết mà Codex rà thì nguyên tắc ② đã mất, trong khi lời nhắc vẫn nói
+  # ngược lại. Khai sai còn tệ hơn không khai.
+  case "${NGUOI_VIET:-}" in
+    claude) echo "Mã dưới đây do CLAUDE viết — bạn là mô hình khác, đó là lý do bạn được gọi." ;;
+    codex)  echo "CẢNH BÁO ĐỘC LẬP: mã dưới đây do CODEX viết, và bạn cũng là Codex."
+            echo "Nguyên tắc người-rà-khác-mô-hình KHÔNG được thoả ở lượt này."
+            echo "Hãy ghi rõ điều đó trong kết luận và đề nghị rà lại bằng Claude Opus." ;;
+    human|gemini) echo "Mã dưới đây do ${NGUOI_VIET} viết — bạn là mô hình khác." ;;
+    *)      echo "CHƯA KHAI ai viết mã (thiếu --nguoi-viet). Không chứng minh được"
+            echo "tính độc lập giữa người viết và người rà. Ghi rõ điều này trong kết luận;"
+            echo "nếu việc ở mức Cao hoặc Đặc biệt thì coi như CHƯA qua Cổng 2." ;;
+  esac
   echo
   echo "Phạm vi lần này: $PV_TOM_TAT"
   echo "Lưu ý: diff có thể chứa tệp MỚI chưa được git theo dõi, và thay đổi CHỈ XOÁ."

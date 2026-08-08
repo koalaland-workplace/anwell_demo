@@ -24,13 +24,15 @@ trap don_dep EXIT
 MO_HINH="${MO_HINH_CODEX:-gpt-5.6-sol}"
 SUY_LUAN="${SUY_LUAN_CODEX:-}"   # trống = tự suy theo mức rủi ro
 
-CHI_SOAN=0; XEM_TEP=0; PHAM_VI=""; MA_DAC_TA=""; EP="${EP:-0}"
+CHI_SOAN=0; XEM_TEP=0; PHAM_VI=""; MA_DAC_TA=""; EP="${EP:-0}"; MUC_KHAI="${MUC_KHAI:-}"; NGUOI_VIET="${NGUOI_VIET:-}"
 while [ $# -gt 0 ]; do
   case "$1" in
     --chi-soan)   CHI_SOAN=1 ;;
     --xem-tep)    XEM_TEP=1 ;;
     --giu-prompt) GIU_PROMPT=1 ;;
     --ep)         EP=1 ;;
+    --muc)        MUC_KHAI="${2:-}"; shift ;;
+    --nguoi-viet) NGUOI_VIET="${2:-}"; shift ;;
     --dac-ta)     MA_DAC_TA="${2:-}"; shift ;;
     *)            PHAM_VI="$1" ;;
   esac
@@ -76,11 +78,15 @@ fi
 TRUOC="$(mktemp "${TMPDIR:-/tmp}/anwell-t7-truoc-XXXXXX")"
 SAU="$(mktemp "${TMPDIR:-/tmp}/anwell-t7-sau-XXXXXX")"
 chup_cay() {   # chup_cay <tệp đích> — hash mọi tệp NGOÀI tests/
-  ( cd "$GOC" && git ls-files --cached --others --exclude-standard \
-      | grep -v '^tests/' \
-      | while IFS= read -r f; do
-          [ -f "$f" ] && printf '%s  %s\n' "$(shasum -a 1 "$f" 2>/dev/null | cut -d' ' -f1)" "$f"
-        done | sort ) > "$1"
+  # Duyệt HỆ TỆP THẬT, không dùng `git ls-files`. Bản đầu dùng git nên bỏ sót
+  # mọi tệp bị .gitignore — mà chính assets/doi-ai.js và nhật ký chi phí nằm ở
+  # đó. T7 sửa chúng thì không ai biết. Tệp .env hay credential tạm cũng vậy.
+  ( cd "$GOC" && find . -type f \
+      -not -path './.git/*' -not -path './tests/*' \
+      -not -path './node_modules/*' -not -path './.venv/*' \
+      -not -name '.DS_Store' \
+      -print0 2>/dev/null \
+    | xargs -0 shasum -a 1 2>/dev/null | sort ) > "$1"
 }
 don_dep_t7() { rm -f "$TRUOC" "$SAU"; don_dep; }
 trap don_dep_t7 EXIT
@@ -93,7 +99,7 @@ muc_suy_luan
 [ -z "$SUY_LUAN" ] && SUY_LUAN="$SUY_LUAN_AUTO"
 echo "Mức rủi ro suy từ skill: $MUC_RUI_RO → suy luận $SUY_LUAN" >&2
 
-bam_pham_vi "$DIFF_MA" T7 "$MO_HINH" "$SUY_LUAN"
+bam_pham_vi "$DIFF_MA" T7 "$MO_HINH" "$SUY_LUAN" "$VAI" "${TEP_DT:-}"
 if [ "$EP" -eq 0 ] && [ -f "$BAM_TEP" ]; then
   echo "Đã sinh kiểm thử cho đúng nội dung này lúc $(date -r "$BAM_TEP" '+%d/%m %H:%M')." >&2
   echo "Muốn chạy lại: $0 --ep $*" >&2
@@ -104,7 +110,19 @@ tra_san "$PV_DIFF"
 
 {
   echo "Bạn là T7 QA & Kiểm thử của ANWELL Developing Team."
-  echo "Mã dưới đây do Claude viết — bạn là mô hình khác, đó là lý do bạn được gọi."
+  # Không khẳng định bừa ai viết. Bản đầu ghi cứng "do Claude viết" — nếu mã do
+  # Codex viết mà Codex rà thì nguyên tắc ② đã mất, trong khi lời nhắc vẫn nói
+  # ngược lại. Khai sai còn tệ hơn không khai.
+  case "${NGUOI_VIET:-}" in
+    claude) echo "Mã dưới đây do CLAUDE viết — bạn là mô hình khác, đó là lý do bạn được gọi." ;;
+    codex)  echo "CẢNH BÁO ĐỘC LẬP: mã dưới đây do CODEX viết, và bạn cũng là Codex."
+            echo "Nguyên tắc người-rà-khác-mô-hình KHÔNG được thoả ở lượt này."
+            echo "Hãy ghi rõ điều đó trong kết luận và đề nghị rà lại bằng Claude Opus." ;;
+    human|gemini) echo "Mã dưới đây do ${NGUOI_VIET} viết — bạn là mô hình khác." ;;
+    *)      echo "CHƯA KHAI ai viết mã (thiếu --nguoi-viet). Không chứng minh được"
+            echo "tính độc lập giữa người viết và người rà. Ghi rõ điều này trong kết luận;"
+            echo "nếu việc ở mức Cao hoặc Đặc biệt thì coi như CHƯA qua Cổng 2." ;;
+  esac
   echo
   echo "RANH GIỚI: bạn CHỈ được ghi tệp trong thư mục tests/."
   echo "Mọi tệp ngoài tests/ sẽ bị đối chiếu hash sau khi bạn chạy xong; sửa ra"
@@ -177,7 +195,14 @@ if [ -n "$VI_PHAM" ]; then
     echo
     echo "⛔ T7 ĐÃ SỬA TỆP NGOÀI tests/ — vi phạm ranh giới vai:"
     printf '  · %s\n' $VI_PHAM
-    echo "Xem lại và hoàn tác: git checkout -- <tệp>   ·   git status"
+    echo
+    echo "KHÔNG tự hoàn tác, và script cũng không gợi ý lệnh hoàn tác."
+    echo "Lý do: cây làm việc có thể đang chứa thay đổi hợp lệ chưa commit của"
+    echo "anh ở đúng những tệp đó. Một lệnh khôi phục gộp sẽ xoá luôn cả phần"
+    echo "đó — mất dữ liệu nặng hơn chính vi phạm đang báo."
+    echo
+    echo "Xem T7 đã đổi gì trước khi quyết:"
+    for _f in $VI_PHAM; do echo "    git diff -- $_f"; done
   } >&2
   MA_THOAT=4
 fi

@@ -74,7 +74,10 @@ def main() -> int:
             dong.append(f"  · {t} — không thấy nơi khác trong kho")
 
     trung = sum(1 for d in dong if "ĐÃ CÓ" in d)
-    print(f"Đã tra {len(ten)} định danh mới. {trung} cái trùng tên với chỗ khác.")
+    print(f"Đã tra {len(ten)} ĐỊNH DANH KHAI BÁO MỚI nhận diện được. {trung} cái trùng tên với chỗ khác.")
+    print("Chưa tra: endpoint · tên bảng · route · quyền · event · queue · khoá")
+    print("cấu hình · ràng buộc SQL · quy tắc không có khai báo riêng.")
+    print("KHÔNG coi đây là bằng chứng đã rà hết kho.")
     print("\n".join(dong))
     if trung:
         print()

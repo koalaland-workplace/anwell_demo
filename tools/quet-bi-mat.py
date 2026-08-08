@@ -36,14 +36,21 @@ MAU = [
 
 # Tệp không bao giờ gửi đi, dù nội dung trông vô hại.
 TEP_CAM = re.compile(
-    r"(^|/)(\.env(\.[\w-]+)?$|.*\.(pem|key|p12|pfx|keystore|jks|crt|cer)$"
+    # .env.example / .env.sample / .env.template KHÔNG bị chặn — chúng là mẫu
+    # phải commit, và theo quy ước không bao giờ chứa giá trị thật.
+    r"(^|/)(\.env(?!\.(example|sample|template)$)(\.[\w-]+)?$"
+    r"|.*\.(pem|key|p12|pfx|keystore|jks|crt|cer)$"
     r"|id_rsa|id_ed25519|credentials(\.json)?$)"
 )
 
 # Giá trị hay gặp trong ví dụ và tài liệu — không phải bí mật thật.
 BO_QUA = re.compile(
     r"(?i)(EXAMPLE|XXXX|YOUR[_-]?|<[^>]+>|\$\{|process\.env|os\.environ"
-    r"|placeholder|dummy|fake|sample|redacted|\*{4,})"
+    r"|placeholder|dummy|fake|sample|redacted|\*{4,}"
+    # Chỗ điền viết tiếng Việt — dự án này viết tài liệu bằng tiếng Việt,
+    # danh sách chỉ có tiếng Anh là báo nhầm có hệ thống.
+    r"|M\u1eacT[_ ]?KH\u1ea8U|MAT[_ ]?KHAU|THAY[_ ]?B\u1eb0NG|THAY[_ ]?BANG"
+    r"|\u0110I\u1ec0N[_ ]?V\u00c0O|DIEN[_ ]?VAO|\u0110\u1ed4I[_ ]?M\u1eacT[_ ]?KH\u1ea8U)"
 )
 
 
@@ -65,10 +72,22 @@ def main() -> int:
             ]
 
     noi_dung = sys.stdin.read()
-    # Chỉ soi dòng THÊM MỚI — dòng ngữ cảnh là mã đã có, đã nằm trong kho.
+    # Soi TOÀN BỘ phần sắp gửi đi, không chỉ dòng thêm mới.
+    #
+    # Bản đầu chỉ soi dòng `+` với lý do "dòng ngữ cảnh là mã đã có". Lý do đó
+    # sai ở chỗ quan trọng nhất: cái quyết định không phải mã đã có trong kho
+    # hay chưa, mà là **cái gì rời khỏi máy này**. Lời nhắc gửi cả dòng `-` và
+    # dòng ngữ cảnh — nên một bí mật đang bị XOÁ vẫn đi ra ngoài, và gửi rồi
+    # thì không thu hồi được.
+    #
+    # Bỏ metadata của git (đường dẫn, chỉ số băm, số dòng) vì chúng không phải
+    # nội dung mã và hay khớp nhầm.
+    META = ("diff --git ", "index ", "--- ", "+++ ", "@@ ", "new file mode",
+            "deleted file mode", "similarity index", "rename ", "Binary files")
     them = "\n".join(
-        d[1:] for d in noi_dung.splitlines()
-        if d.startswith("+") and not d.startswith("+++")
+        d[1:] if d[:1] in "+- " else d
+        for d in noi_dung.splitlines()
+        if not any(d.startswith(m) for m in META)
     )
 
     thay = []

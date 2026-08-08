@@ -38,15 +38,38 @@ GIOI_HAN_KY_TU=${GIOI_HAN_KY_TU:-400000}   # cảnh báo khi lời nhắc quá t
 _DUOI_MA='\.(ts|tsx|js|jsx|mjs|cjs|vue|svelte|py|rb|go|rs|java|kt|swift|php|cs|c|h|cpp|sql|prisma|graphql|proto|sh|bash|zsh|ps1|bat|html|css|scss|less|json|jsonc|ya?ml|toml|ini|cfg|conf|tf|tfvars|gradle|lock)$'
 # Theo đường dẫn hoặc tên tệp — thứ không có đuôi quen thuộc nhưng là mã hạ tầng.
 _DUONG_MA='(^|/)(Dockerfile|Makefile|Procfile|\.env\.example|justfile)|^(tools|infrastructure|migrations|db/migrate|scripts)/|^\.github/workflows/|^\.claude/(agents|skills)/'
-# Chỉ ba nhóm này là tài liệu thuần. `.claude/` KHÔNG còn nằm đây — tệp vai và
-# skill quyết định hành vi của cổng, sửa chúng là sửa cơ chế kiểm soát.
+# CONTROL PLANE — tệp điều khiển hành vi của chính đội. Sửa chúng là sửa cơ chế
+# kiểm soát, nên LUÔN là mã dù nằm trong docs/ và dù đuôi là .md.
+#
+# Vì sao tách riêng: bản rà 07/08 chỉ ra docs/quy-tac-doi.md (sinh ra CLAUDE.md,
+# AGENTS.md, GEMINI.md) và docs/vai/ (chỉ dẫn T7) đang bị xếp tài liệu mức Thấp.
+# Ai nới quyền T7 hoặc đổi quy trình mười bước trong đó thì KHÔNG AI RÀ.
+# Đây là lần thứ hai cùng một kiểu lỗi: hôm trước là .sh, lần này là docs/vai/.
+_DUONG_CONTROL='^docs/quy-tac-doi\.md$|^docs/vai/|^\.claude/(agents|skills)/|^tools/'
+
+# Tài liệu thuần — kiểm SAU control plane, nếu không docs/vai/ lọt vào đây.
 _DUONG_TAILIEU='^(docs|Tailieu-noibo|tools/moi)/'
 
 la_tep_ma() {   # la_tep_ma <đường dẫn>  → 0 nếu là mã
+  # Dùng `[[ =~ ]]` của bash, KHÔNG gọi grep.
+  #
+  # Bản cũ chạy bốn cặp `printf | grep` cho mỗi tệp — tức tới 8 tiến trình con.
+  # Một diff 200 tệp sinh ~1.600 tiến trình chỉ để phân loại đường dẫn. Ngày
+  # 07/08 máy đã dồn 2.337 tiến trình zombie và mọi lệnh báo
+  # `fork: Resource temporarily unavailable`. Hàm này là thủ phạm chính vì nó
+  # nằm trong vòng lặp theo tệp.
+  #
+  # `[[ =~ ]]` khớp ngay trong tiến trình bash — không fork lần nào.
   local t="$1"
-  printf '%s' "$t" | grep -qE "$_DUONG_TAILIEU" && return 1
-  printf '%s' "$t" | grep -qE "$_DUONG_MA" && return 0
-  printf '%s' "$t" | grep -qiE "$_DUOI_MA" && return 0
+  [[ "$t" =~ $_DUONG_CONTROL ]] && return 0
+  [[ "$t" =~ $_DUONG_TAILIEU ]] && return 1
+  [[ "$t" =~ $_DUONG_MA ]] && return 0
+  # Đuôi tệp không phân biệt hoa thường — hạ chữ bằng khai triển tham số,
+  # cũng không fork (bash 4 có ${x,,}; bash 3.2 của macOS thì dùng tr, nên
+  # chuẩn hoá sẵn một lần ở đây thay vì gọi grep -i).
+  local d="$t"
+  case "$d" in *[A-Z]*) d="$(printf '%s' "$t" | tr '[:upper:]' '[:lower:]')" ;; esac
+  [[ "$d" =~ $_DUOI_MA ]] && return 0
   return 1
 }
 
@@ -102,10 +125,10 @@ lay_pham_vi() {   # lay_pham_vi [khoảng git]
 
 # Giữ lại phần diff của tệp mã. Dùng cho lời nhắc — tài liệu chỉ liệt kê tên.
 loc_diff_ma() {   # loc_diff_ma "$PV_DIFF"
-  DIFF_MA="$(printf '%s' "$1" | awk -v duoima="$_DUOI_MA" -v duongma="$_DUONG_MA" -v tl="$_DUONG_TAILIEU" '
+  DIFF_MA="$(printf '%s' "$1" | awk -v duoima="$_DUOI_MA" -v duongma="$_DUONG_MA" -v ctl="$_DUONG_CONTROL" -v tl="$_DUONG_TAILIEU" '
     /^diff --git / {
       tep = $4; sub(/^b\//, "", tep)
-      giu = (tep !~ tl) && ((tep ~ duongma) || (tolower(tep) ~ tolower(duoima)))
+      giu = (tep ~ ctl) || ((tep !~ tl) && ((tep ~ duongma) || (tolower(tep) ~ tolower(duoima))))
     }
     giu { print }')"
 }
@@ -135,10 +158,10 @@ _chuan_hoa() {
 # Quét CẢ dòng thêm lẫn dòng xoá của tệp mã. Xoá một quy tắc tiền vẫn là việc
 # chạm tiền — phải nạp skill tiền để người rà biết cái vừa bị gỡ là gì.
 _loc_ma() {
-  awk -v duoima="$_DUOI_MA" -v duongma="$_DUONG_MA" -v tl="$_DUONG_TAILIEU" '
+  awk -v duoima="$_DUOI_MA" -v duongma="$_DUONG_MA" -v ctl="$_DUONG_CONTROL" -v tl="$_DUONG_TAILIEU" '
     /^\+\+\+ / {
       tep = $2; sub(/^b\//, "", tep)
-      la_ma = (tep !~ tl) && ((tep ~ duongma) || (tolower(tep) ~ tolower(duoima)))
+      la_ma = (tep ~ ctl) || ((tep !~ tl) && ((tep ~ duongma) || (tolower(tep) ~ tolower(duoima))))
       next
     }
     la_ma && /^[+-]/ && !/^(\+\+\+|---)/ { print substr($0, 2) }
@@ -258,6 +281,9 @@ tra_san() {   # tra_san "$PV_DIFF"  → TRA_KQ
 # đang để "low". Phần lớn đầu việc là mức Trung bình.
 # Suy mức rủi ro từ chính bộ skill đã chọn — tín hiệu đã có sẵn, không thêm khái niệm.
 muc_suy_luan() {   # → MUC_RUI_RO · SUY_LUAN_AUTO
+  # Suy từ bộ skill đã chọn. ĐÂY LÀ PHỎNG ĐOÁN, không phải phân mức chính thức:
+  # quy trình nói T1 phân mức trước khi bắt đầu (quy-tac-doi.md mục 4).
+  # Một diff xoá kiểm tra quyền có thể không chứa từ khoá nào đủ rõ.
   local s=" ${SKILL_CAN[*]} "
   case "$s" in
     *quy-tac-tien*|*du-lieu-bat-bien*|*an-toan-ca-tai-nha*)
@@ -267,16 +293,52 @@ muc_suy_luan() {   # → MUC_RUI_RO · SUY_LUAN_AUTO
     *)
       MUC_RUI_RO="Trung bình";   SUY_LUAN_AUTO="low" ;;
   esac
+
+  # Mức do người khai (--muc) là NGUỒN CHÍNH. Phỏng đoán chỉ được NÂNG lên,
+  # không được hạ xuống — nếu không thì một suy đoán hụt sẽ âm thầm biến việc
+  # mức Đặc biệt thành lượt rà qua loa.
+  if [ -n "${MUC_KHAI:-}" ]; then
+    local h_khai h_doan
+    case "$MUC_KHAI" in
+      thap)       h_khai=0; SUY_LUAN_KHAI="low" ;;
+      trung-binh) h_khai=1; SUY_LUAN_KHAI="low" ;;
+      cao)        h_khai=2; SUY_LUAN_KHAI="medium" ;;
+      dac-biet)   h_khai=3; SUY_LUAN_KHAI="high" ;;
+      *) echo "Mức không hợp lệ: $MUC_KHAI (thap|trung-binh|cao|dac-biet)" >&2; return 1 ;;
+    esac
+    case "$SUY_LUAN_AUTO" in low) h_doan=1 ;; medium) h_doan=2 ;; *) h_doan=3 ;; esac
+    if [ "$h_doan" -gt "$h_khai" ]; then
+      MUC_RUI_RO="$MUC_KHAI → NÂNG lên $MUC_RUI_RO (phỏng đoán thấy dấu hiệu nặng hơn)"
+    else
+      MUC_RUI_RO="$MUC_KHAI (do người khai)"; SUY_LUAN_AUTO="$SUY_LUAN_KHAI"
+    fi
+  else
+    MUC_RUI_RO="$MUC_RUI_RO · PHỎNG ĐOÁN — chưa ai khai mức bằng --muc"
+  fi
 }
 
 # ── Bỏ qua nếu đã rà đúng nội dung này rồi ───────────────────────────────────
 # Nhật ký từng có ba dòng trùng do chạy thử lại — đó là tiền vứt đi.
 BO_NHO="${BO_NHO:-$GOC/tools/moi/.da-ra}"
 
-bam_pham_vi() {   # bam_pham_vi <diff mã> <vai> <mô hình> <suy luận>  → BAM · BAM_TEP
-  BAM="$(printf '%s|%s|%s|%s|%s' "$1" "$2" "$3" "$4" "${SKILL_CAN[*]}"         | shasum -a 256 | cut -c1-16)"
+bam_pham_vi() {   # bam_pham_vi <diff mã> <vai> <mô hình> <suy luận> [tệp vai] [tệp đặc tả]
+  # Khoá phải gồm NỘI DUNG, không chỉ tên. Bản đầu chỉ băm tên skill — sửa quy
+  # tắc trong một SKILL.md rồi chạy lại thì vẫn nhận kết quả rà cũ, vì tên
+  # không đổi. Cache trả lời sai còn tệ hơn không có cache.
+  local noi_dung="" s
+  for s in "${SKILL_CAN[@]}"; do
+    [ -f "$GOC/.claude/skills/$s/SKILL.md" ] && noi_dung="$noi_dung$(cat "$GOC/.claude/skills/$s/SKILL.md")"
+  done
+  [ -n "${5:-}" ] && [ -f "$5" ] && noi_dung="$noi_dung$(cat "$5")"          # tệp vai
+  [ -n "${6:-}" ] && [ -f "$6" ] && noi_dung="$noi_dung$(cat "$6")"          # đặc tả
+  # Phiên bản chính script và thư viện — sửa cách rà thì kết quả cũ hết giá trị
+  noi_dung="$noi_dung$(cat "$GOC/tools/_nap-skill.sh" "$GOC/tools/quet-bi-mat.py" 2>/dev/null)"
+
+  BAM="$(printf '%s|%s|%s|%s|%s|%s' "$1" "$2" "$3" "$4" "${SKILL_CAN[*]}" "$noi_dung" \
+        | shasum -a 256 | cut -c1-16)"
   BAM_TEP="$BO_NHO/$BAM.txt"
 }
+
 
 # ── Nhật ký chi phí ──────────────────────────────────────────────────────────
 # Tệp này bị .gitignore. Lý do: T8 là vai CHỈ ĐỌC, mà ghi vào cây làm việc thì
